@@ -284,11 +284,12 @@
       background: rgba(255,255,255,.86);
       box-shadow: 0 6px 14px rgba(17,24,39,.06);
       margin-top: 10px;
+      max-height: 520px; /* evita choques/overlap en pantallas chicas */
     }
     table{
       width:100%;
       border-collapse: collapse;
-      min-width: 720px;
+      min-width: 520px; /* ya no necesita 720px porque son 2 columnas */
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
     th, td{
@@ -304,17 +305,7 @@
       font-weight: 900;
       position: sticky;
       top: 0;
-      z-index: 1;
-    }
-    .pill{
-      display:inline-block;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(17,24,39,.10);
-      background: rgba(255,255,255,.92);
-      font-size: 12px;
-      color: var(--muted);
-      margin-left: 6px;
+      z-index: 2;
     }
 
     .navRow{
@@ -374,7 +365,7 @@
     <header>
       <h1>Vocabulario — Tema 3</h1>
       <p class="subtitle">
-        Money: <b>verbs</b>, <b>prepositions</b>, <b>nouns</b>, <b>phrasal verbs</b> + tabla de <b>past participles</b> con buscador.
+        Money: <b>verbs</b>, <b>prepositions</b>, <b>nouns</b>, <b>phrasal verbs</b> + buscador de <b>verbos aprendidos</b>.
       </p>
     </header>
 
@@ -474,50 +465,49 @@
         </div>
       </section>
 
-      <!-- 5) PAST PARTICIPLES (FULL) + BUSCADOR -->
+      <!-- 5) BUSCADOR SOLO: verbos aprendidos en Vocabulario 3 + traducción -->
       <section class="card">
         <div class="bar danger"></div>
         <div class="content">
-          <h2>5) Past participles (Irregular verbs) — tabla FULL + buscador</h2>
+          <h2>5) Buscador — verbos aprendidos (Vocabulario 3)</h2>
 
           <div class="callout">
-            <strong>Recordatorio rápido (Present Perfect):</strong>
+            <strong>Nota:</strong>
             <span class="muted">
-              <span class="code">have / has + past participle</span>.
-              Ej.: <span class="code">I’ve seen</span>, <span class="code">She has bought</span>.
+              El buscador FULL de <b>irregular verbs</b> ya está en <span class="code">mark3</span>.
+              Aquí solo están los <b>verbos aprendidos</b> del Vocabulario 3 con su <b>traducción</b>.
             </span>
           </div>
 
-          <h3>Buscador de verbos</h3>
+          <h3>Busca por inglés o español</h3>
           <p class="muted">
-            Busca por <b>infinitive</b>, <b>past simple</b> o <b>past participle</b> (ej.: <span class="code">go</span>, <span class="code">went</span>, <span class="code">gone</span>).
+            Ej.: <span class="code">borrow</span> / <span class="code">pedir prestado</span>, <span class="code">pay back</span> / <span class="code">devolver</span>.
           </p>
 
           <div class="searchRow">
             <div class="searchWrap">
               <div class="searchIcon">🔎</div>
-              <input id="qIrreg" class="searchInput" type="text" placeholder="Buscar: go / went / gone, write / wrote / written, etc." autocomplete="off" />
+              <input id="qLearned" class="searchInput" type="text" placeholder="Buscar: earn / ganar, lend / prestar, live on / vivir con, etc." autocomplete="off" />
             </div>
-            <button class="btnSmall" id="clearIrregBtn">Limpiar</button>
+            <button class="btnSmall" id="clearLearnedBtn">Limpiar</button>
           </div>
 
-          <div class="footerHint" id="irregCountHint">Mostrando 0 verbos.</div>
+          <div class="footerHint" id="learnedCountHint">Mostrando 0 verbos.</div>
 
           <div class="tableWrap">
             <table>
               <thead>
                 <tr>
-                  <th>Verb (infinitive)</th>
-                  <th>Past simple</th>
-                  <th>Past participle</th>
+                  <th>Verb (English)</th>
+                  <th>Traducción (Español)</th>
                 </tr>
               </thead>
-              <tbody id="irregBody"></tbody>
+              <tbody id="learnedBody"></tbody>
             </table>
           </div>
 
-          <div class="emptyState" id="irregEmpty" style="display:none;">
-            No hay resultados con ese filtro. Prueba con otra forma (infinitive / past simple / past participle).
+          <div class="emptyState" id="learnedEmpty" style="display:none;">
+            No hay resultados con ese filtro. Prueba con otra palabra (en inglés o español).
           </div>
         </div>
       </section>
@@ -567,364 +557,77 @@
     // Data: Tema 3 (Money)
     // =========================
     const MONEY_VERBS = [
-      {
-        en: "be worth",
-        es: "valer",
-        meaning: "Indica el valor de algo (precio/valor estimado).",
-        pattern: "be worth + cantidad",
-        example_en: "My house is worth about €200,000.",
-        example_es: "Mi casa vale alrededor de €200,000."
-      },
-      {
-        en: "borrow",
-        es: "pedir prestado",
-        meaning: "Recibir dinero/cosa de alguien por un tiempo y luego devolverlo.",
-        pattern: "borrow (sth) from (someone/the bank)",
-        example_en: "I borrowed a lot of money from the bank.",
-        example_es: "Pedí prestado mucho dinero del banco."
-      },
-      {
-        en: "can’t afford",
-        es: "no poder permitirse",
-        meaning: "No tener suficiente dinero para comprar/pagar algo.",
-        pattern: "can’t afford + noun / to + verb",
-        example_en: "I can’t afford to buy that car.",
-        example_es: "No me puedo permitir comprar ese carro."
-      },
-      {
-        en: "charge",
-        es: "cobrar",
-        meaning: "Pedir dinero por un servicio o producto.",
-        pattern: "charge (someone) + amount + for + thing",
-        example_en: "They charged us €60 for a bottle of wine.",
-        example_es: "Nos cobraron €60 por una botella de vino."
-      },
-      {
-        en: "cost",
-        es: "costar",
-        meaning: "Indica el precio de algo.",
-        pattern: "(thing) costs + amount",
-        example_en: "These shoes cost $200.",
-        example_es: "Estos zapatos cuestan $200."
-      },
-      {
-        en: "earn",
-        es: "ganar (dinero)",
-        meaning: "Recibir dinero por tu trabajo.",
-        pattern: "earn + amount / earn a salary",
-        example_en: "I earn €1,000 a month.",
-        example_es: "Gano €1,000 al mes."
-      },
-      {
-        en: "inherit",
-        es: "heredar",
-        meaning: "Recibir dinero/propiedad de alguien después de que muere.",
-        pattern: "inherit + money / a house",
-        example_en: "I’m going to inherit £2,000.",
-        example_es: "Voy a heredar £2,000."
-      },
-      {
-        en: "invest",
-        es: "invertir",
-        meaning: "Poner dinero en algo para ganar más dinero en el futuro.",
-        pattern: "invest in + property/shares",
-        example_en: "My uncle invested all his money in property.",
-        example_es: "Mi tío invirtió todo su dinero en propiedades."
-      },
-      {
-        en: "lend",
-        es: "prestar (dar)",
-        meaning: "Dar dinero/cosa a alguien para que lo devuelva después.",
-        pattern: "lend (someone) + money / lend money to someone",
-        example_en: "I don’t like lending money to friends.",
-        example_es: "No me gusta prestar dinero a amigos."
-      },
-      {
-        en: "owe",
-        es: "deber",
-        meaning: "Tener una deuda con alguien (le debes dinero).",
-        pattern: "owe (someone) + amount",
-        example_en: "I owe Jim £100.",
-        example_es: "Le debo £100 a Jim."
-      },
-      {
-        en: "raise",
-        es: "recaudar",
-        meaning: "Conseguir dinero para una causa/proyecto.",
-        pattern: "raise money for + project",
-        example_en: "We want to raise money for the new hospital.",
-        example_es: "Queremos recaudar dinero para el nuevo hospital."
-      },
-      {
-        en: "save",
-        es: "ahorrar",
-        meaning: "Guardar dinero para usarlo después.",
-        pattern: "save money (for something)",
-        example_en: "I save money every week for a holiday.",
-        example_es: "Ahorro dinero cada semana para unas vacaciones."
-      },
-      {
-        en: "waste",
-        es: "malgastar",
-        meaning: "Gastar dinero en cosas innecesarias o tontas.",
-        pattern: "waste money on + thing",
-        example_en: "I often waste money on stupid things.",
-        example_es: "A menudo malgasto dinero en cosas tontas."
-      }
+      { en:"be worth", es:"valer", meaning:"Indica el valor de algo (precio/valor estimado).", pattern:"be worth + cantidad",
+        example_en:"My house is worth about €200,000.", example_es:"Mi casa vale alrededor de €200,000." },
+      { en:"borrow", es:"pedir prestado", meaning:"Recibir dinero/cosa de alguien por un tiempo y luego devolverlo.", pattern:"borrow (sth) from (someone/the bank)",
+        example_en:"I borrowed a lot of money from the bank.", example_es:"Pedí prestado mucho dinero del banco." },
+      { en:"can’t afford", es:"no poder permitirse", meaning:"No tener suficiente dinero para comprar/pagar algo.", pattern:"can’t afford + noun / to + verb",
+        example_en:"I can’t afford to buy that car.", example_es:"No me puedo permitir comprar ese carro." },
+      { en:"charge", es:"cobrar", meaning:"Pedir dinero por un servicio o producto.", pattern:"charge (someone) + amount + for + thing",
+        example_en:"They charged us €60 for a bottle of wine.", example_es:"Nos cobraron €60 por una botella de vino." },
+      { en:"cost", es:"costar", meaning:"Indica el precio de algo.", pattern:"(thing) costs + amount",
+        example_en:"These shoes cost $200.", example_es:"Estos zapatos cuestan $200." },
+      { en:"earn", es:"ganar (dinero)", meaning:"Recibir dinero por tu trabajo.", pattern:"earn + amount / earn a salary",
+        example_en:"I earn €1,000 a month.", example_es:"Gano €1,000 al mes." },
+      { en:"inherit", es:"heredar", meaning:"Recibir dinero/propiedad de alguien después de que muere.", pattern:"inherit + money / a house",
+        example_en:"I’m going to inherit £2,000.", example_es:"Voy a heredar £2,000." },
+      { en:"invest", es:"invertir", meaning:"Poner dinero en algo para ganar más dinero en el futuro.", pattern:"invest in + property/shares",
+        example_en:"My uncle invested all his money in property.", example_es:"Mi tío invirtió todo su dinero en propiedades." },
+      { en:"lend", es:"prestar (dar)", meaning:"Dar dinero/cosa a alguien para que lo devuelva después.", pattern:"lend (someone) + money / lend money to someone",
+        example_en:"I don’t like lending money to friends.", example_es:"No me gusta prestar dinero a amigos." },
+      { en:"owe", es:"deber", meaning:"Tener una deuda con alguien (le debes dinero).", pattern:"owe (someone) + amount",
+        example_en:"I owe Jim £100.", example_es:"Le debo £100 a Jim." },
+      { en:"raise", es:"recaudar", meaning:"Conseguir dinero para una causa/proyecto.", pattern:"raise money for + project",
+        example_en:"We want to raise money for the new hospital.", example_es:"Queremos recaudar dinero para el nuevo hospital." },
+      { en:"save", es:"ahorrar", meaning:"Guardar dinero para usarlo después.", pattern:"save money (for something)",
+        example_en:"I save money every week for a holiday.", example_es:"Ahorro dinero cada semana para unas vacaciones." },
+      { en:"waste", es:"malgastar", meaning:"Gastar dinero en cosas innecesarias o tontas.", pattern:"waste money on + thing",
+        example_en:"I often waste money on stupid things.", example_es:"A menudo malgasto dinero en cosas tontas." }
     ];
 
     const PREP_COMBOS = [
-      { combo: "pay by (cash / card)", meaning: "método de pago (por medio de)", example: "Would you like to pay by cash or credit card?" },
-      { combo: "pay for (something)", meaning: "pagar por algo (lo que pagas)", example: "I paid for the dinner last night." },
-      { combo: "spend (money) on (something)", meaning: "gastar en algo (en qué se va)", example: "I spent £50 on books yesterday." },
-      { combo: "invest in (something)", meaning: "invertir en", example: "My uncle invested all his money in property." },
-      { combo: "lend (money) to (someone)", meaning: "prestar a alguien (dar)", example: "I don’t like lending money to friends." },
-      { combo: "borrow (money) from (someone/the bank)", meaning: "pedir prestado de (origen)", example: "I borrowed a lot of money from the bank." },
-      { combo: "charge (someone) (amount) for (something)", meaning: "cobrarle a alguien por algo", example: "They charged us €60 for a bottle of wine." },
-      { combo: "get into debt", meaning: "meterse en deudas (entrar a un estado)", example: "I never get into debt." }
+      { combo:"pay by (cash / card)", meaning:"método de pago (por medio de)", example:"Would you like to pay by cash or credit card?" },
+      { combo:"pay for (something)", meaning:"pagar por algo (lo que pagas)", example:"I paid for the dinner last night." },
+      { combo:"spend (money) on (something)", meaning:"gastar en algo (en qué se va)", example:"I spent £50 on books yesterday." },
+      { combo:"invest in (something)", meaning:"invertir en", example:"My uncle invested all his money in property." },
+      { combo:"lend (money) to (someone)", meaning:"prestar a alguien (dar)", example:"I don’t like lending money to friends." },
+      { combo:"borrow (money) from (someone/the bank)", meaning:"pedir prestado de (origen)", example:"I borrowed a lot of money from the bank." },
+      { combo:"charge (someone) (amount) for (something)", meaning:"cobrarle a alguien por algo", example:"They charged us €60 for a bottle of wine." },
+      { combo:"get into debt", meaning:"meterse en deudas (entrar a un estado)", example:"I never get into debt." }
     ];
 
     const MONEY_NOUNS = [
-      {
-        en: "bill",
-        es: "factura / cuenta",
-        meaning: "Un papel que muestra cuánto dinero tienes que pagar por algo.",
-        example_en: "Can I have the bill, please?",
-        example_es: "¿Me trae la cuenta, por favor?"
-      },
-      {
-        en: "salary",
-        es: "sueldo",
-        meaning: "El dinero que recibes por el trabajo que haces (normalmente mensual).",
-        example_en: "He earns a good salary.",
-        example_es: "Él gana un buen sueldo."
-      },
-      {
-        en: "tax",
-        es: "impuesto",
-        meaning: "Dinero que pagas al gobierno.",
-        example_en: "We pay tax every year.",
-        example_es: "Pagamos impuestos cada año."
-      },
-      {
-        en: "loan",
-        es: "préstamo",
-        meaning: "Dinero que alguien (o un banco) te presta.",
-        example_en: "She took out a loan to start a business.",
-        example_es: "Ella pidió un préstamo para empezar un negocio."
-      },
-      {
-        en: "budget",
-        es: "presupuesto",
-        meaning: "El dinero que tienes disponible y un plan de cómo gastarlo.",
-        example_en: "We’re on a tight budget this month.",
-        example_es: "Este mes tenemos un presupuesto ajustado."
-      },
-      {
-        en: "mortgage",
-        es: "hipoteca",
-        meaning: "Dinero que pides prestado a un banco para comprar una casa.",
-        example_en: "They have a mortgage on their house.",
-        example_es: "Ellos tienen una hipoteca de su casa."
-      },
-      {
-        en: "contactless payment",
-        es: "pago sin contacto",
-        meaning: "Forma rápida de pagar acercando la tarjeta o el teléfono al lector (sin PIN).",
-        example_en: "I usually use contactless payment.",
-        example_es: "Normalmente uso pago sin contacto."
-      },
-      {
-        en: "insurance",
-        es: "seguro",
-        meaning: "Dinero que pagas a una compañía y luego te cubre si te enfermas o pierdes/rompes algo.",
-        example_en: "Car insurance can be expensive.",
-        example_es: "El seguro del auto puede ser caro."
-      }
+      { en:"bill", es:"factura / cuenta", meaning:"Un papel que muestra cuánto dinero tienes que pagar por algo.",
+        example_en:"Can I have the bill, please?", example_es:"¿Me trae la cuenta, por favor?" },
+      { en:"salary", es:"sueldo", meaning:"El dinero que recibes por el trabajo que haces (normalmente mensual).",
+        example_en:"He earns a good salary.", example_es:"Él gana un buen sueldo." },
+      { en:"tax", es:"impuesto", meaning:"Dinero que pagas al gobierno.",
+        example_en:"We pay tax every year.", example_es:"Pagamos impuestos cada año." },
+      { en:"loan", es:"préstamo", meaning:"Dinero que alguien (o un banco) te presta.",
+        example_en:"She took out a loan to start a business.", example_es:"Ella pidió un préstamo para empezar un negocio." },
+      { en:"budget", es:"presupuesto", meaning:"El dinero que tienes disponible y un plan de cómo gastarlo.",
+        example_en:"We’re on a tight budget this month.", example_es:"Este mes tenemos un presupuesto ajustado." },
+      { en:"mortgage", es:"hipoteca", meaning:"Dinero que pides prestado a un banco para comprar una casa.",
+        example_en:"They have a mortgage on their house.", example_es:"Ellos tienen una hipoteca de su casa." },
+      { en:"contactless payment", es:"pago sin contacto", meaning:"Forma rápida de pagar acercando la tarjeta o el teléfono al lector (sin PIN).",
+        example_en:"I usually use contactless payment.", example_es:"Normalmente uso pago sin contacto." },
+      { en:"insurance", es:"seguro", meaning:"Dinero que pagas a una compañía y luego te cubre si te enfermas o pierdes/rompes algo.",
+        example_en:"Car insurance can be expensive.", example_es:"El seguro del auto puede ser caro." }
     ];
 
     const MONEY_PHRASALS = [
-      {
-        en: "take out",
-        es: "sacar (dinero)",
-        meaning: "Sacar dinero de un cajero.",
-        pattern: "take out + amount",
-        example_en: "I took out €200 from a cash machine.",
-        example_es: "Saqué €200 de un cajero."
-      },
-      {
-        en: "pay back",
-        es: "devolver (dinero)",
-        meaning: "Devolver el dinero que te prestaron.",
-        pattern: "pay (someone) back",
-        example_en: "Can I pay you back next week?",
-        example_es: "¿Puedo devolverte el dinero la próxima semana?"
-      },
-      {
-        en: "live off",
-        es: "vivir de (dependiendo)",
-        meaning: "Vivir dependiendo de alguien o de una fuente.",
-        pattern: "live off + parents/benefits",
-        example_en: "I have to live off my parents while I’m at university.",
-        example_es: "Tengo que vivir de mis padres mientras estoy en la universidad."
-      },
-      {
-        en: "live on",
-        es: "vivir con (un ingreso)",
-        meaning: "Vivir con un ingreso específico (sueldo).",
-        pattern: "live on + salary",
-        example_en: "It’s difficult to live on only one salary.",
-        example_es: "Es difícil vivir con un solo sueldo."
-      }
-    ];
-
-    // FULL irregular verbs list (infinitive / past / past participle)
-    const IRREGULAR = [
-      {v:"be", p:"was/were", pp:"been"},
-      {v:"beat", p:"beat", pp:"beaten"},
-      {v:"become", p:"became", pp:"become"},
-      {v:"begin", p:"began", pp:"begun"},
-      {v:"bend", p:"bent", pp:"bent"},
-      {v:"bet", p:"bet", pp:"bet"},
-      {v:"bind", p:"bound", pp:"bound"},
-      {v:"bite", p:"bit", pp:"bitten"},
-      {v:"bleed", p:"bled", pp:"bled"},
-      {v:"blow", p:"blew", pp:"blown"},
-      {v:"break", p:"broke", pp:"broken"},
-      {v:"bring", p:"brought", pp:"brought"},
-      {v:"build", p:"built", pp:"built"},
-      {v:"burn", p:"burnt/burned", pp:"burnt/burned"},
-      {v:"burst", p:"burst", pp:"burst"},
-      {v:"buy", p:"bought", pp:"bought"},
-      {v:"catch", p:"caught", pp:"caught"},
-      {v:"choose", p:"chose", pp:"chosen"},
-      {v:"come", p:"came", pp:"come"},
-      {v:"cost", p:"cost", pp:"cost"},
-      {v:"creep", p:"crept", pp:"crept"},
-      {v:"cut", p:"cut", pp:"cut"},
-      {v:"deal", p:"dealt", pp:"dealt"},
-      {v:"dig", p:"dug", pp:"dug"},
-      {v:"do", p:"did", pp:"done"},
-      {v:"draw", p:"drew", pp:"drawn"},
-      {v:"dream", p:"dreamt/dreamed", pp:"dreamt/dreamed"},
-      {v:"drink", p:"drank", pp:"drunk"},
-      {v:"drive", p:"drove", pp:"driven"},
-      {v:"eat", p:"ate", pp:"eaten"},
-      {v:"fall", p:"fell", pp:"fallen"},
-      {v:"feed", p:"fed", pp:"fed"},
-      {v:"feel", p:"felt", pp:"felt"},
-      {v:"fight", p:"fought", pp:"fought"},
-      {v:"find", p:"found", pp:"found"},
-      {v:"fly", p:"flew", pp:"flown"},
-      {v:"forget", p:"forgot", pp:"forgotten/forgot"},
-      {v:"forgive", p:"forgave", pp:"forgiven"},
-      {v:"freeze", p:"froze", pp:"frozen"},
-      {v:"get", p:"got", pp:"got/gotten"},
-      {v:"give", p:"gave", pp:"given"},
-      {v:"go", p:"went", pp:"gone"},
-      {v:"grow", p:"grew", pp:"grown"},
-      {v:"hang", p:"hung", pp:"hung"},
-      {v:"have", p:"had", pp:"had"},
-      {v:"hear", p:"heard", pp:"heard"},
-      {v:"hide", p:"hid", pp:"hidden"},
-      {v:"hit", p:"hit", pp:"hit"},
-      {v:"hold", p:"held", pp:"held"},
-      {v:"hurt", p:"hurt", pp:"hurt"},
-      {v:"keep", p:"kept", pp:"kept"},
-      {v:"know", p:"knew", pp:"known"},
-      {v:"lay", p:"laid", pp:"laid"},
-      {v:"lead", p:"led", pp:"led"},
-      {v:"leave", p:"left", pp:"left"},
-      {v:"lend", p:"lent", pp:"lent"},
-      {v:"let", p:"let", pp:"let"},
-      {v:"lie", p:"lay", pp:"lain"},
-      {v:"light", p:"lit/lighted", pp:"lit/lighted"},
-      {v:"lose", p:"lost", pp:"lost"},
-      {v:"make", p:"made", pp:"made"},
-      {v:"mean", p:"meant", pp:"meant"},
-      {v:"meet", p:"met", pp:"met"},
-      {v:"pay", p:"paid", pp:"paid"},
-      {v:"put", p:"put", pp:"put"},
-      {v:"read", p:"read", pp:"read"},
-      {v:"ride", p:"rode", pp:"ridden"},
-      {v:"ring", p:"rang", pp:"rung"},
-      {v:"rise", p:"rose", pp:"risen"},
-      {v:"run", p:"ran", pp:"run"},
-      {v:"say", p:"said", pp:"said"},
-      {v:"see", p:"saw", pp:"seen"},
-      {v:"sell", p:"sold", pp:"sold"},
-      {v:"send", p:"sent", pp:"sent"},
-      {v:"set", p:"set", pp:"set"},
-      {v:"shake", p:"shook", pp:"shaken"},
-      {v:"shine", p:"shone", pp:"shone"},
-      {v:"shoot", p:"shot", pp:"shot"},
-      {v:"show", p:"showed", pp:"shown/showed"},
-      {v:"shut", p:"shut", pp:"shut"},
-      {v:"sing", p:"sang", pp:"sung"},
-      {v:"sink", p:"sank", pp:"sunk"},
-      {v:"sit", p:"sat", pp:"sat"},
-      {v:"sleep", p:"slept", pp:"slept"},
-      {v:"speak", p:"spoke", pp:"spoken"},
-      {v:"spend", p:"spent", pp:"spent"},
-      {v:"stand", p:"stood", pp:"stood"},
-      {v:"steal", p:"stole", pp:"stolen"},
-      {v:"stick", p:"stuck", pp:"stuck"},
-      {v:"swear", p:"swore", pp:"sworn"},
-      {v:"sweep", p:"swept", pp:"swept"},
-      {v:"swim", p:"swam", pp:"swum"},
-      {v:"take", p:"took", pp:"taken"},
-      {v:"teach", p:"taught", pp:"taught"},
-      {v:"tear", p:"tore", pp:"torn"},
-      {v:"tell", p:"told", pp:"told"},
-      {v:"think", p:"thought", pp:"thought"},
-      {v:"throw", p:"threw", pp:"thrown"},
-      {v:"understand", p:"understood", pp:"understood"},
-      {v:"wake", p:"woke", pp:"woken"},
-      {v:"wear", p:"wore", pp:"worn"},
-      {v:"win", p:"won", pp:"won"},
-      {v:"write", p:"wrote", pp:"written"},
-
-      // Extra common irregulars (para que sea FULL de verdad)
-      {v:"arise", p:"arose", pp:"arisen"},
-      {v:"awake", p:"awoke/awakened", pp:"awoken/awakened"},
-      {v:"bear", p:"bore", pp:"borne/born"},
-      {v:"broadcast", p:"broadcast", pp:"broadcast"},
-      {v:"cast", p:"cast", pp:"cast"},
-      {v:"cling", p:"clung", pp:"clung"},
-      {v:"dwell", p:"dwelt/dwelled", pp:"dwelt/dwelled"},
-      {v:"flee", p:"fled", pp:"fled"},
-      {v:"forbid", p:"forbade/forbad", pp:"forbidden"},
-      {v:"forecast", p:"forecast", pp:"forecast"},
-      {v:"foresee", p:"foresaw", pp:"foreseen"},
-      {v:"forsake", p:"forsook", pp:"forsaken"},
-      {v:"grind", p:"ground", pp:"ground"},
-      {v:"kneel", p:"knelt/kneeled", pp:"knelt/kneeled"},
-      {v:"leap", p:"leapt/leaped", pp:"leapt/leaped"},
-      {v:"overcome", p:"overcame", pp:"overcome"},
-      {v:"prove", p:"proved", pp:"proven/proved"},
-      {v:"saw", p:"sawed", pp:"sawn/sawed"},
-      {v:"seek", p:"sought", pp:"sought"},
-      {v:"sew", p:"sewed", pp:"sewn/sewed"},
-      {v:"shed", p:"shed", pp:"shed"},
-      {v:"slay", p:"slew", pp:"slain"},
-      {v:"slide", p:"slid", pp:"slid"},
-      {v:"smell", p:"smelt/smelled", pp:"smelt/smelled"},
-      {v:"spell", p:"spelt/spelled", pp:"spelt/spelled"},
-      {v:"spoil", p:"spoilt/spoiled", pp:"spoilt/spoiled"},
-      {v:"spring", p:"sprang/sprung", pp:"sprung"},
-      {v:"sting", p:"stung", pp:"stung"},
-      {v:"stink", p:"stank/stunk", pp:"stunk"},
-      {v:"strike", p:"struck", pp:"struck/stricken"},
-      {v:"string", p:"strung", pp:"strung"},
-      {v:"thrust", p:"thrust", pp:"thrust"},
-      {v:"tread", p:"trod", pp:"trodden/trod"},
-      {v:"weep", p:"wept", pp:"wept"},
-      {v:"wind", p:"wound", pp:"wound"},
-      {v:"withdraw", p:"withdrew", pp:"withdrawn"}
+      { en:"take out", es:"sacar (dinero)", meaning:"Sacar dinero de un cajero.", pattern:"take out + amount",
+        example_en:"I took out €200 from a cash machine.", example_es:"Saqué €200 de un cajero." },
+      { en:"pay back", es:"devolver (dinero)", meaning:"Devolver el dinero que te prestaron.", pattern:"pay (someone) back",
+        example_en:"Can I pay you back next week?", example_es:"¿Puedo devolverte el dinero la próxima semana?" },
+      { en:"live off", es:"vivir de (dependiendo)", meaning:"Vivir dependiendo de alguien o de una fuente.", pattern:"live off + parents/benefits",
+        example_en:"I have to live off my parents while I’m at university.", example_es:"Tengo que vivir de mis padres mientras estoy en la universidad." },
+      { en:"live on", es:"vivir con (un ingreso)", meaning:"Vivir con un ingreso específico (sueldo).", pattern:"live on + salary",
+        example_en:"It’s difficult to live on only one salary.", example_es:"Es difícil vivir con un solo sueldo." }
     ];
 
     // =========================
-    // Renderers
+    // Renderers (cards)
     // =========================
     function renderCards(list, mountId, options = {}){
       const mount = document.getElementById(mountId);
@@ -977,50 +680,53 @@
     }
 
     // =========================
-    // Irregular verbs table + search
+    // 5) Learned verbs (ONLY) + search
     // =========================
-    const $qIrreg = document.getElementById("qIrreg");
-    const $clearIrreg = document.getElementById("clearIrregBtn");
-    const $irregBody = document.getElementById("irregBody");
-    const $irregHint = document.getElementById("irregCountHint");
-    const $irregEmpty = document.getElementById("irregEmpty");
+    const LEARNED_VERBS = [
+      ...MONEY_VERBS.map(x => ({ en: x.en, es: x.es })),
+      ...MONEY_PHRASALS.map(x => ({ en: x.en, es: x.es }))
+    ];
 
-    function renderIrregular(rows){
-      $irregBody.innerHTML = "";
+    const $qLearned = document.getElementById("qLearned");
+    const $clearLearned = document.getElementById("clearLearnedBtn");
+    const $learnedBody = document.getElementById("learnedBody");
+    const $learnedHint = document.getElementById("learnedCountHint");
+    const $learnedEmpty = document.getElementById("learnedEmpty");
+
+    function renderLearned(rows){
+      $learnedBody.innerHTML = "";
 
       if(!rows.length){
-        $irregEmpty.style.display = "block";
-        $irregHint.textContent = "Mostrando 0 verbos.";
+        $learnedEmpty.style.display = "block";
+        $learnedHint.textContent = "Mostrando 0 verbos.";
         return;
       }
-      $irregEmpty.style.display = "none";
-      $irregHint.textContent = `Mostrando ${rows.length} verbo(s).`;
+      $learnedEmpty.style.display = "none";
+      $learnedHint.textContent = `Mostrando ${rows.length} verbo(s).`;
 
       for(const r of rows){
-        $irregBody.insertAdjacentHTML("beforeend", `
+        $learnedBody.insertAdjacentHTML("beforeend", `
           <tr>
-            <td><b>${escapeHtml(r.v)}</b></td>
-            <td>${escapeHtml(r.p)}</td>
-            <td>${escapeHtml(r.pp)}</td>
+            <td><b>${escapeHtml(r.en)}</b></td>
+            <td>${escapeHtml(r.es)}</td>
           </tr>
         `);
       }
     }
 
-    function filterIrregular(){
-      const q = normalize($qIrreg.value);
+    function filterLearned(){
+      const q = normalize($qLearned.value);
       if(!q){
-        renderIrregular(IRREGULAR);
+        renderLearned(LEARNED_VERBS);
         return;
       }
 
-      const res = IRREGULAR.filter(r=>{
-        const hay = normalize(`${r.v} | ${r.p} | ${r.pp}`);
-        const q2 = q.replace(/-/g,"");
-        return hay.includes(q) || hay.includes(q2);
+      const res = LEARNED_VERBS.filter(r=>{
+        const hay = normalize(`${r.en} | ${r.es}`);
+        return hay.includes(q);
       });
 
-      renderIrregular(res);
+      renderLearned(res);
     }
 
     // =========================
@@ -1031,14 +737,15 @@
     renderCards(MONEY_NOUNS, "nounsList");
     renderCards(MONEY_PHRASALS, "phrasalsList");
 
-    renderIrregular(IRREGULAR);
+    renderLearned(LEARNED_VERBS);
 
-    $qIrreg.addEventListener("input", filterIrregular);
-    $clearIrreg.addEventListener("click", ()=>{
-      $qIrreg.value = "";
-      $qIrreg.focus();
-      renderIrregular(IRREGULAR);
+    $qLearned.addEventListener("input", filterLearned);
+    $clearLearned.addEventListener("click", ()=>{
+      $qLearned.value = "";
+      $qLearned.focus();
+      renderLearned(LEARNED_VERBS);
     });
   </script>
 </body>
 </html>
+
