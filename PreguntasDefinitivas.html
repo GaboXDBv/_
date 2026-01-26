@@ -1,1 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PREGUNTAS DEFINITIVAS DE LO APRENDIDO >:3</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=2" type="image/png" />
+
+  <style>
+    :root{
+      /* FINAL BOSS DARK THEME */
+      --bg: #06070b;
+      --card: rgba(14,16,26,.92);
+      --card2: rgba(10,12,20,.92);
+      --ink: #e5e7eb;
+      --muted: rgba(229,231,235,.70);
+
+      --accent: #60a5fa;   /* neon blue */
+      --accent2:#34d399;   /* neon green */
+      --danger:#fb7185;    /* neon red/pink */
+      --warn:#fbbf24;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --shadow2: 0 10px 30px rgba(0,0,0,.45);
+      --radius: 18px;
+
+      --border: rgba(255,255,255,.10);
+      --border2: rgba(96,165,250,.25);
+      --glow: 0 0 24px rgba(96,165,250,.20), 0 0 36px rgba(52,211,153,.12);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+      /* Boss final background */
+      background:
+        radial-gradient(900px 520px at 15% -10%, rgba(96,165,250,.18), transparent 60%),
+        radial-gradient(900px 520px at 85% -10%, rgba(52,211,153,.18), transparent 60%),
+        radial-gradient(700px 420px at 50% 110%, rgba(251,113,133,.10), transparent 65%),
+        linear-gradient(180deg, #05060a 0%, #06070b 45%, #070815 100%);
+      overflow-x:hidden;
+      position:relative;
+    }
+
+    /* subtle scanlines + vignette */
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255,255,255,.04) 0px,
+          rgba(255,255,255,.04) 1px,
+          rgba(0,0,0,0) 3px,
+          rgba(0,0,0,0) 7px
+        );
+      opacity:.08;
+      mix-blend-mode: overlay;
+      z-index:0;
+    }
+    body:after{
+      content:"";
+      position:fixed;
+      inset:-40px;
+      pointer-events:none;
+      background: radial-gradient(1200px 700px at 50% 20%, transparent 40%, rgba(0,0,0,.55) 85%);
+      z-index:0;
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+      position:relative;
+      z-index:1;
+    }
+
+    header{
+      position:relative;
+      border-radius: calc(var(--radius) + 6px);
+      padding: 18px 18px;
+      background:
+        linear-gradient(135deg, rgba(96,165,250,.16), rgba(52,211,153,.12)),
+        radial-gradient(900px 420px at 50% 0%, rgba(255,255,255,.08), transparent 70%);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow), var(--glow);
+      text-align:center;
+      overflow:hidden;
+    }
+    header:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      border-radius: inherit;
+      padding:2px;
+      background: linear-gradient(90deg, rgba(96,165,250,.55), rgba(52,211,153,.45), rgba(251,113,133,.35));
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity:.45;
+      pointer-events:none;
+    }
+
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(24px, 4.8vw, 40px);
+      letter-spacing: .4px;
+      font-weight: 1000;
+      text-transform: uppercase;
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(13px, 2.8vw, 16px);
+      line-height: 1.5;
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .card .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), rgba(251,113,133,.70));
+      filter: drop-shadow(0 0 10px rgba(96,165,250,.25));
+    }
+
+    .card .content{
+      padding: 16px 16px 14px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(18px, 3.8vw, 24px);
+      letter-spacing: .2px;
+      font-weight: 900;
+    }
+
+    p{
+      font-size: clamp(15px, 3.4vw, 18px);
+      line-height: 1.55;
+      color: var(--ink);
+      margin: 8px 0;
+    }
+    .muted{ color: var(--muted); }
+
+    .topRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .badge{
+      display:inline-block;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: rgba(229,231,235,.85);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.35) inset;
+    }
+
+    .progressWrap{
+      width: 100%;
+      margin-top: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      overflow: hidden;
+      height: 10px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .progressBar{
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .25s ease;
+      box-shadow: 0 0 18px rgba(96,165,250,.22);
+    }
+
+    .questionText{
+      font-size: clamp(18px, 4.0vw, 22px);
+      font-weight: 950;
+      letter-spacing:.2px;
+      margin: 12px 0 10px;
+    }
+
+    /* Multiple choice */
+    .options{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (min-width: 760px){
+      .options{ grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    .optBtn{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: 14px;
+      padding: 16px 14px;
+      cursor: pointer;
+      text-align: left;
+      box-shadow: 0 10px 24px rgba(0,0,0,.35);
+      transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease, background .12s ease;
+      min-height: 64px;
+      color: var(--ink);
+    }
+    .optBtn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(96,165,250,.35);
+      box-shadow: 0 10px 26px rgba(0,0,0,.42), 0 0 18px rgba(96,165,250,.14);
+      background: rgba(255,255,255,.05);
+    }
+    .optBtn:active{ transform: translateY(0px); }
+    .optBtn:disabled{ cursor:not-allowed; opacity:.96; }
+
+    .optLabel{
+      font-weight: 950;
+      font-size: 18px;
+      letter-spacing:.15px;
+      line-height: 1.15;
+    }
+
+    /* Typed input */
+    .inputWrap{
+      display:none;
+      gap:10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .textInput{
+      flex: 1 1 520px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      border-radius: 14px;
+      padding: 14px 14px;
+      font-size: 18px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.35);
+      outline: none;
+      color: var(--ink);
+    }
+    .textInput::placeholder{
+      color: rgba(229,231,235,.45);
+    }
+
+    .submitBtn{
+      flex: 0 0 auto;
+      border:0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-weight: 900;
+      box-shadow: 0 10px 24px rgba(0,0,0,.40), 0 0 18px rgba(96,165,250,.16);
+      transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
+      color: #061018;
+      background: linear-gradient(135deg, var(--accent), rgba(52,211,153,.95));
+      width: min(240px, 100%);
+    }
+    .submitBtn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+      box-shadow: 0 10px 24px rgba(0,0,0,.45), 0 0 26px rgba(52,211,153,.20);
+    }
+    .submitBtn:active{ transform: translateY(0px); }
+    .submitBtn:disabled{ cursor:not-allowed; opacity:.92; transform:none; }
+
+    .inputOk{
+      border-color: rgba(52,211,153,.60) !important;
+      box-shadow: 0 10px 26px rgba(0,0,0,.40), 0 0 26px rgba(52,211,153,.18) !important;
+    }
+    .inputBad{
+      border-color: rgba(251,113,133,.65) !important;
+      box-shadow: 0 10px 26px rgba(0,0,0,.40), 0 0 26px rgba(251,113,133,.16) !important;
+    }
+
+    .feedback{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 12px 12px;
+      display:none;
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 10px 24px rgba(0,0,0,.35);
+    }
+    .fbOk{
+      border-color: rgba(52,211,153,.30);
+      box-shadow: 0 10px 24px rgba(0,0,0,.35), 0 0 24px rgba(52,211,153,.12);
+    }
+    .fbBad{
+      border-color: rgba(251,113,133,.30);
+      box-shadow: 0 10px 24px rgba(0,0,0,.35), 0 0 24px rgba(251,113,133,.10);
+    }
+
+    .fbTitle{
+      font-weight: 950;
+      font-size: 16px;
+      margin:0 0 6px;
+    }
+    .fbBody{ margin:0; color: var(--ink); }
+    .fbBody ul{ margin: 8px 0 0; padding-left: 18px; }
+    .fbBody li{ margin: 6px 0; font-size: 15px; line-height: 1.45; color: var(--ink); }
+
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: .95em;
+      background: rgba(255,255,255,.06);
+      padding: 2px 6px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .nextRow{
+      display:flex;
+      justify-content: center;
+      margin-top: 12px;
+      display:none;
+    }
+
+    .miniBtn{
+      border:0;
+      cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 900;
+      box-shadow: 0 10px 24px rgba(0,0,0,.40), 0 0 18px rgba(96,165,250,.16);
+      transition: transform .12s ease, filter .12s ease;
+      color: #061018;
+      background: linear-gradient(135deg, var(--accent), rgba(52,211,153,.95));
+      width: min(420px, 100%);
+    }
+    .miniBtn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+    }
+    .miniBtn:active{ transform: translateY(0px); }
+
+    .navRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .navBtn{
+      width: min(420px, 100%);
+      border: 1px solid rgba(255,255,255,.10);
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-weight: 900;
+      box-shadow: 0 10px 24px rgba(0,0,0,.40);
+      transition: transform .12s ease, filter .12s ease, box-shadow .12s ease, border-color .12s ease;
+      color: rgba(229,231,235,.95);
+      background: rgba(255,255,255,.03);
+    }
+    .navBtn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+      box-shadow: 0 10px 26px rgba(0,0,0,.46), 0 0 18px rgba(96,165,250,.10);
+      border-color: rgba(96,165,250,.30);
+    }
+    .navBtn:active{ transform: translateY(0px); }
+
+    .btnBack{ border-color: rgba(251,113,133,.25); }
+    .btnNextTheme{ border-color: rgba(52,211,153,.25); }
+    .btnNewSet{ border-color: rgba(96,165,250,.25); }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    /* Highlight states */
+    .chosen{
+      border-color: rgba(96,165,250,.55) !important;
+      box-shadow: 0 10px 26px rgba(0,0,0,.46), 0 0 22px rgba(96,165,250,.14) !important;
+    }
+    .correct{
+      border-color: rgba(52,211,153,.60) !important;
+      box-shadow: 0 10px 26px rgba(0,0,0,.46), 0 0 22px rgba(52,211,153,.14) !important;
+    }
+    .wrong{
+      border-color: rgba(251,113,133,.60) !important;
+      box-shadow: 0 10px 26px rgba(0,0,0,.46), 0 0 22px rgba(251,113,133,.12) !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>PREGUNTAS DEFINITIVAS DE LO APRENDIDO &gt;:3</h1>
+      <p class="subtitle">
+        FINAL BOSS MODE: Present Simple vs Present Continuous • Future forms (going to / will / present continuous / shall) •
+        Present Perfect vs Past Simple • for/since/how long + Present Perfect Continuous • Money vocab + phrasal verbs.
+      </p>
+    </header>
+
+    <div class="grid">
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <div class="topRow">
+            <span class="badge" id="roundBadge">Ronda: 1</span>
+            <span class="badge" id="scoreBadge">Puntaje: 0 / 10</span>
+            <span class="badge" id="qBadge">Pregunta: 1 / 10</span>
+          </div>
+
+          <div class="progressWrap" aria-label="Progreso de la ronda">
+            <div class="progressBar" id="progressBar"></div>
+          </div>
+
+          <div class="questionText" id="questionText"></div>
+
+          <!-- Input (escribir) -->
+          <div class="inputWrap" id="inputWrap">
+            <input class="textInput" id="textAnswer" type="text" placeholder="Escribe tu respuesta..." autocomplete="off" />
+            <button class="submitBtn" id="submitBtn">Responder</button>
+          </div>
+
+          <!-- Opciones (seleccionar) -->
+          <div class="options" id="options"></div>
+
+          <div class="feedback" id="feedbackBox" role="status" aria-live="polite">
+            <div class="fbTitle" id="fbTitle"></div>
+            <div class="fbBody" id="fbBody"></div>
+          </div>
+
+          <div class="nextRow" id="nextRow">
+            <button class="miniBtn" id="nextBtn">Siguiente pregunta</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Navegación</h2>
+          <p class="muted">Reinicia una ronda de 10 y vuelve a practicar como si fuera el boss final 😈.</p>
+          <div class="navRow">
+            <!-- Cambia estos links si tus archivos tienen otros nombres -->
+            <button class="navBtn btnBack" onclick="window.location.href='vocabulario3.html'">Atrás (Vocabulario)</button>
+            <button class="navBtn btnNextTheme" onclick="window.location.href='mark4.html'">Ir al Marco Teórico</button>
+            <button class="navBtn btnNewSet" onclick="newRound()">Mostrar 10 preguntas</button>
+          </div>
+          <div class="footerHint">Banco: 30 preguntas (3 rondas). No se repiten hasta consumir las 30.</div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    function shuffle(arr){
+      const a = [...arr];
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function normalize(s){
+      return (s || "")
+        .toLowerCase()
+        .trim()
+        .replace(/[’‘]/g,"'")
+        .replace(/[“”]/g,'"')
+        .replace(/\s+/g," ")
+        .replace(/[.?!]+$/,"");
+    }
+
+    const ROUND_SIZE = 10;
+
+    // ✅ 30 preguntas EXACTAS (15 grammar de la foto + 15 vocab de la foto)
+    const QUESTION_BANK = [
+      /* ================= GRAMMAR (15) ================= */
+      {
+        type: "mcq",
+        stem: "1) My sister ____ fish or seafood.",
+        options: [
+          { text: "doesn’t like", correct: true },
+          { text: "don’t like", correct: false },
+          { text: "doesn’t likes", correct: false }
+        ],
+        explain: { okTitle: "3ra persona (she) → doesn’t + base verb", okPoints: ["Correcto: <span class='code'>doesn’t like</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "2) I have a quick breakfast because ____ in a hurry.",
+        options: [
+          { text: "I usually", correct: false },
+          { text: "I usually am", correct: false },
+          { text: "I’m usually", correct: true }
+        ],
+        explain: { okTitle: "Con estado/adjetivo: I’m + adjective", okPoints: ["<span class='code'>I’m usually in a hurry</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "3) I ____ TV when I’m having a meal.",
+        options: [
+          { text: "never watch", correct: true },
+          { text: "don’t never watch", correct: false },
+          { text: "am never watching", correct: false }
+        ],
+        explain: { okTitle: "Hábito → Present Simple", okPoints: ["<span class='code'>never + base verb</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "4) ____ hard for my exams at the moment.",
+        options: [
+          { text: "I study", correct: false },
+          { text: "I’m studying", correct: true },
+          { text: "I’m studing", correct: false }
+        ],
+        explain: { okTitle: "At the moment → Present Continuous", okPoints: ["Correcto: <span class='code'>I’m studying</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "5) ____ any brothers or sisters?",
+        options: [
+          { text: "Are you having", correct: false },
+          { text: "Are you have", correct: false },
+          { text: "Do you have", correct: true }
+        ],
+        explain: { okTitle: "Have (posesión) → Present Simple (Do you have...?)", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "6) What ____ when you leave school?",
+        options: [
+          { text: "you are going to do", correct: false },
+          { text: "are you going do", correct: false },
+          { text: "are you going to do", correct: true }
+        ],
+        explain: { okTitle: "be going to + infinitive", okPoints: ["Pregunta correcta: <span class='code'>What are you going to do...?</span>"] }
+      },
+      {
+        type: "mcq",
+        stem: "7) I can’t see you this evening because ____ some friends.",
+        options: [
+          { text: "I’m meeting", correct: true },
+          { text: "I meet", correct: false },
+          { text: "I’ll meet", correct: false }
+        ],
+        explain: { okTitle: "Arreglo confirmado → Present Continuous (future)", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "8) A: Would you like something to drink?  B: Yes, ____ an orange juice, please.",
+        options: [
+          { text: "I have", correct: false },
+          { text: "I’m having", correct: false },
+          { text: "I’ll have", correct: true }
+        ],
+        explain: { okTitle: "Decisión del momento (oferta/pedido) → will", okPoints: ["Muy común: <span class='code'>I’ll have...</span>"] }
+      },
+      {
+        type: "mcq",
+        stem: "9) A: I can’t open this jar.  B: ____ help you?",
+        options: [
+          { text: "Shall I", correct: true },
+          { text: "Will I", correct: false },
+          { text: "Do I", correct: false }
+        ],
+        explain: { okTitle: "Oferta: Shall I...?", okPoints: ["<span class='code'>Shall I help you?</span> (formal/UK)"] }
+      },
+      {
+        type: "mcq",
+        stem: "10) That’s a lovely dress. Where ____ it?",
+        options: [
+          { text: "have you bought", correct: false },
+          { text: "did you buy", correct: true },
+          { text: "did you bought", correct: false }
+        ],
+        explain: { okTitle: "Where + pasado → Past simple (Did + base)", okPoints: ["Correcto: <span class='code'>did you buy</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "11) ____ good at saving money.",
+        options: [
+          { text: "I’ve never been", correct: true },
+          { text: "I haven’t never been", correct: false },
+          { text: "I’ve never", correct: false }
+        ],
+        explain: { okTitle: "Never + Present Perfect → I’ve never been", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "12) I got £50 for my birthday, but I ____.",
+        options: [
+          { text: "didn’t spend it yet", correct: false },
+          { text: "haven’t spent it yet", correct: true },
+          { text: "yet haven’t spent it", correct: false }
+        ],
+        explain: { okTitle: "Yet + Present Perfect (negativa) → haven’t + PP", okPoints: ["<span class='code'>haven’t spent it yet</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "13) I’ve had this phone ____.",
+        options: [
+          { text: "for about three years", correct: true },
+          { text: "since about three years", correct: false },
+          { text: "for about three years ago", correct: false }
+        ],
+        explain: { okTitle: "For + duración", okPoints: ["Correcto: <span class='code'>for about three years</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "14) A: How long ____ in Paris?  B: Since last March.",
+        options: [
+          { text: "is he living", correct: false },
+          { text: "has he living", correct: false },
+          { text: "has he been living", correct: true }
+        ],
+        explain: { okTitle: "How long + acción que continúa → Present Perfect Continuous", okPoints: ["<span class='code'>has he been living</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "15) ____ the same gym for five years.",
+        options: [
+          { text: "I’m going to", correct: false },
+          { text: "I’ve been going to", correct: true },
+          { text: "I go to", correct: false }
+        ],
+        explain: { okTitle: "Duración + acción repetida → I’ve been going to", okPoints: [] }
+      },
+
+      /* ================= VOCAB (15) ================= */
+      // a) Circle the word that is different (5)
+      {
+        type: "mcq",
+        stem: "VOCAB A1) Which word is different?",
+        options: [
+          { text: "prawns", correct: false },
+          { text: "mussels", correct: false },
+          { text: "duck", correct: true },
+          { text: "squid", correct: false }
+        ],
+        explain: { okTitle: "Duck = ave. Los otros = mariscos/seafood.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "VOCAB A2) Which word is different?",
+        options: [
+          { text: "lamb", correct: false },
+          { text: "crab", correct: true },
+          { text: "beef", correct: false },
+          { text: "pork", correct: false }
+        ],
+        explain: { okTitle: "Crab = seafood. Los otros = carnes.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "VOCAB A3) Which word is different?",
+        options: [
+          { text: "cherry", correct: false },
+          { text: "pear", correct: false },
+          { text: "peach", correct: false },
+          { text: "beetroot", correct: true }
+        ],
+        explain: { okTitle: "Beetroot = verdura. Los otros = frutas.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "VOCAB A4) Which word is different?",
+        options: [
+          { text: "raspberry", correct: true },
+          { text: "cucumber", correct: false },
+          { text: "pepper", correct: false },
+          { text: "cabbage", correct: false }
+        ],
+        explain: { okTitle: "Raspberry = fruta. Los otros = verduras.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "VOCAB A5) Which word is different?",
+        options: [
+          { text: "fried", correct: false },
+          { text: "baked", correct: false },
+          { text: "chicken", correct: true },
+          { text: "roast", correct: false }
+        ],
+        explain: { okTitle: "Chicken = comida (sustantivo). Los otros = formas de cocinar.", okPoints: [] }
+      },
+
+      // c) Write verbs for the definitions (5) — MONEY
+      {
+        type: "input",
+        stem: "VOCAB C1) Write the verb: to spend money on something that is not necessary → ____",
+        answers: ["waste"],
+        showExpected: "waste",
+        explain: { okTitle: "waste = malgastar / gastar en algo innecesario", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "VOCAB C2) Write the verb: to receive money from someone who has died → ____",
+        answers: ["inherit"],
+        showExpected: "inherit",
+        explain: { okTitle: "inherit = heredar", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "VOCAB C3) Write the verb: to get money by working → ____",
+        answers: ["earn"],
+        showExpected: "earn",
+        explain: { okTitle: "earn = ganar dinero (por trabajo)", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "VOCAB C4) Write the verb: to get money from somebody that you will pay back → ____",
+        answers: ["borrow"],
+        showExpected: "borrow",
+        explain: { okTitle: "borrow = pedir prestado", okPoints: ["OJO: <span class='code'>lend</span> = prestar (dar)."] }
+      },
+      {
+        type: "input",
+        stem: "VOCAB C5) Write the verb: to keep money so that you can use it later → ____",
+        answers: ["save"],
+        showExpected: "save",
+        explain: { okTitle: "save = ahorrar / guardar dinero", okPoints: [] }
+      },
+
+      // e) Complete the phrasal verbs (5)
+      {
+        type: "input",
+        stem: "VOCAB E1) Shall we eat ____ tonight? I don’t feel like cooking.",
+        answers: ["out"],
+        showExpected: "out",
+        explain: { okTitle: "eat out = comer afuera", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "VOCAB E2) I’m allergic to milk, so I have to cut ____ dairy products from my diet.",
+        answers: ["out"],
+        showExpected: "out",
+        explain: { okTitle: "cut out = eliminar / dejar de consumir", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "VOCAB E3) We live ____ my salary. My wife is unemployed.",
+        answers: ["on"],
+        showExpected: "on",
+        explain: { okTitle: "live on = vivir con (una cantidad)", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "VOCAB E4) I’ll lend you the money if you promise to pay me ____.",
+        answers: ["back"],
+        showExpected: "back",
+        explain: { okTitle: "pay back = devolver (dinero)", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "VOCAB E5) I took ____ £350 from my bank account.",
+        answers: ["out"],
+        showExpected: "out",
+        explain: { okTitle: "take out = retirar (dinero)", okPoints: [] }
+      }
+    ];
+
+    // === Estado
+    let deck = [];
+    let deckIndex = 0;
+    let currentSet = [];
+    let currentIndex = 0;
+    let score = 0;
+    let round = 0;
+    let answered = false;
+
+    const els = {
+      roundBadge: document.getElementById("roundBadge"),
+      scoreBadge: document.getElementById("scoreBadge"),
+      qBadge: document.getElementById("qBadge"),
+      progressBar: document.getElementById("progressBar"),
+      questionText: document.getElementById("questionText"),
+      options: document.getElementById("options"),
+      inputWrap: document.getElementById("inputWrap"),
+      textAnswer: document.getElementById("textAnswer"),
+      submitBtn: document.getElementById("submitBtn"),
+      feedbackBox: document.getElementById("feedbackBox"),
+      fbTitle: document.getElementById("fbTitle"),
+      fbBody: document.getElementById("fbBody"),
+      nextRow: document.getElementById("nextRow"),
+      nextBtn: document.getElementById("nextBtn")
+    };
+
+    function refillDeck(){
+      deck = shuffle(QUESTION_BANK);
+      deckIndex = 0;
+    }
+
+    function getNextTen(){
+      // ✅ 30 preguntas = 3 rondas sin repetirse. Luego se reinicia el mazo.
+      if(deck.length === 0 || deckIndex + ROUND_SIZE > deck.length){
+        refillDeck();
+      }
+      const set = deck.slice(deckIndex, deckIndex + ROUND_SIZE);
+      deckIndex += ROUND_SIZE;
+      return set;
+    }
+
+    function setProgress(){
+      const pct = Math.round((currentIndex / ROUND_SIZE) * 100);
+      els.progressBar.style.width = pct + "%";
+      els.scoreBadge.textContent = `Puntaje: ${score} / ${ROUND_SIZE}`;
+      els.qBadge.textContent = `Pregunta: ${Math.min(currentIndex+1,ROUND_SIZE)} / ${ROUND_SIZE}`;
+      els.roundBadge.textContent = `Ronda: ${round}`;
+    }
+
+    function resetUI(){
+      els.feedbackBox.style.display = "none";
+      els.feedbackBox.classList.remove("fbOk","fbBad");
+      els.nextRow.style.display = "none";
+      els.options.innerHTML = "";
+      els.options.style.display = "grid";
+      els.inputWrap.style.display = "none";
+      els.textAnswer.value = "";
+      els.textAnswer.disabled = false;
+      els.submitBtn.disabled = false;
+      els.textAnswer.classList.remove("inputOk","inputBad");
+    }
+
+    function renderQuestion(){
+      answered = false;
+      setProgress();
+      resetUI();
+
+      const q = currentSet[currentIndex];
+      els.questionText.textContent = q.stem;
+
+      if(q.type === "mcq"){
+        els.inputWrap.style.display = "none";
+        els.options.style.display = "grid";
+
+        const opts = shuffle(q.options.map(o => ({...o})));
+        opts.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.className = "optBtn";
+          btn.type = "button";
+          btn.innerHTML = `<div class="optLabel">${opt.text}</div>`;
+          btn.addEventListener("click", () => chooseOption(btn, opt, opts));
+          els.options.appendChild(btn);
+        });
+      } else {
+        els.options.style.display = "none";
+        els.inputWrap.style.display = "flex";
+        els.textAnswer.focus();
+      }
+    }
+
+    function showFeedback(isCorrect, expectedText, userText){
+      const q = currentSet[currentIndex];
+
+      els.feedbackBox.style.display = "block";
+      els.feedbackBox.classList.add(isCorrect ? "fbOk" : "fbBad");
+      els.fbTitle.textContent = isCorrect ? "Bien. Respuesta correcta." : "Incorrecto.";
+
+      const points = (q.explain?.okPoints || []).map(x => `<li>${x}</li>`).join("");
+      const expectedLine = expectedText
+        ? `<p class="muted" style="margin-top:10px;"><b>Respuesta esperada:</b> <span class="code">${expectedText}</span></p>`
+        : "";
+      const userLine = (userText !== undefined && userText !== null)
+        ? `<p class="muted" style="margin-top:6px;"><b>Tu respuesta:</b> <span class="code">${userText || "—"}</span></p>`
+        : "";
+
+      els.fbBody.innerHTML = `
+        <p style="margin:0;"><b>${q.explain?.okTitle || ""}</b></p>
+        ${expectedLine}
+        ${userLine}
+        ${points ? `<ul>${points}</ul>` : ""}
+      `;
+
+      els.nextRow.style.display = "flex";
+      els.nextBtn.textContent = (currentIndex < ROUND_SIZE - 1) ? "Siguiente pregunta" : "Ver resultado de la ronda";
+      els.scoreBadge.textContent = `Puntaje: ${score} / ${ROUND_SIZE}`;
+    }
+
+    function chooseOption(btnEl, chosenOpt, renderedOpts){
+      if(answered) return;
+      answered = true;
+
+      const btns = [...els.options.querySelectorAll(".optBtn")];
+      btns.forEach(b => b.disabled = true);
+
+      btnEl.classList.add("chosen");
+
+      const correctOpt = renderedOpts.find(o => o.correct);
+      btns.forEach(b => {
+        const text = b.querySelector(".optLabel").textContent.trim();
+        if(text === correctOpt.text){
+          b.classList.add("correct");
+        }
+      });
+
+      const isCorrect = chosenOpt.correct;
+      if(!isCorrect){
+        btnEl.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      showFeedback(isCorrect, correctOpt.text, chosenOpt.text);
+    }
+
+    function checkInput(){
+      if(answered) return;
+      const q = currentSet[currentIndex];
+      if(q.type !== "input") return;
+
+      answered = true;
+
+      const raw = els.textAnswer.value;
+      const userNorm = normalize(raw);
+      const accepted = (q.answers || []).map(normalize);
+      const isCorrect = accepted.includes(userNorm);
+
+      els.textAnswer.disabled = true;
+      els.submitBtn.disabled = true;
+
+      if(isCorrect){
+        score++;
+        els.textAnswer.classList.add("inputOk");
+      }else{
+        els.textAnswer.classList.add("inputBad");
+      }
+
+      const expectedText = q.showExpected || (q.answers && q.answers[0]) || "";
+      showFeedback(isCorrect, expectedText, raw);
+    }
+
+    function next(){
+      if(!answered) return;
+
+      if(currentIndex < ROUND_SIZE - 1){
+        currentIndex++;
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        els.progressBar.style.width = "100%";
+        els.questionText.textContent = "Ronda terminada.";
+
+        els.options.style.display = "grid";
+        els.options.innerHTML = `
+          <div style="grid-column: 1/-1; padding: 2px 2px;">
+            <div class="feedback fbOk" style="display:block;">
+              <div class="fbTitle">Resumen</div>
+              <div class="fbBody">
+                <p style="margin:0;">Tu puntaje fue <b>${score} / ${ROUND_SIZE}</b>.</p>
+                <ul>
+                  <li>8–10: sólido (boss casi muerto).</li>
+                  <li>5–7: bien, repasa reglas rápidas y vuelve.</li>
+                  <li>0–4: vuelve al marco teórico y repite 2 rondas.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        `;
+
+        els.inputWrap.style.display = "none";
+        els.feedbackBox.style.display = "none";
+        els.nextRow.style.display = "none";
+        els.qBadge.textContent = `Pregunta: ${ROUND_SIZE} / ${ROUND_SIZE}`;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    function newRound(){
+      round++;
+      currentSet = getNextTen();
+      currentIndex = 0;
+      score = 0;
+      renderQuestion();
+      setProgress();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    els.nextBtn.addEventListener("click", next);
+    els.submitBtn.addEventListener("click", checkInput);
+    els.textAnswer.addEventListener("keydown", (e) => {
+      if(e.key === "Enter"){
+        e.preventDefault();
+        checkInput();
+      }
+    });
+
+    refillDeck();
+    newRound();
+  </script>
+</body>
+</html>
 
