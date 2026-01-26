@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marco Teórico 4 - Daku</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=2" type="image/png" />
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
+
+      --accent: #2563eb;  /* azul */
+      --accent2:#10b981;  /* verde */
+      --warn:#f59e0b;     /* ámbar */
+      --danger:#ef4444;   /* rojo */
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+    }
+
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+      text-align:center;
+    }
+
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 2.8vw, 17px);
+      line-height: 1.45;
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .bar.warn{ background: linear-gradient(90deg, var(--warn), var(--accent)); }
+    .bar.danger{ background: linear-gradient(90deg, var(--danger), var(--warn)); }
+
+    .content{
+      padding: 16px 16px 14px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(18px, 3.8vw, 24px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+
+    h3{
+      margin:14px 0 8px;
+      font-size: clamp(16px, 3.4vw, 20px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .15px;
+    }
+
+    p{
+      font-size: clamp(15px, 3.4vw, 18px);
+      line-height: 1.55;
+      margin: 8px 0;
+    }
+
+    .muted{ color: var(--muted); }
+
+    ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+    li{
+      margin: 8px 0;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .callout{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(37,99,235,.06);
+    }
+    .callout strong{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .callout.ok{ background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.20); }
+    .callout.warn{ background: rgba(245,158,11,.10); border-color: rgba(245,158,11,.22); }
+    .callout.bad{ background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.20); }
+
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: .95em;
+      background: rgba(17,24,39,.05);
+      padding: 2px 6px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    .examples{
+      margin-top: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(255,255,255,.72);
+    }
+    .exLine{
+      margin: 8px 0;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+    .exEn{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      letter-spacing:.15px;
+    }
+    .exEs{ color: var(--muted); }
+
+    .miniGrid{
+      display:grid;
+      gap: 10px;
+      margin-top: 10px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 760px){
+      .miniGrid{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .miniCard{
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      padding: 12px 12px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    .miniTitle{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+    .miniText{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    details{
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      padding: 10px 12px;
+      margin-top: 10px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    summary{
+      cursor: pointer;
+      list-style: none;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+    }
+    summary::-webkit-details-marker{ display:none; }
+
+    .navRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .navBtn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+    }
+    .navBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .navBtn:active{ transform: translateY(0px); }
+
+    .btnBack{ background: linear-gradient(135deg, #ef4444, #dc2626); }
+    .btnVocab{ background: linear-gradient(135deg, #10b981, #059669); }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .pillRow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .pill{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.90);
+      color: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Marco Teórico — Tema 4</h1>
+      <p class="subtitle">
+        <b>Present Perfect + for/since</b> y <b>Present Perfect Continuous</b> — duración, <b>How long...?</b>, verbos de acción vs no-acción.
+      </p>
+      <div class="pillRow" aria-label="Palabras clave">
+        <span class="pill">for</span>
+        <span class="pill">since</span>
+        <span class="pill">How long...?</span>
+        <span class="pill">have/has + PP</span>
+        <span class="pill">have/has been + -ing</span>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <!-- 1) Mapa rápido -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>1) Mapa rápido (elige lo correcto en 3 segundos)</h2>
+          <div class="miniGrid">
+            <div class="miniCard">
+              <p class="miniTitle">¿Cuánto tiempo? (duración)</p>
+              <p class="miniText">
+                Si empezó en el pasado y <b>sigue hasta ahora</b>, usamos <b>Present Perfect</b> (simple o continuous).
+                <br><span class="code">for</span> = duración (two weeks)
+                <br><span class="code">since</span> = punto de inicio (2016)
+              </p>
+            </div>
+            <div class="miniCard">
+              <p class="miniTitle">Simple vs Continuous</p>
+              <p class="miniText">
+                <b>Simple</b> con verbos de estado (know, like, have, be…).
+                <br><b>Continuous</b> con acciones (work, study, play…).
+                <br>Y a veces <b>live/work</b> pueden ir con ambos.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <strong>Regla ultra rápida:</strong>
+            <span class="muted">
+              <b>for + tiempo</b> (for 2 hours) · <b>since + inicio</b> (since Monday).
+              Si es una <b>acción</b> que sigue → <span class="code">have/has been + -ing</span>.
+              Si es <b>estado</b> → <span class="code">have/has + past participle</span>.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2) Present Perfect + for/since -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>2) Present Perfect + for / since (duración)</h2>
+
+          <h3>Forma</h3>
+          <ul>
+            <li><b>+</b> <span class="code">I’ve / You’ve / We’ve / They’ve</span> + participio.</li>
+            <li><b>+</b> <span class="code">He’s / She’s / It’s</span> + participio.</li>
+            <li><b>-</b> <span class="code">haven’t / hasn’t</span> + participio.</li>
+            <li><b>?</b> <span class="code">Have/Has</span> + sujeto + participio…?</li>
+          </ul>
+
+          <h3>¿Para qué se usa aquí?</h3>
+          <p class="muted">
+            Para hablar de algo que <b>empezó en el pasado</b> y <b>sigue siendo verdad ahora</b>
+            (una situación/estado, relación, posesión, etc.).
+          </p>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">They’ve known each other for ten years.</span>
+              <span class="exEs">— Se conocen desde hace diez años (siguen conociéndose hoy).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">Julia’s had that bag since she was at university.</span>
+              <span class="exEs">— Julia tiene ese bolso desde que estaba en la universidad.</span>
+            </div>
+          </div>
+
+          <h3>for vs since (la diferencia real)</h3>
+          <div class="miniGrid">
+            <div class="miniCard">
+              <p class="miniTitle"><span class="code">for</span> + período de tiempo</p>
+              <p class="miniText">
+                for two days / for a month / for ten years
+              </p>
+            </div>
+            <div class="miniCard">
+              <p class="miniTitle"><span class="code">since</span> + punto de inicio</p>
+              <p class="miniText">
+                since 2016 / since Monday / since I was a child
+              </p>
+            </div>
+          </div>
+
+          <div class="callout ok">
+            <strong>Tip clave:</strong>
+            <span class="muted">
+              Si la frase responde “¿desde cuándo?” → normalmente lleva <span class="code">since</span>.
+              Si responde “¿por cuánto tiempo?” → <span class="code">for</span>.
+            </span>
+          </div>
+
+          <h3>Preguntar duración: <span class="code">How long...?</span></h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">How long have you worked here?</span>
+              <span class="exEs">— ¿Hace cuánto trabajas aquí?</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">How long has your brother had his motorbike?</span>
+              <span class="exEs">— ¿Hace cuánto tiene tu hermano su moto?</span>
+            </div>
+          </div>
+
+          <div class="callout warn">
+            <strong>Ojo:</strong>
+            <span class="muted">
+              No uses <b>present simple</b> para duración con <b>for/since</b>:
+              <br><span class="code">❌ They know each other for ten years.</span>
+              <br><span class="code">✅ They’ve known each other for ten years.</span>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3) Present Perfect Continuous -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>3) Present Perfect Continuous (have/has been + -ing)</h2>
+
+          <h3>Forma</h3>
+          <ul>
+            <li><b>+</b> <span class="code">I’ve / You’ve / We’ve / They’ve been</span> + <span class="code">verb-ing</span>.</li>
+            <li><b>+</b> <span class="code">He’s / She’s / It’s been</span> + <span class="code">verb-ing</span>.</li>
+            <li><b>-</b> <span class="code">haven’t / hasn’t been</span> + <span class="code">verb-ing</span>.</li>
+            <li><b>?</b> <span class="code">Have/Has</span> + sujeto + <span class="code">been</span> + <span class="code">verb-ing</span>…?</li>
+          </ul>
+
+          <h3>Uso 1: acción que empezó antes y sigue ahora</h3>
+          <p class="muted">
+            Con <b>verbos de acción</b> (learn, work, go, study, play...) usamos continuous para duración.
+          </p>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">How long have you been learning English?</span>
+              <span class="exEs">— ¿Hace cuánto estás aprendiendo inglés?</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">Nick has been working here since April.</span>
+              <span class="exEs">— Nick ha estado trabajando aquí desde abril.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">They’ve been going out together for about three years.</span>
+              <span class="exEs">— Han estado saliendo juntos por unos tres años.</span>
+            </div>
+          </div>
+
+          <h3>Uso 2: actividad reciente (acaba de pasar) con “resultado visible”</h3>
+          <p class="muted">
+            También se usa cuando una acción ha ocurrido recientemente, a veces repetida,
+            y ahora vemos el resultado.
+          </p>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">Your eyes are red. Have you been crying?</span>
+              <span class="exEs">— Tus ojos están rojos. ¿Has estado llorando?</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">No, I’ve been chopping onions.</span>
+              <span class="exEs">— No, he estado cortando cebollas.</span>
+            </div>
+          </div>
+
+          <div class="callout ok">
+            <strong>Mini-check:</strong>
+            <span class="muted">
+              Si quieres enfatizar “la actividad” (y suena a proceso) → <span class="code">have/has been + -ing</span>.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4) Simple vs Continuous -->
+      <section class="card">
+        <div class="bar warn"></div>
+        <div class="content">
+          <h2>4) Present Perfect Simple vs Continuous (¿cuál elijo?)</h2>
+
+          <h3>A) Verbos de estado: usa <b>Simple</b> (NO continuous)</h3>
+          <p class="muted">
+            Verbos típicos de estado: <b>know, like, love, hate, believe, want, need, have (posesión), be</b>.
+          </p>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">✅ I’ve known her for years.</span>
+              <span class="exEs">— La conozco desde hace años (estado).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">❌ I’ve been knowing her for years.</span>
+              <span class="exEs">— Incorrecto en este nivel (estado ≠ acción).</span>
+            </div>
+          </div>
+
+          <h3>B) Acciones: usa <b>Continuous</b> (muchas veces)</h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">I’ve been studying for two hours.</span>
+              <span class="exEs">— He estado estudiando por dos horas (acción en progreso).</span>
+            </div>
+          </div>
+
+          <h3>C) live / work (especial)</h3>
+          <div class="callout">
+            <strong>Dato útil:</strong>
+            <span class="muted">
+              <b>live</b> y <b>work</b> a veces pueden ir en simple o continuous con significado parecido:
+              <br><span class="code">I’ve lived here since 2010.</span>
+              <br><span class="code">I’ve been living here since 2010.</span>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5) Trampas -->
+      <section class="card">
+        <div class="bar danger"></div>
+        <div class="content">
+          <h2>5) Trampas típicas (para no perder puntos)</h2>
+
+          <h3>Trampa 1: Confundir <span class="code">for</span> y <span class="code">since</span></h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">✅ I’ve lived here for two years.</span>
+              <span class="exEs">— “dos años” = duración → for.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ I’ve lived here since 2023.</span>
+              <span class="exEs">— “2023” = inicio → since.</span>
+            </div>
+          </div>
+
+          <h3>Trampa 2: Usar Present Continuous con for/since</h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">❌ I am working here for two years.</span>
+              <span class="exEs">— Incorrecto para “hasta ahora”.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ I’ve been working here for two years.</span>
+              <span class="exEs">— Correcto (empezó antes y sigue ahora).</span>
+            </div>
+          </div>
+
+          <h3>Trampa 3: Elegir continuous con un verbo de estado</h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">❌ She’s been having that bag since university.</span>
+              <span class="exEs">— “have (posesión)” es estado → simple.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ She’s had that bag since university.</span>
+              <span class="exEs">— Correcto.</span>
+            </div>
+          </div>
+
+          <div class="callout bad">
+            <strong>Checklist final:</strong>
+            <ul>
+              <li><b>for</b> = duración · <b>since</b> = inicio.</li>
+              <li>Si la acción empezó antes y sigue → <span class="code">have/has been + -ing</span>.</li>
+              <li>Si es estado (know/like/have/be…) → <span class="code">have/has + PP</span>.</li>
+              <li>Evita <span class="code">I am ... for/since</span> cuando significa “hasta ahora”.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Navegación (Tema 4) -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Navegación</h2>
+          <p class="muted">
+            Vuelve al tema anterior o pasa al vocabulario del Tema 4.
+          </p>
+
+          <div class="navRow">
+            <button class="navBtn btnBack" onclick="window.location.href='mark3.html'">Tema anterior</button>
+            <button class="navBtn btnVocab" onclick="window.location.href='vocabulario4.html'">Vocabulario 4</button>
+          </div>
+
+          <div class="footerHint">
+            (Si luego haces “Preguntas 4”, el botón va dentro de <b>Vocabulario 4</b>.)
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</body>
+</html>
