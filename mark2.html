@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marco Teórico 2 - Daku</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=2" type="image/png" />
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
+
+      --accent: #2563eb;  /* azul */
+      --accent2:#10b981;  /* verde */
+      --warn:#f59e0b;     /* ámbar */
+      --danger:#ef4444;   /* rojo */
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+    }
+
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+      text-align:center;
+    }
+
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 2.8vw, 17px);
+      line-height: 1.45;
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .bar.warn{ background: linear-gradient(90deg, var(--warn), var(--accent)); }
+    .bar.danger{ background: linear-gradient(90deg, var(--danger), var(--warn)); }
+
+    .content{
+      padding: 16px 16px 14px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(18px, 3.8vw, 24px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+
+    h3{
+      margin:14px 0 8px;
+      font-size: clamp(16px, 3.4vw, 20px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .15px;
+    }
+
+    p{
+      font-size: clamp(15px, 3.4vw, 18px);
+      line-height: 1.55;
+      margin: 8px 0;
+    }
+
+    .muted{ color: var(--muted); }
+
+    ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+    li{
+      margin: 8px 0;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .callout{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(37,99,235,.06);
+    }
+    .callout strong{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .callout.ok{ background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.20); }
+    .callout.warn{ background: rgba(245,158,11,.10); border-color: rgba(245,158,11,.22); }
+    .callout.bad{ background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.20); }
+
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: .95em;
+      background: rgba(17,24,39,.05);
+      padding: 2px 6px;
+      border-radius: 8px;
+    }
+
+    .examples{
+      margin-top: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(255,255,255,.72);
+    }
+    .exLine{
+      margin: 8px 0;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+    .exEn{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      letter-spacing:.15px;
+    }
+    .exEs{ color: var(--muted); }
+
+    .miniGrid{
+      display:grid;
+      gap: 10px;
+      margin-top: 10px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 760px){
+      .miniGrid{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .miniCard{
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      padding: 12px 12px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    .miniTitle{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+    .miniText{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    details{
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      padding: 10px 12px;
+      margin-top: 10px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    summary{
+      cursor: pointer;
+      list-style: none;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+    }
+    summary::-webkit-details-marker{ display:none; }
+
+    .navRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .navBtn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+    }
+    .navBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .navBtn:active{ transform: translateY(0px); }
+
+    .btnBack{ background: linear-gradient(135deg, #ef4444, #dc2626); }
+    .btnVocab{ background: linear-gradient(135deg, #10b981, #059669); }
+    .btnQuiz{ background: linear-gradient(135deg, var(--accent), #1d4ed8); }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Marco Teórico — Tema 2</h1>
+      <p class="subtitle">
+        Future forms: <b>Present Continuous</b> (future arrangements), <b>be going to</b>, <b>will / won’t</b>, <b>shall</b>.
+      </p>
+    </header>
+
+    <div class="grid">
+
+      <!-- 1) Mapa rápido -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>1) Mapa rápido (elige la forma correcta)</h2>
+          <p class="muted">
+            Este tema no es “memorizar por gusto”. Es elegir la forma según <b>la intención</b> y si hay <b>plan</b>, <b>arreglo</b> o <b>decisión del momento</b>.
+          </p>
+
+          <div class="miniGrid">
+            <div class="miniCard">
+              <p class="miniTitle">be going to + infinitive</p>
+              <p class="miniText">
+                Para <b>planes/decisiones ya hechas</b> y <b>predicciones con evidencia</b>.
+                <br><span class="code">I’m going to buy…</span> / <span class="code">It’s going to rain.</span>
+              </p>
+            </div>
+
+            <div class="miniCard">
+              <p class="miniTitle">Present Continuous (future)</p>
+              <p class="miniText">
+                Para <b>arreglos</b> / agenda / reservas (casi “confirmado”).
+                <br><span class="code">We’re meeting at 10.</span> / <span class="code">She’s leaving on Friday.</span>
+              </p>
+            </div>
+
+            <div class="miniCard">
+              <p class="miniTitle">will / won’t + infinitive</p>
+              <p class="miniText">
+                Para <b>decisiones instantáneas</b>, <b>promesas</b>, <b>ofertas</b>, <b>predicciones (opinión)</b> y <b>hechos futuros</b>.
+                <br><span class="code">I’ll help you.</span> / <span class="code">You’ll love it.</span>
+              </p>
+            </div>
+
+            <div class="miniCard">
+              <p class="miniTitle">Shall (I / we…?)</p>
+              <p class="miniText">
+                Para <b>ofertas</b> y <b>sugerencias</b> en preguntas (más formal/UK).
+                <br><span class="code">Shall I help you?</span> / <span class="code">Shall we eat out?</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <strong>Regla rápida:</strong>  
+            <span class="muted">
+              Si es <b>plan decidido</b> → <span class="code">going to</span>.  
+              Si es <b>arreglo confirmado</b> → <span class="code">present continuous</span>.  
+              Si es <b>decisión del momento / oferta / promesa</b> → <span class="code">will</span>.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2) BE GOING TO -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>2) be going to + infinitive</h2>
+
+          <h3>A) Planes e intenciones (decisión ya hecha)</h3>
+          <ul>
+            <li>Lo usas cuando <b>ya decidiste</b> qué vas a hacer (no es improvisado).</li>
+            <li>Se siente como: “ya lo tengo en mente / ya lo planeé”.</li>
+          </ul>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">My sister’s going to adopt a child.</span>
+              <span class="exEs">— Mi hermana va a adoptar un niño (ya lo decidió).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">Are you going to buy a new car or a second-hand one?</span>
+              <span class="exEs">— ¿Vas a comprar un carro nuevo o uno de segunda?</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">I’m not going to go home for the holidays. It’s too far.</span>
+              <span class="exEs">— No voy a ir a casa por las fiestas. Está muy lejos.</span>
+            </div>
+          </div>
+
+          <h3>B) Predicciones con evidencia (lo “ves venir”)</h3>
+          <ul>
+            <li>Si hay <b>señales/evidencia</b> (nubes negras, humo, ruido raro), usa <span class="code">going to</span>.</li>
+          </ul>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">Look at those black clouds. It’s going to rain.</span>
+              <span class="exEs">— Mira esas nubes negras. Va a llover (hay evidencia).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">Barcelona are going to win. They’re playing really well.</span>
+              <span class="exEs">— El Barcelona va a ganar. Están jugando muy bien (evidencia).</span>
+            </div>
+          </div>
+
+          <div class="callout ok">
+            <strong>Mini-check:</strong>
+            <span class="muted">
+              ¿Ya estaba decidido antes de hablar? ¿O hay evidencia visible? → <span class="code">going to</span>.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3) PRESENT CONTINUOUS (FUTURE) -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>3) Present Continuous para futuro (be + -ing)</h2>
+
+          <h3>A) Future arrangements (arreglos / agenda / reservas)</h3>
+          <ul>
+            <li>Cuando ya hay <b>arreglo</b>: cita, reunión, plan con hora/lugar, reserva, ticket.</li>
+            <li>Se siente como: “esto está en mi agenda / está casi confirmado”.</li>
+          </ul>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">We’re meeting at 10.00 tomorrow in Richard’s office.</span>
+              <span class="exEs">— Nos reunimos mañana a las 10 en la oficina de Richard.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">Lorna and Jamie are getting married in October.</span>
+              <span class="exEs">— Lorna y Jamie se casan en octubre (arreglo/plan confirmado).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">Jane’s leaving on Friday and coming back next Tuesday.</span>
+              <span class="exEs">— Jane se va el viernes y regresa el martes.</span>
+            </div>
+          </div>
+
+          <h3>B) “Going to” vs “Present Continuous” (la diferencia real)</h3>
+          <details open>
+            <summary>Cómo distinguirlos sin confundirte</summary>
+            <ul>
+              <li><b>Going to</b> = enfatiza que <b>ya tomaste la decisión</b>.</li>
+              <li><b>Present continuous</b> = enfatiza que <b>ya hiciste el arreglo</b> (reservaste, coordinaste, acordaste).</li>
+              <li>Muchas veces <b>ambos son posibles</b>, pero cambian el “matiz”.</li>
+            </ul>
+
+            <div class="examples">
+              <div class="exLine">
+                <span class="exEn">We’re going to get married next year.</span>
+                <span class="exEs">— Vamos a casarnos el próximo año (decisión).</span>
+              </div>
+              <div class="exLine">
+                <span class="exEn">We’re getting married on October 12th.</span>
+                <span class="exEs">— Nos casamos el 12 de octubre (ya arreglado: iglesia/fecha reservada).</span>
+              </div>
+            </div>
+          </details>
+
+          <div class="callout warn">
+            <strong>Tip pro:</strong>
+            <span class="muted">
+              Con verbos de viaje/arreglo (<span class="code">go, come, arrive, leave</span>), el <span class="code">present continuous</span> suena súper natural cuando es plan confirmado.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4) WILL / WON'T -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>4) will / won’t + infinitive</h2>
+
+          <h3>A) Decisiones instantáneas (en el momento)</h3>
+          <ul>
+            <li>Si decides <b>mientras hablas</b> → <span class="code">will</span>.</li>
+          </ul>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">I’ll have the steak.</span>
+              <span class="exEs">— Tomaré el bistec (decisión en el momento).</span>
+            </div>
+          </div>
+
+          <h3>B) Promesas y ofertas</h3>
+          <ul>
+            <li><span class="code">I won’t tell anybody.</span> → promesa (no lo diré).</li>
+            <li><span class="code">I’ll carry that bag for you.</span> → oferta (te ayudo).</li>
+          </ul>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">I won’t tell anybody where you are.</span>
+              <span class="exEs">— No le diré a nadie dónde estás. (promesa)</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">I’ll carry that bag for you.</span>
+              <span class="exEs">— Yo llevo esa bolsa por ti. (oferta)</span>
+            </div>
+          </div>
+
+          <h3>C) Predicciones (opinión) y hechos futuros</h3>
+          <ul>
+            <li>Predicción tipo opinión: “creo que…” → <span class="code">will</span>.</li>
+            <li>Hechos futuros: calendario / datos → <span class="code">will</span>.</li>
+          </ul>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">You’ll love New York!</span>
+              <span class="exEs">— ¡Te va a encantar Nueva York! (predicción/opinión)</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">Next year Christmas Day will be on a Thursday.</span>
+              <span class="exEs">— El próximo año Navidad caerá jueves. (hecho futuro)</span>
+            </div>
+          </div>
+
+          <div class="callout ok">
+            <strong>Regla rápida:</strong>
+            <span class="muted">
+              <b>Will</b> se siente como “en el momento / prometo / te ofrezco / opino / dato futuro”.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5) SHALL -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>5) Shall (I / we…?)</h2>
+
+          <ul>
+            <li>Se usa especialmente en inglés británico y un tono un poco más formal.</li>
+            <li>Solo aparece normalmente con <b>I</b> y <b>we</b> en preguntas.</li>
+            <li>Sirve para <b>ofertas</b> y <b>sugerencias</b>.</li>
+          </ul>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">Shall I help you with your homework?</span>
+              <span class="exEs">— ¿Quieres que te ayude con tu tarea? (oferta)</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">Shall we eat out tonight?</span>
+              <span class="exEs">— ¿Salimos a comer hoy? (sugerencia)</span>
+            </div>
+          </div>
+
+          <div class="callout warn">
+            <strong>Ojo:</strong>
+            <span class="muted">
+              En conversación normal también puedes usar <span class="code">Do you want me to…?</span> o <span class="code">Let’s…</span>.  
+              Pero en ejercicios tipo libro, <span class="code">shall</span> suele aparecer así.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6) TRAMPAS -->
+      <section class="card">
+        <div class="bar danger"></div>
+        <div class="content">
+          <h2>6) Trampas (errores típicos que te hacen perder puntos)</h2>
+
+          <h3>Trampa 1: Evidencia visible ≠ opinión</h3>
+          <ul>
+            <li>Si hay señales claras → <span class="code">going to</span>, no <span class="code">will</span>.</li>
+          </ul>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">✅ It’s going to rain.</span>
+              <span class="exEs">— porque ves nubes negras / hay evidencia.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">⚠️ It will rain.</span>
+              <span class="exEs">— suena más a predicción/opinión sin evidencia.</span>
+            </div>
+          </div>
+
+          <h3>Trampa 2: “Future arrangement” suena a agenda</h3>
+          <ul>
+            <li>Si hay <b>hora/lugar</b> o algo confirmado → <span class="code">present continuous</span>.</li>
+          </ul>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">✅ We’re meeting at 10 tomorrow.</span>
+              <span class="exEs">— ya está coordinado.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ She’s leaving on Friday.</span>
+              <span class="exEs">— plan de viaje arreglado.</span>
+            </div>
+          </div>
+
+          <h3>Trampa 3: Decisión del momento</h3>
+          <ul>
+            <li>Si decides mientras hablas → <span class="code">will</span> (no <span class="code">going to</span>).</li>
+          </ul>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">✅ I’ll have the steak.</span>
+              <span class="exEs">— lo decides en ese instante.</span>
+            </div>
+          </div>
+
+          <h3>Trampa 4: “Going to” vs “Present Continuous” (ambos, pero cambia el matiz)</h3>
+          <ul>
+            <li><span class="code">going to</span> = decisión ya tomada.</li>
+            <li><span class="code">present continuous</span> = arreglos hechos (reservas/agenda).</li>
+          </ul>
+
+          <h3>Trampa 5: “Shall” no es para todo</h3>
+          <ul>
+            <li>En exámenes: <span class="code">Shall I…?</span> / <span class="code">Shall we…?</span> (oferta / sugerencia).</li>
+            <li>No lo uses al azar con otras personas tipo <span class="code">shall he</span> (raro para este nivel).</li>
+          </ul>
+
+          <div class="callout bad">
+            <strong>Checklist final (antes de responder en un examen):</strong>
+            <ul>
+              <li>¿Es <b>decisión instantánea / promesa / oferta</b>? → <span class="code">will</span>.</li>
+              <li>¿Es <b>plan decidido antes</b>? → <span class="code">going to</span>.</li>
+              <li>¿Es <b>arreglo confirmado</b> (agenda/reserva/horario)? → <span class="code">present continuous</span>.</li>
+              <li>¿Es <b>oferta/sugerencia</b> en pregunta (I/we)? → <span class="code">shall</span>.</li>
+              <li>¿Es <b>predicción con evidencia visible</b>? → <span class="code">going to</span>.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Navegación -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Navegación</h2>
+          <p class="muted">
+            Botones listos para conectar con el vocabulario y preguntas del Tema 2.
+          </p>
+
+          <div class="navRow">
+            <button class="navBtn btnBack" onclick="window.location.href='index.html'">Atrás (Tema 1)</button>
+            <button class="navBtn btnVocab" onclick="window.location.href='vocabulario2.html'">Vocabulario 2</button>
+            <button class="navBtn btnQuiz" onclick="window.location.href='preguntas2.html'">Preguntas 2</button>
+          </div>
+
+          <div class="footerHint">
+            Cuando me pases el vocabulario del Tema 2, te lo armo con el mismo formato y lo guardas como <b>vocabulario2.html</b>.
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</body>
+</html>
