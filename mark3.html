@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marco Teórico 3 - Daku</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=2" type="image/png" />
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
+
+      --accent: #2563eb;  /* azul */
+      --accent2:#10b981;  /* verde */
+      --warn:#f59e0b;     /* ámbar */
+      --danger:#ef4444;   /* rojo */
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+    }
+
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+      text-align:center;
+    }
+
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 2.8vw, 17px);
+      line-height: 1.45;
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .bar.warn{ background: linear-gradient(90deg, var(--warn), var(--accent)); }
+    .bar.danger{ background: linear-gradient(90deg, var(--danger), var(--warn)); }
+
+    .content{
+      padding: 16px 16px 14px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(18px, 3.8vw, 24px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+
+    h3{
+      margin:14px 0 8px;
+      font-size: clamp(16px, 3.4vw, 20px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .15px;
+    }
+
+    p{
+      font-size: clamp(15px, 3.4vw, 18px);
+      line-height: 1.55;
+      margin: 8px 0;
+    }
+
+    .muted{ color: var(--muted); }
+
+    ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+    li{
+      margin: 8px 0;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .callout{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(37,99,235,.06);
+    }
+    .callout strong{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .callout.ok{ background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.20); }
+    .callout.warn{ background: rgba(245,158,11,.10); border-color: rgba(245,158,11,.22); }
+    .callout.bad{ background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.20); }
+
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: .95em;
+      background: rgba(17,24,39,.05);
+      padding: 2px 6px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    .examples{
+      margin-top: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(255,255,255,.72);
+    }
+    .exLine{
+      margin: 8px 0;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+    .exEn{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      letter-spacing:.15px;
+    }
+    .exEs{ color: var(--muted); }
+
+    .miniGrid{
+      display:grid;
+      gap: 10px;
+      margin-top: 10px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 760px){
+      .miniGrid{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .miniCard{
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      padding: 12px 12px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    .miniTitle{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+    .miniText{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    details{
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      padding: 10px 12px;
+      margin-top: 10px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    summary{
+      cursor: pointer;
+      list-style: none;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+    }
+    summary::-webkit-details-marker{ display:none; }
+
+    .navRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .navBtn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+    }
+    .navBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .navBtn:active{ transform: translateY(0px); }
+
+    .btnBack{ background: linear-gradient(135deg, #ef4444, #dc2626); }
+    .btnVocab{ background: linear-gradient(135deg, #10b981, #059669); }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Marco Teórico — Tema 3</h1>
+      <p class="subtitle">
+        <b>Present Perfect</b> vs <b>Past Simple</b> — experiencia, acciones recientes, <b>just</b>, <b>already</b>, <b>yet</b>, <b>ever/never</b>.
+      </p>
+    </header>
+
+    <div class="grid">
+
+      <!-- 1) Mapa rápido -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>1) Mapa rápido (elige la forma correcta)</h2>
+          <p class="muted">
+            La clave es una sola pregunta: <b>¿Dices CUÁNDO pasó?</b>
+            Si dices el tiempo (o se entiende) → <b>Past Simple</b>.  
+            Si no dices cuándo y conectas con “hasta ahora” → <b>Present Perfect</b>.
+          </p>
+
+          <div class="miniGrid">
+            <div class="miniCard">
+              <p class="miniTitle">Present Perfect</p>
+              <p class="miniText">
+                <span class="code">have / has + past participle</span>  
+                <br>Experiencias en tu vida, acciones recientes con resultado ahora, y con <b>just / already / yet</b>.
+              </p>
+            </div>
+
+            <div class="miniCard">
+              <p class="miniTitle">Past Simple</p>
+              <p class="miniText">
+                <span class="code">verb (past)</span> / <span class="code">did / didn’t</span>  
+                <br>Acción terminada en el pasado con tiempo claro: <b>yesterday, last week, in 2019, this morning</b>.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <strong>Regla rápida:</strong>
+            <span class="muted">
+              <b>Tiempo mencionado</b> → <span class="code">past simple</span>.  
+              <b>Sin tiempo</b> / “hasta ahora” → <span class="code">present perfect</span>.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2) PRESENT PERFECT -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>2) Present Perfect (have/has + past participle)</h2>
+
+          <h3>Forma (rápida)</h3>
+          <ul>
+            <li><b>+</b> <span class="code">I’ve / You’ve / We’ve / They’ve</span> + participio.</li>
+            <li><b>+</b> <span class="code">He’s / She’s / It’s</span> + participio.</li>
+            <li><b>-</b> <span class="code">haven’t / hasn’t</span> + participio.</li>
+            <li><b>?</b> <span class="code">Have/Has</span> + sujeto + participio…?</li>
+          </ul>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">Sally has never met Bill’s ex-wife.</span>
+              <span class="exEs">— Sally nunca ha conocido a la ex-esposa de Bill. (experiencia)</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">Have you ever lost your credit card?</span>
+              <span class="exEs">— ¿Alguna vez has perdido tu tarjeta? (ever)</span>
+            </div>
+          </div>
+
+          <h3>A) Experiencias (cuando NO dices exactamente cuándo)</h3>
+          <ul>
+            <li>Piensa “en mi vida hasta ahora”.</li>
+            <li>Muy común con <b>ever / never</b>.</li>
+          </ul>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">I’ve been to Madrid twice.</span>
+              <span class="exEs">— He ido a Madrid dos veces. (en mi vida, sin fechas)</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">I’ve inherited some money, but I haven’t spent it.</span>
+              <span class="exEs">— He heredado dinero, pero no lo he gastado. (resultado ahora)</span>
+            </div>
+          </div>
+
+          <h3>B) Acción reciente con resultado ahora</h3>
+          <ul>
+            <li>Lo importante es el <b>resultado presente</b>.</li>
+          </ul>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">I’ve cut my finger!</span>
+              <span class="exEs">— ¡Me he cortado el dedo! (resultado: está cortado ahora)</span>
+            </div>
+          </div>
+
+          <h3>C) just / already / yet</h3>
+          <details open>
+            <summary>Posición típica (como en el libro)</summary>
+            <ul>
+              <li><b>just</b> suele ir <b>antes del verbo principal</b>: <span class="code">has just left</span>.</li>
+              <li><b>already</b> suele ir en afirmativa, <b>antes del verbo principal</b>.</li>
+              <li><b>yet</b> va en negativas y preguntas, <b>al final</b>.</li>
+            </ul>
+
+            <div class="examples">
+              <div class="exLine">
+                <span class="exEn">Our train has just left!</span>
+                <span class="exEs">— ¡Nuestro tren acaba de salir!</span>
+              </div>
+              <div class="exLine">
+                <span class="exEn">I’ve already seen this film twice.</span>
+                <span class="exEs">— Ya he visto esta película dos veces.</span>
+              </div>
+              <div class="exLine">
+                <span class="exEn">My brother hasn’t found a new job yet.</span>
+                <span class="exEs">— Mi hermano todavía no ha encontrado trabajo.</span>
+              </div>
+              <div class="exLine">
+                <span class="exEn">Have you finished your homework yet?</span>
+                <span class="exEs">— ¿Ya terminaste tu tarea?</span>
+              </div>
+            </div>
+          </details>
+
+          <div class="callout ok">
+            <strong>Mini-check:</strong>
+            <span class="muted">
+              Si no dices un tiempo exacto y suena a “hasta ahora” → <span class="code">present perfect</span>.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3) PAST SIMPLE -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>3) Past Simple</h2>
+
+          <h3>Uso principal</h3>
+          <ul>
+            <li>Acción <b>terminada</b> en el pasado.</li>
+            <li>El tiempo está <b>mencionado</b> o <b>se entiende</b> (yesterday, last week, in 1998, this morning, etc.).</li>
+          </ul>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">They got married last year.</span>
+              <span class="exEs">— Se casaron el año pasado. (tiempo claro)</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">I didn’t have time to do my homework.</span>
+              <span class="exEs">— No tuve tiempo de hacer mi tarea.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">What time did you wake up this morning?</span>
+              <span class="exEs">— ¿A qué hora te despertaste esta mañana?</span>
+            </div>
+          </div>
+
+          <div class="callout warn">
+            <strong>Ojo:</strong>
+            <span class="muted">
+              Si dices <b>“in 1998”</b>, <b>“last Saturday”</b>, <b>“yesterday”</b> → ya no es “hasta ahora”; es <span class="code">past simple</span>.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4) PRESENT PERFECT vs PAST SIMPLE -->
+      <section class="card">
+        <div class="bar warn"></div>
+        <div class="content">
+          <h2>4) Present Perfect o Past Simple (la diferencia real)</h2>
+
+          <details open>
+            <summary>El contraste típico (como en el recuadro del libro)</summary>
+            <div class="examples">
+              <div class="exLine">
+                <span class="exEn">I’ve been to Madrid twice.</span>
+                <span class="exEs">— (en mi vida hasta ahora, sin fechas)</span>
+              </div>
+              <div class="exLine">
+                <span class="exEn">I went there in 1998 and 2002.</span>
+                <span class="exEs">— (fechas específicas → past simple)</span>
+              </div>
+              <div class="exLine">
+                <span class="exEn">I’ve bought a new computer.</span>
+                <span class="exEs">— (no digo cuándo; importa el resultado: ahora lo tengo)</span>
+              </div>
+              <div class="exLine">
+                <span class="exEn">I bought it last Saturday.</span>
+                <span class="exEs">— (tiempo mencionado → past simple)</span>
+              </div>
+            </div>
+          </details>
+
+          <div class="callout">
+            <strong>Truco de 3 segundos:</strong>
+            <span class="muted">
+              Si puedes responder “¿cuándo?” con algo concreto, usa <span class="code">past simple</span>.  
+              Si la idea es “hasta ahora / en mi vida / recientemente” sin tiempo exacto, usa <span class="code">present perfect</span>.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5) TRAMPAS -->
+      <section class="card">
+        <div class="bar danger"></div>
+        <div class="content">
+          <h2>5) Trampas (errores típicos que te hacen perder puntos)</h2>
+
+          <h3>Trampa 1: Poner tiempo exacto con Present Perfect</h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">❌ I’ve seen it yesterday.</span>
+              <span class="exEs">— “yesterday” obliga <b>past simple</b>.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ I saw it yesterday.</span>
+              <span class="exEs">— correcto.</span>
+            </div>
+          </div>
+
+          <h3>Trampa 2: “yet” en el lugar incorrecto</h3>
+          <ul>
+            <li><b>Yet</b> normalmente va <b>al final</b>: <span class="code">haven’t finished yet</span>.</li>
+          </ul>
+
+          <h3>Trampa 3: “just” y “already”</h3>
+          <ul>
+            <li>En este nivel, casi siempre van <b>antes del verbo principal</b>:
+              <span class="code">has just left</span>, <span class="code">have already seen</span>.
+            </li>
+          </ul>
+
+          <h3>Trampa 4: been vs gone (extra útil en ejercicios)</h3>
+          <ul>
+            <li><span class="code">He’s been to Madrid.</span> = fue y <b>regresó</b>.</li>
+            <li><span class="code">He’s gone to Madrid.</span> = fue y <b>está allá</b> (no ha vuelto).</li>
+          </ul>
+
+          <div class="callout bad">
+            <strong>Checklist final:</strong>
+            <ul>
+              <li>¿Hay tiempo específico (yesterday / last week / in 2010)? → <span class="code">past simple</span>.</li>
+              <li>¿Es experiencia “en mi vida” (ever/never)? → <span class="code">present perfect</span>.</li>
+              <li>¿Acción reciente con resultado ahora? → <span class="code">present perfect</span> (y usa <span class="code">just</span> si aplica).</li>
+              <li><b>yet</b> al final (pregunta/negativa). <b>already/just</b> antes del verbo principal.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Navegación (Tema 3) -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Navegación</h2>
+          <p class="muted">
+            Desde aquí solo vas al tema anterior o al vocabulario del Tema 3.
+          </p>
+
+          <div class="navRow">
+            <button class="navBtn btnBack" onclick="window.location.href='mark2.html'">Atrás (Marco Teórico 2)</button>
+            <button class="navBtn btnVocab" onclick="window.location.href='vocabulario3.html'">Vocabulario 3</button>
+          </div>
+
+          <div class="footerHint">
+            El botón de <b>Preguntas 3</b> va dentro de <b>Vocabulario 3</b> (misma lógica que en Tema 2).
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</body>
+</html>
