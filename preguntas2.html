@@ -399,7 +399,7 @@
           </div>
 
           <div class="footerHint">
-            Banco: 40 preguntas. No se repiten entre rondas hasta consumirlas.
+            Banco: 30 preguntas. No se repiten entre rondas hasta consumirlas.
           </div>
         </div>
       </section>
@@ -429,128 +429,160 @@
 
     const ROUND_SIZE = 10;
 
-    // ✅ 40 preguntas (difíciles) + explicaciones por alternativa (MCQ)
+    // 30 preguntas (tema 2): mcq + input
+    // Input: SÍ tiene pista en paréntesis (meet), (be), etc.
+    // NO hay texto tipo "Completa con Present Continuous..."
     const QUESTION_BANK = [
       /* ================= FUTURE FORMS (MCQ) ================= */
       {
         type: "mcq",
         stem: "Look at those black clouds. It ____ rain soon.",
         options: [
-          { text: "is going to", correct: true,  why: "Hay <b>evidencia visible</b> (nubes negras). Con señales claras usamos <span class='code'>be going to</span>." },
-          { text: "will",       correct: false, why: "<span class='code'>will</span> aquí suena a <b>opinión/predicción</b> sin evidencia directa. Con evidencia, mejor <span class='code'>going to</span>." },
-          { text: "is raining", correct: false, why: "<span class='code'>is raining</span> describe que <b>ya está lloviendo</b> ahora. Pero aquí todavía no llueve: es predicción." }
+          { text: "is going to", correct: true },
+          { text: "will", correct: false },
+          { text: "is raining", correct: false }
         ],
-        explain: { okTitle: "Evidencia visible → going to", okPoints: ["Trampa típica: evidencia ≠ opinión."] }
+        explain: {
+          okTitle: "Evidencia visible → going to",
+          okPoints: [
+            "Si hay señales claras, usamos <span class='code'>be going to</span>."
+          ]
+        }
       },
       {
         type: "mcq",
         stem: "We ____ at 10 tomorrow in Richard’s office.",
         options: [
-          { text: "are meeting", correct: true,  why: "Hay <b>hora + lugar</b> (agenda/plan coordinado). Eso suena a <span class='code'>present continuous</span> para futuro." },
-          { text: "will meet",   correct: false, why: "<span class='code'>will</span> no se usa para planes ya arreglados con hora/lugar; es más para decisión del momento o predicción/opinión." },
-          { text: "are going to meet", correct: false, why: "<span class='code'>going to</span> sería decisión/plan, pero con <b>agenda confirmada</b> el matiz natural es <span class='code'>are meeting</span>." }
+          { text: "are meeting", correct: true },
+          { text: "will meet", correct: false },
+          { text: "are going to meet", correct: false }
         ],
-        explain: { okTitle: "Arreglo confirmado → Present Continuous", okPoints: ["Si suena a agenda, elige <span class='code'>be + -ing</span>."] }
+        explain: {
+          okTitle: "Arreglo confirmado → Present Continuous",
+          okPoints: [
+            "Hora/lugar = agenda/arreglo."
+          ]
+        }
       },
       {
         type: "mcq",
         stem: "I’m thirsty. I ____ a glass of water.",
         options: [
-          { text: "will get", correct: true,  why: "Decisión <b>en el momento</b> (acabas de decidir porque tienes sed). → <span class='code'>will</span>." },
-          { text: "am going to get", correct: false, why: "<span class='code'>going to</span> implica que ya lo tenías decidido antes de hablar. Aquí suena más espontáneo." },
-          { text: "am getting", correct: false, why: "<span class='code'>present continuous</span> para futuro es para arreglos/agenda. Aquí no hay cita ni plan confirmado." }
+          { text: "will get", correct: true },
+          { text: "am going to get", correct: false },
+          { text: "am getting", correct: false }
         ],
-        explain: { okTitle: "Decisión del momento → will", okPoints: ["Si decides mientras hablas: <span class='code'>will</span>."] }
+        explain: {
+          okTitle: "Decisión del momento → will",
+          okPoints: [
+            "Decides mientras hablas → <span class='code'>will</span>."
+          ]
+        }
       },
       {
         type: "mcq",
         stem: "Don’t worry. I ____ anybody where you are.",
         options: [
-          { text: "won’t tell", correct: true,  why: "Es una <b>promesa</b>. Para promesas, usamos <span class='code'>won’t / will</span>." },
-          { text: "am not telling", correct: false, why: "<span class='code'>am not telling</span> suena a ‘no lo estoy diciendo ahora’ (acción actual), no a promesa para el futuro." },
-          { text: "am not going to tell", correct: false, why: Podría sonar posible, pero para <b>promesas</b> el formato típico y más natural es <span class='code'>won’t</span>." }
+          { text: "won’t tell", correct: true },
+          { text: "am not telling", correct: false },
+          { text: "am not going to tell", correct: false }
         ],
-        explain: { okTitle: "Promesa → won’t", okPoints: ["Promesas: <span class='code'>I’ll… / I won’t…</span>"] }
+        explain: {
+          okTitle: "Promesa → won’t",
+          okPoints: [
+            "<span class='code'>won’t</span> se usa mucho para promesas."
+          ]
+        }
       },
       {
         type: "mcq",
         stem: "My sister ____ a child. She has already filled in the papers.",
         options: [
-          { text: "is going to adopt", correct: true,  why: "Hay <b>plan decidido</b> (papeles llenados). → <span class='code'>be going to</span>." },
-          { text: "will adopt", correct: false, why: "<span class='code'>will</span> aquí suena a predicción o decisión del momento, pero ya hay plan previo." },
-          { text: "is adopting", correct: false, why: <span class='code'>present continuous</span> sería más natural si hablaras de <b>fecha/agenda</b> confirmada (p.ej., ‘next Monday’ con cita). Aquí es decisión/plan." }
+          { text: "is going to adopt", correct: true },
+          { text: "will adopt", correct: false },
+          { text: "is adopting", correct: false }
         ],
-        explain: { okTitle: "Plan decidido → going to", okPoints: ["Si ya estaba decidido antes de hablar → <span class='code'>going to</span>."] }
+        explain: {
+          okTitle: "Plan decidido → going to",
+          okPoints: [
+            "Ya hay decisión/plan."
+          ]
+        }
       },
       {
         type: "mcq",
         stem: "____ we eat out tonight?",
         options: [
-          { text: "Shall", correct: true,  why: "<span class='code'>Shall we...?</span> = <b>sugerencia</b> (I/we), típico en ejercicios/UK." },
-          { text: "Will",  correct: false, why: "<span class='code'>Will we...?</span> suena más a ‘¿ocurrirá?’ (futuro) que a sugerencia." },
-          { text: "Do",    correct: false, why: "<span class='code'>Do we eat out tonight?</span> suena raro aquí; no es la forma típica de sugerencia en este tema." }
+          { text: "Shall", correct: true },
+          { text: "Will", correct: false },
+          { text: "Do", correct: false }
         ],
-        explain: { okTitle: "Sugerencia → Shall we…?", okPoints: ["En examen: <span class='code'>Shall I…?</span> / <span class='code'>Shall we…?</span>"] }
+        explain: {
+          okTitle: "Sugerencia (I/we) → Shall",
+          okPoints: [
+            "Forma típica: <span class='code'>Shall we...?</span>"
+          ]
+        }
       },
       {
         type: "mcq",
         stem: "Jane ____ on Friday and coming back next Tuesday.",
         options: [
-          { text: "is leaving", correct: true,  why: "Verbos de viaje + plan <b>confirmado</b> suenan súper naturales en <span class='code'>present continuous</span>." },
-          { text: "will leave", correct: false, why: "<span class='code'>will</span> no expresa ‘arreglo/agenda’; suena más a futuro general u opinión." },
-          { text: "is going to leave", correct: false, why: Podría ser decisión, pero el enunciado suena a <b>itinerario</b> ya armado (viernes / martes). Eso empuja a <span class='code'>is leaving</span>." }
+          { text: "is leaving", correct: true },
+          { text: "will leave", correct: false },
+          { text: "is going to leave", correct: false }
         ],
-        explain: { okTitle: "Plan confirmado (viaje) → Present Continuous", okPoints: ["Cuando suena a agenda: <span class='code'>is leaving</span>."] }
+        explain: {
+          okTitle: "Plan confirmado → Present Continuous",
+          okPoints: [
+            "Verbos de viaje + plan: <span class='code'>is leaving</span>."
+          ]
+        }
       },
       {
         type: "mcq",
         stem: "I think you ____ New York.",
         options: [
-          { text: "will love", correct: true,  why: "<span class='code'>I think</span> = opinión/predicción personal → normalmente <span class='code'>will</span>." },
-          { text: "are going to love", correct: false, why: "<span class='code'>going to</span> suele implicar evidencia/plan. Con ‘I think’ suena más a opinión." },
-          { text: "are loving", correct: false, why: "<span class='code'>love</span> es estado; en este nivel no se usa como acción continua aquí." }
+          { text: "will love", correct: true },
+          { text: "are going to love", correct: false },
+          { text: "are loving", correct: false }
         ],
-        explain: { okTitle: "Opinión → will", okPoints: ["‘I think / I guess’ → <span class='code'>will</span>."] }
+        explain: {
+          okTitle: "Opinión → will",
+          okPoints: [
+            "“I think …” suele ir con <span class='code'>will</span>."
+          ]
+        }
       },
       {
         type: "mcq",
         stem: "Next year Christmas Day ____ on a Thursday.",
         options: [
-          { text: "will be", correct: true,  why: "Es un <b>hecho de calendario</b> (dato). Para hechos futuros: <span class='code'>will</span>." },
-          { text: "is being", correct: false, why: "<span class='code'>is being</span> suena a proceso/acción. Un día de calendario no ‘está siendo’." },
-          { text: "is going to be", correct: false, why: "<span class='code'>going to</span> aquí se siente raro porque no es evidencia visual/plan; es un dato fijo." }
+          { text: "will be", correct: true },
+          { text: "is being", correct: false },
+          { text: "is going to be", correct: false }
         ],
-        explain: { okTitle: "Hecho futuro → will", okPoints: ["Dato/horario fijo: <span class='code'>will be</span>."] }
+        explain: {
+          okTitle: "Hecho futuro → will",
+          okPoints: [
+            "Dato/calendario: <span class='code'>will be</span>."
+          ]
+        }
       },
       {
         type: "mcq",
         stem: "____ I help you with your homework?",
         options: [
-          { text: "Shall I help", correct: true,  why: "Oferta con <b>I</b> → <span class='code'>Shall I...?</span> (estilo UK/libro)." },
-          { text: "Will I help", correct: false, why: "<span class='code'>Will I...?</span> suena a ‘¿lo haré?’ (futuro), no a oferta." },
-          { text: "Am I helping", correct: false, why: "<span class='code'>Am I helping?</span> suena a ‘¿estoy ayudando?’ (ahora), no oferta." }
+          { text: "Shall I help", correct: true },
+          { text: "Will I help", correct: false },
+          { text: "Am I helping", correct: false }
         ],
-        explain: { okTitle: "Oferta → Shall I…?", okPoints: ["Oferta: <span class='code'>Shall I...?</span>"] }
-      },
-      {
-        type: "mcq",
-        stem: "The phone’s ringing. I ____ it!",
-        options: [
-          { text: "will answer", correct: true,  why: "Reacción/decisión instantánea en el momento → <span class='code'>will</span>." },
-          { text: "am going to answer", correct: false, why: "<span class='code'>going to</span> implica plan previo. Nadie planea responder justo ahora; reaccionas." },
-          { text: "am answering", correct: false, why: No es arreglo de agenda; además suena extraño como ‘ya estoy en eso’." }
-        ],
-        explain: { okTitle: "Reacción inmediata → will", okPoints: ["Si respondes a una situación en el instante: <span class='code'>will</span>."] }
-      },
-      {
-        type: "mcq",
-        stem: "We’ve booked the tickets. We ____ to Madrid on Monday morning.",
-        options: [
-          { text: "are flying", correct: true,  why: "Tickets + día/hora = <b>arreglo confirmado</b>. Suena a agenda → <span class='code'>present continuous</span>." },
-          { text: "will fly", correct: false, why: "<span class='code'>will</span> no marca ‘arreglo confirmado’; suena a futuro general." },
-          { text: "are going to fly", correct: false, why: Es posible, pero con tickets/itinerario, el matiz más natural es <span class='code'>are flying</span> (plan ya coordinado)." }
-        ],
-        explain: { okTitle: "Arreglo con tickets → Present Continuous", okPoints: ["Si suena a itinerario: <span class='code'>are flying</span>."] }
+        explain: {
+          okTitle: "Oferta → Shall I…?",
+          okPoints: [
+            "Oferta con I: <span class='code'>Shall I...?</span>"
+          ]
+        }
       },
 
       /* ================= FUTURE FORMS (INPUT) ================= */
@@ -560,36 +592,33 @@
         answers: ["going to go"],
         showExpected: "going to go",
         explain: {
-          okTitle: "Plan/decisión ya hecha",
+          okTitle: "Forma correcta",
           okPoints: [
-            "Estructura: <span class='code'>be + going to + infinitive</span>.",
-            "Ojo: no es <span class='code'>I’m not go</span> / <span class='code'>I not going</span>."
+            "<span class='code'>I’m not going to go…</span>"
           ]
         }
       },
       {
         type: "input",
         stem: "We ____ at 8.00 tomorrow. (meet)",
-        answers: ["are meeting", "we're meeting", "we are meeting"],
+        answers: ["are meeting", "we're meeting"],
         showExpected: "are meeting / we’re meeting",
         explain: {
-          okTitle: "Agenda/arreglo",
+          okTitle: "Forma correcta",
           okPoints: [
-            "Con hora → <span class='code'>present continuous</span>.",
-            "No suena a opinión: es plan coordinado."
+            "Arreglo con hora → <span class='code'>are meeting</span>."
           ]
         }
       },
       {
         type: "input",
         stem: "It ____ cold tonight. (be)",
-        answers: ["is going to be", "it's going to be", "it is going to be"],
+        answers: ["is going to be", "it's going to be"],
         showExpected: "is going to be",
         explain: {
-          okTitle: "Predicción con base",
+          okTitle: "Forma correcta",
           okPoints: [
-            "Aquí la idea es ‘lo veo venir’ → <span class='code'>going to</span>.",
-            "Si fuera solo opinión tipo ‘I think…’, muchas veces sería <span class='code'>will</span>."
+            "Predicción (con base) → <span class='code'>going to</span>."
           ]
         }
       },
@@ -599,10 +628,9 @@
         answers: ["will phone", "i'll phone", "i will phone"],
         showExpected: "will phone / I’ll phone",
         explain: {
-          okTitle: "Promesa",
+          okTitle: "Forma correcta",
           okPoints: [
-            "Promesas → <span class='code'>will</span>.",
-            "Trampa: no es plan/agenda; es compromiso."
+            "Promesa → <span class='code'>will</span>."
           ]
         }
       },
@@ -612,10 +640,9 @@
         answers: ["am working", "i'm working", "i am working"],
         showExpected: "am working / I’m working",
         explain: {
-          okTitle: "Arreglo/plan (ya ocupado)",
+          okTitle: "Forma correcta",
           okPoints: [
-            "Usas <span class='code'>present continuous</span> para decir que ya estás ocupado (plan confirmado).",
-            "Es la típica respuesta para rechazar una invitación: “I’m working.”"
+            "Plan/arreglo para hoy → present continuous."
           ]
         }
       },
@@ -625,212 +652,213 @@
         answers: ["shall we get"],
         showExpected: "Shall we get",
         explain: {
-          okTitle: "Sugerencia",
+          okTitle: "Forma correcta",
           okPoints: [
-            "Estructura: <span class='code'>Shall we + verb</span>.",
-            "En libros/exámenes sale mucho así."
+            "Sugerencia → <span class='code'>Shall we...?</span>"
           ]
         }
       },
       {
         type: "input",
-        stem: "Look! That child ____ off the chair! (fall)",
-        answers: ["is going to fall", "he's going to fall", "he is going to fall", "she's going to fall", "she is going to fall"],
-        showExpected: "is going to fall",
+        stem: "No problem, I ____ you some. (lend)",
+        answers: ["will lend", "i'll lend", "i will lend"],
+        showExpected: "will lend / I’ll lend",
         explain: {
-          okTitle: "Evidencia directa (lo estás viendo)",
+          okTitle: "Forma correcta",
           okPoints: [
-            "Si lo ves a punto de pasar → <span class='code'>going to</span>.",
-            "No es ‘will’ porque no es solo opinión."
+            "Oferta/decisión del momento → <span class='code'>will</span>."
           ]
         }
       },
       {
         type: "input",
-        stem: "I can’t on Thursday. I ____ dinner with my parents. (have)",
-        answers: ["am having", "i'm having", "i am having"],
-        showExpected: "am having / I’m having",
+        stem: "No, the weather forecast says it ____ . (rain)",
+        answers: ["is going to rain", "it's going to rain"],
+        showExpected: "is going to rain",
         explain: {
-          okTitle: "Arreglo confirmado",
+          okTitle: "Forma correcta",
           okPoints: [
-            "Cena ya acordada → <span class='code'>present continuous</span>.",
-            "Trampa: ‘will have’ suena a futuro general, no a plan ya fijado."
+            "Forecast/evidencia → <span class='code'>going to</span>."
+          ]
+        }
+      },
+      {
+        type: "input",
+        stem: "____ I ____ you up from the airport? (pick)",
+        answers: ["shall i pick"],
+        showExpected: "Shall I pick",
+        explain: {
+          okTitle: "Forma correcta",
+          okPoints: [
+            "Oferta → <span class='code'>Shall I...?</span>"
           ]
         }
       },
 
-      /* ================= NEGATIVE PREFIXES (INPUT) ================= */
+      /* ================= PREFIXES (INPUT) ================= */
       {
         type: "input",
         stem: "Negative: _____ (responsible)",
         answers: ["irresponsible"],
         showExpected: "irresponsible",
-        explain: { okTitle: "Prefijo correcto", okPoints: ["<span class='code'>responsible → irresponsible</span> (in- cambia a ir- antes de r)."] }
+        explain: { okTitle: "Forma correcta", okPoints: [] }
       },
       {
         type: "input",
         stem: "Negative: _____ (patient)",
         answers: ["impatient"],
         showExpected: "impatient",
-        explain: { okTitle: "Prefijo correcto", okPoints: ["<span class='code'>patient → impatient</span> (in- cambia a im- antes de p)."] }
+        explain: { okTitle: "Forma correcta", okPoints: [] }
       },
       {
         type: "input",
         stem: "Negative: _____ (honest)",
         answers: ["dishonest"],
         showExpected: "dishonest",
-        explain: { okTitle: "Prefijo correcto", okPoints: ["En este nivel lo típico es <span class='code'>honest → dishonest</span>, no *unhonest*."] }
+        explain: { okTitle: "Forma correcta", okPoints: [] }
       },
       {
         type: "input",
         stem: "Negative: _____ (kind)",
         answers: ["unkind"],
         showExpected: "unkind",
-        explain: { okTitle: "Prefijo correcto", okPoints: ["<span class='code'>kind → unkind</span> (un- muy común)."] }
+        explain: { okTitle: "Forma correcta", okPoints: [] }
       },
       {
         type: "input",
         stem: "Negative: _____ (tidy)",
         answers: ["untidy"],
         showExpected: "untidy",
-        explain: { okTitle: "Prefijo correcto", okPoints: ["<span class='code'>tidy → untidy</span>."] }
+        explain: { okTitle: "Forma correcta", okPoints: [] }
       },
       {
         type: "input",
         stem: "Negative: _____ (sensitive)",
         answers: ["insensitive"],
         showExpected: "insensitive",
-        explain: { okTitle: "Prefijo correcto", okPoints: ["<span class='code'>sensitive → insensitive</span> (in-)."] }
-      },
-      {
-        type: "input",
-        stem: "Negative: _____ (legal)",
-        answers: ["illegal"],
-        showExpected: "illegal",
-        explain: { okTitle: "Cambio in- → il-", okPoints: ["Antes de <b>l</b>: <span class='code'>legal → illegal</span>."] }
-      },
-      {
-        type: "input",
-        stem: "Negative: _____ (possible)",
-        answers: ["impossible"],
-        showExpected: "impossible",
-        explain: { okTitle: "Cambio in- → im-", okPoints: ["Antes de <b>p</b>: <span class='code'>possible → impossible</span>."] }
-      },
-      {
-        type: "input",
-        stem: "Negative: _____ (regular)",
-        answers: ["irregular"],
-        showExpected: "irregular",
-        explain: { okTitle: "Cambio in- → ir-", okPoints: ["Antes de <b>r</b>: <span class='code'>regular → irregular</span>."] }
-      },
-      {
-        type: "input",
-        stem: "Negative: _____ (logical)",
-        answers: ["illogical"],
-        showExpected: "illogical",
-        explain: { okTitle: "Cambio in- → il-", okPoints: ["Antes de <b>l</b>: <span class='code'>logical → illogical</span>."] }
+        explain: { okTitle: "Forma correcta", okPoints: [] }
       },
 
-      /* ================= PERSONALITY VOCAB (MCQ) ================= */
+      /* ================= VOCABULARY (MCQ) ================= */
       {
         type: "mcq",
-        stem: "“Please don’t be ____ — let others choose too.”",
+        stem: "A person who is friendly and enjoys being with others is ____.",
         options: [
-          { text: "bossy", correct: true,  why: "<span class='code'>bossy</span> = manda/da órdenes; encaja con ‘deja que otros elijan’." },
-          { text: "reliable", correct: false, why: "<span class='code'>reliable</span> = confiable/puntual, no trata de mandar." },
-          { text: "sociable", correct: false, why: "<span class='code'>sociable</span> = le gusta estar con gente, no significa mandar." }
+          { text: "sociable", correct: true },
+          { text: "stubborn", correct: false },
+          { text: "spoilt", correct: false }
         ],
-        explain: { okTitle: "Definición en contexto", okPoints: ["Ojo con confundir ‘bossy’ con ‘confident’."] }
+        explain: { okTitle: "Correcto: sociable", okPoints: [] }
       },
       {
         type: "mcq",
-        stem: "Someone who always arrives on time and keeps promises is ____.",
+        stem: "A person who always tells the truth is ____.",
         options: [
-          { text: "reliable", correct: true,  why: "<span class='code'>reliable</span> = puedes confiar; cumple, llega a tiempo." },
-          { text: "rebellious", correct: false, why: "<span class='code'>rebellious</span> = desafía reglas/autoridad, nada que ver con puntualidad." },
-          { text: "insecure", correct: false, why: "<span class='code'>insecure</span> = falta de confianza en sí mismo." }
+          { text: "honest", correct: true },
+          { text: "moody", correct: false },
+          { text: "bossy", correct: false }
         ],
-        explain: { okTitle: "Reliable = confiable", okPoints: ["Si puedes confiar → <span class='code'>reliable</span>."] }
+        explain: { okTitle: "Correcto: honest", okPoints: [] }
       },
       {
         type: "mcq",
-        stem: "“He wants to become a manager and achieve a lot.” He is ____.",
+        stem: "A person who tells people what to do is ____.",
         options: [
-          { text: "ambitious", correct: true,  why: "<span class='code'>ambitious</span> = tiene metas altas y quiere lograr mucho." },
-          { text: "affectionate", correct: false, why: "<span class='code'>affectionate</span> = cariñoso, no ‘metas altas’." },
-          { text: "spoilt", correct: false, why: "<span class='code'>spoilt</span> = malcriado por recibir todo." }
+          { text: "bossy", correct: true },
+          { text: "patient", correct: false },
+          { text: "reliable", correct: false }
         ],
-        explain: { okTitle: "Ambitious = metas altas", okPoints: [] }
+        explain: { okTitle: "Correcto: bossy", okPoints: [] }
       },
       {
         type: "mcq",
-        stem: "“I feel ____ before exams.”",
+        stem: "A person who is often worried or stressed is ____.",
         options: [
-          { text: "anxious", correct: true,  why: "<span class='code'>anxious</span> = preocupado/nervioso (estrés)." },
-          { text: "sensible", correct: false, why: "<span class='code'>sensible</span> = toma decisiones prácticas, no nervios." },
-          { text: "charming", correct: false, why: "<span class='code'>charming</span> = encantador, no describe estrés." }
+          { text: "anxious", correct: true },
+          { text: "selfish", correct: false },
+          { text: "ambitious", correct: false }
         ],
-        explain: { okTitle: "Anxious = nervioso/a", okPoints: ["Trampa: sensible ≠ sensitive."] }
+        explain: { okTitle: "Correcto: anxious", okPoints: [] }
       },
       {
         type: "mcq",
-        stem: "“One minute he’s happy, then he’s angry.” He’s ____.",
+        stem: "A person whose mood changes often is ____.",
         options: [
-          { text: "moody", correct: true,  why: "<span class='code'>moody</span> = cambia de ánimo rápido." },
-          { text: "mature", correct: false, why: "<span class='code'>mature</span> = se comporta como adulto, no cambios bruscos." },
-          { text: "patient", correct: false, why: "<span class='code'>patient</span> = sabe esperar, no es sobre cambios de humor." }
+          { text: "moody", correct: true },
+          { text: "mature", correct: false },
+          { text: "sensible", correct: false }
         ],
-        explain: { okTitle: "Moody = cambiante", okPoints: [] }
+        explain: { okTitle: "Correcto: moody", okPoints: [] }
       },
       {
         type: "mcq",
-        stem: "“He travels alone and doesn’t depend on anyone.” He’s ____.",
+        stem: "A person you can trust is ____.",
         options: [
-          { text: "independent", correct: true,  why: "<span class='code'>independent</span> = hace cosas solo, no depende." },
-          { text: "self-confident", correct: false, why: "<span class='code'>self-confident</span> = cree en sus habilidades; no implica vivir/actuar solo." },
-          { text: "sociable", correct: false, why: "<span class='code'>sociable</span> = disfruta estar con gente; aquí es lo contrario." }
+          { text: "reliable", correct: true },
+          { text: "rebellious", correct: false },
+          { text: "insecure", correct: false }
         ],
-        explain: { okTitle: "Independent ≠ self-confident", okPoints: ["Independiente = no depende."] }
+        explain: { okTitle: "Correcto: reliable", okPoints: [] }
       },
       {
         type: "mcq",
-        stem: "“Be ____ — save some money for later.”",
+        stem: "The opposite of 'mature' is ____.",
         options: [
-          { text: "sensible", correct: true,  why: "<span class='code'>sensible</span> = práctico, con sentido común." },
-          { text: "sensitive", correct: false, why: "<span class='code'>sensitive</span> = emocional/se ofende fácil. No es ‘práctico’." },
-          { text: "selfish", correct: false, why: "<span class='code'>selfish</span> = piensa solo en sí mismo; ahorrar no necesariamente es egoísmo." }
+          { text: "immature", correct: true },
+          { text: "unmature", correct: false },
+          { text: "dismature", correct: false }
         ],
-        explain: { okTitle: "Sensible (práctico) vs Sensitive (emocional)", okPoints: ["Trampa clásica del examen."] }
+        explain: { okTitle: "Correcto: immature", okPoints: [] }
       },
       {
         type: "mcq",
-        stem: "“She gets hurt easily, so speak gently.” She’s ____.",
+        stem: "The opposite of 'organized' is ____.",
         options: [
-          { text: "sensitive", correct: true,  why: "<span class='code'>sensitive</span> = se hiere/ofende fácil (emocional)." },
-          { text: "sensible", correct: false, why: "<span class='code'>sensible</span> = práctico/sensato, no ‘se hiere fácil’." },
-          { text: "competitive", correct: false, why: "<span class='code'>competitive</span> = le gusta competir/ganar." }
+          { text: "disorganized", correct: true },
+          { text: "unorganized", correct: false },
+          { text: "imorganized", correct: false }
         ],
-        explain: { okTitle: "Sensitive = emocional", okPoints: [] }
+        explain: { okTitle: "Correcto: disorganized", okPoints: [] }
       },
       {
         type: "mcq",
-        stem: "“He never admits he’s wrong.” He’s ____.",
+        stem: "Children who are rude because they get everything they want are ____.",
         options: [
-          { text: "stubborn", correct: true,  why: "<span class='code'>stubborn</span> = terco; no cambia de opinión, no admite error." },
-          { text: "charming", correct: false, why: "<span class='code'>charming</span> = agradable/encantador, no terquedad." },
-          { text: "affectionate", correct: false, why: "<span class='code'>affectionate</span> = cariñoso." }
+          { text: "spoilt", correct: true },
+          { text: "sensitive", correct: false },
+          { text: "charming", correct: false }
         ],
-        explain: { okTitle: "Stubborn = terco", okPoints: [] }
+        explain: { okTitle: "Correcto: spoilt", okPoints: [] }
       },
       {
         type: "mcq",
-        stem: "“He thinks about other people, not only himself.” He is ____.",
+        stem: "Someone who refuses to change their opinion is ____.",
         options: [
-          { text: "unselfish", correct: true,  why: "<span class='code'>unselfish</span> = considerado (¡es POSITIVO!)." },
-          { text: "selfish", correct: false, why: "<span class='code'>selfish</span> = piensa solo en sí mismo; contradice la frase." },
-          { text: "insecure", correct: false, why: "<span class='code'>insecure</span> = falta de confianza en sí mismo; no trata de ‘pensar en otros’." }
+          { text: "stubborn", correct: true },
+          { text: "affectionate", correct: false },
+          { text: "imaginative", correct: false }
         ],
-        explain: { okTitle: "Trampa: unselfish es POSITIVO", okPoints: ["Muchos se confunden por el ‘un-’."] }
+        explain: { okTitle: "Correcto: stubborn", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "Someone with an attractive personality is ____.",
+        options: [
+          { text: "charming", correct: true },
+          { text: "competitive", correct: false },
+          { text: "independent", correct: false }
+        ],
+        explain: { okTitle: "Correcto: charming", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "Someone who thinks only about themselves is ____.",
+        options: [
+          { text: "selfish", correct: true },
+          { text: "self-confident", correct: false },
+          { text: "sensible", correct: false }
+        ],
+        explain: { okTitle: "Correcto: selfish", okPoints: [] }
       }
     ];
 
@@ -926,7 +954,7 @@
       }
     }
 
-    function showFeedback(isCorrect, expectedText, userText, extra){
+    function showFeedback(isCorrect, expectedText, userText){
       const q = currentSet[currentIndex];
 
       els.feedbackBox.style.display = "block";
@@ -940,33 +968,10 @@
         ? `<p class="muted" style="margin-top:6px;"><b>Tu respuesta:</b> <span class="code">${userText || "—"}</span></p>`
         : "";
 
-      // ✅ Bloque especial: explicación por alternativa (MCQ)
-      let whyBlock = "";
-      if(extra && extra.type === "mcq"){
-        const chosen = extra.chosenOpt;
-        const correct = extra.correctOpt;
-        const all = extra.allOpts || [];
-
-        if(!isCorrect){
-          const whyNo = chosen?.why ? `<p style="margin:10px 0 0;"><b>Por qué NO:</b> ${chosen.why}</p>` : "";
-          const whyYes = correct?.why ? `<p style="margin:8px 0 0;"><b>Por qué SÍ:</b> ${correct.why}</p>` : "";
-          whyBlock = `${whyNo}${whyYes}`;
-        } else {
-          const whyYes = correct?.why ? `<p style="margin:10px 0 0;"><b>Por qué SÍ:</b> ${correct.why}</p>` : "";
-          const wrongs = all.filter(o => !o.correct);
-          const wrongList = wrongs.length
-            ? `<p style="margin:10px 0 0;"><b>Por qué NO las otras:</b></p>
-               <ul>${wrongs.map(w => `<li><span class="code">${w.text}</span>: ${w.why || "No encaja con la intención del enunciado."}</li>`).join("")}</ul>`
-            : "";
-          whyBlock = `${whyYes}${wrongList}`;
-        }
-      }
-
       els.fbBody.innerHTML = `
         <p style="margin:0;"><b>${q.explain?.okTitle || ""}</b></p>
         ${expectedLine}
         ${userLine}
-        ${whyBlock}
         ${points ? `<ul>${points}</ul>` : ""}
       `;
 
@@ -999,12 +1004,7 @@
         score++;
       }
 
-      showFeedback(isCorrect, correctOpt.text, chosenOpt.text, {
-        type: "mcq",
-        chosenOpt,
-        correctOpt,
-        allOpts: renderedOpts
-      });
+      showFeedback(isCorrect, correctOpt.text, chosenOpt.text);
     }
 
     function checkInput(){
@@ -1031,7 +1031,7 @@
       }
 
       const expectedText = q.showExpected || (q.answers && q.answers[0]) || "";
-      showFeedback(isCorrect, expectedText, raw, { type:"input" });
+      showFeedback(isCorrect, expectedText, raw);
     }
 
     function next(){
@@ -1055,8 +1055,8 @@
                 </p>
                 <ul>
                   <li>8–10: sólido.</li>
-                  <li>5–7: bien, repasa “evidencia vs opinión” y “agenda vs decisión”.</li>
-                  <li>0–4: vuelve a la teoría y practica prefijos (in-/im-/il-/ir-).</li>
+                  <li>5–7: bien, repasa “evidencia vs opinión” y arreglos con hora.</li>
+                  <li>0–4: vuelve a la teoría y practica prefijos.</li>
                 </ul>
               </div>
             </div>
@@ -1094,4 +1094,3 @@
   </script>
 </body>
 </html>
-
