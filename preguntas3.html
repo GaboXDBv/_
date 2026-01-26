@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preguntas 3 - Daku</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=2" type="image/png" />
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
+
+      --accent: #2563eb;  /* azul */
+      --accent2:#10b981;  /* verde */
+      --danger:#ef4444;   /* rojo */
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+    }
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+      text-align:center;
+    }
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 2.8vw, 17px);
+      line-height: 1.45;
+    }
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+    .card .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .card .content{
+      padding: 16px 16px 14px;
+    }
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(18px, 3.8vw, 24px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+    p{
+      font-size: clamp(15px, 3.4vw, 18px);
+      line-height: 1.55;
+      color: var(--ink);
+      margin: 8px 0;
+    }
+    .muted{ color: var(--muted); }
+    .topRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .badge{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.85);
+      color: var(--muted);
+    }
+    .progressWrap{
+      width: 100%;
+      margin-top: 8px;
+      border-radius: 999px;
+      background: rgba(17,24,39,.08);
+      overflow: hidden;
+      height: 10px;
+    }
+    .progressBar{
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .25s ease;
+    }
+    .questionText{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: clamp(18px, 4.0vw, 22px);
+      font-weight: 900;
+      letter-spacing:.2px;
+      margin: 12px 0 10px;
+    }
+
+    /* Multiple choice */
+    .options{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (min-width: 760px){
+      .options{ grid-template-columns: 1fr 1fr 1fr; }
+    }
+    .optBtn{
+      border: 1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.92);
+      border-radius: 14px;
+      padding: 16px 14px;
+      cursor: pointer;
+      text-align: left;
+      box-shadow: 0 6px 14px rgba(17,24,39,.08);
+      transition: transform .12s ease, filter .12s ease, border-color .12s ease;
+      min-height: 64px;
+    }
+    .optBtn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.01);
+      border-color: rgba(37,99,235,.35);
+    }
+    .optBtn:active{ transform: translateY(0px); }
+    .optBtn:disabled{ cursor:not-allowed; opacity:.96; }
+    .optLabel{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing:.2px;
+      line-height: 1.15;
+    }
+
+    /* Typed input */
+    .inputWrap{
+      display:none;
+      gap:10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .textInput{
+      flex: 1 1 520px;
+      border: 1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.92);
+      border-radius: 14px;
+      padding: 14px 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: 0 6px 14px rgba(17,24,39,.08);
+      outline: none;
+    }
+    .submitBtn{
+      flex: 0 0 auto;
+      border:0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #1d4ed8);
+      width: min(240px, 100%);
+    }
+    .submitBtn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+    }
+    .submitBtn:active{ transform: translateY(0px); }
+    .submitBtn:disabled{ cursor:not-allowed; opacity:.92; transform:none; }
+    .inputOk{
+      border-color: rgba(34,197,94,.55) !important;
+      box-shadow: 0 8px 18px rgba(34,197,94,.10) !important;
+    }
+    .inputBad{
+      border-color: rgba(239,68,68,.55) !important;
+      box-shadow: 0 8px 18px rgba(239,68,68,.10) !important;
+    }
+
+    .feedback{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      display:none;
+    }
+    .fbOk{ background: rgba(34,197,94,.10); border-color: rgba(34,197,94,.20); }
+    .fbBad{ background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.20); }
+    .fbTitle{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      margin:0 0 6px;
+    }
+    .fbBody{ margin:0; color: var(--ink); }
+    .fbBody ul{ margin: 8px 0 0; padding-left: 18px; }
+    .fbBody li{ margin: 6px 0; font-size: 15px; line-height: 1.45; color: var(--ink); }
+
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: .95em;
+      background: rgba(17,24,39,.05);
+      padding: 2px 6px;
+      border-radius: 8px;
+    }
+
+    .nextRow{
+      display:flex;
+      justify-content: center;
+      margin-top: 12px;
+      display:none;
+    }
+    .miniBtn{
+      border:0;
+      cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #1d4ed8);
+      width: min(420px, 100%);
+    }
+    .miniBtn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+    }
+    .miniBtn:active{ transform: translateY(0px); }
+
+    .navRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .navBtn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+    }
+    .navBtn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+    }
+    .navBtn:active{ transform: translateY(0px); }
+    .btnBack{ background: linear-gradient(135deg, #ef4444, #dc2626); }
+    .btnNextTheme{ background: linear-gradient(135deg, #10b981, #059669); }
+    .btnNewSet{ background: linear-gradient(135deg, var(--accent), #1d4ed8); }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    /* Highlight states */
+    .chosen{
+      border-color: rgba(37,99,235,.55) !important;
+      box-shadow: 0 8px 18px rgba(37,99,235,.10) !important;
+    }
+    .correct{
+      border-color: rgba(34,197,94,.55) !important;
+      box-shadow: 0 8px 18px rgba(34,197,94,.10) !important;
+    }
+    .wrong{
+      border-color: rgba(239,68,68,.55) !important;
+      box-shadow: 0 8px 18px rgba(239,68,68,.10) !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Preguntas 3</h1>
+      <p class="subtitle">
+        Present perfect vs past simple + (ever/never/just/already/yet) + Money vocabulary (verbs, nouns, prepositions, phrasal verbs) — 10 preguntas por ronda.
+      </p>
+    </header>
+
+    <div class="grid">
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <div class="topRow">
+            <span class="badge" id="roundBadge">Ronda: 1</span>
+            <span class="badge" id="scoreBadge">Puntaje: 0 / 10</span>
+            <span class="badge" id="qBadge">Pregunta: 1 / 10</span>
+          </div>
+
+          <div class="progressWrap" aria-label="Progreso de la ronda">
+            <div class="progressBar" id="progressBar"></div>
+          </div>
+
+          <div class="questionText" id="questionText"></div>
+
+          <!-- Input (escribir) -->
+          <div class="inputWrap" id="inputWrap">
+            <input class="textInput" id="textAnswer" type="text" placeholder="Escribe tu respuesta..." autocomplete="off" />
+            <button class="submitBtn" id="submitBtn">Responder</button>
+          </div>
+
+          <!-- Opciones (seleccionar) -->
+          <div class="options" id="options"></div>
+
+          <div class="feedback" id="feedbackBox" role="status" aria-live="polite">
+            <div class="fbTitle" id="fbTitle"></div>
+            <div class="fbBody" id="fbBody"></div>
+          </div>
+
+          <div class="nextRow" id="nextRow">
+            <button class="miniBtn" id="nextBtn">Siguiente pregunta</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Navegación</h2>
+          <p class="muted">Vuelve al vocabulario o al marco teórico, o carga otra ronda de 10.</p>
+          <div class="navRow">
+            <button class="navBtn btnBack" onclick="window.location.href='vocabulario3.html'">Atrás (Vocabulario 3)</button>
+            <button class="navBtn btnNextTheme" onclick="window.location.href='mark4.html'">Siguiente tema</button>
+            <button class="navBtn btnNewSet" onclick="newRound()">Mostrar 10 preguntas</button>
+          </div>
+          <div class="footerHint">Banco: 30 preguntas. No se repiten entre rondas hasta consumirlas.</div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    function shuffle(arr){
+      const a = [...arr];
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function normalize(s){
+      return (s || "")
+        .toLowerCase()
+        .trim()
+        .replace(/[’‘]/g,"'")
+        .replace(/[“”]/g,'"')
+        .replace(/\s+/g," ")
+        .replace(/[.?!]+$/,"");
+    }
+
+    const ROUND_SIZE = 10;
+
+    // 30 preguntas: grammar + vocabulary (money)
+    const QUESTION_BANK = [
+      /* ================= GRAMMAR (MCQ) ================= */
+      {
+        type: "mcq",
+        stem: "Choose the correct sentence:",
+        options: [
+          { text: "I’ve been to Madrid twice.", correct: true },
+          { text: "I went to Madrid twice (in my life up to now).", correct: false },
+          { text: "I have went to Madrid twice.", correct: false }
+        ],
+        explain: { okTitle: "Experiencia (sin tiempo específico) → Present perfect", okPoints: ["Usa <span class='code'>have/has + past participle</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "Choose the correct sentence:",
+        options: [
+          { text: "I went there in 1998 and 2002.", correct: true },
+          { text: "I’ve been there in 1998 and 2002.", correct: false },
+          { text: "I have gone there in 1998 and 2002.", correct: false }
+        ],
+        explain: { okTitle: "Tiempo mencionado (1998, 2002) → Past simple", okPoints: ["Con fechas: <span class='code'>went</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "Choose the correct sentence:",
+        options: [
+          { text: "I’ve bought a new computer.", correct: true },
+          { text: "I bought a new computer (I don’t say when).", correct: false },
+          { text: "I’ve buy a new computer.", correct: false }
+        ],
+        explain: { okTitle: "Sin decir cuándo → Present perfect", okPoints: ["Importa el resultado: ya lo tengo."] }
+      },
+      {
+        type: "mcq",
+        stem: "Choose the correct sentence:",
+        options: [
+          { text: "I bought it last Saturday.", correct: true },
+          { text: "I’ve bought it last Saturday.", correct: false },
+          { text: "I have buy it last Saturday.", correct: false }
+        ],
+        explain: { okTitle: "Tiempo mencionado (last Saturday) → Past simple", okPoints: ["Con <span class='code'>last ...</span> usa past simple."] }
+      },
+      {
+        type: "mcq",
+        stem: "Choose the correct question:",
+        options: [
+          { text: "Have you ever lost your credit card?", correct: true },
+          { text: "Did you ever lost your credit card?", correct: false },
+          { text: "Are you ever losing your credit card?", correct: false }
+        ],
+        explain: { okTitle: "Ever + experiencia → Present perfect", okPoints: ["<span class='code'>Have you ever + past participle</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "Too late! Our train ____!",
+        options: [
+          { text: "has just left", correct: true },
+          { text: "just left", correct: false },
+          { text: "has just leave", correct: false }
+        ],
+        explain: { okTitle: "Acción reciente con resultado ahora → Present perfect", okPoints: ["<span class='code'>has just left</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "We ____ the gas bill yet.",
+        options: [
+          { text: "haven’t paid", correct: true },
+          { text: "didn’t pay", correct: false },
+          { text: "haven’t pay", correct: false }
+        ],
+        explain: { okTitle: "Yet (negativa) → Present perfect", okPoints: ["<span class='code'>haven’t + past participle</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "____ the Batman film on TV yesterday?",
+        options: [
+          { text: "Did you see", correct: true },
+          { text: "Have you seen", correct: false },
+          { text: "Did you saw", correct: false }
+        ],
+        explain: { okTitle: "Yesterday → Past simple", okPoints: ["<span class='code'>Did + base verb</span>."] }
+      },
+
+      /* ========== PRESENT PERFECT + ADVERBS (INPUT) ========= */
+      {
+        type: "input",
+        stem: "Have you ____ a flight online? (ever / book)",
+        answers: ["ever booked"],
+        showExpected: "ever booked",
+        explain: { okTitle: "Ever va antes del verbo principal", okPoints: ["<span class='code'>Have you ever booked...?</span>"] }
+      },
+      {
+        type: "input",
+        stem: "Soon. I ____ ____ nearly €1,000. (already / save)",
+        answers: ["have already saved", "i've already saved"],
+        showExpected: "have already saved",
+        explain: { okTitle: "Already va antes del verbo principal", okPoints: ["<span class='code'>have already saved</span>"] }
+      },
+      {
+        type: "input",
+        stem: "____ you ____ the phone bill yet? (pay)",
+        answers: ["have you paid", "have paid"],
+        showExpected: "Have you paid",
+        explain: { okTitle: "Yet en preguntas va al final", okPoints: ["<span class='code'>Have you paid ... yet?</span>"] }
+      },
+      {
+        type: "input",
+        stem: "I ____ ____ used it. (never / use)",
+        answers: ["have never used", "i've never used"],
+        showExpected: "have never used",
+        explain: { okTitle: "Never va antes del verbo principal", okPoints: ["<span class='code'>have never used</span>"] }
+      },
+      {
+        type: "input",
+        stem: "We ____ ____ won the lottery! (just / win)",
+        answers: ["have just won", "we've just won", "we have just won"],
+        showExpected: "have just won / we’ve just won",
+        explain: { okTitle: "Just va antes del verbo principal", okPoints: ["<span class='code'>have just won</span>"] }
+      },
+      {
+        type: "input",
+        stem: "No, thanks. I ____ ____ had one. (just / have)",
+        answers: ["have just", "i've just", "i have just"],
+        showExpected: "have just / I’ve just",
+        explain: { okTitle: "Con ‘one’: I’ve just had one", okPoints: ["Aquí solo completa el auxiliar + <span class='code'>just</span>."] }
+      },
+
+      /* ========== PRESENT PERFECT vs PAST SIMPLE (INPUT) ========= */
+      {
+        type: "input",
+        stem: "When ____ you buy that leather jacket? (past simple)",
+        answers: ["did"],
+        showExpected: "did",
+        explain: { okTitle: "Pregunta con tiempo específico → Past simple", okPoints: ["<span class='code'>When did you buy...?</span>"] }
+      },
+      {
+        type: "input",
+        stem: "I’m sure I ____ any money from you last week. (borrow)",
+        answers: ["didn't borrow", "did not borrow"],
+        showExpected: "didn’t borrow",
+        explain: { okTitle: "Last week → Past simple", okPoints: ["<span class='code'>didn’t borrow</span>"] }
+      },
+
+      /* ================= VOCABULARY (MCQ) ================= */
+      {
+        type: "mcq",
+        stem: "When you put money aside every week, you ____ money.",
+        options: [
+          { text: "save", correct: true },
+          { text: "charge", correct: false },
+          { text: "owe", correct: false }
+        ],
+        explain: { okTitle: "save = guardar dinero", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "If you don’t have enough money, you can’t ____ it.",
+        options: [
+          { text: "afford", correct: true },
+          { text: "earn", correct: false },
+          { text: "invest", correct: false }
+        ],
+        explain: { okTitle: "can’t afford = no te alcanza", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "A mechanic asks you to pay. He ____ you £100.",
+        options: [
+          { text: "charges", correct: true },
+          { text: "borrows", correct: false },
+          { text: "inherits", correct: false }
+        ],
+        explain: { okTitle: "charge = cobrar", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "Money you borrow from a bank to buy a house is a ____.",
+        options: [
+          { text: "mortgage", correct: true },
+          { text: "budget", correct: false },
+          { text: "salary", correct: false }
+        ],
+        explain: { okTitle: "mortgage = hipoteca", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "The money you get for the work you do is your ____.",
+        options: [
+          { text: "salary", correct: true },
+          { text: "tax", correct: false },
+          { text: "bill", correct: false }
+        ],
+        explain: { okTitle: "salary = sueldo", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "A fast way of paying where you hold your card/phone near a reader is ____.",
+        options: [
+          { text: "contactless payment", correct: true },
+          { text: "loan", correct: false },
+          { text: "budget", correct: false }
+        ],
+        explain: { okTitle: "contactless payment = pago sin contacto", okPoints: [] }
+      },
+
+      /* ================= PREPOSITIONS (MCQ) ================= */
+      {
+        type: "mcq",
+        stem: "Would you like to pay cash or ____ credit card?",
+        options: [
+          { text: "by", correct: true },
+          { text: "for", correct: false },
+          { text: "into", correct: false }
+        ],
+        explain: { okTitle: "pay by card", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "They charged us €60 ____ a bottle of wine.",
+        options: [
+          { text: "for", correct: true },
+          { text: "on", correct: false },
+          { text: "to", correct: false }
+        ],
+        explain: { okTitle: "charge someone for something", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "I spent £50 ____ books yesterday.",
+        options: [
+          { text: "on", correct: true },
+          { text: "in", correct: false },
+          { text: "from", correct: false }
+        ],
+        explain: { okTitle: "spend money on something", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "I never get ____ debt.",
+        options: [
+          { text: "into", correct: true },
+          { text: "on", correct: false },
+          { text: "for", correct: false }
+        ],
+        explain: { okTitle: "get into debt = endeudarse", okPoints: [] }
+      },
+
+      /* ================= PHRASAL VERBS (MCQ) ================= */
+      {
+        type: "mcq",
+        stem: "I took ____ €200 from a cash machine.",
+        options: [
+          { text: "out", correct: true },
+          { text: "off", correct: false },
+          { text: "back", correct: false }
+        ],
+        explain: { okTitle: "take out = retirar dinero", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "Can I pay you ____ the money you lent me next week?",
+        options: [
+          { text: "back", correct: true },
+          { text: "out", correct: false },
+          { text: "on", correct: false }
+        ],
+        explain: { okTitle: "pay back = devolver dinero", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "I have to live ____ my parents while I’m at university.",
+        options: [
+          { text: "off", correct: true },
+          { text: "on", correct: false },
+          { text: "out", correct: false }
+        ],
+        explain: { okTitle: "live off = depender económicamente de", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "It’s difficult for me to live ____ only one salary.",
+        options: [
+          { text: "on", correct: true },
+          { text: "off", correct: false },
+          { text: "back", correct: false }
+        ],
+        explain: { okTitle: "live on = vivir con (cantidad)", okPoints: [] }
+      }
+    ];
+
+    // === Estado
+    let deck = [];
+    let deckIndex = 0;
+    let currentSet = [];
+    let currentIndex = 0;
+    let score = 0;
+    let round = 0;
+    let answered = false;
+
+    const els = {
+      roundBadge: document.getElementById("roundBadge"),
+      scoreBadge: document.getElementById("scoreBadge"),
+      qBadge: document.getElementById("qBadge"),
+      progressBar: document.getElementById("progressBar"),
+      questionText: document.getElementById("questionText"),
+      options: document.getElementById("options"),
+      inputWrap: document.getElementById("inputWrap"),
+      textAnswer: document.getElementById("textAnswer"),
+      submitBtn: document.getElementById("submitBtn"),
+      feedbackBox: document.getElementById("feedbackBox"),
+      fbTitle: document.getElementById("fbTitle"),
+      fbBody: document.getElementById("fbBody"),
+      nextRow: document.getElementById("nextRow"),
+      nextBtn: document.getElementById("nextBtn")
+    };
+
+    function refillDeck(){
+      deck = shuffle(QUESTION_BANK);
+      deckIndex = 0;
+    }
+
+    function getNextTen(){
+      if(deck.length === 0 || deck.length - deckIndex < ROUND_SIZE){
+        refillDeck();
+      }
+      const set = deck.slice(deckIndex, deckIndex + ROUND_SIZE);
+      deckIndex += ROUND_SIZE;
+      return set;
+    }
+
+    function setProgress(){
+      const pct = Math.round((currentIndex / ROUND_SIZE) * 100);
+      els.progressBar.style.width = pct + "%";
+      els.scoreBadge.textContent = `Puntaje: ${score} / ${ROUND_SIZE}`;
+      els.qBadge.textContent = `Pregunta: ${Math.min(currentIndex+1,ROUND_SIZE)} / ${ROUND_SIZE}`;
+      els.roundBadge.textContent = `Ronda: ${round}`;
+    }
+
+    function resetUI(){
+      els.feedbackBox.style.display = "none";
+      els.feedbackBox.classList.remove("fbOk","fbBad");
+      els.nextRow.style.display = "none";
+      els.options.innerHTML = "";
+      els.options.style.display = "grid";
+      els.inputWrap.style.display = "none";
+      els.textAnswer.value = "";
+      els.textAnswer.disabled = false;
+      els.submitBtn.disabled = false;
+      els.textAnswer.classList.remove("inputOk","inputBad");
+    }
+
+    function renderQuestion(){
+      answered = false;
+      setProgress();
+      resetUI();
+
+      const q = currentSet[currentIndex];
+      els.questionText.textContent = q.stem;
+
+      if(q.type === "mcq"){
+        els.inputWrap.style.display = "none";
+        els.options.style.display = "grid";
+
+        const opts = shuffle(q.options.map(o => ({...o})));
+        opts.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.className = "optBtn";
+          btn.type = "button";
+          btn.innerHTML = `<div class="optLabel">${opt.text}</div>`;
+          btn.addEventListener("click", () => chooseOption(btn, opt, opts));
+          els.options.appendChild(btn);
+        });
+      } else {
+        els.options.style.display = "none";
+        els.inputWrap.style.display = "flex";
+        els.textAnswer.focus();
+      }
+    }
+
+    function showFeedback(isCorrect, expectedText, userText){
+      const q = currentSet[currentIndex];
+
+      els.feedbackBox.style.display = "block";
+      els.feedbackBox.classList.add(isCorrect ? "fbOk" : "fbBad");
+      els.fbTitle.textContent = isCorrect ? "Bien. Respuesta correcta." : "Incorrecto.";
+
+      const points = (q.explain?.okPoints || []).map(x => `<li>${x}</li>`).join("");
+      const expectedLine = expectedText
+        ? `<p class="muted" style="margin-top:10px;"><b>Respuesta esperada:</b> <span class="code">${expectedText}</span></p>`
+        : "";
+      const userLine = (userText !== undefined && userText !== null)
+        ? `<p class="muted" style="margin-top:6px;"><b>Tu respuesta:</b> <span class="code">${userText || "—"}</span></p>`
+        : "";
+
+      els.fbBody.innerHTML = `
+        <p style="margin:0;"><b>${q.explain?.okTitle || ""}</b></p>
+        ${expectedLine}
+        ${userLine}
+        ${points ? `<ul>${points}</ul>` : ""}
+      `;
+
+      els.nextRow.style.display = "flex";
+      els.nextBtn.textContent = (currentIndex < ROUND_SIZE - 1) ? "Siguiente pregunta" : "Ver resultado de la ronda";
+      els.scoreBadge.textContent = `Puntaje: ${score} / ${ROUND_SIZE}`;
+    }
+
+    function chooseOption(btnEl, chosenOpt, renderedOpts){
+      if(answered) return;
+      answered = true;
+
+      const btns = [...els.options.querySelectorAll(".optBtn")];
+      btns.forEach(b => b.disabled = true);
+
+      btnEl.classList.add("chosen");
+
+      const correctOpt = renderedOpts.find(o => o.correct);
+      btns.forEach(b => {
+        const text = b.querySelector(".optLabel").textContent.trim();
+        if(text === correctOpt.text){
+          b.classList.add("correct");
+        }
+      });
+
+      const isCorrect = chosenOpt.correct;
+      if(!isCorrect){
+        btnEl.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      showFeedback(isCorrect, correctOpt.text, chosenOpt.text);
+    }
+
+    function checkInput(){
+      if(answered) return;
+      const q = currentSet[currentIndex];
+      if(q.type !== "input") return;
+
+      answered = true;
+
+      const raw = els.textAnswer.value;
+      const userNorm = normalize(raw);
+      const accepted = (q.answers || []).map(normalize);
+      const isCorrect = accepted.includes(userNorm);
+
+      els.textAnswer.disabled = true;
+      els.submitBtn.disabled = true;
+
+      if(isCorrect){
+        score++;
+        els.textAnswer.classList.add("inputOk");
+      }else{
+        els.textAnswer.classList.add("inputBad");
+      }
+
+      const expectedText = q.showExpected || (q.answers && q.answers[0]) || "";
+      showFeedback(isCorrect, expectedText, raw);
+    }
+
+    function next(){
+      if(!answered) return;
+
+      if(currentIndex < ROUND_SIZE - 1){
+        currentIndex++;
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        els.progressBar.style.width = "100%";
+        els.questionText.textContent = "Ronda terminada.";
+
+        els.options.style.display = "grid";
+        els.options.innerHTML = `
+          <div style="grid-column: 1/-1; padding: 2px 2px;">
+            <div class="feedback fbOk" style="display:block;">
+              <div class="fbTitle">Resumen</div>
+              <div class="fbBody">
+                <p style="margin:0;">Tu puntaje fue <b>${score} / ${ROUND_SIZE}</b>.</p>
+                <ul>
+                  <li>8–10: sólido.</li>
+                  <li>5–7: bien, repasa “tiempo mencionado” vs “sin tiempo”.</li>
+                  <li>0–4: vuelve a la teoría y practica yet/already/just/ever/never.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        `;
+
+        els.inputWrap.style.display = "none";
+        els.feedbackBox.style.display = "none";
+        els.nextRow.style.display = "none";
+        els.qBadge.textContent = `Pregunta: ${ROUND_SIZE} / ${ROUND_SIZE}`;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    function newRound(){
+      round++;
+      currentSet = getNextTen();
+      currentIndex = 0;
+      score = 0;
+      renderQuestion();
+      setProgress();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    els.nextBtn.addEventListener("click", next);
+    els.submitBtn.addEventListener("click", checkInput);
+    els.textAnswer.addEventListener("keydown", (e) => {
+      if(e.key === "Enter"){
+        e.preventDefault();
+        checkInput();
+      }
+    });
+
+    refillDeck();
+    newRound();
+  </script>
+</body>
+</html>
