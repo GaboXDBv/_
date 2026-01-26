@@ -7,54 +7,83 @@
     <link rel="icon" href="favitcon.png" type="image/png"> <!-- Favicon -->
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
             color: #333;
             margin: 0;
             padding: 0;
         }
         .container {
-            width: 70%;
+            width: 80%;
             margin: 0 auto;
-            padding: 20px;
+            padding: 30px;
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
         }
         h1 {
             text-align: center;
             color: #333;
+            font-size: 36px;
+            margin-bottom: 40px;
         }
         .question {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         .question p {
-            font-size: 24px; /* Tamaño de letra más grande */
+            font-size: 28px; /* Tamaño de letra grande para preguntas */
+            color: #444;
         }
         .button {
             display: block;
             width: 100%;
-            padding: 15px;
+            padding: 20px;
             margin: 10px 0;
-            font-size: 20px; /* Tamaño de letra grande para botones */
-            background-color: #007bff;
+            font-size: 22px; /* Tamaño de letra para opciones */
+            background-color: #4CAF50; /* Botón color principal */
             color: white;
             border: none;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 15px;
             text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
         .button:hover {
-            background-color: #0056b3;
+            background-color: #45a049;
+            transform: translateY(-3px);
         }
         .feedback {
             color: red;
             font-size: 20px;
             display: none; /* Initially hidden */
+            margin-top: 15px;
         }
         .correct {
             color: green;
             font-size: 20px;
+            display: none;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .next-button {
+            background-color: #007bff;
+            margin-top: 30px;
+            width: 200px;
+            padding: 15px;
+            font-size: 20px;
+            border-radius: 10px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: none; /* Hidden initially */
+            transition: all 0.3s ease;
+        }
+        .next-button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -66,48 +95,61 @@
     <!-- Pregunta 1 -->
     <div class="question" id="question1">
         <p><strong>1. Which of the following sentences uses the Present Simple correctly?</strong></p>
-        <button class="button" onclick="checkAnswer('q1', 'b', 'feedback1', 'correct1')">a) She don't like pizza.</button>
-        <button class="button" onclick="checkAnswer('q1', 'b', 'feedback1', 'correct1')">b) She likes pizza.</button>
-        <button class="button" onclick="checkAnswer('q1', 'b', 'feedback1', 'correct1')">c) She like pizza.</button>
+        <div class="button-container">
+            <button class="button" onclick="checkAnswer('q1', 'b', 'feedback1', 'correct1', 1)">a) She don't like pizza.</button>
+            <button class="button" onclick="checkAnswer('q1', 'b', 'feedback1', 'correct1', 1)">b) She likes pizza.</button>
+            <button class="button" onclick="checkAnswer('q1', 'b', 'feedback1', 'correct1', 1)">c) She like pizza.</button>
+        </div>
         <p class="feedback" id="feedback1">Incorrect. The correct answer is: b) She likes pizza.</p>
         <p class="correct" id="correct1">Correct!</p>
+        <button class="next-button" onclick="nextQuestion(2)">Next Question</button>
     </div>
 
     <!-- Pregunta 2 -->
-    <div class="question" id="question2">
+    <div class="question" id="question2" style="display: none;">
         <p><strong>2. Which sentence is in the Present Continuous tense?</strong></p>
-        <button class="button" onclick="checkAnswer('q2', 'b', 'feedback2', 'correct2')">a) I will go to the store later.</button>
-        <button class="button" onclick="checkAnswer('q2', 'b', 'feedback2', 'correct2')">b) I am going to the store right now.</button>
-        <button class="button" onclick="checkAnswer('q2', 'b', 'feedback2', 'correct2')">c) I went to the store yesterday.</button>
+        <div class="button-container">
+            <button class="button" onclick="checkAnswer('q2', 'b', 'feedback2', 'correct2', 2)">a) I will go to the store later.</button>
+            <button class="button" onclick="checkAnswer('q2', 'b', 'feedback2', 'correct2', 2)">b) I am going to the store right now.</button>
+            <button class="button" onclick="checkAnswer('q2', 'b', 'feedback2', 'correct2', 2)">c) I went to the store yesterday.</button>
+        </div>
         <p class="feedback" id="feedback2">Incorrect. The correct answer is: b) I am going to the store right now.</p>
         <p class="correct" id="correct2">Correct!</p>
+        <button class="next-button" onclick="nextQuestion(3)">Next Question</button>
     </div>
 
     <!-- Pregunta 3 -->
-    <div class="question" id="question3">
+    <div class="question" id="question3" style="display: none;">
         <p><strong>3. Choose the correct form of the verb in the Present Perfect.</strong></p>
-        <button class="button" onclick="checkAnswer('q3', 'c', 'feedback3', 'correct3')">a) I have been to London last year.</button>
-        <button class="button" onclick="checkAnswer('q3', 'c', 'feedback3', 'correct3')">b) I have gone to London last year.</button>
-        <button class="button" onclick="checkAnswer('q3', 'c', 'feedback3', 'correct3')">c) I have visited London.</button>
+        <div class="button-container">
+            <button class="button" onclick="checkAnswer('q3', 'c', 'feedback3', 'correct3', 3)">a) I have been to London last year.</button>
+            <button class="button" onclick="checkAnswer('q3', 'c', 'feedback3', 'correct3', 3)">b) I have gone to London last year.</button>
+            <button class="button" onclick="checkAnswer('q3', 'c', 'feedback3', 'correct3', 3)">c) I have visited London.</button>
+        </div>
         <p class="feedback" id="feedback3">Incorrect. The correct answer is: c) I have visited London.</p>
         <p class="correct" id="correct3">Correct!</p>
+        <button class="next-button" onclick="nextQuestion(4)">Next Question</button>
     </div>
 
     <!-- Pregunta 4 -->
-    <div class="question" id="question4">
+    <div class="question" id="question4" style="display: none;">
         <p><strong>4. Which sentence uses "will" correctly?</strong></p>
-        <button class="button" onclick="checkAnswer('q4', 'b', 'feedback4', 'correct4')">a) I will studying tomorrow.</button>
-        <button class="button" onclick="checkAnswer('q4', 'b', 'feedback4', 'correct4')">b) I will study tomorrow.</button>
-        <button class="button" onclick="checkAnswer('q4', 'b', 'feedback4', 'correct4')">c) I will to study tomorrow.</button>
+        <div class="button-container">
+            <button class="button" onclick="checkAnswer('q4', 'b', 'feedback4', 'correct4', 4)">a) I will studying tomorrow.</button>
+            <button class="button" onclick="checkAnswer('q4', 'b', 'feedback4', 'correct4', 4)">b) I will study tomorrow.</button>
+            <button class="button" onclick="checkAnswer('q4', 'b', 'feedback4', 'correct4', 4)">c) I will to study tomorrow.</button>
+        </div>
         <p class="feedback" id="feedback4">Incorrect. The correct answer is: b) I will study tomorrow.</p>
         <p class="correct" id="correct4">Correct!</p>
+        <button class="next-button" onclick="nextQuestion(5)">Next Question</button>
     </div>
 
-    <!-- Botón para comprobar respuestas -->
+    <!-- Agregar más preguntas según sea necesario -->
+
 </div>
 
 <script>
-    function checkAnswer(question, correctAnswer, feedbackId, correctId) {
+    function checkAnswer(question, correctAnswer, feedbackId, correctId, nextQuestionId) {
         var selectedButton = event.target;
         var buttons = document.querySelectorAll('div#' + question + ' .button');
         
@@ -124,6 +166,18 @@
             document.getElementById(feedbackId).style.display = 'block';
             document.getElementById(correctId).style.display = 'none';
         }
+
+        // Mostrar el botón para la siguiente pregunta
+        document.querySelector(`#question${nextQuestionId} .next-button`).style.display = 'block';
+    }
+
+    function nextQuestion(questionId) {
+        // Ocultar la pregunta actual y mostrar la siguiente
+        var currentQuestion = document.querySelector('.question:not([style*="display: none"])');
+        currentQuestion.style.display = 'none';
+        
+        var nextQuestion = document.getElementById(`question${questionId}`);
+        nextQuestion.style.display = 'block';
     }
 </script>
 
