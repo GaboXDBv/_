@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba de Gramática</title>
+    <title>Prueba de Gramática Interactiva</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -36,6 +36,28 @@
         .options li {
             margin: 10px 0;
         }
+        .feedback {
+            color: red;
+            font-size: 16px;
+            display: none; /* Initially hidden */
+        }
+        .correct {
+            color: green;
+            font-size: 16px;
+        }
+        .button {
+            display: block;
+            width: 100px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -43,50 +65,65 @@
 <div class="container">
     <h1>Prueba de Gramática - Nivel Intermedio</h1>
 
-    <!-- Present Simple vs Present Continuous -->
-    <div class="question">
+    <!-- Pregunta 1 -->
+    <div class="question" id="question1">
         <p><strong>1. ¿Cuándo usamos el Present Simple?</strong></p>
         <ul class="options">
-            <li>a) Para acciones que ocurren en el momento.</li>
-            <li>b) Para hábitos y acciones regulares.</li>
-            <li>c) Para predicciones del futuro.</li>
+            <li><input type="radio" name="q1" value="a"> a) Para acciones que ocurren en el momento.</li>
+            <li><input type="radio" name="q1" value="b"> b) Para hábitos y acciones regulares.</li>
+            <li><input type="radio" name="q1" value="c"> c) Para predicciones del futuro.</li>
         </ul>
-        <p><em>Respuesta correcta: b) Para hábitos y acciones regulares.</em></p>
+        <p class="feedback" id="feedback1">Respuesta incorrecta. La respuesta correcta es: b) Para hábitos y acciones regulares.</p>
+        <p class="correct" id="correct1">¡Correcto!</p>
     </div>
 
-    <!-- Future Forms -->
-    <div class="question">
+    <!-- Pregunta 2 -->
+    <div class="question" id="question2">
         <p><strong>2. ¿Cuál es la diferencia principal entre "be going to" y "Present Continuous"?</strong></p>
         <ul class="options">
-            <li>a) Ambos son usados para predicciones.</li>
-            <li>b) "Be going to" se usa para decisiones ya tomadas, y "Present Continuous" para acuerdos futuros.</li>
-            <li>c) No hay diferencia, se usan de la misma manera.</li>
+            <li><input type="radio" name="q2" value="a"> a) Ambos son usados para predicciones.</li>
+            <li><input type="radio" name="q2" value="b"> b) "Be going to" se usa para decisiones ya tomadas, y "Present Continuous" para acuerdos futuros.</li>
+            <li><input type="radio" name="q2" value="c"> c) No hay diferencia, se usan de la misma manera.</li>
         </ul>
-        <p><em>Respuesta correcta: b) "Be going to" se usa para decisiones ya tomadas, y "Present Continuous" para acuerdos futuros.</em></p>
+        <p class="feedback" id="feedback2">Respuesta incorrecta. La respuesta correcta es: b) "Be going to" se usa para decisiones ya tomadas, y "Present Continuous" para acuerdos futuros.</p>
+        <p class="correct" id="correct2">¡Correcto!</p>
     </div>
 
-    <!-- Present Perfect vs Past Simple -->
-    <div class="question">
-        <p><strong>3. ¿Cuál es la diferencia principal entre Present Perfect y Past Simple?</strong></p>
-        <ul class="options">
-            <li>a) Present Perfect se usa para acciones que ocurrieron en un momento específico en el pasado.</li>
-            <li>b) Past Simple se usa para experiencias pasadas que no se pueden situar en un tiempo específico.</li>
-            <li>c) Present Perfect se usa para hablar de experiencias pasadas sin especificar cuándo ocurrieron.</li>
-        </ul>
-        <p><em>Respuesta correcta: c) Present Perfect se usa para hablar de experiencias pasadas sin especificar cuándo ocurrieron.</em></p>
-    </div>
-
-    <!-- Present Perfect Continuous -->
-    <div class="question">
-        <p><strong>4. ¿Cuándo usamos Present Perfect Continuous?</strong></p>
-        <ul class="options">
-            <li>a) Para acciones que comenzaron en el pasado y continúan hasta el presente.</li>
-            <li>b) Para describir acciones que ocurrieron en el pasado pero que ya han terminado.</li>
-            <li>c) Para acciones pasadas que no tienen un resultado presente.</li>
-        </ul>
-        <p><em>Respuesta correcta: a) Para acciones que comenzaron en el pasado y continúan hasta el presente.</em></p>
-    </div>
+    <!-- Botón para comprobar respuestas -->
+    <button class="button" onclick="checkAnswers()">Comprobar respuestas</button>
 </div>
+
+<script>
+    function checkAnswers() {
+        // Revisar la respuesta de la primera pregunta
+        var q1 = document.querySelector('input[name="q1"]:checked');
+        if (q1) {
+            if (q1.value === 'b') {
+                document.getElementById('correct1').style.display = 'block';
+                document.getElementById('feedback1').style.display = 'none';
+            } else {
+                document.getElementById('feedback1').style.display = 'block';
+                document.getElementById('correct1').style.display = 'none';
+            }
+        } else {
+            alert('Por favor, responde la primera pregunta.');
+        }
+
+        // Revisar la respuesta de la segunda pregunta
+        var q2 = document.querySelector('input[name="q2"]:checked');
+        if (q2) {
+            if (q2.value === 'b') {
+                document.getElementById('correct2').style.display = 'block';
+                document.getElementById('feedback2').style.display = 'none';
+            } else {
+                document.getElementById('feedback2').style.display = 'block';
+                document.getElementById('correct2').style.display = 'none';
+            }
+        } else {
+            alert('Por favor, responde la segunda pregunta.');
+        }
+    }
+</script>
 
 </body>
 </html>
