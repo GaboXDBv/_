@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba de Actualización</title>
+    <title>Preguntas de repaso para Daku</title>
     <link rel="icon" href="favitcon.png" type="image/png"> <!-- Favicon -->
     <style>
         body {
@@ -25,17 +25,204 @@
             text-align: center;
             color: #333;
         }
-        p {
+        .question {
+            margin-bottom: 20px;
+        }
+        .question p {
             font-size: 18px;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin: 10px 0;
+        }
+        .feedback {
+            color: red;
+            font-size: 16px;
+            display: none; /* Initially hidden */
+        }
+        .correct {
+            color: green;
+            font-size: 16px;
+        }
+        .button {
+            display: block;
+            width: 100px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Bienvenido a la página de prueba</h1>
-    <p>Si ves este texto, la página se ha actualizado correctamente. Si no ves cambios, prueba borrar la caché del navegador.</p>
+    <h1>Preguntas de repaso para Daku</h1>
+
+    <!-- Pregunta 1 -->
+    <div class="question" id="question1">
+        <p><strong>1. Which of the following sentences uses the Present Simple correctly?</strong></p>
+        <ul class="options">
+            <li><input type="radio" name="q1" value="a"> a) She don't like pizza.</li>
+            <li><input type="radio" name="q1" value="b"> b) She likes pizza.</li>
+            <li><input type="radio" name="q1" value="c"> c) She like pizza.</li>
+        </ul>
+        <p class="feedback" id="feedback1">Incorrect. The correct answer is: b) She likes pizza.</p>
+        <p class="correct" id="correct1">Correct!</p>
+    </div>
+
+    <!-- Pregunta 2 -->
+    <div class="question" id="question2">
+        <p><strong>2. Which sentence is in the Present Continuous tense?</strong></p>
+        <ul class="options">
+            <li><input type="radio" name="q2" value="a"> a) I will go to the store later.</li>
+            <li><input type="radio" name="q2" value="b"> b) I am going to the store right now.</li>
+            <li><input type="radio" name="q2" value="c"> c) I went to the store yesterday.</li>
+        </ul>
+        <p class="feedback" id="feedback2">Incorrect. The correct answer is: b) I am going to the store right now.</p>
+        <p class="correct" id="correct2">Correct!</p>
+    </div>
+
+    <!-- Pregunta 3 -->
+    <div class="question" id="question3">
+        <p><strong>3. Choose the correct form of the verb in the Present Perfect.</strong></p>
+        <ul class="options">
+            <li><input type="radio" name="q3" value="a"> a) I have been to London last year.</li>
+            <li><input type="radio" name="q3" value="b"> b) I have gone to London last year.</li>
+            <li><input type="radio" name="q3" value="c"> c) I have visited London.</li>
+        </ul>
+        <p class="feedback" id="feedback3">Incorrect. The correct answer is: c) I have visited London.</p>
+        <p class="correct" id="correct3">Correct!</p>
+    </div>
+
+    <!-- Pregunta 4 -->
+    <div class="question" id="question4">
+        <p><strong>4. Which sentence uses "will" correctly?</strong></p>
+        <ul class="options">
+            <li><input type="radio" name="q4" value="a"> a) I will studying tomorrow.</li>
+            <li><input type="radio" name="q4" value="b"> b) I will study tomorrow.</li>
+            <li><input type="radio" name="q4" value="c"> c) I will to study tomorrow.</li>
+        </ul>
+        <p class="feedback" id="feedback4">Incorrect. The correct answer is: b) I will study tomorrow.</p>
+        <p class="correct" id="correct4">Correct!</p>
+    </div>
+
+    <!-- Pregunta 5 -->
+    <div class="question" id="question5">
+        <p><strong>5. Which of these sentences is correct for the Future Continuous?</strong></p>
+        <ul class="options">
+            <li><input type="radio" name="q5" value="a"> a) She will be working at 8 o'clock tomorrow.</li>
+            <li><input type="radio" name="q5" value="b"> b) She will working at 8 o'clock tomorrow.</li>
+            <li><input type="radio" name="q5" value="c"> c) She will works at 8 o'clock tomorrow.</li>
+        </ul>
+        <p class="feedback" id="feedback5">Incorrect. The correct answer is: a) She will be working at 8 o'clock tomorrow.</p>
+        <p class="correct" id="correct5">Correct!</p>
+    </div>
+
+    <!-- Pregunta 6 -->
+    <div class="question" id="question6">
+        <p><strong>6. Choose the correct sentence for the Past Simple.</strong></p>
+        <ul class="options">
+            <li><input type="radio" name="q6" value="a"> a) I am visited the museum yesterday.</li>
+            <li><input type="radio" name="q6" value="b"> b) I visited the museum yesterday.</li>
+            <li><input type="radio" name="q6" value="c"> c) I visiting the museum yesterday.</li>
+        </ul>
+        <p class="feedback" id="feedback6">Incorrect. The correct answer is: b) I visited the museum yesterday.</p>
+        <p class="correct" id="correct6">Correct!</p>
+    </div>
+
+    <!-- Pregunta 7 -->
+    <div class="question" id="question7">
+        <p><strong>7. Which is the correct question for Present Perfect?</strong></p>
+        <ul class="options">
+            <li><input type="radio" name="q7" value="a"> a) Have you been to Paris?</li>
+            <li><input type="radio" name="q7" value="b"> b) Did you been to Paris?</li>
+            <li><input type="radio" name="q7" value="c"> c) Are you been to Paris?</li>
+        </ul>
+        <p class="feedback" id="feedback7">Incorrect. The correct answer is: a) Have you been to Paris?</p>
+        <p class="correct" id="correct7">Correct!</p>
+    </div>
+
+    <!-- Pregunta 8 -->
+    <div class="question" id="question8">
+        <p><strong>8. Choose the correct answer for "I _____ never been to Japan."</strong></p>
+        <ul class="options">
+            <li><input type="radio" name="q8" value="a"> a) have</li>
+            <li><input type="radio" name="q8" value="b"> b) had</li>
+            <li><input type="radio" name="q8" value="c"> c) am</li>
+        </ul>
+        <p class="feedback" id="feedback8">Incorrect. The correct answer is: a) have.</p>
+        <p class="correct" id="correct8">Correct!</p>
+    </div>
+
+    <!-- Pregunta 9 -->
+    <div class="question" id="question9">
+        <p><strong>9. Choose the correct future form: "I _____ to the concert tomorrow."</strong></p>
+        <ul class="options">
+            <li><input type="radio" name="q9" value="a"> a) am going</li>
+            <li><input type="radio" name="q9" value="b"> b) will going</li>
+            <li><input type="radio" name="q9" value="c"> c) will go</li>
+        </ul>
+        <p class="feedback" id="feedback9">Incorrect. The correct answer is: a) am going.</p>
+        <p class="correct" id="correct9">Correct!</p>
+    </div>
+
+    <!-- Pregunta 10 -->
+    <div class="question" id="question10">
+        <p><strong>10. Which is the correct structure for the Present Continuous?</strong></p>
+        <ul class="options">
+            <li><input type="radio" name="q10" value="a"> a) Subject + am/are/is + verb-ing</li>
+            <li><input type="radio" name="q10" value="b"> b) Subject + will + verb-ing</li>
+            <li><input type="radio" name="q10" value="c"> c) Subject + have + verb-ed</li>
+        </ul>
+        <p class="feedback" id="feedback10">Incorrect. The correct answer is: a) Subject + am/are/is + verb-ing.</p>
+        <p class="correct" id="correct10">Correct!</p>
+    </div>
+
+    <!-- Botón para comprobar respuestas -->
+    <button class="button" onclick="checkAnswers()">Comprobar respuestas</button>
 </div>
+
+<script>
+    function checkAnswers() {
+        // Revisar las respuestas y mostrar feedback
+        checkAnswer('q1', 'b', 'feedback1', 'correct1');
+        checkAnswer('q2', 'b', 'feedback2', 'correct2');
+        checkAnswer('q3', 'c', 'feedback3', 'correct3');
+        checkAnswer('q4', 'b', 'feedback4', 'correct4');
+        checkAnswer('q5', 'a', 'feedback5', 'correct5');
+        checkAnswer('q6', 'b', 'feedback6', 'correct6');
+        checkAnswer('q7', 'a', 'feedback7', 'correct7');
+        checkAnswer('q8', 'a', 'feedback8', 'correct8');
+        checkAnswer('q9', 'a', 'feedback9', 'correct9');
+        checkAnswer('q10', 'a', 'feedback10', 'correct10');
+    }
+
+    function checkAnswer(question, correctAnswer, feedbackId, correctId) {
+        var q = document.querySelector('input[name="' + question + '"]:checked');
+        if (q) {
+            if (q.value === correctAnswer) {
+                document.getElementById(correctId).style.display = 'block';
+                document.getElementById(feedbackId).style.display = 'none';
+            } else {
+                document.getElementById(feedbackId).style.display = 'block';
+                document.getElementById(correctId).style.display = 'none';
+            }
+        } else {
+            alert('Please answer question ' + question);
+        }
+    }
+</script>
 
 </body>
 </html>
+
