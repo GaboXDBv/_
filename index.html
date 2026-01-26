@@ -20,44 +20,54 @@
             background-color: #fff;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
+            text-align: center;
         }
         h1 {
-            text-align: center;
             color: #333;
             font-size: 36px;
             margin-bottom: 40px;
         }
         .section {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
             margin-bottom: 30px;
             padding: 20px;
-            border-left: 6px solid #4CAF50;
-            background-color: #fafafa;
             border-radius: 8px;
+            background-color: #f0f8ff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        .section img {
+            width: 80px;
+            height: 80px;
+            margin-right: 20px;
         }
         .section h2 {
             font-size: 28px;
             color: #4CAF50;
+            font-weight: bold;
         }
         .section p {
             font-size: 20px;
             color: #444;
-            line-height: 1.6;
+            max-width: 350px;
         }
-        .example {
-            background-color: #f1f1f1;
-            padding: 10px;
-            margin: 20px 0;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-        .example strong {
-            color: #4CAF50;
-        }
-        .footer {
+        .button-container {
             text-align: center;
-            margin-top: 40px;
-            font-size: 18px;
-            color: #666;
+            margin-top: 30px;
+        }
+        .next-button {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .next-button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -66,72 +76,48 @@
 <div class="container">
     <h1>Marco Teórico: Present Simple vs Present Continuous</h1>
 
-    <!-- Sección 1: Introducción -->
+    <!-- Sección 1: Present Simple -->
     <div class="section">
-        <h2>1. Introducción</h2>
-        <p>El <strong>Present Simple</strong> y el <strong>Present Continuous</strong> son dos de los tiempos verbales más importantes en inglés. Ambos se usan para hablar sobre acciones en el presente, pero con diferentes matices y propósitos.</p>
-    </div>
-
-    <!-- Sección 2: Present Simple -->
-    <div class="section">
-        <h2>2. Present Simple</h2>
-        <p>El <strong>Present Simple</strong> se utiliza para:</p>
-        <ul>
-            <li>Hablar de hábitos y rutinas.</li>
-            <li>Hechos que son generalmente verdaderos.</li>
-            <li>Estados permanentes (verbos de estado).</li>
-        </ul>
-
-        <div class="example">
-            <p><strong>Ejemplo:</strong> <br> "I live in London." (Vivo en Londres). <br> "She works in a restaurant." (Ella trabaja en un restaurante).</p>
+        <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/external-simple-editing-flaticons-lineal-color-flat-icons.png" alt="icon">
+        <div>
+            <h2>Present Simple</h2>
+            <p>Se usa para hablar de hábitos, rutinas, hechos generales y estados permanentes. Ejemplo: "She works in a restaurant." (Ella trabaja en un restaurante).</p>
         </div>
     </div>
 
-    <!-- Sección 3: Present Continuous -->
+    <!-- Sección 2: Present Continuous -->
     <div class="section">
-        <h2>3. Present Continuous</h2>
-        <p>El <strong>Present Continuous</strong> se utiliza para:</p>
-        <ul>
-            <li>Acciones que están ocurriendo en este momento.</li>
-            <li>Situaciones temporales.</li>
-            <li>Arreglos futuros.</li>
-        </ul>
-
-        <div class="example">
-            <p><strong>Ejemplo:</strong> <br> "I am studying right now." (Estoy estudiando ahora mismo). <br> "They are working at home this week." (Ellos están trabajando en casa esta semana).</p>
+        <img src="https://img.icons8.com/external-flat-juicy-fish/64/external-continuous-writing-and-editing-flat-flat-juicy-fish.png" alt="icon">
+        <div>
+            <h2>Present Continuous</h2>
+            <p>Se usa para describir acciones que están ocurriendo en el momento, situaciones temporales o arreglos futuros. Ejemplo: "They are studying right now." (Ellos están estudiando ahora mismo).</p>
         </div>
     </div>
 
-    <!-- Sección 4: Diferencias entre Present Simple y Present Continuous -->
+    <!-- Sección 3: Diferencias Claves -->
     <div class="section">
-        <h2>4. Diferencias Claves</h2>
-        <p>Las diferencias principales entre el <strong>Present Simple</strong> y el <strong>Present Continuous</strong> son:</p>
-        <ul>
-            <li><strong>Present Simple</strong> se utiliza para <strong>hábitos</strong>, <strong>rutinas</strong>, y <strong>hechos generales</strong>.</li>
-            <li><strong>Present Continuous</strong> se usa para <strong>acciones temporales</strong> y <strong>acciones en progreso</strong>.</li>
-        </ul>
-
-        <div class="example">
-            <p><strong>Ejemplo:</strong> <br> "She usually drinks coffee in the morning." (Ella usualmente bebe café por la mañana). <br> "She is drinking coffee right now." (Ella está bebiendo café ahora mismo).</p>
+        <img src="https://img.icons8.com/ios-filled/50/000000/difference.png" alt="icon">
+        <div>
+            <h2>Diferencias Claves</h2>
+            <p><strong>Present Simple:</strong> Para rutinas y hechos. <br><strong>Present Continuous:</strong> Para acciones temporales o en progreso.</p>
         </div>
     </div>
 
-    <!-- Sección 5: Expresiones de tiempo -->
+    <!-- Sección 4: Expresiones de Tiempo -->
     <div class="section">
-        <h2>5. Expresiones de Tiempo</h2>
-        <p>Las expresiones de tiempo se usan para determinar cuándo ocurre la acción:</p>
-        <ul>
-            <li><strong>Present Simple:</strong> always, often, usually, every day, once a week.</li>
-            <li><strong>Present Continuous:</strong> at the moment, now, today, this week, etc.</li>
-        </ul>
+        <img src="https://img.icons8.com/external-flat-juicy-fish/64/external-time-clock-flat-flat-juicy-fish.png" alt="icon">
+        <div>
+            <h2>Expresiones de Tiempo</h2>
+            <p><strong>Present Simple:</strong> always, often, usually. <br><strong>Present Continuous:</strong> at the moment, now, today.</p>
+        </div>
     </div>
 
-    <div class="footer">
-        <p>Fuente: Present Simple vs Present Continuous (según el material de aprendizaje).</p>
+    <!-- Botón para pasar a las preguntas -->
+    <div class="button-container">
+        <button class="next-button" onclick="window.location.href='preguntas.html';">Pasar a las preguntas</button>
     </div>
 </div>
 
 </body>
 </html>
-
 
