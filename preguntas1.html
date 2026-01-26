@@ -281,7 +281,6 @@
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
-    /* Highlight states */
     .chosen{
       border-color: rgba(37,99,235,.55) !important;
       box-shadow: 0 8px 18px rgba(37,99,235,.10) !important;
@@ -302,7 +301,7 @@
     <header>
       <h1>Preguntas 1</h1>
       <p class="subtitle">
-        Present Simple vs Present Continuous + Action / Non-action verbs — 5 preguntas por ronda.
+        Present Simple vs Present Continuous + Action/Non-action verbs + Food & Cooking (UK/US + phrasal verbs) — 10 preguntas por ronda.
       </p>
     </header>
 
@@ -313,8 +312,8 @@
 
           <div class="topRow">
             <span class="badge" id="roundBadge">Ronda: 1</span>
-            <span class="badge" id="scoreBadge">Puntaje: 0 / 5</span>
-            <span class="badge" id="qBadge">Pregunta: 1 / 5</span>
+            <span class="badge" id="scoreBadge">Puntaje: 0 / 10</span>
+            <span class="badge" id="qBadge">Pregunta: 1 / 10</span>
           </div>
 
           <div class="progressWrap" aria-label="Progreso de la ronda">
@@ -342,17 +341,17 @@
         <div class="content">
           <h2>Navegación</h2>
           <p class="muted">
-            Usa estos botones para volver, cambiar de tema o cargar otra ronda de 5 preguntas.
+            Vuelve al vocabulario o sigue con el siguiente tema, o carga otra ronda de 10.
           </p>
 
           <div class="navRow">
-            <button class="navBtn btnBack" onclick="window.location.href='vocabulario1.html'">Antes</button>
+            <button class="navBtn btnBack" onclick="window.location.href='vocabulario1.html'">Antes (Vocabulario 1)</button>
             <button class="navBtn btnNextTheme" onclick="window.location.href='mark2.html'">Continuar con el siguiente tema</button>
-            <button class="navBtn btnNewSet" onclick="newRound()">Displayar 5 preguntas</button>
+            <button class="navBtn btnNewSet" onclick="newRound()">Displayar 10 preguntas</button>
           </div>
 
           <div class="footerHint">
-            Si aún no existe el “siguiente tema”, el botón no rompe nada.
+            Banco: 40 preguntas. No se repiten entre rondas hasta consumirlas.
           </div>
         </div>
       </section>
@@ -370,185 +369,431 @@
       return a;
     }
 
+    const ROUND_SIZE = 10;
+
+    // ✅ 40 preguntas mezclando:
+    // - Present Simple vs Present Continuous
+    // - Action vs Non-action (stative) verbs: think/have/see/taste/smell/feel/look/be...
+    // - Vocabulario 1 (food) + UK/US + phrasal verbs (eat out, cut down on, cut out, warm up, fry up, pick up)
     const QUESTION_BANK = [
-      {
-        stem: "I ____ that you cooked this meal yourself.",
-        options: [
-          { text: "don’t believe", correct: true },
-          { text: "’m not believing", correct: false },
-          { text: "don’t believing", correct: false }
-        ],
-        explain: {
-          okTitle: "Correcto: “I don’t believe …”",
-          okPoints: [
-            "“Believe” suele ser un <b>non-action verb</b> (opinión/creencia).",
-            "Los <b>non-action verbs</b> normalmente van en <b>Present Simple</b>, no en continuous.",
-            "En ejercicios tipo Oxford, <span class='code'>I’m not believing</span> se considera incorrecto aquí."
-          ]
-        }
-      },
+      /* ===== GRAMMAR: SIMPLE vs CONTINUOUS + STATIVE TRAPS ===== */
       {
         stem: "Come on, let’s order. The waiter ____.",
         options: [
-          { text: "comes", correct: false },
-          { text: "is coming", correct: true },
-          { text: "will come", correct: false }
+          { text: "comes", correct:false, why:"<span class='code'>comes</span> suena a rutina/hábito (“siempre viene”), pero aquí es algo que pasa <b>ahora</b>." },
+          { text: "is coming", correct:true, why:"Situación <b>inminente/ahora</b>. Para acciones en progreso o a punto de ocurrir: <span class='code'>present continuous</span>." },
+          { text: "will come", correct:false, why:"<span class='code'>will</span> suena a futuro general/predicción. Aquí es “ya viene” (casi ahora)." }
         ],
-        explain: {
-          okTitle: "Correcto: “The waiter is coming.”",
-          okPoints: [
-            "Aquí es una situación <b>inminente</b>: el camarero está por llegar / ya viene.",
-            "Usamos <b>Present Continuous</b> para algo que ocurre <b>ahora</b> o <b>alrededor de ahora</b>.",
-            "<span class='code'>comes</span> suena a rutina; <span class='code'>will come</span> es un futuro general."
-          ]
-        }
+        explain:{ okTitle:"Acción inminente → Present Continuous", okPoints:["Trampa: rutina vs ‘ahora’." ] }
       },
       {
-        stem: "Kate ____ to have dinner now. She isn’t hungry.",
+        stem: "I ____ that this is tuna. It tastes like chicken.",
         options: [
-          { text: "doesn’t want", correct: true },
-          { text: "isn’t wanting", correct: false },
-          { text: "doesn’t wanting", correct: false }
+          { text: "don’t believe", correct:true,  why:"<span class='code'>believe</span> = creencia/opinión (stative) → normalmente <b>Present Simple</b>." },
+          { text: "’m not believing", correct:false, why:"En este nivel, <span class='code'>believe</span> casi siempre es <b>non-action</b>; continuous se marca mal." },
+          { text: "don’t believing", correct:false, why:"Estructura incorrecta: después de <span class='code'>don’t</span> va el verbo base: <span class='code'>believe</span>." }
         ],
-        explain: {
-          okTitle: "Correcto: “Kate doesn’t want …”",
-          okPoints: [
-            "“Want” normalmente es <b>non-action</b> (estado/deseo), por eso va en <b>Present Simple</b>.",
-            "Aunque diga “now”, el verbo <b>no suele usarse</b> en continuous en este tipo de ejercicios.",
-            "<span class='code'>doesn’t wanting</span> es gramaticalmente incorrecto."
-          ]
-        }
+        explain:{ okTitle:"Non-action verb → Present Simple", okPoints:["Believe/want/need/seem/love suelen ir en simple."] }
       },
       {
-        stem: "The head chef is ill, so he ____ today.",
+        stem: "This week I ____ on sugar because I feel tired.",
         options: [
-          { text: "doesn’t work", correct: false },
-          { text: "isn’t working", correct: true },
-          { text: "doesn’t working", correct: false }
+          { text: "cut down on", correct:false, why:"Suena a hábito general. Pero <b>this week</b> = situación temporal." },
+          { text: "am cutting down on", correct:true, why:"Cambio temporal/plan actual (“esta semana”) → <span class='code'>present continuous</span>. Además el phrasal correcto lleva <span class='code'>on</span>." },
+          { text: "am cutting down", correct:false, why:"Falta <span class='code'>on</span>. Es <span class='code'>cut down on sugar</span>." }
         ],
-        explain: {
-          okTitle: "Correcto: “He isn’t working today.”",
-          okPoints: [
-            "“Today” indica algo <b>temporal</b> (no es una rutina).",
-            "Para situaciones temporales usamos <b>Present Continuous</b>.",
-            "<span class='code'>doesn’t work</span> suena a hábito general."
-          ]
-        }
+        explain:{ okTitle:"Temporal (this week) + phrasal correcto", okPoints:["Ojo: <span class='code'>cut down on</span> (lleva ON)."] }
       },
       {
-        stem: "The bill ____ very expensive to me.",
+        stem: "I usually ____ some bread on my way home.",
         options: [
-          { text: "seems", correct: true },
-          { text: "is seeming", correct: false },
-          { text: "seemed", correct: false }
+          { text: "pick up", correct:true,  why:"Rutina/hábito (“usually”) → <b>Present Simple</b>. <span class='code'>pick up</span> = comprar/recoger." },
+          { text: "am picking up", correct:false, why:"<span class='code'>present continuous</span> sería para “ahora/temporal”, pero <b>usually</b> marca rutina." },
+          { text: "pick out", correct:false, why:"<span class='code'>pick out</span> = escoger entre opciones, no “comprar/recoger en camino”." }
         ],
-        explain: {
-          okTitle: "Correcto: “The bill seems …”",
-          okPoints: [
-            "“Seem” es un <b>non-action verb</b> (apariencia/opinión).",
-            "Los non-action verbs van normalmente en <b>Present Simple</b>.",
-            "<span class='code'>seemed</span> es pasado, no corresponde aquí."
-          ]
-        }
-      },
-      {
-        stem: "We’ve had an argument and now we ____ to each other.",
-        options: [
-          { text: "don’t speak", correct: false },
-          { text: "aren’t speaking", correct: true },
-          { text: "don’t speaking", correct: false }
-        ],
-        explain: {
-          okTitle: "Correcto: “We aren’t speaking …”",
-          okPoints: [
-            "Después de una pelea, es una situación <b>temporal</b> (por ahora).",
-            "Por eso usamos <b>Present Continuous</b> para una situación en este periodo.",
-            "<span class='code'>don’t speak</span> suena a permanente."
-          ]
-        }
-      },
-      {
-        stem: "My mum ____ my diet is awful these days.",
-        options: [
-          { text: "thinks", correct: true },
-          { text: "is thinking", correct: false },
-          { text: "will think", correct: false }
-        ],
-        explain: {
-          okTitle: "Correcto: “My mum thinks …”",
-          okPoints: [
-            "Aquí “think” significa <b>opinión</b> → suele ser <b>non-action</b>.",
-            "<span class='code'>is thinking</span> se usa más como “considerar/planear” (proceso).",
-            "“These days” = periodo actual, pero sigue siendo una opinión."
-          ]
-        }
-      },
-      {
-        stem: "____ to go shopping today?",
-        options: [
-          { text: "Do we need", correct: true },
-          { text: "Are we needing", correct: false },
-          { text: "Do we needing", correct: false }
-        ],
-        explain: {
-          okTitle: "Correcto: “Do we need …?”",
-          okPoints: [
-            "“Need” es típicamente <b>non-action</b> (necesidad/estado).",
-            "Va en <b>Present Simple</b>: <span class='code'>Do we need…?</span>",
-            "<span class='code'>Are we needing</span> no es lo típico en este tipo de ejercicios."
-          ]
-        }
+        explain:{ okTitle:"Usually → Present Simple", okPoints:["Phrasal: <span class='code'>pick up</span> (recoger/comprar)."] }
       },
       {
         stem: "Can I call you back? I ____ lunch right now.",
         options: [
-          { text: "have", correct: false },
-          { text: "’m having", correct: true },
-          { text: "’ve had", correct: false }
+          { text: "have", correct:false, why:"<span class='code'>have</span> en simple suena a rutina (“I have lunch at 1”)." },
+          { text: "’m having", correct:true, why:"Aquí <span class='code'>have</span> = acción (comer/almorzar) → se permite continuous con <b>right now</b>." },
+          { text: "’ve had", correct:false, why:"<span class='code'>I’ve had lunch</span> = ya almorcé (acción terminada), no ‘ahora’." }
         ],
-        explain: {
-          okTitle: "Correcto: “I’m having lunch right now.”",
-          okPoints: [
-            "“Right now” = acción en progreso → <b>Present Continuous</b>.",
-            "<span class='code'>I have lunch</span> suena a rutina.",
-            "<span class='code'>I’ve had lunch</span> = ya almorcé."
-          ]
-        }
+        explain:{ okTitle:"Have (acción) → Continuous", okPoints:["Trampa: have (posesión) ≠ have (comer)."] }
       },
       {
-        stem: "I didn’t use to like oily fish, but now I ____ it!",
+        stem: "She ____ two brothers, so she never eats alone.",
         options: [
-          { text: "love", correct: true },
-          { text: "’m loving", correct: false },
-          { text: "’m really loving", correct: false }
+          { text: "has", correct:true,  why:"Aquí <span class='code'>have</span> = posesión/relación (stative) → <b>Present Simple</b>." },
+          { text: "is having", correct:false, why:"<span class='code'>is having</span> sería acción temporal (comer/fiesta), no posesión." },
+          { text: "have", correct:false, why:"Con <span class='code'>she</span> en simple necesitas 3ra persona: <span class='code'>has</span>." }
         ],
-        explain: {
-          okTitle: "Correcto (en examen): “I love it!”",
-          okPoints: [
-            "“Love” normalmente es <b>non-action</b> (estado), así que va en <b>Present Simple</b>.",
-            "Aunque exista en publicidad <span class='code'>I’m loving it</span>, aquí se marca como incorrecto.",
-            "Contrasta antes vs ahora: ahora sí te gusta."
-          ]
-        }
+        explain:{ okTitle:"Have (posesión) → Simple", okPoints:["Stative: have = tener (simple)."] }
       },
       {
-        stem: "Your cake is wonderful! It ____ like one my mother used to make.",
+        stem: "Be quiet! The baby ____.",
         options: [
-          { text: "tastes", correct: true },
-          { text: "is tasting", correct: false },
-          { text: "tasted", correct: false }
+          { text: "sleeps", correct:false, why:"<span class='code'>sleeps</span> suena a rutina (“duerme siempre”). Aquí es ahora." },
+          { text: "is sleeping", correct:true, why:"Acción en progreso <b>ahora</b> → <span class='code'>present continuous</span>." },
+          { text: "sleep", correct:false, why:"Con <span class='code'>the baby</span> necesitas 3ra persona (sleeps) o continuous (is sleeping)." }
         ],
-        explain: {
-          okTitle: "Correcto: “It tastes …”",
-          okPoints: [
-            "Con “it” (el pastel), “taste” es percepción → non-action → <b>Present Simple</b>.",
-            "<span class='code'>is tasting</span> se usa más con persona probando: “She’s tasting the soup.”",
-            "<span class='code'>tasted</span> es pasado."
-          ]
-        }
-      }
+        explain:{ okTitle:"Ahora → Present Continuous", okPoints:[] }
+      },
+      {
+        stem: "I ____ what you mean. It’s clear now.",
+        options: [
+          { text: "see", correct:true,  why:"Aquí <span class='code'>see</span> = comprender (stative) → <b>Present Simple</b>." },
+          { text: "am seeing", correct:false, why:"<span class='code'>am seeing</span> suele ser “quedar con alguien / salir con alguien” (acción/plan), no “comprender”." },
+          { text: "will see", correct:false, why:"<span class='code'>will see</span> sería futuro (“ya veré”), no comprensión actual." }
+        ],
+        explain:{ okTitle:"See (comprender) = non-action → Simple", okPoints:[] }
+      },
+      {
+        stem: "I ____ the manager tomorrow at 3. It’s in my calendar.",
+        options: [
+          { text: "see", correct:false, why:"Podría sonar general, pero aquí hay <b>arreglo específico</b> con hora." },
+          { text: "am seeing", correct:true,  why:"<span class='code'>see</span> como “reunirse/salir con” + plan confirmado → <span class='code'>present continuous</span>." },
+          { text: "am seeing him usually", correct:false, why:"Mezcla incorrecta: <span class='code'>usually</span> (rutina) no encaja con “tomorrow at 3” (agenda)." }
+        ],
+        explain:{ okTitle:"Arreglo (hora) → Present Continuous", okPoints:["Stative vs action cambia el significado."] }
+      },
+      {
+        stem: "This soup ____ amazing!",
+        options: [
+          { text: "tastes", correct:true,  why:"Percepción/resultado: “sabe rico” (stative) → <b>Present Simple</b>." },
+          { text: "is tasting", correct:false, why:"<span class='code'>is tasting</span> se usa cuando alguien está probando activamente: “She’s tasting the soup.”" },
+          { text: "taste", correct:false, why:"Con <span class='code'>this soup</span> necesitas 3ra persona: <span class='code'>tastes</span>." }
+        ],
+        explain:{ okTitle:"Taste (percepción) → Simple", okPoints:[] }
+      },
+
+      /* ===== FOOD VOCAB (UK/US + seafood/meat/veg) ===== */
+      {
+        stem: "In British English, “eggplant” is called ____.",
+        options: [
+          { text: "aubergine", correct:true,  why:"UK: <span class='code'>aubergine</span> = US: <span class='code'>eggplant</span>." },
+          { text: "courgette", correct:false, why:"<span class='code'>courgette</span> = UK para <span class='code'>zucchini</span>, no eggplant." },
+          { text: "lobster", correct:false, why:"<span class='code'>lobster</span> es marisco, nada que ver con verduras." }
+        ],
+        explain:{ okTitle:"UK/US vocab", okPoints:["Trampa: courgette = zucchini."] }
+      },
+      {
+        stem: "In American English, “courgette” is ____.",
+        options: [
+          { text: "zucchini", correct:true,  why:"US: <span class='code'>zucchini</span> = UK: <span class='code'>courgette</span>." },
+          { text: "aubergine", correct:false, why:"Aubergine = eggplant (otra verdura)." },
+          { text: "mussels", correct:false, why:"<span class='code'>mussels</span> son mariscos (mejillones)." }
+        ],
+        explain:{ okTitle:"UK/US vocab", okPoints:[] }
+      },
+      {
+        stem: "Which one is a shellfish (marisco con concha)?",
+        options: [
+          { text: "mussels", correct:true,  why:"<span class='code'>mussels</span> = mejillones (con concha)." },
+          { text: "tuna", correct:false, why:"<span class='code'>tuna</span> es pescado (atún), no concha." },
+          { text: "lamb", correct:false, why:"<span class='code'>lamb</span> es carne (cordero)." }
+        ],
+        explain:{ okTitle:"Seafood vocab", okPoints:[] }
+      },
+      {
+        stem: "Choose the correct option: “I’d like ____ , please.”",
+        options: [
+          { text: "some prawns", correct:true,  why:"Pedido natural: <span class='code'>some + plural</span>. <span class='code'>prawns</span> = langostinos." },
+          { text: "a prawns", correct:false, why:"Incorrecto: <span class='code'>a</span> va con singular: <span class='code'>a prawn</span>." },
+          { text: "prawnses", correct:false, why:"Plural incorrecto. Es <span class='code'>prawns</span>." }
+        ],
+        explain:{ okTitle:"Countable plural", okPoints:["Pedido típico: <span class='code'>some prawns</span>."] }
+      },
+      {
+        stem: "Choose the correct sentence about fish (comida).",
+        options: [
+          { text: "I don’t eat fish.", correct:true,  why:"<span class='code'>fish</span> como comida suele ser incontable → sin <span class='code'>a</span>." },
+          { text: "I don’t eat a fish.", correct:false, why:"<span class='code'>a fish</span> suena a un pez individual (animal), no “pescado” en general." },
+          { text: "I don’t eating fish.", correct:false, why:"Estructura mal: después de <span class='code'>don’t</span> va verbo base: <span class='code'>eat</span>." }
+        ],
+        explain:{ okTitle:"Fish (food) = general", okPoints:[] }
+      },
+      {
+        stem: "Which one is a type of meat?",
+        options: [
+          { text: "lamb", correct:true,  why:"<span class='code'>lamb</span> = cordero (carne)." },
+          { text: "squid", correct:false, why:"<span class='code'>squid</span> = calamar (seafood)." },
+          { text: "grapes", correct:false, why:"<span class='code'>grapes</span> = uvas (fruta)." }
+        ],
+        explain:{ okTitle:"Meat vs seafood vs fruit", okPoints:[] }
+      },
+
+      /* ===== PHRASAL VERBS + GRAMMAR COMBOS ===== */
+      {
+        stem: "We ____ every Friday because we’re too tired to cook.",
+        options: [
+          { text: "eat out", correct:true,  why:"Rutina (every Friday) → Present Simple. <span class='code'>eat out</span> = comer fuera." },
+          { text: "are eating out", correct:false, why:"Continuous sería para algo temporal/esta semana, pero “every Friday” es hábito." },
+          { text: "eat down", correct:false, why:"No existe con ese significado. Es <span class='code'>eat out</span>." }
+        ],
+        explain:{ okTitle:"Every + día → rutina (Simple)", okPoints:[] }
+      },
+      {
+        stem: "This month I ____ junk food completely. (I stopped it 100%)",
+        options: [
+          { text: "am cutting out", correct:true,  why:"Cambio temporal (this month) + eliminar 100% → <span class='code'>cut out</span>. Continuous suena natural para hábito nuevo." },
+          { text: "am cutting down on", correct:false, why:"<span class='code'>cut down on</span> = reducir, no eliminar 100%." },
+          { text: "cut off", correct:false, why:"<span class='code'>cut off</span> = cortar/ interrumpir (teléfono, suministro), no dieta." }
+        ],
+        explain:{ okTitle:"Cut out vs cut down on", okPoints:["Cut out = eliminar. Cut down on = reducir."] }
+      },
+      {
+        stem: "Wait a second — I ____ the soup. It needs more salt. (right now)",
+        options: [
+          { text: "taste", correct:false, why:"Falta 3ra persona/forma correcta y no marca acción en progreso." },
+          { text: "am tasting", correct:true,  why:"Aquí <span class='code'>taste</span> = acción (probar activamente) → se permite continuous." },
+          { text: "tastes", correct:false, why:"<span class='code'>tastes</span> describe cómo sabe la sopa (resultado), no la acción de probarla." }
+        ],
+        explain:{ okTitle:"Taste (acción) → Continuous", okPoints:["Trampa: mismo verbo, significado distinto."] }
+      },
+
+      /* ===== MÁS GRAMMAR TRAPS (think/feel/look/be/smell) ===== */
+      {
+        stem: "I ____ you’re wrong. (opinion)",
+        options: [
+          { text: "think", correct:true,  why:"Opinión/creencia → <span class='code'>think</span> (stative) normalmente en <b>Present Simple</b>." },
+          { text: "am thinking", correct:false, why:"<span class='code'>am thinking</span> suele ser “considerar/planear” (proceso), no una opinión fija." },
+          { text: "think am", correct:false, why:"Orden incorrecto." }
+        ],
+        explain:{ okTitle:"Think (opinión) → Simple", okPoints:[] }
+      },
+      {
+        stem: "I ____ about buying a new oven. (considering it these days)",
+        options: [
+          { text: "think", correct:false, why:"Simple suena más a opinión, no a proceso mental actual." },
+          { text: "am thinking", correct:true,  why:"Proceso/plan en mente (“estos días”) → <span class='code'>present continuous</span>." },
+          { text: "am think", correct:false, why:"Forma incorrecta: es <span class='code'>am thinking</span>." }
+        ],
+        explain:{ okTitle:"Think (considerar) → Continuous", okPoints:[] }
+      },
+      {
+        stem: "I ____ sick today, so I’m not eating anything heavy.",
+        options: [
+          { text: "feel", correct:false, why:"Podría ser correcto en general, pero “today” empuja fuerte a temporal → continuous más natural en este tipo de ejercicios." },
+          { text: "am feeling", correct:true,  why:"Estado temporal (“today”) → <span class='code'>present continuous</span> es muy común con <span class='code'>feel</span>." },
+          { text: "am feel", correct:false, why:"Forma incorrecta: falta <span class='code'>-ing</span>." }
+        ],
+        explain:{ okTitle:"Feel (temporal) → Continuous", okPoints:[] }
+      },
+      {
+        stem: "The fish ____ fresh. (perception/description)",
+        options: [
+          { text: "smells", correct:true,  why:"Percepción/resultado (“huele…”) → Present Simple." },
+          { text: "is smelling", correct:false, why:"Continuous sería “está oliendo activamente” (acción), raro con “fish” como objeto." },
+          { text: "smell", correct:false, why:"Con 3ra persona singular necesitas <span class='code'>smells</span>." }
+        ],
+        explain:{ okTitle:"Smell (percepción) → Simple", okPoints:[] }
+      },
+
+      /* ===== COMPLETA el banco a 40 con más mezcla (rápido pero sólido) ===== */
+      {
+        stem: "He ____ very rude today. (temporary behaviour)",
+        options: [
+          { text: "is", correct:false,  why:"<span class='code'>is</span> suena a característica permanente: ‘él es grosero’ (siempre)." },
+          { text: "is being", correct:true,  why:"<span class='code'>be</span> en continuous se usa para comportamiento temporal: “está siendo grosero hoy”." },
+          { text: "be", correct:false,  why:"Falta auxiliar y forma correcta." }
+        ],
+        explain:{ okTitle:"Be (comportamiento temporal) → is being", okPoints:[] }
+      },
+      {
+        stem: "You’re always ____ my fries! (annoying habit)",
+        options: [
+          { text: "steal", correct:false, why:"Falta forma -ing para la estructura típica de queja." },
+          { text: "stealing", correct:true,  why:"<span class='code'>always + present continuous</span> = queja/hábito molesto." },
+          { text: "stole", correct:false, why:"Pasado, no queja actual." }
+        ],
+        explain:{ okTitle:"Always + Continuous = queja", okPoints:[] }
+      },
+      {
+        stem: "We ____ dinner at 7 on weekdays. (routine)",
+        options: [
+          { text: "have", correct:true,  why:"Rutina (on weekdays) → Present Simple." },
+          { text: "are having", correct:false, why:"Continuous sería temporal (esta semana/hoy), no rutina." },
+          { text: "having", correct:false, why:"Falta auxiliar/estructura." }
+        ],
+        explain:{ okTitle:"Rutina → Simple", okPoints:[] }
+      },
+      {
+        stem: "Tonight we ____ at home because the restaurant is full. (temporary plan)",
+        options: [
+          { text: "eat", correct:false,  why:"Podría sonar general, pero “tonight” aquí es decisión para hoy; suele ir natural en continuous." },
+          { text: "are eating", correct:true,  why:"Plan para hoy/esta noche → present continuous para futuro cercano/plan." },
+          { text: "eaten", correct:false,  why:"Participio sin auxiliar." }
+        ],
+        explain:{ okTitle:"Plan cercano → Present Continuous", okPoints:[] }
+      },
+      {
+        stem: "Which word matches: “crab”?",
+        options: [
+          { text: "a sea animal with claws", correct:true,  why:"Crab = cangrejo (pinzas)." },
+          { text: "a type of fruit", correct:false, why:"No, fruta sería grapes/avocado, etc." },
+          { text: "a kind of bread", correct:false, why:"No es pan." }
+        ],
+        explain:{ okTitle:"Seafood vocab", okPoints:[] }
+      },
+      {
+        stem: "Which one is “squid”?",
+        options: [
+          { text: "calamar", correct:true,  why:"Squid = calamar." },
+          { text: "cordero", correct:false, why:"Cordero = lamb." },
+          { text: "mejillones", correct:false, why:"Mejillones = mussels." }
+        ],
+        explain:{ okTitle:"Seafood vocab", okPoints:[] }
+      },
+      {
+        stem: "Choose the correct: “I ____ eggs every morning.” (routine)",
+        options: [
+          { text: "eat", correct:true,  why:"Rutina → Present Simple." },
+          { text: "am eating", correct:false, why:"Continuous sería “ahora/temporal”, no “every morning”." },
+          { text: "eats", correct:false, why:"Con “I” va base form: <span class='code'>eat</span>." }
+        ],
+        explain:{ okTitle:"Every morning → Simple", okPoints:[] }
+      },
+      {
+        stem: "We ____ the leftovers. (right now: we are heating them)",
+        options: [
+          { text: "warm up", correct:false,  why:"Sin auxiliar no marca acción en progreso con “right now” en este tipo de ejercicio." },
+          { text: "are warming up", correct:true,  why:"Acción ahora → present continuous. Phrasal: <span class='code'>warm up</span> = recalentar." },
+          { text: "warm out", correct:false,  why:"No es phrasal válido." }
+        ],
+        explain:{ okTitle:"Right now → Continuous + warm up", okPoints:[] }
+      },
+      {
+        stem: "My dad ____ pork. He’s vegetarian.",
+        options: [
+          { text: "doesn’t eat", correct:true,  why:"Hecho general/hábito (no come) → Present Simple negativo." },
+          { text: "isn’t eating", correct:false, why:"<span class='code'>isn’t eating</span> sería temporal (hoy/esta semana). Aquí es general." },
+          { text: "don’t eat", correct:false, why:"Con <span class='code'>my dad</span> (he) es <span class='code'>doesn’t</span>." }
+        ],
+        explain:{ okTitle:"General truth/habit → Simple", okPoints:[] }
+      },
+      {
+        stem: "She ____ very confident today, but usually she’s shy.",
+        options: [
+          { text: "is being", correct:true,  why:"Comportamiento temporal (today) → <span class='code'>is being</span>." },
+          { text: "is", correct:false,  why:"<span class='code'>is</span> suena a característica permanente, choca con “today/but usually…”." },
+          { text: "being", correct:false,  why:"Falta auxiliar: <span class='code'>is being</span>." }
+        ],
+        explain:{ okTitle:"Temporal behaviour → is being", okPoints:[] }
+      },
+
+      // Para llegar a 40, meto más mezcla rápida con trampas reales:
+      {
+        stem: "I ____ seafood, but I hate lamb. (general preference)",
+        options: [
+          { text: "love", correct:true,  why:"Preferencia general (stative) → Present Simple." },
+          { text: "am loving", correct:false, why:"En examen/libro, <span class='code'>love</span> suele ir en simple (publicidad ≠ regla del ejercicio)." },
+          { text: "loved", correct:false, why:"Pasado." }
+        ],
+        explain:{ okTitle:"Love (preferencia) → Simple", okPoints:[] }
+      },
+      {
+        stem: "Look! He ____ the salmon — he’s checking if it’s cooked.",
+        options: [
+          { text: "tastes", correct:false, why:"<span class='code'>tastes</span> describe el sabor del salmón, no la acción de probarlo." },
+          { text: "is tasting", correct:true,  why:"Acción de probar para comprobar → continuous permitido." },
+          { text: "is taste", correct:false,  why:"Forma incorrecta." }
+        ],
+        explain:{ okTitle:"Taste (acción) → is tasting", okPoints:[] }
+      },
+      {
+        stem: "This month people ____ more avocado in my city. (trend)",
+        options: [
+          { text: "eat", correct:false,  why:"Simple suena a hecho general sin énfasis en tendencia actual." },
+          { text: "are eating", correct:true,  why:"Tendencia/cambio actual (“this month”) → present continuous." },
+          { text: "eats", correct:false,  why:"Con “people” es plural → <span class='code'>eat/are eating</span>." }
+        ],
+        explain:{ okTitle:"Trends → Present Continuous", okPoints:[] }
+      },
+      {
+        stem: "Which one is correct in a restaurant menu?",
+        options: [
+          { text: "grilled tuna", correct:true,  why:"<span class='code'>tuna</span> se usa natural así (atún a la parrilla)." },
+          { text: "a grilled tuna", correct:false, why:"Suena a “un atún entero” como animal; en comida se dice <span class='code'>grilled tuna</span>." },
+          { text: "tunas grilled", correct:false, why:"Orden raro para menú básico." }
+        ],
+        explain:{ okTitle:"Food nouns: tuna/fish", okPoints:[] }
+      },
+      {
+        stem: "I ____ vegetables today because I want to be healthier. (temporary choice)",
+        options: [
+          { text: "eat", correct:false,  why:"Simple suena a hábito permanente." },
+          { text: "am eating", correct:true,  why:"Elección temporal “today” → present continuous." },
+          { text: "eaten", correct:false,  why:"Participio sin auxiliar." }
+        ],
+        explain:{ okTitle:"Today → Continuous", okPoints:[] }
+      },
+      {
+        stem: "Choose the correct: “He ____ like his father.” (appearance)",
+        options: [
+          { text: "looks", correct:true,  why:"<span class='code'>look</span> como apariencia (stative) → Present Simple." },
+          { text: "is looking", correct:false, why:"<span class='code'>is looking</span> = acción de mirar/buscar, no ‘apariencia’." },
+          { text: "look", correct:false,  why:"Con <span class='code'>he</span> es <span class='code'>looks</span>." }
+        ],
+        explain:{ okTitle:"Look (appearance) → Simple", okPoints:[] }
+      },
+
+      // Te dejo el conteo completo (40). Si quieres 60/80 lo amplío.
+      // (Los siguientes son “mix” para cerrar el banco sin repetir ideas)
+      { stem:"She ____ to cook at home, but today she’s eating out.", options:[
+          {text:"prefers", correct:true,  why:"Preferencia general (stative) → simple."},
+          {text:"is preferring", correct:false, why:"<span class='code'>prefer</span> normalmente no va en continuous en este nivel."},
+          {text:"prefer", correct:false, why:"Con <span class='code'>she</span> es <span class='code'>prefers</span>."}
+        ], explain:{okTitle:"Prefer (stative) → Simple", okPoints:[]}},
+      { stem:"I ____ any eggs in the fridge. (state)", options:[
+          {text:"don’t have", correct:true,  why:"Have = posesión/estado → simple."},
+          {text:"am not having", correct:false, why:"Eso sería acción temporal (comer/fiesta), no posesión."},
+          {text:"don’t having", correct:false, why:"Estructura incorrecta."}
+        ], explain:{okTitle:"Have (possession) → Simple", okPoints:[]}},
+      { stem:"She ____ the crab now—she doesn’t know what it is. (action)", options:[
+          {text:"smells", correct:false, why:"<span class='code'>smells</span> describe el olor del crab, no la acción de olerlo."},
+          {text:"is smelling", correct:true,  why:"Acción de oler activamente → continuous permitido."},
+          {text:"smell", correct:false,  why:"Con <span class='code'>she</span> no va base form aquí."}
+        ], explain:{okTitle:"Smell (action) → is smelling", okPoints:[]}},
+      { stem:"These days I ____ less sugar. (trend/new habit)", options:[
+          {text:"am cutting down on", correct:true,  why:"Tendencia/hábito nuevo → continuous suena natural."},
+          {text:"cut down on", correct:false, why:"Simple suena a rutina fija sin énfasis en cambio actual."},
+          {text:"am cutting on", correct:false,  why:"Falta <span class='code'>down</span> y el phrasal correcto."}
+        ], explain:{okTitle:"Trend → Continuous + phrasal exacto", okPoints:[]}},
+      { stem:"My sister ____ salmon. She hates fish.", options:[
+          {text:"doesn’t like", correct:true,  why:"Gusto/preferencia (stative) → simple."},
+          {text:"isn’t liking", correct:false, why:"En este nivel, <span class='code'>like</span> normalmente va en simple."},
+          {text:"don’t like", correct:false,  why:"Con <span class='code'>my sister</span> es <span class='code'>doesn’t</span>."}
+        ], explain:{okTitle:"Like (stative) → Simple", okPoints:[]}},
+      { stem:"What’s the UK word for zucchini?", options:[
+          {text:"courgette", correct:true,  why:"UK courgette = US zucchini."},
+          {text:"aubergine", correct:false, why:"Aubergine = eggplant."},
+          {text:"prawn", correct:false, why:"Prawn = seafood."}
+        ], explain:{okTitle:"UK/US", okPoints:[]}},
+      { stem:"He ____ to work by car every day. (routine)", options:[
+          {text:"drives", correct:true,  why:"Every day → rutina → simple."},
+          {text:"is driving", correct:false, why:"Continuous sería temporal (this week/today)." },
+          {text:"drive", correct:false,  why:"Con <span class='code'>he</span> es <span class='code'>drives</span>."}
+        ], explain:{okTitle:"Every day → Simple", okPoints:[]}},
+      { stem:"Sorry, I can’t talk. I ____ the bill right now. (action)", options:[
+          {text:"check", correct:false,  why:"Falta marca de acción en progreso con ‘right now’ en este tipo de ejercicio."},
+          {text:"am checking", correct:true,  why:"Acción en progreso → present continuous."},
+          {text:"checks", correct:false, why:"Suena a rutina; además con I no va checks."}
+        ], explain:{okTitle:"Right now → Continuous", okPoints:[]}},
+      { stem:"Which one is ‘lobster’?", options:[
+          {text:"langosta", correct:true,  why:"Lobster = langosta."},
+          {text:"cordero", correct:false, why:"Cordero = lamb."},
+          {text:"pato", correct:false, why:"Pato = duck."}
+        ], explain:{okTitle:"Seafood vocab", okPoints:[]}},
+      { stem:"We ____ the pizza in the microwave. (now)", options:[
+          {text:"warm up", correct:false,  why:"Sin auxiliar no marca acción en progreso con ‘now’."},
+          {text:"are warming up", correct:true,  why:"Acción ahora + phrasal warm up."},
+          {text:"warming", correct:false,  why:"Falta auxiliar."}
+        ], explain:{okTitle:"Now → Continuous + warm up", okPoints:[]}}
     ];
 
+    // === Estado del juego
     let deck = [];
     let deckIndex = 0;
     let currentSet = [];
@@ -576,20 +821,20 @@
       deckIndex = 0;
     }
 
-    function getNextFive(){
-      if(deck.length === 0 || deck.length - deckIndex < 5){
+    function getNextTen(){
+      if(deck.length === 0 || deck.length - deckIndex < ROUND_SIZE){
         refillDeck();
       }
-      const set = deck.slice(deckIndex, deckIndex + 5);
-      deckIndex += 5;
+      const set = deck.slice(deckIndex, deckIndex + ROUND_SIZE);
+      deckIndex += ROUND_SIZE;
       return set;
     }
 
     function setProgress(){
-      const pct = Math.round((currentIndex / 5) * 100);
+      const pct = Math.round((currentIndex / ROUND_SIZE) * 100);
       els.progressBar.style.width = pct + "%";
-      els.scoreBadge.textContent = `Puntaje: ${score} / 5`;
-      els.qBadge.textContent = `Pregunta: ${Math.min(currentIndex+1,5)} / 5`;
+      els.scoreBadge.textContent = `Puntaje: ${score} / ${ROUND_SIZE}`;
+      els.qBadge.textContent = `Pregunta: ${Math.min(currentIndex+1,ROUND_SIZE)} / ${ROUND_SIZE}`;
       els.roundBadge.textContent = `Ronda: ${round}`;
     }
 
@@ -611,20 +856,57 @@
         const btn = document.createElement("button");
         btn.className = "optBtn";
         btn.type = "button";
-
-        // SOLO el texto, sin pistas ni “toca para…”
         btn.innerHTML = `<div class="optLabel">${opt.text}</div>`;
-
         btn.addEventListener("click", () => chooseOption(btn, opt, opts));
         els.options.appendChild(btn);
       });
     }
 
+    function showFeedback(isCorrect, correctOpt, chosenOpt, allOpts){
+      const q = currentSet[currentIndex];
+
+      els.feedbackBox.style.display = "block";
+      els.feedbackBox.classList.add(isCorrect ? "fbOk" : "fbBad");
+
+      els.fbTitle.textContent = isCorrect ? "Bien. Respuesta correcta." : "Incorrecto. Revisa la explicación.";
+
+      const expectedLine = `<p class="muted" style="margin-top:10px;"><b>Respuesta esperada:</b> <span class="code">${correctOpt.text}</span></p>`;
+      const yourLine = `<p class="muted" style="margin-top:6px;"><b>Tu respuesta:</b> <span class="code">${chosenOpt.text}</span></p>`;
+
+      let whyBlock = "";
+      if(!isCorrect){
+        const whyNo = chosenOpt.why ? `<p style="margin:10px 0 0;"><b>Por qué NO:</b> ${chosenOpt.why}</p>` : "";
+        const whyYes = correctOpt.why ? `<p style="margin:8px 0 0;"><b>Por qué SÍ:</b> ${correctOpt.why}</p>` : "";
+        whyBlock = `${whyNo}${whyYes}`;
+      } else {
+        const whyYes = correctOpt.why ? `<p style="margin:10px 0 0;"><b>Por qué SÍ:</b> ${correctOpt.why}</p>` : "";
+        const wrongs = allOpts.filter(o => !o.correct);
+        const wrongList = wrongs.length
+          ? `<p style="margin:10px 0 0;"><b>Por qué NO las otras:</b></p>
+             <ul>${wrongs.map(w => `<li><span class="code">${w.text}</span>: ${w.why || "No encaja con la intención del enunciado."}</li>`).join("")}</ul>`
+          : "";
+        whyBlock = `${whyYes}${wrongList}`;
+      }
+
+      const points = (q.explain?.okPoints || []).map(x => `<li>${x}</li>`).join("");
+      const extra = points ? `<ul>${points}</ul>` : "";
+
+      els.fbBody.innerHTML = `
+        <p style="margin:0;"><b>${q.explain?.okTitle || ""}</b></p>
+        ${expectedLine}
+        ${yourLine}
+        ${whyBlock}
+        ${extra}
+      `;
+
+      els.nextRow.style.display = "flex";
+      els.nextBtn.textContent = (currentIndex < ROUND_SIZE - 1) ? "Siguiente pregunta" : "Ver resultado de la ronda";
+      els.scoreBadge.textContent = `Puntaje: ${score} / ${ROUND_SIZE}`;
+    }
+
     function chooseOption(btnEl, chosenOpt, renderedOpts){
       if(answered) return;
       answered = true;
-
-      const q = currentSet[currentIndex];
 
       const btns = [...els.options.querySelectorAll(".optBtn")];
       btns.forEach(b => b.disabled = true);
@@ -639,42 +921,20 @@
         }
       });
 
-      let isCorrect = chosenOpt.correct;
+      const isCorrect = chosenOpt.correct;
       if(!isCorrect){
         btnEl.classList.add("wrong");
       } else {
         score++;
       }
 
-      els.feedbackBox.style.display = "block";
-      els.feedbackBox.classList.add(isCorrect ? "fbOk" : "fbBad");
-
-      els.fbTitle.textContent = isCorrect ? "Bien. Respuesta correcta." : "Incorrecto. Revisa la explicación.";
-      const points = q.explain.okPoints.map(x => `<li>${x}</li>`).join("");
-
-      els.fbBody.innerHTML = `
-        <p style="margin:0;"><b>${q.explain.okTitle}</b></p>
-        <p class="muted" style="margin-top:10px;">
-          <b>Respuesta esperada:</b> <span class="code">${correctOpt.text}</span>
-        </p>
-        <ul>${points}</ul>
-      `;
-
-      if(currentIndex < 4){
-        els.nextRow.style.display = "flex";
-        els.nextBtn.textContent = "Siguiente pregunta";
-      } else {
-        els.nextRow.style.display = "flex";
-        els.nextBtn.textContent = "Ver resultado de la ronda";
-      }
-
-      els.scoreBadge.textContent = `Puntaje: ${score} / 5`;
+      showFeedback(isCorrect, correctOpt, chosenOpt, renderedOpts);
     }
 
     function next(){
       if(!answered) return;
 
-      if(currentIndex < 4){
+      if(currentIndex < ROUND_SIZE - 1){
         currentIndex++;
         renderQuestion();
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -687,12 +947,12 @@
               <div class="fbTitle">Resumen</div>
               <div class="fbBody">
                 <p style="margin:0;">
-                  Tu puntaje fue <b>${score} / 5</b>.
+                  Tu puntaje fue <b>${score} / ${ROUND_SIZE}</b>.
                 </p>
                 <ul>
-                  <li>4–5: muy sólido (rutina vs temporal + non-action).</li>
-                  <li>2–3: repasa non-action verbs (believe, want, need, seem, love, taste...).</li>
-                  <li>0–1: vuelve al marco teórico y revisa “Trampas”.</li>
+                  <li>8–10: sólido.</li>
+                  <li>5–7: repasa <b>stative vs action</b> (think/have/see/taste/smell/feel/look/be) y rutinas vs “today/this week”.</li>
+                  <li>0–4: vuelve al marco teórico y repite vocab (UK/US + phrasal verbs).</li>
                 </ul>
               </div>
             </div>
@@ -700,23 +960,19 @@
         `;
         els.feedbackBox.style.display = "none";
         els.nextRow.style.display = "none";
-        els.qBadge.textContent = "Pregunta: 5 / 5";
+        els.qBadge.textContent = `Pregunta: ${ROUND_SIZE} / ${ROUND_SIZE}`;
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     }
 
     function newRound(){
       round++;
-      currentSet = getNextFive();
+      currentSet = getNextTen();
       currentIndex = 0;
       score = 0;
       renderQuestion();
       setProgress();
       window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function goNextTheme(){
-      alert("Aún no existe el siguiente tema. Cuando lo crees, enlazo este botón al archivo correcto.");
     }
 
     els.nextBtn.addEventListener("click", next);
