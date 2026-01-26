@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preguntas 4 - Daku</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=4" type="image/png" />
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
+
+      --accent: #2563eb;  /* azul */
+      --accent2:#10b981;  /* verde */
+      --danger:#ef4444;   /* rojo */
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+    }
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+      text-align:center;
+    }
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 2.8vw, 17px);
+      line-height: 1.45;
+    }
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+    .card .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .card .content{
+      padding: 16px 16px 14px;
+    }
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(18px, 3.8vw, 24px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+    p{
+      font-size: clamp(15px, 3.4vw, 18px);
+      line-height: 1.55;
+      color: var(--ink);
+      margin: 8px 0;
+    }
+    .muted{ color: var(--muted); }
+    .topRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .badge{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.85);
+      color: var(--muted);
+    }
+    .progressWrap{
+      width: 100%;
+      margin-top: 8px;
+      border-radius: 999px;
+      background: rgba(17,24,39,.08);
+      overflow: hidden;
+      height: 10px;
+    }
+    .progressBar{
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .25s ease;
+    }
+    .questionText{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: clamp(18px, 4.0vw, 22px);
+      font-weight: 900;
+      letter-spacing:.2px;
+      margin: 12px 0 10px;
+    }
+
+    /* Multiple choice */
+    .options{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (min-width: 760px){
+      .options{ grid-template-columns: 1fr 1fr 1fr; }
+    }
+    .optBtn{
+      border: 1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.92);
+      border-radius: 14px;
+      padding: 16px 14px;
+      cursor: pointer;
+      text-align: left;
+      box-shadow: 0 6px 14px rgba(17,24,39,.08);
+      transition: transform .12s ease, filter .12s ease, border-color .12s ease;
+      min-height: 64px;
+    }
+    .optBtn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.01);
+      border-color: rgba(37,99,235,.35);
+    }
+    .optBtn:active{ transform: translateY(0px); }
+    .optBtn:disabled{ cursor:not-allowed; opacity:.96; }
+    .optLabel{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing:.2px;
+      line-height: 1.15;
+    }
+
+    /* Typed input */
+    .inputWrap{
+      display:none;
+      gap:10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .textInput{
+      flex: 1 1 520px;
+      border: 1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.92);
+      border-radius: 14px;
+      padding: 14px 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: 0 6px 14px rgba(17,24,39,.08);
+      outline: none;
+    }
+    .submitBtn{
+      flex: 0 0 auto;
+      border:0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #1d4ed8);
+      width: min(240px, 100%);
+    }
+    .submitBtn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+    }
+    .submitBtn:active{ transform: translateY(0px); }
+    .submitBtn:disabled{ cursor:not-allowed; opacity:.92; transform:none; }
+    .inputOk{
+      border-color: rgba(34,197,94,.55) !important;
+      box-shadow: 0 8px 18px rgba(34,197,94,.10) !important;
+    }
+    .inputBad{
+      border-color: rgba(239,68,68,.55) !important;
+      box-shadow: 0 8px 18px rgba(239,68,68,.10) !important;
+    }
+
+    .feedback{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      display:none;
+    }
+    .fbOk{ background: rgba(34,197,94,.10); border-color: rgba(34,197,94,.20); }
+    .fbBad{ background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.20); }
+    .fbTitle{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      margin:0 0 6px;
+    }
+    .fbBody{ margin:0; color: var(--ink); }
+    .fbBody ul{ margin: 8px 0 0; padding-left: 18px; }
+    .fbBody li{ margin: 6px 0; font-size: 15px; line-height: 1.45; color: var(--ink); }
+
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: .95em;
+      background: rgba(17,24,39,.05);
+      padding: 2px 6px;
+      border-radius: 8px;
+    }
+
+    .nextRow{
+      display:flex;
+      justify-content: center;
+      margin-top: 12px;
+      display:none;
+    }
+    .miniBtn{
+      border:0;
+      cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #1d4ed8);
+      width: min(420px, 100%);
+    }
+    .miniBtn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+    }
+    .miniBtn:active{ transform: translateY(0px); }
+
+    .navRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .navBtn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+    }
+    .navBtn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+    }
+    .navBtn:active{ transform: translateY(0px); }
+    .btnBack{ background: linear-gradient(135deg, #ef4444, #dc2626); }
+    .btnNextTheme{ background: linear-gradient(135deg, #10b981, #059669); }
+    .btnNewSet{ background: linear-gradient(135deg, var(--accent), #1d4ed8); }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    /* Highlight states */
+    .chosen{
+      border-color: rgba(37,99,235,.55) !important;
+      box-shadow: 0 8px 18px rgba(37,99,235,.10) !important;
+    }
+    .correct{
+      border-color: rgba(34,197,94,.55) !important;
+      box-shadow: 0 8px 18px rgba(34,197,94,.10) !important;
+    }
+    .wrong{
+      border-color: rgba(239,68,68,.55) !important;
+      box-shadow: 0 8px 18px rgba(239,68,68,.10) !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Preguntas 4</h1>
+      <p class="subtitle">
+        Strong adjectives: normal vs strong + intensifiers (very vs absolutely/completely/totally) — 10 preguntas por ronda.
+      </p>
+    </header>
+
+    <div class="grid">
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <div class="topRow">
+            <span class="badge" id="roundBadge">Ronda: 1</span>
+            <span class="badge" id="scoreBadge">Puntaje: 0 / 10</span>
+            <span class="badge" id="qBadge">Pregunta: 1 / 10</span>
+          </div>
+
+          <div class="progressWrap" aria-label="Progreso de la ronda">
+            <div class="progressBar" id="progressBar"></div>
+          </div>
+
+          <div class="questionText" id="questionText"></div>
+
+          <!-- Input (escribir) -->
+          <div class="inputWrap" id="inputWrap">
+            <input class="textInput" id="textAnswer" type="text" placeholder="Escribe tu respuesta..." autocomplete="off" />
+            <button class="submitBtn" id="submitBtn">Responder</button>
+          </div>
+
+          <!-- Opciones (seleccionar) -->
+          <div class="options" id="options"></div>
+
+          <div class="feedback" id="feedbackBox" role="status" aria-live="polite">
+            <div class="fbTitle" id="fbTitle"></div>
+            <div class="fbBody" id="fbBody"></div>
+          </div>
+
+          <div class="nextRow" id="nextRow">
+            <button class="miniBtn" id="nextBtn">Siguiente pregunta</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Navegación</h2>
+          <p class="muted">Vuelve al vocabulario o pasa al siguiente tema, o carga otra ronda de 10.</p>
+          <div class="navRow">
+            <button class="navBtn btnBack" onclick="window.location.href='vocabulario4.html'">Atrás (Vocabulario 4)</button>
+            <button class="navBtn btnNextTheme" onclick="window.location.href='mark5.html'">Siguiente tema</button>
+            <button class="navBtn btnNewSet" onclick="newRound()">Mostrar 10 preguntas</button>
+          </div>
+          <div class="footerHint">Banco: 30 preguntas. No se repiten entre rondas hasta consumirlas.</div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    function shuffle(arr){
+      const a = [...arr];
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function normalize(s){
+      return (s || "")
+        .toLowerCase()
+        .trim()
+        .replace(/[’‘]/g,"'")
+        .replace(/[“”]/g,'"')
+        .replace(/\s+/g," ")
+        .replace(/[.?!]+$/,"");
+    }
+
+    const ROUND_SIZE = 10;
+
+    // 30 preguntas: strong adjectives + intensifiers (difíciles, sin repetir)
+    const QUESTION_BANK = [
+      /* ================= INTENSIFIERS (MCQ) ================= */
+      {
+        type: "mcq",
+        stem: "Choose the correct option: After nine hours of cycling, I was ____ exhausted.",
+        options: [
+          { text: "absolutely", correct: true },
+          { text: "very", correct: false },
+          { text: "a bit", correct: false }
+        ],
+        explain: { okTitle: "Exhausted = strong adjective → NO 'very'", okPoints: ["Strong → <span class='code'>absolutely / completely / totally</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "Choose the correct option: It’s ____ freezing outside (−15°C).",
+        options: [
+          { text: "absolutely", correct: true },
+          { text: "very", correct: false },
+          { text: "quite", correct: false }
+        ],
+        explain: { okTitle: "Freezing = strong adjective", okPoints: ["✅ <span class='code'>absolutely freezing</span> • ❌ <span class='code'>very freezing</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "Choose the best sentence:",
+        options: [
+          { text: "My hair is absolutely filthy.", correct: true },
+          { text: "My hair is very filthy.", correct: false },
+          { text: "My hair is a bit filthy.", correct: false }
+        ],
+        explain: { okTitle: "Filthy = strong adjective", okPoints: ["Con strong: <span class='code'>absolutely/completely</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "Which sentence is correct?",
+        options: [
+          { text: "I’m absolutely starving.", correct: true },
+          { text: "I’m very starving.", correct: false },
+          { text: "I’m a little starving.", correct: false }
+        ],
+        explain: { okTitle: "Starving = strong adjective", okPoints: ["❌ No se usa <span class='code'>very</span> con starving."] }
+      },
+      {
+        type: "mcq",
+        stem: "Which word CANNOT be used with a strong adjective?",
+        options: [
+          { text: "very", correct: true },
+          { text: "totally", correct: false },
+          { text: "absolutely", correct: false }
+        ],
+        explain: { okTitle: "Regla clave", okPoints: ["Strong adjectives → <span class='code'>absolutely / completely / totally / really</span>, pero NO <span class='code'>very</span>."] }
+      },
+
+      /* ================= CHOOSE THE STRONG ADJECTIVE (MCQ) ================= */
+      {
+        type: "mcq",
+        stem: "Choose the best word: The flat is ____ — just a bedroom and a sitting room.",
+        options: [
+          { text: "tiny", correct: true },
+          { text: "big", correct: false },
+          { text: "average", correct: false }
+        ],
+        explain: { okTitle: "tiny = very small", okPoints: ["Contexto: espacio mínimo → <span class='code'>tiny</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "Choose the correct option: It was absolutely ____ (45°C).",
+        options: [
+          { text: "boiling", correct: true },
+          { text: "warm", correct: false },
+          { text: "hot", correct: false }
+        ],
+        explain: { okTitle: "Boiling = extremely hot", okPoints: ["Con 45°C: <span class='code'>boiling</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "Choose the correct sentence:",
+        options: [
+          { text: "I’m positive I locked the door.", correct: true },
+          { text: "I’m fascinating I locked the door.", correct: false },
+          { text: "I’m filthy I locked the door.", correct: false }
+        ],
+        explain: { okTitle: "Positive = completely sure", okPoints: ["<span class='code'>I’m positive</span> = estoy 100% seguro."] }
+      },
+      {
+        type: "mcq",
+        stem: "Choose the correct option: My parents were absolutely ____ about the wedding.",
+        options: [
+          { text: "delighted", correct: true },
+          { text: "pleased", correct: false },
+          { text: "okay", correct: false }
+        ],
+        explain: { okTitle: "Delighted = very pleased", okPoints: ["Strong adjective → combina perfecto con <span class='code'>absolutely</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "Choose the best option: The documentary was absolutely ____.",
+        options: [
+          { text: "fascinating", correct: true },
+          { text: "interesting", correct: false },
+          { text: "fine", correct: false }
+        ],
+        explain: { okTitle: "Fascinating = very interesting", okPoints: ["Strong → <span class='code'>absolutely fascinating</span>."] }
+      },
+
+      /* ================= PAIRS / MEANING (MCQ) ================= */
+      {
+        type: "mcq",
+        stem: "Pick the correct pair (normal → strong):",
+        options: [
+          { text: "hungry → starving", correct: true },
+          { text: "hungry → furious", correct: false },
+          { text: "hungry → spotless", correct: false }
+        ],
+        explain: { okTitle: "Hungry vs Starving", okPoints: ["<span class='code'>starving</span> = muerto de hambre."] }
+      },
+      {
+        type: "mcq",
+        stem: "Choose the correct option: I got ____ soaked in the rain.",
+        options: [
+          { text: "completely", correct: true },
+          { text: "very", correct: false },
+          { text: "quite", correct: false }
+        ],
+        explain: { okTitle: "Soaked suele ir con completely/totally", okPoints: ["✅ <span class='code'>completely soaked</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "Choose the correct sentence:",
+        options: [
+          { text: "The room was completely spotless.", correct: true },
+          { text: "The room was very spotless.", correct: false },
+          { text: "The room was a bit spotless.", correct: false }
+        ],
+        explain: { okTitle: "Spotless = strong adjective", okPoints: ["Con spotless: <span class='code'>completely</span> es lo típico."] }
+      },
+      {
+        type: "mcq",
+        stem: "Choose the correct sentence:",
+        options: [
+          { text: "The plan is absolutely perfect.", correct: true },
+          { text: "The plan is very perfect.", correct: false },
+          { text: "The plan is a bit perfect.", correct: false }
+        ],
+        explain: { okTitle: "Perfect = no gradable → usa absolutely", okPoints: ["<span class='code'>absolutely perfect</span> ✅"] }
+      },
+      {
+        type: "mcq",
+        stem: "Choose the correct sentence:",
+        options: [
+          { text: "She was absolutely devastated after the news.", correct: true },
+          { text: "She was very devastated after the news.", correct: false },
+          { text: "She was a little devastated after the news.", correct: false }
+        ],
+        explain: { okTitle: "Devastated = strong (tristeza extrema)", okPoints: ["✅ <span class='code'>absolutely devastated</span>."] }
+      },
+
+      /* ================= INPUT (difficult) ================= */
+      {
+        type: "input",
+        stem: "Rewrite using a strong adjective: It was very funny. → It was ____.",
+        answers: ["hilarious", "absolutely hilarious", "it was hilarious", "it was absolutely hilarious"],
+        showExpected: "hilarious / absolutely hilarious",
+        explain: { okTitle: "Funny → Hilarious (strong)", okPoints: ["Strong: <span class='code'>absolutely hilarious</span>."] }
+      },
+      {
+        type: "input",
+        stem: "Replace the phrase: very big → ____ (strong adjective).",
+        answers: ["huge", "enormous", "absolutely huge", "absolutely enormous", "it's huge", "it is huge", "it's enormous", "it is enormous"],
+        showExpected: "huge / enormous",
+        explain: { okTitle: "Big → Huge/Enormous", okPoints: ["Si quieres intensificar: <span class='code'>absolutely huge</span>."] }
+      },
+      {
+        type: "input",
+        stem: "Complete: I haven’t eaten all day. I’m ____.",
+        answers: ["starving", "i'm starving", "im starving"],
+        showExpected: "starving",
+        explain: { okTitle: "Hungry → Starving (extremo)", okPoints: ["Starving = muchísima hambre."] }
+      },
+      {
+        type: "input",
+        stem: "Complete: He was shouting and banging the table. He was ____.",
+        answers: ["furious", "he was furious"],
+        showExpected: "furious",
+        explain: { okTitle: "Angry → Furious", okPoints: ["Furious = súper enojado."] }
+      },
+      {
+        type: "input",
+        stem: "Complete: I couldn’t believe it. I was absolutely ____.",
+        answers: ["amazed", "i was amazed", "absolutely amazed"],
+        showExpected: "amazed",
+        explain: { okTitle: "Surprised → Amazed", okPoints: ["Amazed = asombrado (wow)."] }
+      },
+      {
+        type: "input",
+        stem: "Complete: The room is so small—just for one person. It’s ____.",
+        answers: ["tiny", "it's tiny", "it is tiny"],
+        showExpected: "tiny",
+        explain: { okTitle: "Small → Tiny", okPoints: ["Tiny = diminuto."] }
+      },
+      {
+        type: "input",
+        stem: "Complete: It’s −15°C and snowing. It’s ____.",
+        answers: ["freezing", "it's freezing", "it is freezing", "absolutely freezing", "it's absolutely freezing", "it is absolutely freezing"],
+        showExpected: "freezing / absolutely freezing",
+        explain: { okTitle: "Cold → Freezing", okPoints: ["Freezing = heladísimo."] }
+      },
+      {
+        type: "input",
+        stem: "Complete with a good strong phrase: After the marathon, I was ____ ____.",
+        answers: [
+          "completely exhausted", "absolutely exhausted", "totally exhausted", "really exhausted",
+          "i was completely exhausted", "i was absolutely exhausted", "i was totally exhausted", "i was really exhausted"
+        ],
+        showExpected: "completely exhausted (o absolutely/totally/really exhausted)",
+        explain: { okTitle: "Tired → Exhausted", okPoints: ["Strong adjective + intensifier fuerte."] }
+      },
+      {
+        type: "input",
+        stem: "Rewrite using the strong adjective: Are you afraid of flying? → Are you ____ of flying?",
+        answers: ["terrified", "are you terrified", "are you terrified of flying"],
+        showExpected: "terrified",
+        explain: { okTitle: "Afraid → Terrified", okPoints: ["Terrified = mucho miedo."] }
+      },
+      {
+        type: "input",
+        stem: "Complete: The smell is absolutely ____.",
+        answers: ["awful", "it's awful", "it is awful", "absolutely awful"],
+        showExpected: "awful",
+        explain: { okTitle: "Bad → Awful (strong)", okPoints: ["Awful = horrible."] }
+      },
+      {
+        type: "input",
+        stem: "Complete: Your work is absolutely ____.",
+        answers: ["excellent", "it's excellent", "it is excellent", "absolutely excellent"],
+        showExpected: "excellent",
+        explain: { okTitle: "Good → Excellent (strong)", okPoints: ["Excellent = excelente."] }
+      },
+      {
+        type: "input",
+        stem: "Complete: That view is absolutely ____.",
+        answers: ["gorgeous", "it's gorgeous", "it is gorgeous", "absolutely gorgeous"],
+        showExpected: "gorgeous",
+        explain: { okTitle: "Beautiful → Gorgeous (strong)", okPoints: ["Gorgeous = precioso/hermosísimo."] }
+      },
+      {
+        type: "input",
+        stem: "Complete: I got ____ in the rain. (very wet)",
+        answers: ["soaked", "completely soaked", "totally soaked", "i got soaked", "i got completely soaked", "i got totally soaked"],
+        showExpected: "soaked / completely soaked",
+        explain: { okTitle: "Wet → Soaked (strong)", okPoints: ["Soaked = empapado."] }
+      },
+      {
+        type: "input",
+        stem: "Complete: I’m absolutely ____ — I need water now!",
+        answers: ["parched", "i'm parched", "im parched", "absolutely parched"],
+        showExpected: "parched",
+        explain: { okTitle: "Thirsty → Parched (strong)", okPoints: ["Parched = muerto de sed."] }
+      },
+      {
+        type: "input",
+        stem: "Complete: The kitchen is absolutely ____ (no dirt at all).",
+        answers: ["spotless", "it's spotless", "it is spotless", "absolutely spotless"],
+        showExpected: "spotless",
+        explain: { okTitle: "Clean → Spotless (strong)", okPoints: ["Spotless = impecable."] }
+      }
+    ];
+
+    // === Estado
+    let deck = [];
+    let deckIndex = 0;
+    let currentSet = [];
+    let currentIndex = 0;
+    let score = 0;
+    let round = 0;
+    let answered = false;
+
+    const els = {
+      roundBadge: document.getElementById("roundBadge"),
+      scoreBadge: document.getElementById("scoreBadge"),
+      qBadge: document.getElementById("qBadge"),
+      progressBar: document.getElementById("progressBar"),
+      questionText: document.getElementById("questionText"),
+      options: document.getElementById("options"),
+      inputWrap: document.getElementById("inputWrap"),
+      textAnswer: document.getElementById("textAnswer"),
+      submitBtn: document.getElementById("submitBtn"),
+      feedbackBox: document.getElementById("feedbackBox"),
+      fbTitle: document.getElementById("fbTitle"),
+      fbBody: document.getElementById("fbBody"),
+      nextRow: document.getElementById("nextRow"),
+      nextBtn: document.getElementById("nextBtn")
+    };
+
+    function refillDeck(){
+      deck = shuffle(QUESTION_BANK);
+      deckIndex = 0;
+    }
+
+    function getNextTen(){
+      if(deck.length === 0 || deck.length - deckIndex < ROUND_SIZE){
+        refillDeck();
+      }
+      const set = deck.slice(deckIndex, deckIndex + ROUND_SIZE);
+      deckIndex += ROUND_SIZE;
+      return set;
+    }
+
+    function setProgress(){
+      const pct = Math.round((currentIndex / ROUND_SIZE) * 100);
+      els.progressBar.style.width = pct + "%";
+      els.scoreBadge.textContent = `Puntaje: ${score} / ${ROUND_SIZE}`;
+      els.qBadge.textContent = `Pregunta: ${Math.min(currentIndex+1,ROUND_SIZE)} / ${ROUND_SIZE}`;
+      els.roundBadge.textContent = `Ronda: ${round}`;
+    }
+
+    function resetUI(){
+      els.feedbackBox.style.display = "none";
+      els.feedbackBox.classList.remove("fbOk","fbBad");
+      els.nextRow.style.display = "none";
+      els.options.innerHTML = "";
+      els.options.style.display = "grid";
+      els.inputWrap.style.display = "none";
+      els.textAnswer.value = "";
+      els.textAnswer.disabled = false;
+      els.submitBtn.disabled = false;
+      els.textAnswer.classList.remove("inputOk","inputBad");
+    }
+
+    function renderQuestion(){
+      answered = false;
+      setProgress();
+      resetUI();
+
+      const q = currentSet[currentIndex];
+      els.questionText.textContent = q.stem;
+
+      if(q.type === "mcq"){
+        els.inputWrap.style.display = "none";
+        els.options.style.display = "grid";
+
+        const opts = shuffle(q.options.map(o => ({...o})));
+        opts.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.className = "optBtn";
+          btn.type = "button";
+          btn.innerHTML = `<div class="optLabel">${opt.text}</div>`;
+          btn.addEventListener("click", () => chooseOption(btn, opt, opts));
+          els.options.appendChild(btn);
+        });
+      } else {
+        els.options.style.display = "none";
+        els.inputWrap.style.display = "flex";
+        els.textAnswer.focus();
+      }
+    }
+
+    function showFeedback(isCorrect, expectedText, userText){
+      const q = currentSet[currentIndex];
+
+      els.feedbackBox.style.display = "block";
+      els.feedbackBox.classList.add(isCorrect ? "fbOk" : "fbBad");
+      els.fbTitle.textContent = isCorrect ? "Bien. Respuesta correcta." : "Incorrecto.";
+
+      const points = (q.explain?.okPoints || []).map(x => `<li>${x}</li>`).join("");
+      const expectedLine = expectedText
+        ? `<p class="muted" style="margin-top:10px;"><b>Respuesta esperada:</b> <span class="code">${expectedText}</span></p>`
+        : "";
+      const userLine = (userText !== undefined && userText !== null)
+        ? `<p class="muted" style="margin-top:6px;"><b>Tu respuesta:</b> <span class="code">${userText || "—"}</span></p>`
+        : "";
+
+      els.fbBody.innerHTML = `
+        <p style="margin:0;"><b>${q.explain?.okTitle || ""}</b></p>
+        ${expectedLine}
+        ${userLine}
+        ${points ? `<ul>${points}</ul>` : ""}
+      `;
+
+      els.nextRow.style.display = "flex";
+      els.nextBtn.textContent = (currentIndex < ROUND_SIZE - 1) ? "Siguiente pregunta" : "Ver resultado de la ronda";
+      els.scoreBadge.textContent = `Puntaje: ${score} / ${ROUND_SIZE}`;
+    }
+
+    function chooseOption(btnEl, chosenOpt, renderedOpts){
+      if(answered) return;
+      answered = true;
+
+      const btns = [...els.options.querySelectorAll(".optBtn")];
+      btns.forEach(b => b.disabled = true);
+
+      btnEl.classList.add("chosen");
+
+      const correctOpt = renderedOpts.find(o => o.correct);
+      btns.forEach(b => {
+        const text = b.querySelector(".optLabel").textContent.trim();
+        if(text === correctOpt.text){
+          b.classList.add("correct");
+        }
+      });
+
+      const isCorrect = chosenOpt.correct;
+      if(!isCorrect){
+        btnEl.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      showFeedback(isCorrect, correctOpt.text, chosenOpt.text);
+    }
+
+    function checkInput(){
+      if(answered) return;
+      const q = currentSet[currentIndex];
+      if(q.type !== "input") return;
+
+      answered = true;
+
+      const raw = els.textAnswer.value;
+      const userNorm = normalize(raw);
+      const accepted = (q.answers || []).map(normalize);
+      const isCorrect = accepted.includes(userNorm);
+
+      els.textAnswer.disabled = true;
+      els.submitBtn.disabled = true;
+
+      if(isCorrect){
+        score++;
+        els.textAnswer.classList.add("inputOk");
+      }else{
+        els.textAnswer.classList.add("inputBad");
+      }
+
+      const expectedText = q.showExpected || (q.answers && q.answers[0]) || "";
+      showFeedback(isCorrect, expectedText, raw);
+    }
+
+    function next(){
+      if(!answered) return;
+
+      if(currentIndex < ROUND_SIZE - 1){
+        currentIndex++;
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        els.progressBar.style.width = "100%";
+        els.questionText.textContent = "Ronda terminada.";
+
+        els.options.style.display = "grid";
+        els.options.innerHTML = `
+          <div style="grid-column: 1/-1; padding: 2px 2px;">
+            <div class="feedback fbOk" style="display:block;">
+              <div class="fbTitle">Resumen</div>
+              <div class="fbBody">
+                <p style="margin:0;">Tu puntaje fue <b>${score} / ${ROUND_SIZE}</b>.</p>
+                <ul>
+                  <li>8–10: sólido.</li>
+                  <li>5–7: bien, repasa: <span class="code">very + normal</span> vs <span class="code">absolutely/completely + strong</span>.</li>
+                  <li>0–4: vuelve al vocabulario 4 y memoriza pares (hungry→starving, angry→furious, etc.).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        `;
+
+        els.inputWrap.style.display = "none";
+        els.feedbackBox.style.display = "none";
+        els.nextRow.style.display = "none";
+        els.qBadge.textContent = `Pregunta: ${ROUND_SIZE} / ${ROUND_SIZE}`;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    function newRound(){
+      round++;
+      currentSet = getNextTen();
+      currentIndex = 0;
+      score = 0;
+      renderQuestion();
+      setProgress();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    els.nextBtn.addEventListener("click", next);
+    els.submitBtn.addEventListener("click", checkInput);
+    els.textAnswer.addEventListener("keydown", (e) => {
+      if(e.key === "Enter"){
+        e.preventDefault();
+        checkInput();
+      }
+    });
+
+    refillDeck();
+    newRound();
+  </script>
+</body>
+</html>
