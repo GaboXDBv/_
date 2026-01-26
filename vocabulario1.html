@@ -120,6 +120,7 @@
       gap:8px;
       flex-wrap:wrap;
       margin: 10px 0 0;
+      justify-content:center;
     }
     .chip{
       display:inline-block;
@@ -171,6 +172,7 @@
       border-radius: 999px;
       border:1px solid rgba(17,24,39,.10);
       background: rgba(16,185,129,.10);
+      white-space: nowrap;
     }
     .ex{
       margin:0;
@@ -252,6 +254,28 @@
       font-size: 14px;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
+
+    /* extra: list inside details */
+    .miniList{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--ink);
+    }
+    .miniList li{ margin: 6px 0; }
+    .tagNum{
+      display:inline-block;
+      min-width: 22px;
+      text-align:center;
+      font-weight: 800;
+      border-radius: 8px;
+      padding: 2px 8px;
+      margin-right: 8px;
+      border: 1px solid rgba(17,24,39,.12);
+      background: rgba(37,99,235,.08);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 12px;
+    }
   </style>
 </head>
 
@@ -266,6 +290,7 @@
         <span class="chip">Lee en voz alta</span>
         <span class="chip">Fíjate en el contexto</span>
         <span class="chip">Repite 2 veces</span>
+        <span class="chip">Cooking methods</span>
       </div>
     </header>
 
@@ -529,6 +554,94 @@
         </div>
       </section>
 
+      <!-- ✅ NEW: COOKING METHODS (FROM THE IMAGE) -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Cooking Methods (cómo se cocina)</h2>
+          <p class="muted">
+            Palabras clave del ejercicio: baked, boiled, fried, grilled, roast/roasted, steamed.
+          </p>
+
+          <div class="vocabGrid">
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">baked</div>
+                <div class="trans">horneado · /beɪkt/</div>
+              </div>
+              <p class="ex"><code>I want a baked potato.</code></p>
+              <p class="es">Quiero una papa horneada.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">boiled</div>
+                <div class="trans">hervido · /bɔɪld/</div>
+              </div>
+              <p class="ex"><code>She’s boiling eggs.</code></p>
+              <p class="es">Ella está hirviendo huevos.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">fried</div>
+                <div class="trans">frito · /fraɪd/</div>
+              </div>
+              <p class="ex"><code>I eat fried eggs for breakfast.</code></p>
+              <p class="es">Como huevos fritos en el desayuno.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">grilled</div>
+                <div class="trans">a la parrilla · /ɡrɪld/</div>
+              </div>
+              <p class="ex"><code>We’re having grilled fish.</code></p>
+              <p class="es">Vamos a comer pescado a la parrilla.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">roast / roasted</div>
+                <div class="trans">asado · /rəʊst/</div>
+              </div>
+              <p class="ex"><code>They’re roasting chicken in the oven.</code></p>
+              <p class="es">Están asando pollo en el horno.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">steamed</div>
+                <div class="trans">al vapor · /stiːmd/</div>
+              </div>
+              <p class="ex"><code>Steamed vegetables are healthy.</code></p>
+              <p class="es">Las verduras al vapor son saludables.</p>
+            </div>
+
+          </div>
+
+          <details open>
+            <summary>
+              Match (fotos 1–6) — respuestas
+              <span class="pill">del libro</span>
+            </summary>
+            <ul class="miniList">
+              <li><span class="tagNum">1</span><strong>fried</strong> (huevo frito)</li>
+              <li><span class="tagNum">2</span><strong>grilled</strong> (pescado a la parrilla)</li>
+              <li><span class="tagNum">3</span><strong>steamed</strong> (verduras al vapor)</li>
+              <li><span class="tagNum">4</span><strong>roast</strong> (pollo asado en horno)</li>
+              <li><span class="tagNum">5</span><strong>boiled</strong> (huevo hervido)</li>
+              <li><span class="tagNum">6</span><strong>baked</strong> (papa horneada)</li>
+            </ul>
+          </details>
+
+          <div class="hint">
+            <strong>Ojo:</strong> <em>roast</em> es el verbo (to roast). <em>roasted</em> es el adjetivo: <em>roasted chicken</em>.
+          </div>
+        </div>
+      </section>
+
       <!-- PHRASAL VERBS -->
       <section class="card">
         <div class="bar"></div>
@@ -631,3 +744,4 @@
   </div>
 </body>
 </html>
+
