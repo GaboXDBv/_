@@ -1,137 +1,633 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vocabulario 1 - Food and Cooking</title>
-    <link rel="icon" href="favitcon.png" type="image/png"> <!-- Favicon -->
-    <style>
-        body {
-            font-family: 'Lora', serif;
-            background-color: #f5f5f5;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            width: 90%;
-            margin: 20px auto;
-            padding: 30px;
-            background-color: #fff;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-        }
-        h1 {
-            color: #333;
-            font-size: 36px;
-            text-align: center;
-            margin-bottom: 40px;
-            font-family: 'Roboto', sans-serif;
-        }
-        .section {
-            margin-bottom: 30px;
-            padding: 20px;
-            border-left: 5px solid #4CAF50;
-            background-color: #f0f8ff;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        }
-        .section h2 {
-            font-size: 28px;
-            color: #4CAF50;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .section p {
-            font-size: 18px;
-            color: #444;
-            line-height: 1.6;
-        }
-        .example {
-            background-color: #f1f1f1;
-            padding: 10px;
-            margin: 20px 0;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-        .example strong {
-            color: #4CAF50;
-        }
-        .button-container {
-            text-align: center;
-            margin-top: 40px;
-        }
-        .back-button {
-            background-color: #f44336;
-            color: white;
-            padding: 15px 30px;
-            font-size: 20px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
-        }
-        .back-button:hover {
-            background-color: #d32f2f;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vocabulario 1 - Food & Cooking</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=1" type="image/png" />
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
+      --accent: #2563eb;      /* azul elegante */
+      --accent2:#10b981;      /* verde suave */
+      --warn: #ef4444;
+      --soft: rgba(31,41,55,.08);
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+    }
+
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+      text-align:center;
+    }
+
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 2.8vw, 17px);
+      line-height: 1.45;
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .card .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+
+    .card .content{
+      padding: 16px 16px 14px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(18px, 3.8vw, 24px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+
+    p, li{
+      font-size: clamp(15px, 3.4vw, 18px);
+      line-height: 1.55;
+      color: var(--ink);
+    }
+    .muted{ color: var(--muted); }
+
+    .hint{
+      margin-top:10px;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(37,99,235,.06);
+      color: var(--muted);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .hint strong{ color: var(--accent); }
+
+    .chips{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin: 10px 0 0;
+    }
+    .chip{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing:.2px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.85);
+      color: var(--muted);
+    }
+
+    .vocabGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    @media (min-width: 760px){
+      .vocabGrid{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .vItem{
+      border: 1px solid rgba(17,24,39,.10);
+      border-radius: 14px;
+      background: rgba(255,255,255,.85);
+      padding: 12px 12px;
+    }
+    .wordRow{
+      display:flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .word{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing:.2px;
+    }
+    .trans{
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(17,24,39,.10);
+      background: rgba(16,185,129,.10);
+    }
+    .ex{
+      margin:0;
+      color: var(--ink);
+    }
+    .ex code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: .95em;
+      background: rgba(17,24,39,.05);
+      padding: 2px 6px;
+      border-radius: 8px;
+    }
+    .es{
+      margin: 6px 0 0;
+      color: var(--muted);
+    }
+
+    details{
+      border: 1px solid rgba(17,24,39,.10);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: rgba(31,41,55,.03);
+      margin-top: 12px;
+    }
+    summary{
+      cursor:pointer;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      color: var(--ink);
+      font-size: 16px;
+      list-style:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    .pill{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.8);
+      color: var(--muted);
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .btnRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 10px 0 0;
+    }
+    .btn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+    }
+    .btnPrimary{
+      background: linear-gradient(135deg, var(--accent), #1d4ed8);
+    }
+    .btnGhost{
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .btn:active{ transform: translateY(0px); }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+  </style>
 </head>
+
 <body>
+  <div class="wrap">
+    <header>
+      <h1>Vocabulario 1</h1>
+      <p class="subtitle">
+        Food & Cooking — palabra + traducción + ejemplo (EN/ES). Ideal para celular.
+      </p>
+      <div class="chips">
+        <span class="chip">Lee en voz alta</span>
+        <span class="chip">Fíjate en el contexto</span>
+        <span class="chip">Repite 2 veces</span>
+      </div>
+    </header>
 
-<div class="container">
-    <h1>Vocabulario 1 - Food and Cooking</h1>
+    <div class="grid">
 
-    <!-- Sección 1: Fish and Seafood -->
-    <div class="section">
-        <h2>Fish and Seafood</h2>
-        <p><strong>1. Crab</strong> - Cangrejo: <br> "I love to eat crab during the holidays." (Me encanta comer cangrejo durante las vacaciones.)</p>
-        <p><strong>2. Lobster</strong> - Langosta: <br> "Lobster is often served with butter and garlic." (La langosta se sirve a menudo con mantequilla y ajo.)</p>
-        <p><strong>3. Mussels</strong> - Mejillones: <br> "Mussels are usually served with a white wine sauce." (Los mejillones generalmente se sirven con salsa de vino blanco.)</p>
-        <p><strong>4. Prawns</strong> - Gambas: <br> "Prawns are often grilled for a delicious meal." (Las gambas se suelen asar para una comida deliciosa.)</p>
-        <p><strong>5. Salmon</strong> - Salmón: <br> "Salmon is high in omega-3 fatty acids." (El salmón es alto en ácidos grasos omega-3.)</p>
-        <p><strong>6. Squid</strong> - Calamar: <br> "Fried squid is a popular dish in many countries." (El calamar frito es un plato popular en muchos países.)</p>
-        <p><strong>7. Tuna</strong> - Atún: <br> "Tuna is often used in sushi." (El atún se usa a menudo en sushi.)</p>
+      <!-- SEAFOOD / FISH -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Fish & Seafood</h2>
+          <p class="muted">Comida del mar (pescados y mariscos). Aprende la palabra y úsala en una oración.</p>
+
+          <div class="vocabGrid">
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Fish</div>
+                <div class="trans">Pescado</div>
+              </div>
+              <p class="ex"><code>I eat fish twice a week.</code></p>
+              <p class="es">Como pescado dos veces por semana.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Crab</div>
+                <div class="trans">Cangrejo</div>
+              </div>
+              <p class="ex"><code>Crab is popular in coastal cities.</code></p>
+              <p class="es">El cangrejo es popular en ciudades costeras.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Lobster</div>
+                <div class="trans">Langosta</div>
+              </div>
+              <p class="ex"><code>They serve lobster with butter.</code></p>
+              <p class="es">Sirven langosta con mantequilla.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Mussels</div>
+                <div class="trans">Mejillones</div>
+              </div>
+              <p class="ex"><code>Mussels cook quickly in a pot.</code></p>
+              <p class="es">Los mejillones se cocinan rápido en una olla.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Prawns</div>
+                <div class="trans">Gambas / Langostinos</div>
+              </div>
+              <p class="ex"><code>We’re grilling prawns for dinner.</code></p>
+              <p class="es">Estamos asando gambas para la cena.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Salmon</div>
+                <div class="trans">Salmón</div>
+              </div>
+              <p class="ex"><code>Salmon is rich in omega-3.</code></p>
+              <p class="es">El salmón es rico en omega-3.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Squid</div>
+                <div class="trans">Calamar</div>
+              </div>
+              <p class="ex"><code>Fried squid is very crispy.</code></p>
+              <p class="es">El calamar frito es muy crujiente.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Tuna</div>
+                <div class="trans">Atún</div>
+              </div>
+              <p class="ex"><code>I usually buy tuna in a can.</code></p>
+              <p class="es">Normalmente compro atún en lata.</p>
+            </div>
+
+          </div>
+
+          <div class="hint">
+            <strong>Tip:</strong> “Fish” puede ser <em>pescado</em> (comida) o <em>pez</em> (animal), depende del contexto.
+          </div>
+        </div>
+      </section>
+
+      <!-- MEAT + EGGS -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Meat & Eggs</h2>
+          <p class="muted">Carnes y huevos. Frases cortas para memorizar rápido.</p>
+
+          <div class="vocabGrid">
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Beef</div>
+                <div class="trans">Carne de res</div>
+              </div>
+              <p class="ex"><code>Beef is common in burgers.</code></p>
+              <p class="es">La carne de res es común en hamburguesas.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Chicken</div>
+                <div class="trans">Pollo</div>
+              </div>
+              <p class="ex"><code>We’re having chicken for lunch.</code></p>
+              <p class="es">Estamos comiendo pollo en el almuerzo.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Duck</div>
+                <div class="trans">Pato</div>
+              </div>
+              <p class="ex"><code>Duck tastes great with orange sauce.</code></p>
+              <p class="es">El pato sabe genial con salsa de naranja.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Lamb</div>
+                <div class="trans">Cordero</div>
+              </div>
+              <p class="ex"><code>Lamb is popular in Mediterranean food.</code></p>
+              <p class="es">El cordero es popular en comida mediterránea.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Pork</div>
+                <div class="trans">Cerdo</div>
+              </div>
+              <p class="ex"><code>Pork is used to make sausages.</code></p>
+              <p class="es">El cerdo se usa para hacer salchichas.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Eggs</div>
+                <div class="trans">Huevos</div>
+              </div>
+              <p class="ex"><code>I’m frying eggs for breakfast.</code></p>
+              <p class="es">Estoy friendo huevos para el desayuno.</p>
+            </div>
+
+          </div>
+
+          <div class="hint">
+            <strong>Tip:</strong> “Egg” (singular) / “Eggs” (plural). En exámenes se fijan mucho en eso.
+          </div>
+        </div>
+      </section>
+
+      <!-- FRUITS & VEGETABLES -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Fruits & Vegetables</h2>
+          <p class="muted">Frutas y verduras (incluye variantes británicas como “aubergine/courgette”).</p>
+
+          <div class="vocabGrid">
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Aubergine</div>
+                <div class="trans">Berenjena</div>
+              </div>
+              <p class="ex"><code>Aubergine is great in grilled dishes.</code></p>
+              <p class="es">La berenjena es genial en platos a la parrilla.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Avocado</div>
+                <div class="trans">Aguacate</div>
+              </div>
+              <p class="ex"><code>I add avocado to my salad.</code></p>
+              <p class="es">Agrego aguacate a mi ensalada.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Beetroot</div>
+                <div class="trans">Remolacha</div>
+              </div>
+              <p class="ex"><code>Beetroot makes the salad purple.</code></p>
+              <p class="es">La remolacha hace la ensalada morada.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Cabbage</div>
+                <div class="trans">Repollo</div>
+              </div>
+              <p class="ex"><code>Cabbage is used in soups and salads.</code></p>
+              <p class="es">El repollo se usa en sopas y ensaladas.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Cherries</div>
+                <div class="trans">Cerezas</div>
+              </div>
+              <p class="ex"><code>Cherries are sweet and juicy.</code></p>
+              <p class="es">Las cerezas son dulces y jugosas.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Courgette</div>
+                <div class="trans">Calabacín</div>
+              </div>
+              <p class="ex"><code>Courgette works well in pasta.</code></p>
+              <p class="es">El calabacín queda bien en la pasta.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Cucumber</div>
+                <div class="trans">Pepino</div>
+              </div>
+              <p class="ex"><code>Cucumber tastes fresh in salads.</code></p>
+              <p class="es">El pepino sabe fresco en ensaladas.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Grapes</div>
+                <div class="trans">Uvas</div>
+              </div>
+              <p class="ex"><code>Grapes are a perfect snack.</code></p>
+              <p class="es">Las uvas son un snack perfecto.</p>
+            </div>
+
+            <div class="vItem">
+              <div class="wordRow">
+                <div class="word">Potatoes</div>
+                <div class="trans">Papas</div>
+              </div>
+              <p class="ex"><code>We’re boiling potatoes for dinner.</code></p>
+              <p class="es">Estamos hirviendo papas para la cena.</p>
+            </div>
+
+          </div>
+
+          <div class="hint">
+            <strong>Tip:</strong> UK: <em>aubergine/courgette</em> — US: <em>eggplant/zucchini</em>.
+          </div>
+        </div>
+      </section>
+
+      <!-- PHRASAL VERBS -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Phrasal Verbs (para comida)</h2>
+          <p class="muted">
+            Estos phrasal verbs aparecen mucho en inglés real y en ejercicios. Memoriza con ejemplo.
+          </p>
+
+          <details open>
+            <summary>
+              Ver phrasal verbs
+              <span class="pill">significado + ejemplo</span>
+            </summary>
+
+            <div class="vocabGrid" style="margin-top:12px;">
+
+              <div class="vItem">
+                <div class="wordRow">
+                  <div class="word">eat out</div>
+                  <div class="trans">comer fuera</div>
+                </div>
+                <p class="ex"><code>We usually eat out on Fridays.</code></p>
+                <p class="es">Normalmente comemos fuera los viernes.</p>
+              </div>
+
+              <div class="vItem">
+                <div class="wordRow">
+                  <div class="word">cut down on</div>
+                  <div class="trans">reducir</div>
+                </div>
+                <p class="ex"><code>I’m trying to cut down on sugar.</code></p>
+                <p class="es">Estoy tratando de reducir el azúcar.</p>
+              </div>
+
+              <div class="vItem">
+                <div class="wordRow">
+                  <div class="word">cut out</div>
+                  <div class="trans">eliminar</div>
+                </div>
+                <p class="ex"><code>My doctor told me to cut out junk food.</code></p>
+                <p class="es">Mi doctor me dijo que elimine la comida chatarra.</p>
+              </div>
+
+              <div class="vItem">
+                <div class="wordRow">
+                  <div class="word">fry up</div>
+                  <div class="trans">freír (algo rápido)</div>
+                </div>
+                <p class="ex"><code>I’m going to fry up some eggs.</code></p>
+                <p class="es">Voy a freír algunos huevos.</p>
+              </div>
+
+              <div class="vItem">
+                <div class="wordRow">
+                  <div class="word">warm up</div>
+                  <div class="trans">calentar</div>
+                </div>
+                <p class="ex"><code>I’m warming up the soup.</code></p>
+                <p class="es">Estoy calentando la sopa.</p>
+              </div>
+
+              <div class="vItem">
+                <div class="wordRow">
+                  <div class="word">pick up</div>
+                  <div class="trans">recoger / comprar rápido</div>
+                </div>
+                <p class="ex"><code>I’ll pick up some bread on my way home.</code></p>
+                <p class="es">Compraré (recogeré) pan camino a casa.</p>
+              </div>
+
+            </div>
+
+            <div class="hint">
+              <strong>Importante:</strong> En exámenes, “cut down on” casi siempre lleva <em>on</em>.
+              Ej: <em>cut down on sugar</em> (no “cut down sugar”).
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- NAV -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Navegación</h2>
+          <p class="muted">Puedes volver al marco teórico o avanzar cuando ya tengas la siguiente página.</p>
+
+          <div class="btnRow">
+            <button class="btn btnGhost" onclick="window.location.href='index.html'">Atrás</button>
+            <button class="btn btnPrimary" onclick="window.location.href='preguntas.html'">Siguiente</button>
+          </div>
+          <div class="footerHint">
+            Si aún no tienes “preguntas.html”, deja ese botón o cambia el enlace cuando la crees.
+          </div>
+        </div>
+      </section>
+
     </div>
-
-    <!-- Sección 2: Meat -->
-    <div class="section">
-        <h2>Meat</h2>
-        <p><strong>1. Beef</strong> - Carne de res: <br> "Beef is commonly used to make steaks." (La carne de res se usa comúnmente para hacer bisteques.)</p>
-        <p><strong>2. Chicken</strong> - Pollo: <br> "Chicken can be grilled, fried, or baked." (El pollo puede ser asado, frito o al horno.)</p>
-        <p><strong>3. Duck</strong> - Pato: <br> "Duck is often roasted with orange sauce." (El pato se suele asar con salsa de naranja.)</p>
-        <p><strong>4. Lamb</strong> - Cordero: <br> "Lamb is popular in Mediterranean cuisine." (El cordero es popular en la cocina mediterránea.)</p>
-        <p><strong>5. Pork</strong> - Cerdo: <br> "Pork is often used to make sausages." (El cerdo se usa a menudo para hacer salchichas.)</p>
-    </div>
-
-    <!-- Sección 3: Fruits and Vegetables -->
-    <div class="section">
-        <h2>Fruits and Vegetables</h2>
-        <p><strong>1. Aubergine</strong> - Berenjena: <br> "Aubergine is a popular ingredient in Mediterranean dishes." (La berenjena es un ingrediente popular en los platos mediterráneos.)</p>
-        <p><strong>2. Avocado</strong> - Aguacate: <br> "Avocado is often used in salads and sandwiches." (El aguacate se usa a menudo en ensaladas y sándwiches.)</p>
-        <p><strong>3. Beetroot</strong> - Remolacha: <br> "Beetroot is rich in vitamins and minerals." (La remolacha es rica en vitaminas y minerales.)</p>
-        <p><strong>4. Cabbage</strong> - Repollo: <br> "Cabbage can be eaten raw in salads or cooked." (El repollo se puede comer crudo en ensaladas o cocido.)</p>
-        <p><strong>5. Cherries</strong> - Cerezas: <br> "Cherries are often used in desserts and pies." (Las cerezas se usan a menudo en postres y tartas.)</p>
-        <p><strong>6. Courgette</strong> - Calabacín: <br> "Courgette can be grilled, roasted, or added to stews." (El calabacín se puede asar, hervir o agregar a los guisos.)</p>
-        <p><strong>7. Cucumber</strong> - Pepino: <br> "Cucumber is often added to salads for a refreshing taste." (El pepino se agrega a menudo a las ensaladas para un sabor refrescante.)</p>
-        <p><strong>8. Grapes</strong> - Uvas: <br> "Grapes are commonly eaten as a snack or used to make wine." (Las uvas se comen comúnmente como bocadillo o se usan para hacer vino.)</p>
-    </div>
-
-    <!-- Sección 4: Phrasal Verbs -->
-    <div class="section">
-        <h2>4. Phrasal Verbs</h2>
-        <p><strong>1. Eat out</strong> - Comer fuera: <br> "I usually eat out on weekends." (Normalmente como fuera los fines de semana.)</p>
-        <p><strong>2. Cut down</strong> - Reducir: <br> "I’m trying to cut down on sugar." (Estoy tratando de reducir el azúcar.)</p>
-        <p><strong>3. Cut out</strong> - Eliminar: <br> "The doctor told me to cut out junk food." (El doctor me dijo que elimine la comida chatarra.)</p>
-        <p><strong>4. Fry up</strong> - Freír: <br> "I’m going to fry up some eggs for breakfast." (Voy a freír algunos huevos para el desayuno.)</p>
-    </div>
-
-    <!-- Botón para regresar -->
-    <div class="button-container">
-        <button class="back-button" onclick="window.history.back();">Atrás</button>
-    </div>
-
-</div>
-
+  </div>
 </body>
 </html>
