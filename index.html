@@ -7,54 +7,64 @@
     <link rel="icon" href="favitcon.png" type="image/png"> <!-- Favicon -->
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Lora', serif;
             background-color: #f5f5f5;
             color: #333;
             margin: 0;
             padding: 0;
         }
         .container {
-            width: 80%;
-            margin: 0 auto;
+            width: 90%;
+            margin: 20px auto;
             padding: 30px;
             background-color: #fff;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
-            text-align: center;
         }
         h1 {
             color: #333;
             font-size: 36px;
+            text-align: center;
             margin-bottom: 40px;
+            font-family: 'Roboto', sans-serif;
         }
         .section {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
             margin-bottom: 30px;
             padding: 20px;
-            border-radius: 8px;
+            border-left: 5px solid #4CAF50;
             background-color: #f0f8ff;
+            border-radius: 8px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        }
-        .section img {
-            width: 80px;
-            height: 80px;
-            margin-right: 20px;
         }
         .section h2 {
             font-size: 28px;
             color: #4CAF50;
             font-weight: bold;
+            margin-bottom: 10px;
         }
         .section p {
-            font-size: 20px;
+            font-size: 18px;
             color: #444;
-            max-width: 350px;
+            line-height: 1.6;
+        }
+        .section ul {
+            font-size: 18px;
+            color: #444;
+            padding-left: 20px;
+        }
+        .example {
+            background-color: #f1f1f1;
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .example strong {
+            color: #4CAF50;
         }
         .button-container {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 40px;
         }
         .next-button {
             background-color: #007bff;
@@ -69,6 +79,43 @@
         .next-button:hover {
             background-color: #0056b3;
         }
+        .back-button {
+            background-color: #f44336;
+            color: white;
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #d32f2f;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+            }
+            h1 {
+                font-size: 28px;
+            }
+            .section h2 {
+                font-size: 24px;
+            }
+            .section p {
+                font-size: 16px;
+            }
+            .example {
+                font-size: 16px;
+            }
+            .next-button, .back-button {
+                width: 100%;
+                font-size: 18px;
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -78,44 +125,59 @@
 
     <!-- Sección 1: Present Simple -->
     <div class="section">
-        <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/external-simple-editing-flaticons-lineal-color-flat-icons.png" alt="icon">
-        <div>
-            <h2>Present Simple</h2>
-            <p>Se usa para hablar de hábitos, rutinas, hechos generales y estados permanentes. Ejemplo: "She works in a restaurant." (Ella trabaja en un restaurante).</p>
+        <h2>1. Present Simple</h2>
+        <p>El <strong>Present Simple</strong> se utiliza para:</p>
+        <ul>
+            <li>Hablar de <strong>hábitos</strong> y rutinas.</li>
+            <li>Hechos que son <strong>generalmente verdaderos</strong>.</li>
+            <li>Estados <strong>permanentes</strong> (verbos de estado).</li>
+        </ul>
+
+        <div class="example">
+            <p><strong>Ejemplo:</strong> <br> "I live in London." (Vivo en Londres). <br> "She works in a restaurant." (Ella trabaja en un restaurante).</p>
         </div>
     </div>
 
     <!-- Sección 2: Present Continuous -->
     <div class="section">
-        <img src="https://img.icons8.com/external-flat-juicy-fish/64/external-continuous-writing-and-editing-flat-flat-juicy-fish.png" alt="icon">
-        <div>
-            <h2>Present Continuous</h2>
-            <p>Se usa para describir acciones que están ocurriendo en el momento, situaciones temporales o arreglos futuros. Ejemplo: "They are studying right now." (Ellos están estudiando ahora mismo).</p>
+        <h2>2. Present Continuous</h2>
+        <p>El <strong>Present Continuous</strong> se utiliza para:</p>
+        <ul>
+            <li>Acciones que están ocurriendo <strong>en este momento</strong>.</li>
+            <li>Situaciones <strong>temporales</strong>.</li>
+            <li><strong>Arreglos futuros</strong> planificados.</li>
+        </ul>
+
+        <div class="example">
+            <p><strong>Ejemplo:</strong> <br> "I am studying right now." (Estoy estudiando ahora mismo). <br> "They are working at home this week." (Ellos están trabajando en casa esta semana).</p>
         </div>
     </div>
 
     <!-- Sección 3: Diferencias Claves -->
     <div class="section">
-        <img src="https://img.icons8.com/ios-filled/50/000000/difference.png" alt="icon">
-        <div>
-            <h2>Diferencias Claves</h2>
-            <p><strong>Present Simple:</strong> Para rutinas y hechos. <br><strong>Present Continuous:</strong> Para acciones temporales o en progreso.</p>
+        <h2>3. Diferencias Claves</h2>
+        <p><strong>Present Simple:</strong> Para rutinas y hechos. <br><strong>Present Continuous:</strong> Para acciones temporales o en progreso.</p>
+
+        <div class="example">
+            <p><strong>Ejemplo:</strong> <br> "She usually drinks coffee in the morning." (Ella usualmente bebe café por la mañana). <br> "She is drinking coffee right now." (Ella está bebiendo café ahora mismo).</p>
         </div>
     </div>
 
     <!-- Sección 4: Expresiones de Tiempo -->
     <div class="section">
-        <img src="https://img.icons8.com/external-flat-juicy-fish/64/external-time-clock-flat-flat-juicy-fish.png" alt="icon">
-        <div>
-            <h2>Expresiones de Tiempo</h2>
-            <p><strong>Present Simple:</strong> always, often, usually. <br><strong>Present Continuous:</strong> at the moment, now, today.</p>
-        </div>
+        <h2>4. Expresiones de Tiempo</h2>
+        <p>Las expresiones de tiempo que se usan son:</p>
+        <ul>
+            <li><strong>Present Simple:</strong> always, often, usually, every day, once a week.</li>
+            <li><strong>Present Continuous:</strong> at the moment, now, today, this week.</li>
+        </ul>
     </div>
 
-    <!-- Botón para pasar a las preguntas -->
+    <!-- Botón para Vocabulario -->
     <div class="button-container">
-        <button class="next-button" onclick="window.location.href='preguntas.html';">Pasar a las preguntas</button>
+        <button class="next-button" onclick="window.location.href='vocabulario1.html';">Vocabulario 1</button>
     </div>
+
 </div>
 
 </body>
