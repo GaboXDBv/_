@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preguntas 2 - Daku</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=2" type="image/png" />
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
+      --accent: #2563eb;
+      --accent2:#10b981;
+      --danger:#ef4444;
+      --ok:#22c55e;
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+    }
+
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+      text-align:center;
+    }
+
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 2.8vw, 17px);
+      line-height: 1.45;
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .card .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+
+    .card .content{
+      padding: 16px 16px 14px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(18px, 3.8vw, 24px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+
+    p{
+      font-size: clamp(15px, 3.4vw, 18px);
+      line-height: 1.55;
+      color: var(--ink);
+      margin: 8px 0;
+    }
+    .muted{ color: var(--muted); }
+
+    .topRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .badge{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.85);
+      color: var(--muted);
+    }
+
+    .progressWrap{
+      width: 100%;
+      margin-top: 8px;
+      border-radius: 999px;
+      background: rgba(17,24,39,.08);
+      overflow: hidden;
+      height: 10px;
+    }
+    .progressBar{
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .25s ease;
+    }
+
+    .questionText{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: clamp(18px, 4.0vw, 22px);
+      font-weight: 900;
+      letter-spacing:.2px;
+      margin: 12px 0 10px;
+    }
+
+    /* Multiple choice */
+    .options{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (min-width: 760px){
+      .options{ grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    .optBtn{
+      border: 1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.92);
+      border-radius: 14px;
+      padding: 16px 14px;
+      cursor: pointer;
+      text-align: left;
+      box-shadow: 0 6px 14px rgba(17,24,39,.08);
+      transition: transform .12s ease, filter .12s ease, border-color .12s ease;
+      min-height: 64px;
+    }
+    .optBtn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.01);
+      border-color: rgba(37,99,235,.35);
+    }
+    .optBtn:active{ transform: translateY(0px); }
+    .optBtn:disabled{ cursor:not-allowed; opacity:.96; }
+
+    .optLabel{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing:.2px;
+      line-height: 1.15;
+    }
+
+    /* Typed input */
+    .inputWrap{
+      display:none;
+      gap:10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .textInput{
+      flex: 1 1 520px;
+      border: 1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.92);
+      border-radius: 14px;
+      padding: 14px 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: 0 6px 14px rgba(17,24,39,.08);
+      outline: none;
+    }
+    .submitBtn{
+      flex: 0 0 auto;
+      border:0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #1d4ed8);
+      width: min(240px, 100%);
+    }
+    .submitBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .submitBtn:active{ transform: translateY(0px); }
+    .submitBtn:disabled{ cursor:not-allowed; opacity:.92; transform:none; }
+
+    .inputOk{ border-color: rgba(34,197,94,.55) !important; box-shadow: 0 8px 18px rgba(34,197,94,.10) !important; }
+    .inputBad{ border-color: rgba(239,68,68,.55) !important; box-shadow: 0 8px 18px rgba(239,68,68,.10) !important; }
+
+    .feedback{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      display:none;
+    }
+    .fbOk{
+      background: rgba(34,197,94,.10);
+      border-color: rgba(34,197,94,.20);
+    }
+    .fbBad{
+      background: rgba(239,68,68,.10);
+      border-color: rgba(239,68,68,.20);
+    }
+    .fbTitle{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      margin:0 0 6px;
+    }
+    .fbBody{
+      margin:0;
+      color: var(--ink);
+    }
+    .fbBody ul{
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+    .fbBody li{
+      margin: 6px 0;
+      font-size: 15px;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: .95em;
+      background: rgba(17,24,39,.05);
+      padding: 2px 6px;
+      border-radius: 8px;
+    }
+
+    .nextRow{
+      display:flex;
+      justify-content: center;
+      margin-top: 12px;
+      display:none;
+    }
+    .miniBtn{
+      border:0;
+      cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #1d4ed8);
+      width: min(420px, 100%);
+    }
+    .miniBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .miniBtn:active{ transform: translateY(0px); }
+
+    .navRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .navBtn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+    }
+    .navBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .navBtn:active{ transform: translateY(0px); }
+    .btnBack{ background: linear-gradient(135deg, #ef4444, #dc2626); }
+    .btnNextTheme{ background: linear-gradient(135deg, #10b981, #059669); }
+    .btnNewSet{ background: linear-gradient(135deg, var(--accent), #1d4ed8); }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    /* Highlight states */
+    .chosen{
+      border-color: rgba(37,99,235,.55) !important;
+      box-shadow: 0 8px 18px rgba(37,99,235,.10) !important;
+    }
+    .correct{
+      border-color: rgba(34,197,94,.55) !important;
+      box-shadow: 0 8px 18px rgba(34,197,94,.10) !important;
+    }
+    .wrong{
+      border-color: rgba(239,68,68,.55) !important;
+      box-shadow: 0 8px 18px rgba(239,68,68,.10) !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Preguntas 2</h1>
+      <p class="subtitle">
+        Future forms + Vocabulario (personality adjectives) + Negative prefixes — 10 preguntas por ronda.
+      </p>
+    </header>
+
+    <div class="grid">
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+
+          <div class="topRow">
+            <span class="badge" id="roundBadge">Ronda: 1</span>
+            <span class="badge" id="scoreBadge">Puntaje: 0 / 10</span>
+            <span class="badge" id="qBadge">Pregunta: 1 / 10</span>
+          </div>
+
+          <div class="progressWrap" aria-label="Progreso de la ronda">
+            <div class="progressBar" id="progressBar"></div>
+          </div>
+
+          <div class="questionText" id="questionText"></div>
+
+          <!-- Input (escribir) -->
+          <div class="inputWrap" id="inputWrap">
+            <input class="textInput" id="textAnswer" type="text" placeholder="Escribe tu respuesta..." autocomplete="off" />
+            <button class="submitBtn" id="submitBtn">Responder</button>
+          </div>
+
+          <!-- Opciones (seleccionar) -->
+          <div class="options" id="options"></div>
+
+          <div class="feedback" id="feedbackBox" role="status" aria-live="polite">
+            <div class="fbTitle" id="fbTitle"></div>
+            <div class="fbBody" id="fbBody"></div>
+          </div>
+
+          <div class="nextRow" id="nextRow">
+            <button class="miniBtn" id="nextBtn">Siguiente pregunta</button>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Navegación</h2>
+          <p class="muted">
+            Vuelve al vocabulario o al marco teórico, o carga otra ronda de 10.
+          </p>
+
+          <div class="navRow">
+            <button class="navBtn btnBack" onclick="window.location.href='vocabulario2.html'">Atrás (Vocabulario 2)</button>
+            <button class="navBtn btnNextTheme" onclick="window.location.href='mark2.html'">Volver al Marco Teórico 2</button>
+            <button class="navBtn btnNewSet" onclick="newRound()">Displayar 10 preguntas</button>
+          </div>
+
+          <div class="footerHint">
+            Banco: 30 preguntas. No se repiten entre rondas hasta consumirlas.
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    function shuffle(arr){
+      const a = [...arr];
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function normalize(s){
+      return (s || "")
+        .toLowerCase()
+        .trim()
+        .replace(/[’‘]/g,"'")
+        .replace(/[“”]/g,'"')
+        .replace(/\s+/g," ")
+        .replace(/[.?!]+$/,"");
+    }
+
+    const ROUND_SIZE = 10;
+
+    // 30 preguntas (tema 2) -> mezcla: mcq + input
+    const QUESTION_BANK = [
+      /* ================= FUTURE FORMS (MCQ) ================= */
+      {
+        type: "mcq",
+        stem: "Look at those black clouds. It ____ rain soon.",
+        options: [
+          { text: "is going to", correct: true },
+          { text: "will", correct: false },
+          { text: "is raining", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: evidencia visible → going to",
+          okPoints: [
+            "Cuando hay <b>evidencia</b> (nubes negras), usamos <span class='code'>be going to</span>.",
+            "<span class='code'>will</span> suena más a opinión/predicción sin evidencia."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "We ____ at 10 tomorrow in Richard’s office.",
+        options: [
+          { text: "are meeting", correct: true },
+          { text: "will meet", correct: false },
+          { text: "are going to meet", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: arreglo confirmado → Present Continuous",
+          okPoints: [
+            "Hora/lugar = <b>arreglo</b> (agenda) → <span class='code'>are meeting</span>.",
+            "<span class='code'>will meet</span> suena a futuro general/decisión del momento."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "I’m thirsty. I ____ a glass of water.",
+        options: [
+          { text: "will get", correct: true },
+          { text: "am going to get", correct: false },
+          { text: "am getting", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: decisión instantánea → will",
+          okPoints: [
+            "Si decides <b>en el momento</b>, usa <span class='code'>will</span>.",
+            "<span class='code'>going to</span> es más “ya lo había decidido antes”."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "Don’t worry. I ____ anybody where you are.",
+        options: [
+          { text: "won’t tell", correct: true },
+          { text: "am not telling", correct: false },
+          { text: "am not going to tell", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: promesa → won’t",
+          okPoints: [
+            "<span class='code'>won’t</span> se usa mucho para <b>promesas</b>.",
+            "<span class='code'>am not telling</span> suena a “ahora mismo no estoy diciendo”."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "My sister ____ a child. She has already filled in the papers.",
+        options: [
+          { text: "is going to adopt", correct: true },
+          { text: "will adopt", correct: false },
+          { text: "is adopting", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: plan decidido → going to",
+          okPoints: [
+            "“Already filled in the papers” = decisión/plan hecho.",
+            "Por eso: <span class='code'>is going to adopt</span>."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "____ we eat out tonight? (sugerencia)",
+        options: [
+          { text: "Shall", correct: true },
+          { text: "Will", correct: false },
+          { text: "Do", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: Shall we…? = sugerencia (I/we)",
+          okPoints: [
+            "<span class='code'>Shall we…?</span> es típico para sugerencias (estilo UK).",
+            "<span class='code'>Will we…?</span> no es la forma típica para “sugerir”."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "Jane ____ on Friday and coming back next Tuesday.",
+        options: [
+          { text: "is leaving", correct: true },
+          { text: "will leave", correct: false },
+          { text: "is going to leave", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: viaje/arreglo → Present Continuous",
+          okPoints: [
+            "Con verbos de viaje (leave/come/arrive), el present continuous suena natural para planes confirmados.",
+            "Fechas claras = agenda/arreglo."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "I think you ____ New York.",
+        options: [
+          { text: "will love", correct: true },
+          { text: "are going to love", correct: false },
+          { text: "are loving", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: predicción tipo opinión → will",
+          okPoints: [
+            "“I think …” = opinión → <span class='code'>will</span>.",
+            "<span class='code'>are loving</span> no se usa así en exámenes."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "Next year Christmas Day ____ on a Thursday.",
+        options: [
+          { text: "will be", correct: true },
+          { text: "is being", correct: false },
+          { text: "is going to be", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: hecho futuro (calendario) → will",
+          okPoints: [
+            "Para hechos futuros: <span class='code'>will be</span>.",
+            "<span class='code'>is being</span> no aplica (proceso)."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "____ I help you with your homework? (oferta)",
+        options: [
+          { text: "Shall I help", correct: true },
+          { text: "Will I help", correct: false },
+          { text: "Am I helping", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: Shall I…? = oferta (I/we)",
+          okPoints: [
+            "<span class='code'>Shall I…?</span> se usa para ofrecer ayuda.",
+            "En ejercicios tipo libro, esta es la opción esperada."
+          ]
+        }
+      },
+
+      /* ================= FUTURE FORMS (INPUT) ================= */
+      {
+        type: "input",
+        stem: "Completa: I’m not ____ home for the holidays. It’s too far.",
+        answers: ["going to go"],
+        showExpected: "going to go",
+        explain: {
+          okTitle: "Correcto: be going to + infinitive",
+          okPoints: [
+            "Es un plan/decisión ya hecha: <span class='code'>I’m not going to go…</span>",
+            "Aquí no es una decisión instantánea, por eso no va con <span class='code'>will</span>."
+          ]
+        }
+      },
+      {
+        type: "input",
+        stem: "Completa con Present Continuous: We ____ (meet) at 8.00 tomorrow.",
+        answers: ["are meeting", "we're meeting", "were meeting"], /* 'were meeting' por si el user se confunde; luego lo marcamos como incorrecto si quieres */
+        strict: true,
+        strictAnswers: ["are meeting", "we're meeting"],
+        showExpected: "are meeting / we’re meeting",
+        explain: {
+          okTitle: "Correcto: arreglo confirmado → are meeting",
+          okPoints: [
+            "Hora exacta + tomorrow = arreglo/agenda.",
+            "Forma: <span class='code'>be + verb-ing</span> → <span class='code'>are meeting</span>."
+          ]
+        }
+      },
+      {
+        type: "input",
+        stem: "Prefijo negativo: ____responsible",
+        answers: ["irresponsible"],
+        showExpected: "irresponsible",
+        explain: {
+          okTitle: "Correcto: in- cambia a ir- antes de r",
+          okPoints: [
+            "<span class='code'>in-</span> → <span class='code'>ir-</span> antes de <b>r</b>.",
+            "Por eso: <span class='code'>irresponsible</span>."
+          ]
+        }
+      },
+      {
+        type: "input",
+        stem: "Prefijo negativo: ____patient",
+        answers: ["impatient"],
+        showExpected: "impatient",
+        explain: {
+          okTitle: "Correcto: in- cambia a im- antes de p",
+          okPoints: [
+            "Antes de <b>p</b>, <span class='code'>in-</span> → <span class='code'>im-</span>.",
+            "Resultado: <span class='code'>impatient</span>."
+          ]
+        }
+      },
+      {
+        type: "input",
+        stem: "Prefijo negativo: ____honest",
+        answers: ["dishonest"],
+        showExpected: "dishonest",
+        explain: {
+          okTitle: "Correcto: honest → dishonest",
+          okPoints: [
+            "La forma común es <span class='code'>dishonest</span>.",
+            "No se usa <span class='code'>unhonest</span> en este nivel."
+          ]
+        }
+      },
+      {
+        type: "input",
+        stem: "Prefijo negativo: ____kind",
+        answers: ["unkind"],
+        showExpected: "unkind",
+        explain: {
+          okTitle: "Correcto: un- para muchos adjetivos",
+          okPoints: [
+            "Muy común: <span class='code'>kind</span> → <span class='code'>unkind</span>."
+          ]
+        }
+      },
+      {
+        type: "input",
+        stem: "Prefijo negativo: ____tidy",
+        answers: ["untidy"],
+        showExpected: "untidy",
+        explain: {
+          okTitle: "Correcto: tidy → untidy",
+          okPoints: [
+            "Se usa <span class='code'>un-</span>: <span class='code'>untidy</span>."
+          ]
+        }
+      },
+      {
+        type: "input",
+        stem: "Prefijo negativo: ____sensitive",
+        answers: ["insensitive"],
+        showExpected: "insensitive",
+        explain: {
+          okTitle: "Correcto: sensitive → insensitive",
+          okPoints: [
+            "Forma común: <span class='code'>insensitive</span> (sin -im/-ir)."
+          ]
+        }
+      },
+
+      /* ================= VOCABULARY (MCQ) ================= */
+      {
+        type: "mcq",
+        stem: "A person who is friendly and enjoys being with others is ____.",
+        options: [
+          { text: "sociable", correct: true },
+          { text: "stubborn", correct: false },
+          { text: "spoilt", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: sociable",
+          okPoints: [
+            "<b>Sociable</b> = friendly, outgoing.",
+            "<b>Stubborn</b> = terco. <b>Spoilt</b> = malcriado."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "A person who always tells the truth is ____.",
+        options: [
+          { text: "honest", correct: true },
+          { text: "moody", correct: false },
+          { text: "bossy", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: honest",
+          okPoints: [
+            "<b>Honest</b> = dice la verdad.",
+            "<b>Moody</b> = cambiante de humor. <b>Bossy</b> = mandón."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "A person who tells people what to do is ____.",
+        options: [
+          { text: "bossy", correct: true },
+          { text: "patient", correct: false },
+          { text: "reliable", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: bossy",
+          okPoints: [
+            "<b>Bossy</b> = mandón, le gusta ordenar.",
+            "<b>Patient</b> = paciente. <b>Reliable</b> = confiable."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "A person who is often worried or stressed is ____.",
+        options: [
+          { text: "anxious", correct: true },
+          { text: "selfish", correct: false },
+          { text: "ambitious", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: anxious",
+          okPoints: [
+            "<b>Anxious</b> = preocupado/estresado.",
+            "<b>Ambitious</b> = ambicioso; <b>selfish</b> = egoísta."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "A person whose mood changes often is ____.",
+        options: [
+          { text: "moody", correct: true },
+          { text: "mature", correct: false },
+          { text: "sensible", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: moody",
+          okPoints: [
+            "<b>Moody</b> = cambiante de humor.",
+            "<b>Mature</b> = maduro; <b>sensible</b> = sensato."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "A person you can trust is ____.",
+        options: [
+          { text: "reliable", correct: true },
+          { text: "rebellious", correct: false },
+          { text: "insecure", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: reliable",
+          okPoints: [
+            "<b>Reliable</b> = confiable.",
+            "<b>Rebellious</b> = rebelde; <b>insecure</b> = inseguro."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "The opposite of 'mature' is ____.",
+        options: [
+          { text: "immature", correct: true },
+          { text: "unmature", correct: false },
+          { text: "dismature", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: immature",
+          okPoints: [
+            "Antes de <b>m</b>, el prefijo va como <span class='code'>im-</span>.",
+            "<span class='code'>unmature</span> no es la forma esperada."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "The opposite of 'organized' is ____.",
+        options: [
+          { text: "disorganized", correct: true },
+          { text: "unorganized", correct: false },
+          { text: "imorganized", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto (nivel libro): disorganized",
+          okPoints: [
+            "En ejercicios típicos, la forma esperada es <span class='code'>disorganized</span>.",
+            "<span class='code'>unorganized</span> existe, pero el libro suele preferir <span class='code'>dis-</span>."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "Children who are rude because they get everything they want are ____.",
+        options: [
+          { text: "spoilt", correct: true },
+          { text: "sensitive", correct: false },
+          { text: "charming", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: spoilt",
+          okPoints: [
+            "<b>Spoilt</b> = malcriado (por consentido).",
+            "<b>Charming</b> = encantador; <b>sensitive</b> = sensible."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "Someone who refuses to change their opinion is ____.",
+        options: [
+          { text: "stubborn", correct: true },
+          { text: "affectionate", correct: false },
+          { text: "imaginative", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: stubborn",
+          okPoints: [
+            "<b>Stubborn</b> = terco.",
+            "<b>Affectionate</b> = cariñoso; <b>imaginative</b> = imaginativo."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "Someone with an attractive personality is ____.",
+        options: [
+          { text: "charming", correct: true },
+          { text: "competitive", correct: false },
+          { text: "independent", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: charming",
+          okPoints: [
+            "<b>Charming</b> = encantador, cae bien.",
+            "<b>Competitive</b> = competitivo; <b>independent</b> = independiente."
+          ]
+        }
+      },
+      {
+        type: "mcq",
+        stem: "Someone who thinks only about themselves is ____.",
+        options: [
+          { text: "selfish", correct: true },
+          { text: "self-confident", correct: false },
+          { text: "sensible", correct: false }
+        ],
+        explain: {
+          okTitle: "Correcto: selfish",
+          okPoints: [
+            "<b>Selfish</b> = egoísta.",
+            "<b>Self-confident</b> = seguro de sí; <b>sensible</b> = sensato."
+          ]
+        }
+      }
+    ];
+
+    // === Estado de la app
+    let deck = [];
+    let deckIndex = 0;
+    let currentSet = [];
+    let currentIndex = 0;
+    let score = 0;
+    let round = 0;
+    let answered = false;
+
+    const els = {
+      roundBadge: document.getElementById("roundBadge"),
+      scoreBadge: document.getElementById("scoreBadge"),
+      qBadge: document.getElementById("qBadge"),
+      progressBar: document.getElementById("progressBar"),
+      questionText: document.getElementById("questionText"),
+      options: document.getElementById("options"),
+      inputWrap: document.getElementById("inputWrap"),
+      textAnswer: document.getElementById("textAnswer"),
+      submitBtn: document.getElementById("submitBtn"),
+      feedbackBox: document.getElementById("feedbackBox"),
+      fbTitle: document.getElementById("fbTitle"),
+      fbBody: document.getElementById("fbBody"),
+      nextRow: document.getElementById("nextRow"),
+      nextBtn: document.getElementById("nextBtn")
+    };
+
+    function refillDeck(){
+      deck = shuffle(QUESTION_BANK);
+      deckIndex = 0;
+    }
+
+    function getNextTen(){
+      if(deck.length === 0 || deck.length - deckIndex < ROUND_SIZE){
+        refillDeck();
+      }
+      const set = deck.slice(deckIndex, deckIndex + ROUND_SIZE);
+      deckIndex += ROUND_SIZE;
+      return set;
+    }
+
+    function setProgress(){
+      const pct = Math.round((currentIndex / ROUND_SIZE) * 100);
+      els.progressBar.style.width = pct + "%";
+      els.scoreBadge.textContent = `Puntaje: ${score} / ${ROUND_SIZE}`;
+      els.qBadge.textContent = `Pregunta: ${Math.min(currentIndex+1,ROUND_SIZE)} / ${ROUND_SIZE}`;
+      els.roundBadge.textContent = `Ronda: ${round}`;
+    }
+
+    function resetUI(){
+      els.feedbackBox.style.display = "none";
+      els.feedbackBox.classList.remove("fbOk","fbBad");
+      els.nextRow.style.display = "none";
+
+      // reset options
+      els.options.innerHTML = "";
+      els.options.style.display = "grid";
+
+      // reset input
+      els.inputWrap.style.display = "none";
+      els.textAnswer.value = "";
+      els.textAnswer.disabled = false;
+      els.submitBtn.disabled = false;
+      els.textAnswer.classList.remove("inputOk","inputBad");
+    }
+
+    function renderQuestion(){
+      answered = false;
+      setProgress();
+      resetUI();
+
+      const q = currentSet[currentIndex];
+      els.questionText.textContent = q.stem;
+
+      if(q.type === "mcq"){
+        els.inputWrap.style.display = "none";
+        els.options.style.display = "grid";
+
+        const opts = shuffle(q.options.map(o => ({...o})));
+
+        opts.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.className = "optBtn";
+          btn.type = "button";
+          // SOLO el texto, sin pistas
+          btn.innerHTML = `<div class="optLabel">${opt.text}</div>`;
+          btn.addEventListener("click", () => chooseOption(btn, opt, opts));
+          els.options.appendChild(btn);
+        });
+
+      } else if(q.type === "input"){
+        els.options.style.display = "none";
+        els.inputWrap.style.display = "flex";
+        els.textAnswer.focus();
+
+      } else {
+        // fallback
+        els.options.style.display = "none";
+        els.inputWrap.style.display = "none";
+      }
+    }
+
+    function showFeedback(isCorrect, expectedText, userText){
+      const q = currentSet[currentIndex];
+
+      els.feedbackBox.style.display = "block";
+      els.feedbackBox.classList.add(isCorrect ? "fbOk" : "fbBad");
+
+      els.fbTitle.textContent = isCorrect ? "Bien. Respuesta correcta." : "Incorrecto. Revisa la explicación.";
+
+      const points = (q.explain?.okPoints || []).map(x => `<li>${x}</li>`).join("");
+      const expectedLine = expectedText ? `<p class="muted" style="margin-top:10px;"><b>Respuesta esperada:</b> <span class="code">${expectedText}</span></p>` : "";
+      const userLine = (userText !== undefined && userText !== null)
+        ? `<p class="muted" style="margin-top:6px;"><b>Tu respuesta:</b> <span class="code">${userText || "—"}</span></p>`
+        : "";
+
+      els.fbBody.innerHTML = `
+        <p style="margin:0;"><b>${q.explain?.okTitle || ""}</b></p>
+        ${expectedLine}
+        ${userLine}
+        ${points ? `<ul>${points}</ul>` : ""}
+      `;
+
+      els.nextRow.style.display = "flex";
+      els.nextBtn.textContent = (currentIndex < ROUND_SIZE - 1) ? "Siguiente pregunta" : "Ver resultado de la ronda";
+      els.scoreBadge.textContent = `Puntaje: ${score} / ${ROUND_SIZE}`;
+    }
+
+    function chooseOption(btnEl, chosenOpt, renderedOpts){
+      if(answered) return;
+      answered = true;
+
+      const btns = [...els.options.querySelectorAll(".optBtn")];
+      btns.forEach(b => b.disabled = true);
+      btnEl.classList.add("chosen");
+
+      const correctOpt = renderedOpts.find(o => o.correct);
+
+      btns.forEach(b => {
+        const text = b.querySelector(".optLabel").textContent.trim();
+        if(text === correctOpt.text){
+          b.classList.add("correct");
+        }
+      });
+
+      const isCorrect = chosenOpt.correct;
+      if(!isCorrect){
+        btnEl.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      showFeedback(isCorrect, correctOpt.text, chosenOpt.text);
+    }
+
+    function checkInput(){
+      if(answered) return;
+      const q = currentSet[currentIndex];
+      if(q.type !== "input") return;
+
+      answered = true;
+
+      const raw = els.textAnswer.value;
+      const userNorm = normalize(raw);
+
+      // accepted answers
+      const accepted = (q.strict && Array.isArray(q.strictAnswers))
+        ? q.strictAnswers.map(normalize)
+        : (q.answers || []).map(normalize);
+
+      const isCorrect = accepted.includes(userNorm);
+
+      els.textAnswer.disabled = true;
+      els.submitBtn.disabled = true;
+
+      if(isCorrect){
+        score++;
+        els.textAnswer.classList.add("inputOk");
+      }else{
+        els.textAnswer.classList.add("inputBad");
+      }
+
+      const expectedText = q.showExpected || (q.answers && q.answers[0]) || "";
+      showFeedback(isCorrect, expectedText, raw);
+    }
+
+    function next(){
+      if(!answered) return;
+
+      if(currentIndex < ROUND_SIZE - 1){
+        currentIndex++;
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        els.progressBar.style.width = "100%";
+        els.questionText.textContent = "Ronda terminada.";
+        els.options.style.display = "grid";
+        els.options.innerHTML = `
+          <div style="grid-column: 1/-1; padding: 2px 2px;">
+            <div class="feedback fbOk" style="display:block;">
+              <div class="fbTitle">Resumen</div>
+              <div class="fbBody">
+                <p style="margin:0;">
+                  Tu puntaje fue <b>${score} / ${ROUND_SIZE}</b>.
+                </p>
+                <ul>
+                  <li>8–10: sólido. Ya dominas intención (plan / arreglo / decisión).</li>
+                  <li>5–7: bien, pero revisa “evidencia vs opinión” y “arreglo con hora”.</li>
+                  <li>0–4: vuelve a <b>Trampas</b> en el marco teórico y practica prefijos.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        `;
+        els.inputWrap.style.display = "none";
+        els.feedbackBox.style.display = "none";
+        els.nextRow.style.display = "none";
+        els.qBadge.textContent = `Pregunta: ${ROUND_SIZE} / ${ROUND_SIZE}`;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    function newRound(){
+      round++;
+      currentSet = getNextTen();
+      currentIndex = 0;
+      score = 0;
+      renderQuestion();
+      setProgress();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    els.nextBtn.addEventListener("click", next);
+    els.submitBtn.addEventListener("click", checkInput);
+    els.textAnswer.addEventListener("keydown", (e) => {
+      if(e.key === "Enter"){
+        e.preventDefault();
+        checkInput();
+      }
+    });
+
+    refillDeck();
+    newRound();
+  </script>
+</body>
+</html>
