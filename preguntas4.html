@@ -372,7 +372,7 @@
           <p class="muted">Vuelve al vocabulario o pasa al siguiente tema, o carga otra ronda de 10.</p>
           <div class="navRow">
             <button class="navBtn btnBack" onclick="window.location.href='vocabulario4.html'">Atrás (Vocabulario 4)</button>
-            <button class="navBtn btnNextTheme" onclick="window.location.href='mark5.html'">Siguiente tema</button>
+            <button class="navBtn btnNextTheme" onclick="window.location.href='PreguntasDefinitivas.html'">BOSS FINAL</button>
             <button class="navBtn btnNewSet" onclick="newRound()">Mostrar 10 preguntas</button>
           </div>
           <div class="footerHint">Banco: 30 preguntas. No se repiten entre rondas hasta consumirlas.</div>
@@ -404,273 +404,346 @@
     const ROUND_SIZE = 10;
 
     // 30 preguntas: strong adjectives + intensifiers (difíciles, sin repetir)
-    const QUESTION_BANK = [
-      /* ================= INTENSIFIERS (MCQ) ================= */
-      {
-        type: "mcq",
-        stem: "Choose the correct option: After nine hours of cycling, I was ____ exhausted.",
-        options: [
-          { text: "absolutely", correct: true },
-          { text: "very", correct: false },
-          { text: "a bit", correct: false }
-        ],
-        explain: { okTitle: "Exhausted = strong adjective → NO 'very'", okPoints: ["Strong → <span class='code'>absolutely / completely / totally</span>."] }
-      },
-      {
-        type: "mcq",
-        stem: "Choose the correct option: It’s ____ freezing outside (−15°C).",
-        options: [
-          { text: "absolutely", correct: true },
-          { text: "very", correct: false },
-          { text: "quite", correct: false }
-        ],
-        explain: { okTitle: "Freezing = strong adjective", okPoints: ["✅ <span class='code'>absolutely freezing</span> • ❌ <span class='code'>very freezing</span>."] }
-      },
-      {
-        type: "mcq",
-        stem: "Choose the best sentence:",
-        options: [
-          { text: "My hair is absolutely filthy.", correct: true },
-          { text: "My hair is very filthy.", correct: false },
-          { text: "My hair is a bit filthy.", correct: false }
-        ],
-        explain: { okTitle: "Filthy = strong adjective", okPoints: ["Con strong: <span class='code'>absolutely/completely</span>."] }
-      },
-      {
-        type: "mcq",
-        stem: "Which sentence is correct?",
-        options: [
-          { text: "I’m absolutely starving.", correct: true },
-          { text: "I’m very starving.", correct: false },
-          { text: "I’m a little starving.", correct: false }
-        ],
-        explain: { okTitle: "Starving = strong adjective", okPoints: ["❌ No se usa <span class='code'>very</span> con starving."] }
-      },
-      {
-        type: "mcq",
-        stem: "Which word CANNOT be used with a strong adjective?",
-        options: [
-          { text: "very", correct: true },
-          { text: "totally", correct: false },
-          { text: "absolutely", correct: false }
-        ],
-        explain: { okTitle: "Regla clave", okPoints: ["Strong adjectives → <span class='code'>absolutely / completely / totally / really</span>, pero NO <span class='code'>very</span>."] }
-      },
+    // 30 preguntas — Tema 4: Present Perfect Continuous vs Present Perfect + for/since/how long
+// + Strong adjectives (absolutely/completely/totally; NO "very" con strong adjectives)
 
-      /* ================= CHOOSE THE STRONG ADJECTIVE (MCQ) ================= */
-      {
-        type: "mcq",
-        stem: "Choose the best word: The flat is ____ — just a bedroom and a sitting room.",
-        options: [
-          { text: "tiny", correct: true },
-          { text: "big", correct: false },
-          { text: "average", correct: false }
-        ],
-        explain: { okTitle: "tiny = very small", okPoints: ["Contexto: espacio mínimo → <span class='code'>tiny</span>."] }
-      },
-      {
-        type: "mcq",
-        stem: "Choose the correct option: It was absolutely ____ (45°C).",
-        options: [
-          { text: "boiling", correct: true },
-          { text: "warm", correct: false },
-          { text: "hot", correct: false }
-        ],
-        explain: { okTitle: "Boiling = extremely hot", okPoints: ["Con 45°C: <span class='code'>boiling</span>."] }
-      },
-      {
-        type: "mcq",
-        stem: "Choose the correct sentence:",
-        options: [
-          { text: "I’m positive I locked the door.", correct: true },
-          { text: "I’m fascinating I locked the door.", correct: false },
-          { text: "I’m filthy I locked the door.", correct: false }
-        ],
-        explain: { okTitle: "Positive = completely sure", okPoints: ["<span class='code'>I’m positive</span> = estoy 100% seguro."] }
-      },
-      {
-        type: "mcq",
-        stem: "Choose the correct option: My parents were absolutely ____ about the wedding.",
-        options: [
-          { text: "delighted", correct: true },
-          { text: "pleased", correct: false },
-          { text: "okay", correct: false }
-        ],
-        explain: { okTitle: "Delighted = very pleased", okPoints: ["Strong adjective → combina perfecto con <span class='code'>absolutely</span>."] }
-      },
-      {
-        type: "mcq",
-        stem: "Choose the best option: The documentary was absolutely ____.",
-        options: [
-          { text: "fascinating", correct: true },
-          { text: "interesting", correct: false },
-          { text: "fine", correct: false }
-        ],
-        explain: { okTitle: "Fascinating = very interesting", okPoints: ["Strong → <span class='code'>absolutely fascinating</span>."] }
-      },
+const QUESTION_BANK = [
+  /* ===================== GRAMMAR (PPC vs PPS) ===================== */
+  {
+    type: "mcq",
+    stem: "Choose the correct question:",
+    options: [
+      { text: "How long have you been working here?", correct: true },
+      { text: "How long do you work here?", correct: false },
+      { text: "How long are you working here?", correct: false }
+    ],
+    explain: {
+      okTitle: "How long + acción que empezó y continúa → Present perfect continuous",
+      okPoints: ["✅ <span class='code'>have/has been + -ing</span>."]
+    }
+  },
+  {
+    type: "input",
+    stem: "Complete (only the missing words): Nick ____ ____ ____ here since April. (work)",
+    answers: ["has been working", "he's been working", "he has been working"],
+    showExpected: "has been working",
+    explain: {
+      okTitle: "Since + punto de inicio → Present perfect continuous",
+      okPoints: ["✅ <span class='code'>has been working</span>."]
+    }
+  },
+  {
+    type: "input",
+    stem: "Complete (only the missing words): They ____ ____ ____ out together for about three years. (go)",
+    answers: ["have been going", "they've been going", "they have been going"],
+    showExpected: "have been going",
+    explain: {
+      okTitle: "For + duración → Present perfect continuous",
+      okPoints: ["✅ <span class='code'>have been going out</span>."]
+    }
+  },
+  {
+    type: "mcq",
+    stem: "Your eyes are red. Choose the correct question:",
+    options: [
+      { text: "Have you been crying?", correct: true },
+      { text: "Have you cried?", correct: false },
+      { text: "Are you been crying?", correct: false }
+    ],
+    explain: {
+      okTitle: "Evidencia ahora (ojos rojos) → acción reciente/duración → PPC",
+      okPoints: ["✅ <span class='code'>Have you been crying?</span>"]
+    }
+  },
+  {
+    type: "mcq",
+    stem: "No, ____ onions. (Choose the best answer.)",
+    options: [
+      { text: "I’ve been chopping", correct: true },
+      { text: "I’ve chopped", correct: false },
+      { text: "I chop", correct: false }
+    ],
+    explain: {
+      okTitle: "Explica la causa (actividad en progreso) → PPC",
+      okPoints: ["✅ <span class='code'>I’ve been chopping</span>."]
+    }
+  },
+  {
+    type: "input",
+    stem: "Complete (only the missing words): It ____ ____ ____ since lunchtime. (rain)",
+    answers: ["has been raining", "it's been raining", "it has been raining"],
+    showExpected: "has been raining",
+    explain: {
+      okTitle: "Weather + since → PPC es lo más natural",
+      okPoints: ["✅ <span class='code'>has been raining</span>."]
+    }
+  },
+  {
+    type: "mcq",
+    stem: "Live/Work: Which option is correct?",
+    options: [
+      { text: "I’ve lived here since 2010.", correct: false },
+      { text: "I’ve been living here since 2010.", correct: false },
+      { text: "Both are correct (same meaning).", correct: true }
+    ],
+    explain: {
+      okTitle: "Con live/work → Present perfect simple y continuous pueden significar lo mismo",
+      okPoints: ["✅ Las dos formas funcionan aquí."]
+    }
+  },
+  {
+    type: "mcq",
+    stem: "Choose the correct sentence:",
+    options: [
+      { text: "We’ve had our new flat for six months.", correct: true },
+      { text: "We’ve been having our new flat for six months.", correct: false },
+      { text: "We have our new flat for six months.", correct: false }
+    ],
+    explain: {
+      okTitle: "Have (= posesión) es stative → NO continuous",
+      okPoints: ["✅ <span class='code'>have had</span> (no <span class='code'>been having</span>)."]
+    }
+  },
+  {
+    type: "mcq",
+    stem: "Hi Jackie! How are you? I ____ you for ages!",
+    options: [
+      { text: "haven’t seen", correct: true },
+      { text: "haven’t been seeing", correct: false },
+      { text: "didn’t see", correct: false }
+    ],
+    explain: {
+      okTitle: "Frase típica → Present perfect simple",
+      okPoints: ["✅ <span class='code'>I haven’t seen you for ages!</span>"]
+    }
+  },
+  {
+    type: "mcq",
+    stem: "Choose the correct question:",
+    options: [
+      { text: "How long have you known your husband?", correct: true },
+      { text: "How long do you know your husband?", correct: false },
+      { text: "How long have you been knowing your husband?", correct: false }
+    ],
+    explain: {
+      okTitle: "Know = stative → Present perfect simple (no -ing)",
+      okPoints: ["✅ <span class='code'>have known</span>."]
+    }
+  },
+  {
+    type: "mcq",
+    stem: "I’ve ____ / I’ve ____ ____ as a teacher for five years. Choose the best option:",
+    options: [
+      { text: "I’ve worked (only this is correct).", correct: false },
+      { text: "I’ve been working (only this is correct).", correct: false },
+      { text: "Both are possible (meaning is similar).", correct: true }
+    ],
+    explain: {
+      okTitle: "Work (job) → PPS y PPC suelen ser posibles",
+      okPoints: ["✅ Ambos se usan mucho con trabajos/actividad larga."]
+    }
+  },
+  {
+    type: "mcq",
+    stem: "I’m exhausted! I ____ ____ ____ the kitchen for two hours.",
+    options: [
+      { text: "I’m cleaning", correct: false },
+      { text: "I’ve been cleaning", correct: true },
+      { text: "I cleaned", correct: false }
+    ],
+    explain: {
+      okTitle: "Resultado ahora (cansancio) + duración → PPC",
+      okPoints: ["✅ <span class='code'>I’ve been cleaning</span>."]
+    }
+  },
+  {
+    type: "input",
+    stem: "Complete (only the missing words): We ____ ____ ____ for the bus for 45 minutes. (wait)",
+    answers: ["have been waiting", "we've been waiting", "we have been waiting"],
+    showExpected: "have been waiting",
+    explain: {
+      okTitle: "Duración + acción que sigue → PPC",
+      okPoints: ["✅ <span class='code'>have been waiting</span>."]
+    }
+  },
+  {
+    type: "mcq",
+    stem: "Choose the correct sentence:",
+    options: [
+      { text: "I haven’t been living here for very long.", correct: true },
+      { text: "I don’t live here for very long.", correct: false },
+      { text: "I didn’t live here for very long.", correct: false }
+    ],
+    explain: {
+      okTitle: "For + duración hasta ahora → Present perfect (continuous aquí)",
+      okPoints: ["✅ <span class='code'>haven’t been living</span>."]
+    }
+  },
+  {
+    type: "input",
+    stem: "Complete (only the missing words): My internet connection ____ ____ ____ since yesterday. (not work)",
+    answers: [
+      "hasn't been working",
+      "has not been working",
+      "it hasn't been working",
+      "it has not been working",
+      "hasn't worked",
+      "has not worked"
+    ],
+    showExpected: "hasn’t been working",
+    explain: {
+      okTitle: "Not work (desde ayer) → PPC es común; PPS también puede servir",
+      okPoints: ["✅ <span class='code'>hasn’t been working</span> / <span class='code'>hasn’t worked</span>."]
+    }
+  },
+  {
+    type: "mcq",
+    stem: "Since 5:00 this morning, it ____ ____ ____.",
+    options: [
+      { text: "has been snowing", correct: true },
+      { text: "snowed", correct: false },
+      { text: "is snowing since 5:00", correct: false }
+    ],
+    explain: {
+      okTitle: "Since + punto de inicio → Present perfect (continuous con clima)",
+      okPoints: ["✅ <span class='code'>has been snowing</span>."]
+    }
+  },
+  {
+    type: "input",
+    stem: "Complete (only the missing words): Sam ____ ____ ____ enough recently. (not study)",
+    answers: ["hasn't been studying", "has not been studying"],
+    showExpected: "hasn’t been studying",
+    explain: {
+      okTitle: "Recently + actividad en estos días → PPC",
+      okPoints: ["✅ <span class='code'>hasn’t been studying</span>."]
+    }
+  },
+  {
+    type: "mcq",
+    stem: "You / live in London / a long time? Choose the best option:",
+    options: [
+      { text: "Have you lived in London for a long time?", correct: false },
+      { text: "Have you been living in London for a long time?", correct: false },
+      { text: "Both are possible.", correct: true }
+    ],
+    explain: {
+      okTitle: "Live → PPS y PPC pueden funcionar (según enfoque)",
+      okPoints: ["✅ Ambas son aceptables."]
+    }
+  },
 
-      /* ================= PAIRS / MEANING (MCQ) ================= */
-      {
-        type: "mcq",
-        stem: "Pick the correct pair (normal → strong):",
-        options: [
-          { text: "hungry → starving", correct: true },
-          { text: "hungry → furious", correct: false },
-          { text: "hungry → spotless", correct: false }
-        ],
-        explain: { okTitle: "Hungry vs Starving", okPoints: ["<span class='code'>starving</span> = muerto de hambre."] }
-      },
-      {
-        type: "mcq",
-        stem: "Choose the correct option: I got ____ soaked in the rain.",
-        options: [
-          { text: "completely", correct: true },
-          { text: "very", correct: false },
-          { text: "quite", correct: false }
-        ],
-        explain: { okTitle: "Soaked suele ir con completely/totally", okPoints: ["✅ <span class='code'>completely soaked</span>."] }
-      },
-      {
-        type: "mcq",
-        stem: "Choose the correct sentence:",
-        options: [
-          { text: "The room was completely spotless.", correct: true },
-          { text: "The room was very spotless.", correct: false },
-          { text: "The room was a bit spotless.", correct: false }
-        ],
-        explain: { okTitle: "Spotless = strong adjective", okPoints: ["Con spotless: <span class='code'>completely</span> es lo típico."] }
-      },
-      {
-        type: "mcq",
-        stem: "Choose the correct sentence:",
-        options: [
-          { text: "The plan is absolutely perfect.", correct: true },
-          { text: "The plan is very perfect.", correct: false },
-          { text: "The plan is a bit perfect.", correct: false }
-        ],
-        explain: { okTitle: "Perfect = no gradable → usa absolutely", okPoints: ["<span class='code'>absolutely perfect</span> ✅"] }
-      },
-      {
-        type: "mcq",
-        stem: "Choose the correct sentence:",
-        options: [
-          { text: "She was absolutely devastated after the news.", correct: true },
-          { text: "She was very devastated after the news.", correct: false },
-          { text: "She was a little devastated after the news.", correct: false }
-        ],
-        explain: { okTitle: "Devastated = strong (tristeza extrema)", okPoints: ["✅ <span class='code'>absolutely devastated</span>."] }
-      },
+  /* ===================== STRONG ADJECTIVES ===================== */
+  {
+    type: "input",
+    stem: "Complete: After nine hours of cycling, I was completely ____. (tired → strong)",
+    answers: ["exhausted", "completely exhausted"],
+    showExpected: "exhausted",
+    explain: { okTitle: "Tired → Exhausted (strong)", okPoints: ["Exhausted = cansadísimo."] }
+  },
+  {
+    type: "mcq",
+    stem: "It’s ____ outside: −15°C and lots of snow.",
+    options: [
+      { text: "freezing", correct: true },
+      { text: "cold", correct: false },
+      { text: "cool", correct: false }
+    ],
+    explain: { okTitle: "Cold → Freezing (strong)", okPoints: ["Freezing = heladísimo."] }
+  },
+  {
+    type: "input",
+    stem: "Complete: I smell awful… and my hair is absolutely ____. (dirty → strong)",
+    answers: ["filthy", "absolutely filthy"],
+    showExpected: "filthy",
+    explain: { okTitle: "Dirty → Filthy (strong)", okPoints: ["Filthy = asquerosamente sucio."] }
+  },
+  {
+    type: "input",
+    stem: "Complete: The kitchen is absolutely ____ (no dirt at all).",
+    answers: ["spotless", "absolutely spotless", "it's spotless", "it is spotless"],
+    showExpected: "spotless",
+    explain: { okTitle: "Clean → Spotless (strong)", okPoints: ["Spotless = impecable."] }
+  },
+  {
+    type: "mcq",
+    stem: "‘FURIOUS’ is the strong form of ____.",
+    options: [
+      { text: "angry", correct: true },
+      { text: "happy", correct: false },
+      { text: "tired", correct: false }
+    ],
+    explain: { okTitle: "Angry → Furious (strong)", okPoints: ["Furious = furioso."] }
+  },
+  {
+    type: "mcq",
+    stem: "‘TERRIFIED’ is the strong form of ____.",
+    options: [
+      { text: "afraid", correct: true },
+      { text: "hungry", correct: false },
+      { text: "sure", correct: false }
+    ],
+    explain: { okTitle: "Afraid → Terrified (strong)", okPoints: ["Terrified = aterrorizado."] }
+  },
+  {
+    type: "mcq",
+    stem: "A documentary that is very interesting is ____.",
+    options: [
+      { text: "fascinating", correct: true },
+      { text: "tiny", correct: false },
+      { text: "boiling", correct: false }
+    ],
+    explain: { okTitle: "Interesting → Fascinating (strong)", okPoints: ["Fascinating = fascinante."] }
+  },
+  {
+    type: "input",
+    stem: "Complete: I’m ____! I haven’t eaten all day. (hungry → strong)",
+    answers: ["starving", "i'm starving", "i am starving"],
+    showExpected: "starving",
+    explain: { okTitle: "Hungry → Starving (strong)", okPoints: ["Starving = muriéndome de hambre."] }
+  },
+  {
+    type: "mcq",
+    stem: "‘HUGE’ is the strong form of ____.",
+    options: [
+      { text: "big", correct: true },
+      { text: "small", correct: false },
+      { text: "clean", correct: false }
+    ],
+    explain: { okTitle: "Big → Huge (strong)", okPoints: ["Huge = enorme."] }
+  },
+  {
+    type: "mcq",
+    stem: "‘BOILING’ is the strong form of ____.",
+    options: [
+      { text: "hot", correct: true },
+      { text: "cold", correct: false },
+      { text: "funny", correct: false }
+    ],
+    explain: { okTitle: "Hot → Boiling (strong)", okPoints: ["Boiling = hirviendo / calor extremo."] }
+  },
+  {
+    type: "mcq",
+    stem: "Choose the correct sentence:",
+    options: [
+      { text: "She was absolutely devastated after the news.", correct: true },
+      { text: "She was very devastated after the news.", correct: false },
+      { text: "She was a little devastated after the news.", correct: false }
+    ],
+    explain: { okTitle: "Devastated = strong → usa absolutely/completely, NO very", okPoints: ["✅ <span class='code'>absolutely devastated</span>."] }
+  },
+  {
+    type: "mcq",
+    stem: "‘HILARIOUS’ is the strong form of ____.",
+    options: [
+      { text: "funny", correct: true },
+      { text: "dirty", correct: false },
+      { text: "angry", correct: false }
+    ],
+    explain: { okTitle: "Funny → Hilarious (strong)", okPoints: ["Hilarious = graciosísimo."] }
+  }
+];
 
-      /* ================= INPUT (difficult) ================= */
-      {
-        type: "input",
-        stem: "Rewrite using a strong adjective: It was very funny. → It was ____.",
-        answers: ["hilarious", "absolutely hilarious", "it was hilarious", "it was absolutely hilarious"],
-        showExpected: "hilarious / absolutely hilarious",
-        explain: { okTitle: "Funny → Hilarious (strong)", okPoints: ["Strong: <span class='code'>absolutely hilarious</span>."] }
-      },
-      {
-        type: "input",
-        stem: "Replace the phrase: very big → ____ (strong adjective).",
-        answers: ["huge", "enormous", "absolutely huge", "absolutely enormous", "it's huge", "it is huge", "it's enormous", "it is enormous"],
-        showExpected: "huge / enormous",
-        explain: { okTitle: "Big → Huge/Enormous", okPoints: ["Si quieres intensificar: <span class='code'>absolutely huge</span>."] }
-      },
-      {
-        type: "input",
-        stem: "Complete: I haven’t eaten all day. I’m ____.",
-        answers: ["starving", "i'm starving", "im starving"],
-        showExpected: "starving",
-        explain: { okTitle: "Hungry → Starving (extremo)", okPoints: ["Starving = muchísima hambre."] }
-      },
-      {
-        type: "input",
-        stem: "Complete: He was shouting and banging the table. He was ____.",
-        answers: ["furious", "he was furious"],
-        showExpected: "furious",
-        explain: { okTitle: "Angry → Furious", okPoints: ["Furious = súper enojado."] }
-      },
-      {
-        type: "input",
-        stem: "Complete: I couldn’t believe it. I was absolutely ____.",
-        answers: ["amazed", "i was amazed", "absolutely amazed"],
-        showExpected: "amazed",
-        explain: { okTitle: "Surprised → Amazed", okPoints: ["Amazed = asombrado (wow)."] }
-      },
-      {
-        type: "input",
-        stem: "Complete: The room is so small—just for one person. It’s ____.",
-        answers: ["tiny", "it's tiny", "it is tiny"],
-        showExpected: "tiny",
-        explain: { okTitle: "Small → Tiny", okPoints: ["Tiny = diminuto."] }
-      },
-      {
-        type: "input",
-        stem: "Complete: It’s −15°C and snowing. It’s ____.",
-        answers: ["freezing", "it's freezing", "it is freezing", "absolutely freezing", "it's absolutely freezing", "it is absolutely freezing"],
-        showExpected: "freezing / absolutely freezing",
-        explain: { okTitle: "Cold → Freezing", okPoints: ["Freezing = heladísimo."] }
-      },
-      {
-        type: "input",
-        stem: "Complete with a good strong phrase: After the marathon, I was ____ ____.",
-        answers: [
-          "completely exhausted", "absolutely exhausted", "totally exhausted", "really exhausted",
-          "i was completely exhausted", "i was absolutely exhausted", "i was totally exhausted", "i was really exhausted"
-        ],
-        showExpected: "completely exhausted (o absolutely/totally/really exhausted)",
-        explain: { okTitle: "Tired → Exhausted", okPoints: ["Strong adjective + intensifier fuerte."] }
-      },
-      {
-        type: "input",
-        stem: "Rewrite using the strong adjective: Are you afraid of flying? → Are you ____ of flying?",
-        answers: ["terrified", "are you terrified", "are you terrified of flying"],
-        showExpected: "terrified",
-        explain: { okTitle: "Afraid → Terrified", okPoints: ["Terrified = mucho miedo."] }
-      },
-      {
-        type: "input",
-        stem: "Complete: The smell is absolutely ____.",
-        answers: ["awful", "it's awful", "it is awful", "absolutely awful"],
-        showExpected: "awful",
-        explain: { okTitle: "Bad → Awful (strong)", okPoints: ["Awful = horrible."] }
-      },
-      {
-        type: "input",
-        stem: "Complete: Your work is absolutely ____.",
-        answers: ["excellent", "it's excellent", "it is excellent", "absolutely excellent"],
-        showExpected: "excellent",
-        explain: { okTitle: "Good → Excellent (strong)", okPoints: ["Excellent = excelente."] }
-      },
-      {
-        type: "input",
-        stem: "Complete: That view is absolutely ____.",
-        answers: ["gorgeous", "it's gorgeous", "it is gorgeous", "absolutely gorgeous"],
-        showExpected: "gorgeous",
-        explain: { okTitle: "Beautiful → Gorgeous (strong)", okPoints: ["Gorgeous = precioso/hermosísimo."] }
-      },
-      {
-        type: "input",
-        stem: "Complete: I got ____ in the rain. (very wet)",
-        answers: ["soaked", "completely soaked", "totally soaked", "i got soaked", "i got completely soaked", "i got totally soaked"],
-        showExpected: "soaked / completely soaked",
-        explain: { okTitle: "Wet → Soaked (strong)", okPoints: ["Soaked = empapado."] }
-      },
-      {
-        type: "input",
-        stem: "Complete: I’m absolutely ____ — I need water now!",
-        answers: ["parched", "i'm parched", "im parched", "absolutely parched"],
-        showExpected: "parched",
-        explain: { okTitle: "Thirsty → Parched (strong)", okPoints: ["Parched = muerto de sed."] }
-      },
-      {
-        type: "input",
-        stem: "Complete: The kitchen is absolutely ____ (no dirt at all).",
-        answers: ["spotless", "it's spotless", "it is spotless", "absolutely spotless"],
-        showExpected: "spotless",
-        explain: { okTitle: "Clean → Spotless (strong)", okPoints: ["Spotless = impecable."] }
-      }
-    ];
 
     // === Estado
     let deck = [];
