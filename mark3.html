@@ -215,6 +215,98 @@
     }
     summary::-webkit-details-marker{ display:none; }
 
+    /* === Tabla + buscador de verbos === */
+    .searchRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 8px;
+    }
+    .searchInput{
+      flex: 1;
+      min-width: 220px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+      font-size: 16px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      outline: none;
+    }
+    .searchInput:focus{
+      border-color: rgba(37,99,235,.45);
+      box-shadow: 0 6px 14px rgba(37,99,235,.10);
+    }
+    .smallBtn{
+      border:0;
+      cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: 0 6px 14px rgba(17,24,39,.08);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #1d4ed8);
+      white-space: nowrap;
+    }
+    .smallBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .smallBtn:active{ transform: translateY(0px); }
+
+    .tableWrap{
+      margin-top: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.90);
+      overflow:auto;
+      max-height: 520px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    table{
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 680px;
+    }
+    thead th{
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border-bottom: 1px solid rgba(17,24,39,.10);
+      padding: 12px 10px;
+      text-align: left;
+      font-size: 14px;
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    tbody td{
+      padding: 11px 10px;
+      border-bottom: 1px solid rgba(17,24,39,.08);
+      font-size: 15px;
+      vertical-align: top;
+    }
+    tbody tr:hover{
+      background: rgba(37,99,235,.05);
+    }
+    .colVerb{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      letter-spacing: .15px;
+    }
+    .countBadge{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.85);
+      color: var(--muted);
+      margin-left: 8px;
+    }
+
     .navRow{
       display:flex;
       gap:12px;
@@ -514,6 +606,51 @@
         </div>
       </section>
 
+      <!-- 6) IRREGULAR VERBS (TABLA + BUSCADOR) -->
+      <section class="card">
+        <div class="bar warn"></div>
+        <div class="content">
+          <h2>6) Past participles — lista completa de verbos irregulares</h2>
+          <p class="muted">
+            Esta tabla es para <b>irregulares</b> (los que NO siguen <span class="code">-ed</span>).  
+            Los <b>regulares</b> se forman así: <span class="code">work → worked → worked</span>.
+            <span class="countBadge" id="verbCount">0 verbos</span>
+          </p>
+
+          <div class="searchRow">
+            <input
+              id="verbSearch"
+              class="searchInput"
+              type="text"
+              placeholder="Buscar (ej: go / went / gone, write, spoken, etc.)"
+              autocomplete="off"
+            />
+            <button class="smallBtn" id="clearSearch" type="button">Limpiar</button>
+          </div>
+
+          <div class="tableWrap" aria-label="Tabla de verbos irregulares">
+            <table>
+              <thead>
+                <tr>
+                  <th>VERB (base)</th>
+                  <th>PAST SIMPLE</th>
+                  <th>PAST PARTICIPLE</th>
+                </tr>
+              </thead>
+              <tbody id="verbTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="callout">
+            <strong>Tip:</strong>
+            <span class="muted">
+              En ejercicios, el <b>past participle</b> es el que va con <span class="code">have/has</span>:
+              <span class="code">have eaten</span>, <span class="code">has gone</span>, <span class="code">have written</span>.
+            </span>
+          </div>
+        </div>
+      </section>
+
       <!-- Navegación (Tema 3) -->
       <section class="card">
         <div class="bar"></div>
@@ -529,12 +666,262 @@
           </div>
 
           <div class="footerHint">
-            El botón de <b>Preguntas 3</b> va dentro de <b>Vocabulario 3</b> (misma lógica que en Tema 2).
+            El botón de <b>Preguntas 3</b> va dentro de <b>Vocabulario 3</b>.
           </div>
         </div>
       </section>
 
     </div>
   </div>
+
+  <script>
+    // Lista amplia de verbos irregulares (base / past / past participle)
+    const IRREGULAR_VERBS = [
+      { base:"abide", past:"abode / abided", pp:"abode / abided" },
+      { base:"arise", past:"arose", pp:"arisen" },
+      { base:"awake", past:"awoke / awaked", pp:"awoken / awaked" },
+      { base:"be", past:"was / were", pp:"been" },
+      { base:"bear", past:"bore", pp:"borne / born" },
+      { base:"beat", past:"beat", pp:"beaten" },
+      { base:"become", past:"became", pp:"become" },
+      { base:"befall", past:"befell", pp:"befallen" },
+      { base:"begin", past:"began", pp:"begun" },
+      { base:"behold", past:"beheld", pp:"beheld" },
+      { base:"bend", past:"bent", pp:"bent" },
+      { base:"bereave", past:"bereaved / bereft", pp:"bereaved / bereft" },
+      { base:"bet", past:"bet", pp:"bet" },
+      { base:"bid", past:"bid / bade", pp:"bid / bidden" },
+      { base:"bind", past:"bound", pp:"bound" },
+      { base:"bite", past:"bit", pp:"bitten" },
+      { base:"bleed", past:"bled", pp:"bled" },
+      { base:"blow", past:"blew", pp:"blown" },
+      { base:"break", past:"broke", pp:"broken" },
+      { base:"breed", past:"bred", pp:"bred" },
+      { base:"bring", past:"brought", pp:"brought" },
+      { base:"broadcast", past:"broadcast", pp:"broadcast" },
+      { base:"build", past:"built", pp:"built" },
+      { base:"burn", past:"burned / burnt", pp:"burned / burnt" },
+      { base:"burst", past:"burst", pp:"burst" },
+      { base:"buy", past:"bought", pp:"bought" },
+      { base:"cast", past:"cast", pp:"cast" },
+      { base:"catch", past:"caught", pp:"caught" },
+      { base:"choose", past:"chose", pp:"chosen" },
+      { base:"cling", past:"clung", pp:"clung" },
+      { base:"come", past:"came", pp:"come" },
+      { base:"cost", past:"cost", pp:"cost" },
+      { base:"creep", past:"crept", pp:"crept" },
+      { base:"cut", past:"cut", pp:"cut" },
+      { base:"deal", past:"dealt", pp:"dealt" },
+      { base:"dig", past:"dug", pp:"dug" },
+      { base:"do", past:"did", pp:"done" },
+      { base:"draw", past:"drew", pp:"drawn" },
+      { base:"dream", past:"dreamed / dreamt", pp:"dreamed / dreamt" },
+      { base:"drink", past:"drank", pp:"drunk" },
+      { base:"drive", past:"drove", pp:"driven" },
+      { base:"dwell", past:"dwelt / dwelled", pp:"dwelt / dwelled" },
+      { base:"eat", past:"ate", pp:"eaten" },
+      { base:"fall", past:"fell", pp:"fallen" },
+      { base:"feed", past:"fed", pp:"fed" },
+      { base:"feel", past:"felt", pp:"felt" },
+      { base:"fight", past:"fought", pp:"fought" },
+      { base:"find", past:"found", pp:"found" },
+      { base:"flee", past:"fled", pp:"fled" },
+      { base:"fling", past:"flung", pp:"flung" },
+      { base:"fly", past:"flew", pp:"flown" },
+      { base:"forbid", past:"forbade", pp:"forbidden" },
+      { base:"forecast", past:"forecast", pp:"forecast" },
+      { base:"forget", past:"forgot", pp:"forgotten" },
+      { base:"forgive", past:"forgave", pp:"forgiven" },
+      { base:"forsake", past:"forsook", pp:"forsaken" },
+      { base:"freeze", past:"froze", pp:"frozen" },
+      { base:"get", past:"got", pp:"got / gotten" },
+      { base:"give", past:"gave", pp:"given" },
+      { base:"go", past:"went", pp:"gone" },
+      { base:"grind", past:"ground", pp:"ground" },
+      { base:"grow", past:"grew", pp:"grown" },
+      { base:"hang", past:"hung / hanged", pp:"hung / hanged" },
+      { base:"have", past:"had", pp:"had" },
+      { base:"hear", past:"heard", pp:"heard" },
+      { base:"hide", past:"hid", pp:"hidden" },
+      { base:"hit", past:"hit", pp:"hit" },
+      { base:"hold", past:"held", pp:"held" },
+      { base:"hurt", past:"hurt", pp:"hurt" },
+      { base:"input", past:"input", pp:"input" },
+      { base:"keep", past:"kept", pp:"kept" },
+      { base:"kneel", past:"knelt / kneeled", pp:"knelt / kneeled" },
+      { base:"knit", past:"knit / knitted", pp:"knit / knitted" },
+      { base:"know", past:"knew", pp:"known" },
+      { base:"lay", past:"laid", pp:"laid" },
+      { base:"lead", past:"led", pp:"led" },
+      { base:"lean", past:"leaned / leant", pp:"leaned / leant" },
+      { base:"leap", past:"leapt / leaped", pp:"leapt / leaped" },
+      { base:"learn", past:"learned / learnt", pp:"learned / learnt" },
+      { base:"leave", past:"left", pp:"left" },
+      { base:"lend", past:"lent", pp:"lent" },
+      { base:"let", past:"let", pp:"let" },
+      { base:"lie (recline)", past:"lay", pp:"lain" },
+      { base:"light", past:"lit / lighted", pp:"lit / lighted" },
+      { base:"lose", past:"lost", pp:"lost" },
+      { base:"make", past:"made", pp:"made" },
+      { base:"mean", past:"meant", pp:"meant" },
+      { base:"meet", past:"met", pp:"met" },
+      { base:"mislay", past:"mislaid", pp:"mislaid" },
+      { base:"mislead", past:"misled", pp:"misled" },
+      { base:"misspell", past:"misspelled / misspelt", pp:"misspelled / misspelt" },
+      { base:"mistake", past:"mistook", pp:"mistaken" },
+      { base:"misunderstand", past:"misunderstood", pp:"misunderstood" },
+      { base:"mow", past:"mowed", pp:"mown / mowed" },
+      { base:"offset", past:"offset", pp:"offset" },
+      { base:"output", past:"output", pp:"output" },
+      { base:"overcome", past:"overcame", pp:"overcome" },
+      { base:"overdo", past:"overdid", pp:"overdone" },
+      { base:"overeat", past:"overate", pp:"overeaten" },
+      { base:"overfly", past:"overflew", pp:"overflown" },
+      { base:"overhang", past:"overhung", pp:"overhung" },
+      { base:"overhear", past:"overheard", pp:"overheard" },
+      { base:"overtake", past:"overtook", pp:"overtaken" },
+      { base:"overthrow", past:"overthrew", pp:"overthrown" },
+      { base:"pay", past:"paid", pp:"paid" },
+      { base:"plead", past:"pleaded / pled", pp:"pleaded / pled" },
+      { base:"prove", past:"proved", pp:"proven / proved" },
+      { base:"put", past:"put", pp:"put" },
+      { base:"quit", past:"quit / quitted", pp:"quit / quitted" },
+      { base:"read", past:"read", pp:"read" },
+      { base:"rebuild", past:"rebuilt", pp:"rebuilt" },
+      { base:"redo", past:"redid", pp:"redone" },
+      { base:"remake", past:"remade", pp:"remade" },
+      { base:"repay", past:"repaid", pp:"repaid" },
+      { base:"rerun", past:"reran", pp:"rerun" },
+      { base:"reset", past:"reset", pp:"reset" },
+      { base:"retell", past:"retold", pp:"retold" },
+      { base:"rewrite", past:"rewrote", pp:"rewritten" },
+      { base:"ride", past:"rode", pp:"ridden" },
+      { base:"ring", past:"rang", pp:"rung" },
+      { base:"rise", past:"rose", pp:"risen" },
+      { base:"run", past:"ran", pp:"run" },
+      { base:"saw", past:"sawed", pp:"sawn / sawed" },
+      { base:"say", past:"said", pp:"said" },
+      { base:"see", past:"saw", pp:"seen" },
+      { base:"seek", past:"sought", pp:"sought" },
+      { base:"sell", past:"sold", pp:"sold" },
+      { base:"send", past:"sent", pp:"sent" },
+      { base:"set", past:"set", pp:"set" },
+      { base:"sew", past:"sewed", pp:"sewn / sewed" },
+      { base:"shake", past:"shook", pp:"shaken" },
+      { base:"shave", past:"shaved", pp:"shaven / shaved" },
+      { base:"shear", past:"sheared / shore", pp:"shorn / sheared" },
+      { base:"shed", past:"shed", pp:"shed" },
+      { base:"shine", past:"shone / shined", pp:"shone / shined" },
+      { base:"shoot", past:"shot", pp:"shot" },
+      { base:"show", past:"showed", pp:"shown / showed" },
+      { base:"shrink", past:"shrank / shrunk", pp:"shrunk / shrunk(en)" },
+      { base:"shut", past:"shut", pp:"shut" },
+      { base:"sing", past:"sang", pp:"sung" },
+      { base:"sink", past:"sank / sunk", pp:"sunk" },
+      { base:"sit", past:"sat", pp:"sat" },
+      { base:"slay", past:"slew", pp:"slain" },
+      { base:"sleep", past:"slept", pp:"slept" },
+      { base:"slide", past:"slid", pp:"slid" },
+      { base:"sling", past:"slung", pp:"slung" },
+      { base:"slink", past:"slunk", pp:"slunk" },
+      { base:"slit", past:"slit", pp:"slit" },
+      { base:"smell", past:"smelled / smelt", pp:"smelled / smelt" },
+      { base:"sow", past:"sowed", pp:"sown / sowed" },
+      { base:"speak", past:"spoke", pp:"spoken" },
+      { base:"speed", past:"sped / speeded", pp:"sped / speeded" },
+      { base:"spell", past:"spelled / spelt", pp:"spelled / spelt" },
+      { base:"spend", past:"spent", pp:"spent" },
+      { base:"spill", past:"spilled / spilt", pp:"spilled / spilt" },
+      { base:"spin", past:"spun", pp:"spun" },
+      { base:"spit", past:"spat / spit", pp:"spat / spit" },
+      { base:"split", past:"split", pp:"split" },
+      { base:"spoil", past:"spoiled / spoilt", pp:"spoiled / spoilt" },
+      { base:"spread", past:"spread", pp:"spread" },
+      { base:"spring", past:"sprang / sprung", pp:"sprung" },
+      { base:"stand", past:"stood", pp:"stood" },
+      { base:"steal", past:"stole", pp:"stolen" },
+      { base:"stick", past:"stuck", pp:"stuck" },
+      { base:"sting", past:"stung", pp:"stung" },
+      { base:"stink", past:"stank / stunk", pp:"stunk" },
+      { base:"stride", past:"strode", pp:"stridden" },
+      { base:"strike", past:"struck", pp:"struck / stricken" },
+      { base:"string", past:"strung", pp:"strung" },
+      { base:"strive", past:"strove / strived", pp:"striven / strived" },
+      { base:"swear", past:"swore", pp:"sworn" },
+      { base:"sweep", past:"swept", pp:"swept" },
+      { base:"swell", past:"swelled", pp:"swollen / swelled" },
+      { base:"swim", past:"swam", pp:"swum" },
+      { base:"swing", past:"swung", pp:"swung" },
+      { base:"take", past:"took", pp:"taken" },
+      { base:"teach", past:"taught", pp:"taught" },
+      { base:"tear", past:"tore", pp:"torn" },
+      { base:"tell", past:"told", pp:"told" },
+      { base:"think", past:"thought", pp:"thought" },
+      { base:"throw", past:"threw", pp:"thrown" },
+      { base:"thrust", past:"thrust", pp:"thrust" },
+      { base:"tread", past:"trod", pp:"trodden / trod" },
+      { base:"understand", past:"understood", pp:"understood" },
+      { base:"undertake", past:"undertook", pp:"undertaken" },
+      { base:"upset", past:"upset", pp:"upset" },
+      { base:"wake", past:"woke / waked", pp:"woken / waked" },
+      { base:"wear", past:"wore", pp:"worn" },
+      { base:"weave", past:"wove / weaved", pp:"woven / weaved" },
+      { base:"wed", past:"wed / wedded", pp:"wed / wedded" },
+      { base:"weep", past:"wept", pp:"wept" },
+      { base:"win", past:"won", pp:"won" },
+      { base:"wind", past:"wound", pp:"wound" },
+      { base:"withdraw", past:"drew", pp:"drawn" }, // placeholder safety; corrected below in init
+      { base:"withstand", past:"withstood", pp:"withstood" },
+      { base:"wring", past:"wrung", pp:"wrung" },
+      { base:"write", past:"wrote", pp:"written" }
+    ];
+
+    // Corrección rápida (para no dejar un error tonto por copiar/pegar)
+    // withdraw: withdrew / withdrawn
+    (function fixWithdraw(){
+      const idx = IRREGULAR_VERBS.findIndex(v => v.base === "withdraw");
+      if(idx >= 0){
+        IRREGULAR_VERBS[idx] = { base:"withdraw", past:"withdrew", pp:"withdrawn" };
+      }
+    })();
+
+    function norm(s){ return String(s || "").toLowerCase().trim(); }
+
+    function renderTable(list){
+      const tbody = document.getElementById("verbTableBody");
+      tbody.innerHTML = list.map(v => `
+        <tr>
+          <td class="colVerb">${v.base}</td>
+          <td>${v.past}</td>
+          <td>${v.pp}</td>
+        </tr>
+      `).join("");
+      document.getElementById("verbCount").textContent = `${list.length} verbos`;
+    }
+
+    function filterTable(){
+      const q = norm(document.getElementById("verbSearch").value);
+      if(!q){
+        renderTable(IRREGULAR_VERBS);
+        return;
+      }
+      const filtered = IRREGULAR_VERBS.filter(v => {
+        const hay = `${v.base} ${v.past} ${v.pp}`.toLowerCase();
+        return hay.includes(q);
+      });
+      renderTable(filtered);
+    }
+
+    document.getElementById("verbSearch").addEventListener("input", filterTable);
+    document.getElementById("clearSearch").addEventListener("click", () => {
+      document.getElementById("verbSearch").value = "";
+      document.getElementById("verbSearch").focus();
+      renderTable(IRREGULAR_VERBS);
+    });
+
+    // Init
+    renderTable(IRREGULAR_VERBS);
+  </script>
 </body>
 </html>
+
