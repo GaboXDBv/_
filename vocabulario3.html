@@ -284,12 +284,12 @@
       background: rgba(255,255,255,.86);
       box-shadow: 0 6px 14px rgba(17,24,39,.06);
       margin-top: 10px;
-      max-height: 520px; /* evita choques/overlap en pantallas chicas */
+      max-height: 520px;
     }
     table{
       width:100%;
       border-collapse: collapse;
-      min-width: 520px; /* ya no necesita 720px porque son 2 columnas */
+      min-width: 820px; /* ✅ ahora son 4 columnas */
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
     th, td{
@@ -475,7 +475,8 @@
             <strong>Nota:</strong>
             <span class="muted">
               El buscador FULL de <b>irregular verbs</b> ya está en <span class="code">Marco teorico 3</span>.
-              Aquí solo están los <b>verbos aprendidos</b> del Vocabulario 3 con su <b>traducción</b>.
+              Aquí solo están los <b>verbos aprendidos</b> del Vocabulario 3 con su <b>traducción</b>
+              y sus formas <b>Past Simple</b> / <b>Past Participle</b>.
             </span>
           </div>
 
@@ -487,7 +488,7 @@
           <div class="searchRow">
             <div class="searchWrap">
               <div class="searchIcon">🔎</div>
-              <input id="qLearned" class="searchInput" type="text" placeholder="Buscar: earn / ganar, lend / prestar, live on / vivir con, etc." autocomplete="off" />
+              <input id="qLearned" class="searchInput" type="text" placeholder="Buscar: borrow / pedir prestado, lent, took out, etc." autocomplete="off" />
             </div>
             <button class="btnSmall" id="clearLearnedBtn">Limpiar</button>
           </div>
@@ -500,6 +501,8 @@
                 <tr>
                   <th>Verb (English)</th>
                   <th>Traducción (Español)</th>
+                  <th>Past Simple</th>
+                  <th>Past Participle</th>
                 </tr>
               </thead>
               <tbody id="learnedBody"></tbody>
@@ -682,9 +685,36 @@
     // =========================
     // 5) Learned verbs (ONLY) + search
     // =========================
+    // ✅ Formas (Past Simple / Past Participle)
+    const VERB_FORMS = {
+      "be worth": { ps:"was/were worth", pp:"been worth" },
+      "borrow": { ps:"borrowed", pp:"borrowed" },
+      "can’t afford": { ps:"couldn’t afford", pp:"afforded" },
+      "can't afford": { ps:"couldn't afford", pp:"afforded" }, // por si lo cambias luego
+      "charge": { ps:"charged", pp:"charged" },
+      "cost": { ps:"cost", pp:"cost" },
+      "earn": { ps:"earned (earnt UK)", pp:"earned (earnt UK)" },
+      "inherit": { ps:"inherited", pp:"inherited" },
+      "invest": { ps:"invested", pp:"invested" },
+      "lend": { ps:"lent", pp:"lent" },
+      "owe": { ps:"owed", pp:"owed" },
+      "raise": { ps:"raised", pp:"raised" },
+      "save": { ps:"saved", pp:"saved" },
+      "waste": { ps:"wasted", pp:"wasted" },
+
+      "take out": { ps:"took out", pp:"taken out" },
+      "pay back": { ps:"paid back", pp:"paid back" },
+      "live off": { ps:"lived off", pp:"lived off" },
+      "live on": { ps:"lived on", pp:"lived on" }
+    };
+
+    function getForms(en){
+      return VERB_FORMS[en] || { ps:"—", pp:"—" };
+    }
+
     const LEARNED_VERBS = [
-      ...MONEY_VERBS.map(x => ({ en: x.en, es: x.es })),
-      ...MONEY_PHRASALS.map(x => ({ en: x.en, es: x.es }))
+      ...MONEY_VERBS.map(x => ({ en: x.en, es: x.es, ...getForms(x.en) })),
+      ...MONEY_PHRASALS.map(x => ({ en: x.en, es: x.es, ...getForms(x.en) }))
     ];
 
     const $qLearned = document.getElementById("qLearned");
@@ -709,6 +739,8 @@
           <tr>
             <td><b>${escapeHtml(r.en)}</b></td>
             <td>${escapeHtml(r.es)}</td>
+            <td>${escapeHtml(r.ps)}</td>
+            <td>${escapeHtml(r.pp)}</td>
           </tr>
         `);
       }
@@ -722,7 +754,7 @@
       }
 
       const res = LEARNED_VERBS.filter(r=>{
-        const hay = normalize(`${r.en} | ${r.es}`);
+        const hay = normalize(`${r.en} | ${r.es} | ${r.ps} | ${r.pp}`);
         return hay.includes(q);
       });
 
@@ -748,4 +780,5 @@
   </script>
 </body>
 </html>
+
 
