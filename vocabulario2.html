@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f766e" />
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <title>Vocabulario 2 | Preguntas de repaso para Daku</title>
+  <link rel="icon" type="image/png" href="favitcon.png" />
+
+  <style>
+    :root{
+      --bg1:#f7fbff;
+      --bg2:#f3fffb;
+      --ink:#0b1220;
+      --muted:#445266;
+      --card:#ffffff;
+      --line:#e6edf7;
+      --shadow: 0 12px 30px rgba(15, 23, 42, .10);
+      --shadow2: 0 6px 18px rgba(15, 23, 42, .10);
+      --a:#2563eb;
+      --b:#0f766e;
+      --c:#7c3aed;
+      --warn:#b45309;
+      --good:#166534;
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color:var(--ink);
+      background: radial-gradient(1200px 700px at 20% 0%, #eaf2ff 0%, transparent 60%),
+                  radial-gradient(1000px 600px at 80% 10%, #e7fff7 0%, transparent 55%),
+                  linear-gradient(180deg, var(--bg1), var(--bg2));
+    }
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 18px 14px 40px;
+    }
+    .topbar{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      margin: 6px 0 14px;
+      flex-wrap:wrap;
+    }
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(8px);
+    }
+    .brand strong{
+      font-family: ui-serif, Georgia, "Times New Roman", serif;
+      letter-spacing:.2px;
+      font-size: 15px;
+    }
+    .brand span{
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.85);
+      color: var(--ink);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      cursor:pointer;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, border-color .12s ease;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      user-select:none;
+    }
+    .btn:hover{border-color:#cfe0ff}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(37,99,235,.15), rgba(15,118,110,.14));
+      border-color: rgba(37,99,235,.25);
+    }
+
+    .hero{
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(37,99,235,.12), rgba(15,118,110,.12));
+      border: 1px solid rgba(37,99,235,.18);
+      box-shadow: var(--shadow);
+      padding: 18px 16px;
+    }
+    .hero h1{
+      margin: 0 0 6px;
+      font-size: clamp(24px, 4.5vw, 40px);
+      font-family: ui-serif, Georgia, "Times New Roman", serif;
+      text-align:center;
+    }
+    .hero p{
+      margin:0;
+      text-align:center;
+      color: var(--muted);
+      line-height:1.45;
+    }
+
+    .panel{
+      margin-top: 14px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .search{
+      flex: 1 1 240px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,.85);
+      box-shadow: var(--shadow2);
+    }
+    .search input{
+      border:none;
+      outline:none;
+      width:100%;
+      font-size: 16px;
+      background: transparent;
+      color: var(--ink);
+    }
+    .hint{
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 10px;
+      line-height:1.4;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .card{
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      border-top: 4px solid rgba(15,118,110,.55);
+    }
+
+    .head{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+
+    .word{
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing:.2px;
+    }
+    .trans{
+      font-size: 15px;
+      color: var(--muted);
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .pillrow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top: 6px;
+    }
+    .pill{
+      font-size: 12px;
+      font-weight: 900;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.85);
+    }
+    .pill.pref{border-color: rgba(37,99,235,.22); background: rgba(37,99,235,.08)}
+    .pill.note{border-color: rgba(124,58,237,.22); background: rgba(124,58,237,.08)}
+    .pill.warn{border-color: rgba(180,83,9,.25); background: rgba(180,83,9,.08)}
+
+    .meaning{
+      margin-top: 10px;
+      color: var(--ink);
+      line-height: 1.55;
+      font-size: 16px;
+    }
+
+    .examples{
+      margin-top: 10px;
+      border-radius: 14px;
+      border: 1px dashed rgba(15,118,110,.35);
+      background: linear-gradient(180deg, rgba(15,118,110,.07), rgba(37,99,235,.05));
+      padding: 12px;
+    }
+    .examples .tag{
+      display:inline-block;
+      font-weight: 900;
+      font-size: 12px;
+      color: var(--good);
+      border: 1px solid rgba(22,101,52,.22);
+      background: rgba(22,101,52,.08);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+    .exline{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 15px;
+      line-height: 1.55;
+      margin: 4px 0;
+    }
+    .exline span{color: var(--muted)}
+
+    .sectionTitle{
+      margin: 12px 0 8px;
+      font-size: 18px;
+      font-weight: 950;
+      letter-spacing:.2px;
+    }
+
+    .prefixBox{
+      margin-top: 14px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      border-top: 4px solid rgba(37,99,235,.55);
+    }
+    .prefixBox ul{
+      margin: 8px 0 0;
+      padding-left: 18px;
+      line-height: 1.55;
+    }
+    .miniGrid{
+      margin-top: 10px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .miniCard{
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(255,255,255,.88);
+      box-shadow: var(--shadow2);
+    }
+    .miniCard strong{font-weight: 950}
+
+    .traps{
+      margin-top: 14px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      border-top: 4px solid rgba(180,83,9,.55);
+    }
+    .traps ul{
+      margin: 8px 0 0;
+      padding-left: 18px;
+      line-height: 1.55;
+    }
+
+    .footerActions{
+      margin-top: 16px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .note{
+      margin-top: 10px;
+      font-size: 13.5px;
+      color: var(--muted);
+      text-align:center;
+    }
+
+    @media (min-width: 820px){
+      .grid{grid-template-columns: 1fr 1fr}
+      .miniGrid{grid-template-columns: 1fr 1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <strong>Preguntas de repaso para Daku</strong>
+        <span>Vocabulario 2 · Personality adjectives + Negative prefixes</span>
+      </div>
+      <div class="nav">
+        <a class="btn" href="mark2.html">← Atrás (Marco Teórico 2)</a>
+        <a class="btn primary" href="index.html">Ir a Tema 1</a>
+      </div>
+    </div>
+
+    <section class="hero">
+      <h1>Vocabulario 2</h1>
+      <p>
+        Palabra + traducción + significado + ejemplo (con traducción).<br/>
+        Incluye <strong>prefijos negativos</strong> (un-, in-, im-, ir-, il-, dis-).
+      </p>
+    </section>
+
+    <section class="panel">
+      <div class="controls">
+        <div class="search" title="Busca por palabra o traducción">
+          <strong style="font-size:14px;color:var(--muted)">🔎</strong>
+          <input id="q" type="text" placeholder="Buscar: honest / honesto, sensible / sensato, etc." />
+        </div>
+        <button class="btn" id="clearBtn" type="button">Limpiar</button>
+      </div>
+      <div class="hint">
+        Tip: escribe “un-”, “dis-”, “in-” o una traducción como “egoísta”, y se filtra.
+      </div>
+
+      <div class="prefixBox">
+        <div class="sectionTitle">Prefijos negativos (regla clara)</div>
+        <ul>
+          <li><strong>un-</strong>, <strong>in-</strong> y <strong>dis-</strong> son comunes para “no / lo contrario”.</li>
+          <li><strong>in-</strong> cambia a <strong>im-</strong> antes de <strong>b, m, p</strong> (impossible, impatient).</li>
+          <li><strong>in-</strong> cambia a <strong>ir-</strong> antes de <strong>r</strong> (irresponsible).</li>
+          <li><strong>in-</strong> cambia a <strong>il-</strong> antes de <strong>l</strong> (illegal). <span style="color:var(--muted)">(en esta lista no lo usamos mucho, pero la regla existe)</span></li>
+        </ul>
+
+        <div class="miniGrid">
+          <div class="miniCard">
+            <strong>un- / dis- (muy comunes)</strong><br/>
+            ambitious → <strong>unambitious</strong><br/>
+            friendly → <strong>unfriendly</strong><br/>
+            honest → <strong>dishonest</strong><br/>
+            organized → <strong>disorganized</strong><br/>
+            tidy → <strong>untidy</strong>
+          </div>
+          <div class="miniCard">
+            <strong>in- / im- / ir-</strong><br/>
+            mature → <strong>immature</strong> (im-)<br/>
+            patient → <strong>impatient</strong> (im-)<br/>
+            sensitive → <strong>insensitive</strong> (in-)<br/>
+            responsible → <strong>irresponsible</strong> (ir-)
+          </div>
+        </div>
+      </div>
+
+      <div class="traps">
+        <div class="sectionTitle">Trampas (muy típicas)</div>
+        <ul>
+          <li><strong>sensible</strong> (inglés) = <strong>sensato</strong>. <strong>sensitive</strong> = <strong>sensible (emocional)</strong>.</li>
+          <li><strong>spoilt</strong> (BrE) = <strong>spoiled</strong> (AmE). Significa <strong>malcriado</strong>.</li>
+          <li><strong>reliable</strong> = confiable (cumple). <strong>responsible</strong> = responsable (se hace cargo).</li>
+          <li><strong>bossy</strong> es negativo: “mandón/a”. No es “jefe”.</li>
+        </ul>
+      </div>
+
+      <div class="sectionTitle">Lista completa (con ejemplos)</div>
+      <div class="grid" id="list"></div>
+
+      <div class="footerActions">
+        <a class="btn" href="mark2.html">← Atrás (Marco Teórico 2)</a>
+        <a class="btn primary" href="index.html">Volver a Tema 1</a>
+      </div>
+
+      <p class="note">
+        Guardar como <strong>vocabulario2.html</strong>. (Favicon: <strong>favitcon.png</strong>)
+      </p>
+    </section>
+  </div>
+
+  <script>
+    const DATA = [
+      {
+        w:"affectionate",
+        t:"cariñoso/a",
+        m:"Muestra cariño fácilmente; es tierno/a con la gente.",
+        pref:"",
+        ex:"She’s very affectionate with her little brother.",
+        tr:"Ella es muy cariñosa con su hermanito."
+      },
+      {
+        w:"ambitious",
+        t:"ambicioso/a",
+        m:"Quiere lograr grandes metas; se esfuerza por crecer.",
+        pref:"unambitious",
+        ex:"He’s ambitious, so he studies every day.",
+        tr:"Él es ambicioso, así que estudia todos los días."
+      },
+      {
+        w:"anxious",
+        t:"ansioso/a; preocupado/a",
+        m:"Se preocupa mucho o está nervioso/a por algo.",
+        pref:"",
+        ex:"She feels anxious before exams.",
+        tr:"Ella se siente ansiosa antes de los exámenes."
+      },
+      {
+        w:"bossy",
+        t:"mandón/a",
+        m:"Le gusta decirle a otros qué hacer (suena negativo).",
+        pref:"",
+        ex:"Stop being bossy—let them choose.",
+        tr:"Deja de ser mandón—déjalos elegir."
+      },
+      {
+        w:"charming",
+        t:"encantador/a",
+        m:"Tiene una personalidad agradable; cae bien.",
+        pref:"",
+        ex:"He’s charming, and people like him quickly.",
+        tr:"Él es encantador, y a la gente le cae bien rápido."
+      },
+      {
+        w:"competitive",
+        t:"competitivo/a",
+        m:"Le gusta competir y ganar; se toma los retos en serio.",
+        pref:"",
+        ex:"She’s competitive and hates losing.",
+        tr:"Ella es competitiva y odia perder."
+      },
+      {
+        w:"honest",
+        t:"honesto/a",
+        m:"Dice la verdad; no roba ni engaña.",
+        pref:"dishonest",
+        ex:"He’s honest—he always tells the truth.",
+        tr:"Él es honesto—siempre dice la verdad."
+      },
+      {
+        w:"imaginative",
+        t:"imaginativo/a",
+        m:"Tiene buena imaginación; crea ideas nuevas.",
+        pref:"unimaginative",
+        ex:"My sister is imaginative; she writes stories.",
+        tr:"Mi hermana es imaginativa; ella escribe historias."
+      },
+      {
+        w:"independent",
+        t:"independiente",
+        m:"Le gusta hacer cosas solo/a, sin ayuda.",
+        pref:"",
+        ex:"She’s independent and likes working alone.",
+        tr:"Ella es independiente y le gusta trabajar sola."
+      },
+      {
+        w:"insecure",
+        t:"inseguro/a",
+        m:"No se siente seguro/a de sí mismo; duda mucho.",
+        pref:"",
+        ex:"He’s insecure about his English accent.",
+        tr:"Él es inseguro sobre su acento en inglés."
+      },
+      {
+        w:"mature",
+        t:"maduro/a",
+        m:"Se comporta como adulto/a; piensa con calma.",
+        pref:"immature",
+        ex:"He’s mature for his age.",
+        tr:"Él es maduro para su edad."
+      },
+      {
+        w:"moody",
+        t:"cambiante; de mal humor",
+        m:"Su humor cambia rápido; a veces está serio/a sin razón.",
+        pref:"",
+        ex:"Don’t be moody—talk to me.",
+        tr:"No te pongas de mal humor—háblame."
+      },
+      {
+        w:"patient",
+        t:"paciente",
+        m:"Sabe esperar sin molestarse; tiene calma.",
+        pref:"impatient",
+        ex:"She’s patient with children.",
+        tr:"Ella es paciente con los niños."
+      },
+      {
+        w:"rebellious",
+        t:"rebelde",
+        m:"No le gusta seguir reglas; desafía la autoridad.",
+        pref:"",
+        ex:"He was rebellious as a teenager.",
+        tr:"Él era rebelde cuando era adolescente."
+      },
+      {
+        w:"reliable",
+        t:"confiable",
+        m:"Se puede confiar en esa persona: cumple y no falla.",
+        pref:"unreliable",
+        ex:"He’s reliable—he always arrives on time.",
+        tr:"Él es confiable—siempre llega a tiempo."
+      },
+      {
+        w:"self-confident",
+        t:"seguro/a de sí mismo/a",
+        m:"Confía en sus habilidades; no se siente menos.",
+        pref:"",
+        ex:"She’s self-confident, so she speaks in public.",
+        tr:"Ella es segura de sí misma, por eso habla en público."
+      },
+      {
+        w:"selfish",
+        t:"egoísta",
+        m:"Piensa solo en sí mismo y no en los demás.",
+        pref:"",
+        ex:"Selfish people think only about themselves.",
+        tr:"Las personas egoístas piensan solo en sí mismas."
+      },
+      {
+        w:"sensible",
+        t:"sensato/a",
+        m:"Tiene sentido común; es práctico/a.",
+        pref:"",
+        ex:"He’s sensible, so he saves money.",
+        tr:"Él es sensato, así que ahorra dinero."
+      },
+      {
+        w:"sensitive",
+        t:"sensible (emocional)",
+        m:"Se hiere u ofende fácilmente; le afectan las cosas.",
+        pref:"insensitive",
+        ex:"She’s sensitive, so be kind with your words.",
+        tr:"Ella es sensible, así que sé amable con tus palabras."
+      },
+      {
+        w:"sociable",
+        t:"sociable",
+        m:"Es amigable y disfruta estar con gente (outgoing).",
+        pref:"unsociable",
+        ex:"He’s sociable and loves meeting new people.",
+        tr:"Él es sociable y le encanta conocer gente nueva."
+      },
+      {
+        w:"spoilt",
+        t:"malcriado/a",
+        m:"Se porta mal porque le dan todo lo que quiere. (BrE: spoilt / AmE: spoiled)",
+        pref:"",
+        ex:"Spoilt children can be rude at home.",
+        tr:"Los niños malcriados pueden ser groseros en casa."
+      },
+      {
+        w:"stubborn",
+        t:"terco/a",
+        m:"No cambia de opinión fácilmente; es muy “cerrado/a”.",
+        pref:"",
+        ex:"He’s stubborn and never changes his mind.",
+        tr:"Él es terco y nunca cambia de opinión."
+      },
+
+      /* Palabras del bloque de prefijos (para que también aparezcan con ejemplo) */
+      {
+        w:"friendly",
+        t:"amigable",
+        m:"Trata bien a los demás; es simpático/a.",
+        pref:"unfriendly",
+        ex:"The staff are friendly and helpful.",
+        tr:"El personal es amable y servicial."
+      },
+      {
+        w:"kind",
+        t:"amable",
+        m:"Es buena persona; trata con cariño y respeto.",
+        pref:"unkind",
+        ex:"Be kind to your classmates.",
+        tr:"Sé amable con tus compañeros."
+      },
+      {
+        w:"organized",
+        t:"organizado/a",
+        m:"Tiene orden; planifica bien sus cosas.",
+        pref:"disorganized",
+        ex:"She’s organized, so she never forgets tasks.",
+        tr:"Ella es organizada, así que nunca olvida tareas."
+      },
+      {
+        w:"responsible",
+        t:"responsable",
+        m:"Se hace cargo de sus deberes y decisiones.",
+        pref:"irresponsible",
+        ex:"He’s responsible; he always does his homework.",
+        tr:"Él es responsable; siempre hace su tarea."
+      },
+      {
+        w:"tidy",
+        t:"ordenado/a",
+        m:"Mantiene todo limpio y en orden.",
+        pref:"untidy",
+        ex:"My room is tidy now.",
+        tr:"Mi cuarto está ordenado ahora."
+      }
+    ];
+
+    const list = document.getElementById("list");
+    const q = document.getElementById("q");
+    const clearBtn = document.getElementById("clearBtn");
+
+    function render(filter=""){
+      const f = filter.trim().toLowerCase();
+      list.innerHTML = "";
+
+      const items = DATA.filter(x => {
+        const hay = [
+          x.w, x.t, x.m, x.pref || "", x.ex, x.tr
+        ].join(" ").toLowerCase();
+        return hay.includes(f);
+      });
+
+      items.forEach(x => {
+        const card = document.createElement("article");
+        card.className = "card";
+
+        const prefPill = x.pref
+          ? `<span class="pill pref">Negativo: <strong>${x.pref}</strong></span>`
+          : `<span class="pill note">Sin prefijo típico</span>`;
+
+        const warnPill =
+          (x.w === "sensible" || x.w === "sensitive")
+          ? `<span class="pill warn">TRAMPA típica</span>` : "";
+
+        card.innerHTML = `
+          <div class="head">
+            <div>
+              <div class="word">${x.w}</div>
+              <div class="trans">${x.t}</div>
+              <div class="pillrow">
+                ${prefPill}
+                ${warnPill}
+              </div>
+            </div>
+          </div>
+
+          <div class="meaning"><strong>Significado:</strong> ${x.m}</div>
+
+          <div class="examples">
+            <span class="tag">Ejemplo</span>
+            <div class="exline">${x.ex} <span>— ${x.tr}</span></div>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+
+      if(items.length === 0){
+        const empty = document.createElement("div");
+        empty.className = "hint";
+        empty.style.marginTop = "14px";
+        empty.innerHTML = "No encontré coincidencias. Prueba con otra palabra (ej: <strong>dishonest</strong>, <strong>egoísta</strong>, <strong>im-</strong>).";
+        list.appendChild(empty);
+      }
+    }
+
+    q.addEventListener("input", () => render(q.value));
+    clearBtn.addEventListener("click", () => { q.value=""; q.focus(); render(""); });
+
+    render("");
+  </script>
+</body>
+</html>
