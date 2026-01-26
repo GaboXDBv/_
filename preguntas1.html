@@ -10,7 +10,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
 
-  <link rel="icon" href="favitcon.png?v=1" type="image/png" />
+  <link rel="icon" href="favitcon.png?v=2" type="image/png" />
 
   <style>
     :root{
@@ -21,9 +21,7 @@
       --accent: #2563eb;
       --accent2:#10b981;
       --danger:#ef4444;
-      --warning:#f59e0b;
       --ok:#22c55e;
-      --soft: rgba(31,41,55,.08);
       --shadow: 0 10px 30px rgba(17,24,39,.10);
       --shadow2: 0 6px 16px rgba(17,24,39,.10);
       --radius: 16px;
@@ -143,9 +141,9 @@
     .questionText{
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       font-size: clamp(18px, 4.0vw, 22px);
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing:.2px;
-      margin: 10px 0 10px;
+      margin: 12px 0 10px;
     }
 
     .options{
@@ -160,45 +158,29 @@
 
     .optBtn{
       border: 1px solid rgba(17,24,39,.12);
-      background: rgba(255,255,255,.90);
+      background: rgba(255,255,255,.92);
       border-radius: 14px;
-      padding: 14px 12px;
+      padding: 16px 14px;
       cursor: pointer;
       text-align: left;
       box-shadow: 0 6px 14px rgba(17,24,39,.08);
       transition: transform .12s ease, filter .12s ease, border-color .12s ease;
-      min-height: 56px;
+      min-height: 64px;
     }
-    .optBtn:hover{ transform: translateY(-1px); filter: brightness(1.01); border-color: rgba(37,99,235,.30); }
+    .optBtn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.01);
+      border-color: rgba(37,99,235,.35);
+    }
     .optBtn:active{ transform: translateY(0px); }
-    .optBtn:disabled{ cursor:not-allowed; opacity:.92; }
+    .optBtn:disabled{ cursor:not-allowed; opacity:.96; }
 
     .optLabel{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 10px;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-weight: 800;
-      font-size: 18px;
-    }
-    .optSmall{
-      margin-top: 6px;
-      color: var(--muted);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-size: 13px;
-      line-height: 1.35;
-    }
-
-    .statePill{
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border:1px solid rgba(17,24,39,.10);
-      background: rgba(17,24,39,.04);
-      color: var(--muted);
-      white-space: nowrap;
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing:.2px;
+      line-height: 1.15;
     }
 
     .feedback{
@@ -370,7 +352,7 @@
           </div>
 
           <div class="footerHint">
-            Si no existe el “siguiente tema” todavía, ese botón te avisará y no rompe nada.
+            Si aún no existe el “siguiente tema”, el botón no rompe nada.
           </div>
         </div>
       </section>
@@ -379,7 +361,6 @@
   </div>
 
   <script>
-    // ========= Helpers =========
     function shuffle(arr){
       const a = [...arr];
       for(let i=a.length-1;i>0;i--){
@@ -389,15 +370,13 @@
       return a;
     }
 
-    // ========= Banco de preguntas (basadas en tus fotos) =========
-    // Cada pregunta: 2 opciones del libro + 1 opción "trampa" más difícil.
     const QUESTION_BANK = [
       {
         stem: "I ____ that you cooked this meal yourself.",
         options: [
-          { text: "don’t believe", correct: true,  hint: "Non-action verb (opinion)", },
-          { text: "’m not believing", correct: false, hint: "Continuous con non-action", },
-          { text: "don’t believing", correct: false, hint: "Forma incorrecta", }
+          { text: "don’t believe", correct: true },
+          { text: "’m not believing", correct: false },
+          { text: "don’t believing", correct: false }
         ],
         explain: {
           okTitle: "Correcto: “I don’t believe …”",
@@ -411,214 +390,165 @@
       {
         stem: "Come on, let’s order. The waiter ____.",
         options: [
-          { text: "comes", correct: false, hint: "Rutina / horario", },
-          { text: "is coming", correct: true, hint: "Acción inminente / ahora", },
-          { text: "will come", correct: false, hint: "Futuro general (no es lo esperado aquí)", }
+          { text: "comes", correct: false },
+          { text: "is coming", correct: true },
+          { text: "will come", correct: false }
         ],
         explain: {
           okTitle: "Correcto: “The waiter is coming.”",
           okPoints: [
             "Aquí es una situación <b>inminente</b>: el camarero está por llegar / ya viene.",
             "Usamos <b>Present Continuous</b> para algo que ocurre <b>ahora</b> o <b>alrededor de ahora</b>.",
-            "<span class='code'>comes</span> suena a rutina (“viene siempre”), y <span class='code'>will come</span> es un futuro más general."
+            "<span class='code'>comes</span> suena a rutina; <span class='code'>will come</span> es un futuro general."
           ]
         }
       },
       {
         stem: "Kate ____ to have dinner now. She isn’t hungry.",
         options: [
-          { text: "doesn’t want", correct: true, hint: "Non-action verb (want)", },
-          { text: "isn’t wanting", correct: false, hint: "Continuous con non-action", },
-          { text: "doesn’t wanting", correct: false, hint: "Forma incorrecta", }
+          { text: "doesn’t want", correct: true },
+          { text: "isn’t wanting", correct: false },
+          { text: "doesn’t wanting", correct: false }
         ],
         explain: {
           okTitle: "Correcto: “Kate doesn’t want …”",
           okPoints: [
-            "“Want” normalmente es <b>non-action</b> (estado/ deseo), por eso va en <b>Present Simple</b>.",
+            "“Want” normalmente es <b>non-action</b> (estado/deseo), por eso va en <b>Present Simple</b>.",
             "Aunque diga “now”, el verbo <b>no suele usarse</b> en continuous en este tipo de ejercicios.",
-            "La opción <span class='code'>doesn’t wanting</span> es gramaticalmente incorrecta."
+            "<span class='code'>doesn’t wanting</span> es gramaticalmente incorrecto."
           ]
         }
       },
       {
         stem: "The head chef is ill, so he ____ today.",
         options: [
-          { text: "doesn’t work", correct: false, hint: "Rutina", },
-          { text: "isn’t working", correct: true, hint: "Temporal (today)", },
-          { text: "doesn’t working", correct: false, hint: "Forma incorrecta", }
+          { text: "doesn’t work", correct: false },
+          { text: "isn’t working", correct: true },
+          { text: "doesn’t working", correct: false }
         ],
         explain: {
           okTitle: "Correcto: “He isn’t working today.”",
           okPoints: [
             "“Today” indica algo <b>temporal</b> (no es una rutina).",
             "Para situaciones temporales usamos <b>Present Continuous</b>.",
-            "<span class='code'>doesn’t work</span> sería más como hábito (“no trabaja nunca / normalmente”)."
+            "<span class='code'>doesn’t work</span> suena a hábito general."
           ]
         }
       },
       {
         stem: "The bill ____ very expensive to me.",
         options: [
-          { text: "seems", correct: true, hint: "Non-action verb (seem)", },
-          { text: "is seeming", correct: false, hint: "Continuous con non-action", },
-          { text: "seemed", correct: false, hint: "Pasado", }
+          { text: "seems", correct: true },
+          { text: "is seeming", correct: false },
+          { text: "seemed", correct: false }
         ],
         explain: {
           okTitle: "Correcto: “The bill seems …”",
           okPoints: [
             "“Seem” es un <b>non-action verb</b> (apariencia/opinión).",
             "Los non-action verbs van normalmente en <b>Present Simple</b>.",
-            "<span class='code'>seemed</span> cambia el tiempo verbal a pasado, no corresponde aquí."
+            "<span class='code'>seemed</span> es pasado, no corresponde aquí."
           ]
         }
       },
       {
         stem: "We’ve had an argument and now we ____ to each other.",
         options: [
-          { text: "don’t speak", correct: false, hint: "Suena a hábito permanente", },
-          { text: "aren’t speaking", correct: true, hint: "Temporal (now)", },
-          { text: "don’t speaking", correct: false, hint: "Forma incorrecta", }
+          { text: "don’t speak", correct: false },
+          { text: "aren’t speaking", correct: true },
+          { text: "don’t speaking", correct: false }
         ],
         explain: {
           okTitle: "Correcto: “We aren’t speaking …”",
           okPoints: [
             "Después de una pelea, es una situación <b>temporal</b> (por ahora).",
-            "Por eso usamos <b>Present Continuous</b> para una situación que está pasando <b>en este periodo</b>.",
-            "<span class='code'>don’t speak</span> suena a “nunca hablamos” (más permanente)."
+            "Por eso usamos <b>Present Continuous</b> para una situación en este periodo.",
+            "<span class='code'>don’t speak</span> suena a permanente."
           ]
         }
       },
       {
         stem: "My mum ____ my diet is awful these days.",
         options: [
-          { text: "thinks", correct: true, hint: "Opinión (non-action)", },
-          { text: "is thinking", correct: false, hint: "Continuous no encaja aquí", },
-          { text: "will think", correct: false, hint: "Futuro", }
+          { text: "thinks", correct: true },
+          { text: "is thinking", correct: false },
+          { text: "will think", correct: false }
         ],
         explain: {
           okTitle: "Correcto: “My mum thinks …”",
           okPoints: [
             "Aquí “think” significa <b>opinión</b> → suele ser <b>non-action</b>.",
-            "En ejercicios, <span class='code'>is thinking</span> se usa más cuando es “considerar/planear” (proceso mental).",
-            "“These days” puede indicar periodo actual, pero sigue siendo una <b>opinión</b>."
+            "<span class='code'>is thinking</span> se usa más como “considerar/planear” (proceso).",
+            "“These days” = periodo actual, pero sigue siendo una opinión."
           ]
         }
       },
       {
         stem: "____ to go shopping today?",
         options: [
-          { text: "Do we need", correct: true, hint: "Need = non-action", },
-          { text: "Are we needing", correct: false, hint: "Continuous con need", },
-          { text: "Do we needing", correct: false, hint: "Forma incorrecta", }
+          { text: "Do we need", correct: true },
+          { text: "Are we needing", correct: false },
+          { text: "Do we needing", correct: false }
         ],
         explain: {
           okTitle: "Correcto: “Do we need …?”",
           okPoints: [
-            "“Need” es típicamente un <b>non-action verb</b> (necesidad/estado).",
-            "Por eso, en exámenes suele ir en <b>Present Simple</b>: <span class='code'>Do we need…?</span>",
-            "<span class='code'>Are we needing</span> suena muy raro en estos ejercicios."
+            "“Need” es típicamente <b>non-action</b> (necesidad/estado).",
+            "Va en <b>Present Simple</b>: <span class='code'>Do we need…?</span>",
+            "<span class='code'>Are we needing</span> no es lo típico en este tipo de ejercicios."
           ]
         }
       },
       {
         stem: "Can I call you back? I ____ lunch right now.",
         options: [
-          { text: "have", correct: false, hint: "Simple no encaja con “right now”", },
-          { text: "’m having", correct: true, hint: "Acción en progreso", },
-          { text: "’ve had", correct: false, hint: "Ya terminó (perfect)", }
+          { text: "have", correct: false },
+          { text: "’m having", correct: true },
+          { text: "’ve had", correct: false }
         ],
         explain: {
           okTitle: "Correcto: “I’m having lunch right now.”",
           okPoints: [
-            "“Right now” = acción <b>en progreso</b> → <b>Present Continuous</b>.",
-            "Con <span class='code'>have</span> en simple suena a rutina (“almuerzo” en general), no a ahora.",
-            "<span class='code'>I’ve had lunch</span> significa que <b>ya almorcé</b>."
+            "“Right now” = acción en progreso → <b>Present Continuous</b>.",
+            "<span class='code'>I have lunch</span> suena a rutina.",
+            "<span class='code'>I’ve had lunch</span> = ya almorcé."
           ]
         }
       },
       {
         stem: "I didn’t use to like oily fish, but now I ____ it!",
         options: [
-          { text: "love", correct: true, hint: "Non-action (estado)", },
-          { text: "’m loving", correct: false, hint: "En exámenes, normalmente no", },
-          { text: "’m really loving", correct: false, hint: "Sigue siendo lo mismo", }
+          { text: "love", correct: true },
+          { text: "’m loving", correct: false },
+          { text: "’m really loving", correct: false }
         ],
         explain: {
           okTitle: "Correcto (en examen): “I love it!”",
           okPoints: [
             "“Love” normalmente es <b>non-action</b> (estado), así que va en <b>Present Simple</b>.",
-            "Aunque en publicidad se oye <span class='code'>I’m loving it</span>, en este tipo de libro/examen suele marcarse como incorrecto.",
-            "La frase contrasta pasado vs ahora: antes no te gustaba, ahora <b>sí</b> (estado)."
+            "Aunque exista en publicidad <span class='code'>I’m loving it</span>, aquí se marca como incorrecto.",
+            "Contrasta antes vs ahora: ahora sí te gusta."
           ]
         }
       },
       {
         stem: "Your cake is wonderful! It ____ like one my mother used to make.",
         options: [
-          { text: "tastes", correct: true, hint: "Sense verb (non-action) aquí", },
-          { text: "is tasting", correct: false, hint: "Continuous no va con “it” (el pastel)", },
-          { text: "tasted", correct: false, hint: "Pasado", }
+          { text: "tastes", correct: true },
+          { text: "is tasting", correct: false },
+          { text: "tasted", correct: false }
         ],
         explain: {
           okTitle: "Correcto: “It tastes …”",
           okPoints: [
-            "Con sujeto “it” (el pastel), “taste” es percepción → <b>non-action</b> → <b>Present Simple</b>.",
-            "<span class='code'>is tasting</span> se usa más cuando <b>una persona</b> está probando algo (acción): “She’s tasting the soup.”",
-            "<span class='code'>tasted</span> lo pasa a pasado."
-          ]
-        }
-      },
-      {
-        stem: "You ____ anything except lemon and olive oil when fish is really fresh.",
-        options: [
-          { text: "don’t need", correct: true, hint: "Need = non-action", },
-          { text: "aren’t needing", correct: false, hint: "Continuous con need", },
-          { text: "aren’t need", correct: false, hint: "Forma incorrecta", }
-        ],
-        explain: {
-          okTitle: "Correcto: “You don’t need …”",
-          okPoints: [
-            "“Need” suele ser <b>non-action</b> (necesidad), por eso va en <b>Present Simple</b>.",
-            "Aquí es una idea general: cuando el pescado es fresco, no necesitas nada más.",
-            "<span class='code'>aren’t needing</span> no es lo típico en este tipo de ejercicios."
-          ]
-        }
-      },
-      {
-        stem: "This week, for example, I ____ ‘ntakos’, a Cretan salad.",
-        options: [
-          { text: "make", correct: false, hint: "Suena a rutina", },
-          { text: "’m making", correct: true, hint: "Temporal (this week)", },
-          { text: "’m make", correct: false, hint: "Forma incorrecta", }
-        ],
-        explain: {
-          okTitle: "Correcto: “I’m making …”",
-          okPoints: [
-            "“This week” indica periodo <b>temporal</b> → <b>Present Continuous</b>.",
-            "<span class='code'>I make</span> suena a hábito general (siempre lo hago).",
-            "<span class='code'>I’m make</span> es incorrecto: falta el -ing."
-          ]
-        }
-      },
-      {
-        stem: "I ____ to Crete maybe four or five times a year.",
-        options: [
-          { text: "go", correct: true, hint: "Frecuencia/hábito", },
-          { text: "’m going", correct: false, hint: "Esto sería un plan (no con frecuencia)", },
-          { text: "’m going to go", correct: false, hint: "Demasiado futuro para hábito", }
-        ],
-        explain: {
-          okTitle: "Correcto: “I go …”",
-          okPoints: [
-            "“Four or five times a year” = <b>frecuencia</b> → hábito → <b>Present Simple</b>.",
-            "<span class='code'>I’m going</span> se usa para un plan concreto (ej. “I’m going tomorrow”), no para hábitos con frecuencia.",
-            "La frase describe una costumbre regular."
+            "Con “it” (el pastel), “taste” es percepción → non-action → <b>Present Simple</b>.",
+            "<span class='code'>is tasting</span> se usa más con persona probando: “She’s tasting the soup.”",
+            "<span class='code'>tasted</span> es pasado."
           ]
         }
       }
     ];
 
-    // ========= Estado de la ronda =========
     let deck = [];
     let deckIndex = 0;
     let currentSet = [];
@@ -670,50 +600,40 @@
       const q = currentSet[currentIndex];
       els.questionText.textContent = q.stem;
 
-      // Reset UI
       els.options.innerHTML = "";
       els.feedbackBox.style.display = "none";
       els.feedbackBox.classList.remove("fbOk","fbBad");
       els.nextRow.style.display = "none";
 
-      // Render options (shuffle to avoid memorizing positions)
-      const opts = shuffle(q.options.map((o, idx) => ({...o, _origIndex: idx})));
+      const opts = shuffle(q.options.map(o => ({...o})));
 
-      opts.forEach((opt, btnIdx) => {
+      opts.forEach((opt) => {
         const btn = document.createElement("button");
         btn.className = "optBtn";
         btn.type = "button";
 
-        btn.innerHTML = `
-          <div class="optLabel">
-            <span>${opt.text}</span>
-            <span class="statePill">${opt.hint}</span>
-          </div>
-          <div class="optSmall">Toca para seleccionar</div>
-        `;
+        // SOLO el texto, sin pistas ni “toca para…”
+        btn.innerHTML = `<div class="optLabel">${opt.text}</div>`;
 
         btn.addEventListener("click", () => chooseOption(btn, opt, opts));
         els.options.appendChild(btn);
       });
     }
 
-    function chooseOption(btnEl, chosenOpt, allRendered){
+    function chooseOption(btnEl, chosenOpt, renderedOpts){
       if(answered) return;
       answered = true;
 
       const q = currentSet[currentIndex];
 
-      // Disable all buttons, mark chosen
       const btns = [...els.options.querySelectorAll(".optBtn")];
       btns.forEach(b => b.disabled = true);
       btnEl.classList.add("chosen");
 
-      // Find correct in rendered list
-      const correctOpt = allRendered.find(o => o.correct);
+      const correctOpt = renderedOpts.find(o => o.correct);
 
-      // Highlight correct + chosen wrong
       btns.forEach(b => {
-        const text = b.querySelector(".optLabel span").textContent.trim();
+        const text = b.querySelector(".optLabel").textContent.trim();
         if(text === correctOpt.text){
           b.classList.add("correct");
         }
@@ -726,30 +646,24 @@
         score++;
       }
 
-      // Feedback
       els.feedbackBox.style.display = "block";
       els.feedbackBox.classList.add(isCorrect ? "fbOk" : "fbBad");
 
-      els.fbTitle.textContent = isCorrect ? "Bien. Respuesta correcta." : "Uy. Respuesta incorrecta.";
+      els.fbTitle.textContent = isCorrect ? "Bien. Respuesta correcta." : "Incorrecto. Revisa la explicación.";
       const points = q.explain.okPoints.map(x => `<li>${x}</li>`).join("");
-
-      const whyOther = `
-        <p class="muted" style="margin-top:10px;">
-          <b>Respuesta esperada:</b> <span class="code">${correctOpt.text}</span>
-        </p>
-      `;
 
       els.fbBody.innerHTML = `
         <p style="margin:0;"><b>${q.explain.okTitle}</b></p>
-        ${whyOther}
+        <p class="muted" style="margin-top:10px;">
+          <b>Respuesta esperada:</b> <span class="code">${correctOpt.text}</span>
+        </p>
         <ul>${points}</ul>
       `;
 
-      // Show next button or finish
       if(currentIndex < 4){
         els.nextRow.style.display = "flex";
+        els.nextBtn.textContent = "Siguiente pregunta";
       } else {
-        // Round finished
         els.nextRow.style.display = "flex";
         els.nextBtn.textContent = "Ver resultado de la ronda";
       }
@@ -762,11 +676,9 @@
 
       if(currentIndex < 4){
         currentIndex++;
-        els.nextBtn.textContent = "Siguiente pregunta";
         renderQuestion();
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
-        // show summary
         els.progressBar.style.width = "100%";
         els.questionText.textContent = "Ronda terminada.";
         els.options.innerHTML = `
@@ -778,9 +690,9 @@
                   Tu puntaje fue <b>${score} / 5</b>.
                 </p>
                 <ul>
-                  <li>Si sacaste 4–5: estás muy sólido en <b>rutina vs temporal</b>.</li>
-                  <li>Si sacaste 2–3: revisa <b>non-action verbs</b> (believe, want, need, seem, love, taste...).</li>
-                  <li>Si sacaste 0–1: vuelve al marco teórico y mira “Trampas”.</li>
+                  <li>4–5: muy sólido (rutina vs temporal + non-action).</li>
+                  <li>2–3: repasa non-action verbs (believe, want, need, seem, love, taste...).</li>
+                  <li>0–1: vuelve al marco teórico y revisa “Trampas”.</li>
                 </ul>
               </div>
             </div>
@@ -798,23 +710,17 @@
       currentSet = getNextFive();
       currentIndex = 0;
       score = 0;
-
-      els.nextBtn.textContent = "Siguiente pregunta";
       renderQuestion();
       setProgress();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function goNextTheme(){
-      // Cuando crees el siguiente tema, cambia esta ruta:
-      // window.location.href = "tema2.html";
-      alert("Aún no existe el siguiente tema. Cuando lo tengas, yo enlazo el botón a ese archivo.");
+      alert("Aún no existe el siguiente tema. Cuando lo crees, enlazo este botón al archivo correcto.");
     }
 
-    // Hook next button
     els.nextBtn.addEventListener("click", next);
 
-    // Start
     refillDeck();
     newRound();
   </script>
