@@ -1,623 +1,883 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vocabulario 2</title>
-  <link rel="icon" href="favitcon.png" />
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=2" type="image/png" />
+
   <style>
     :root{
-      --bg1:#eef6ff;
-      --bg2:#ffffff;
-      --text:#0f172a;
-      --muted:#475569;
-      --border:rgba(15,23,42,.12);
-      --card:rgba(255,255,255,.88);
-      --shadow:0 18px 55px rgba(2,6,23,.12);
-      --radius:22px;
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
 
-      --blue:#2563eb;
-      --green:#10b981;
-      --red:#ef4444;
-      --amber:#f59e0b;
-      --violet:#7c3aed;
+      --accent: #2563eb;  /* azul */
+      --accent2:#10b981;  /* verde */
+      --warn:#f59e0b;     /* ámbar */
+      --danger:#ef4444;   /* rojo */
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
     }
+
     *{box-sizing:border-box}
+
     body{
       margin:0;
-      color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
       background:
-        radial-gradient(1200px 600px at 20% 10%, #dbeafe 0%, transparent 55%),
-        radial-gradient(900px 500px at 85% 15%, #dcfce7 0%, transparent 55%),
-        radial-gradient(900px 500px at 70% 85%, #e0e7ff 0%, transparent 55%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
     }
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:980px; margin:0 auto; padding:18px 14px 34px;}
 
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      overflow:hidden;
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
     }
-    .cardTopLine{height:6px; background:linear-gradient(90deg, var(--blue), var(--green));}
-    .pad{padding:18px}
 
-    .hero{ text-align:center; padding:18px 16px 20px;}
-    .hero h1{ margin:4px 0 6px; font-size: clamp(28px, 5.5vw, 44px); letter-spacing:.2px;}
-    .hero p{ margin:0; color:var(--muted); font-size: clamp(14px, 3.6vw, 17px); line-height:1.35;}
-
-    /* Nav */
-    .nav{
-      margin-top:14px;
-      padding:16px;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-    .btn{
-      display:flex; align-items:center; justify-content:center;
-      min-height:54px;
-      border-radius:18px;
-      border:1px solid rgba(0,0,0,.08);
-      box-shadow:0 10px 26px rgba(2,6,23,.10);
-      font-weight:900;
-      font-size:18px;
-      letter-spacing:.2px;
-      cursor:pointer;
-      user-select:none;
-      transition:transform .12s ease, filter .12s ease;
-      padding:12px 14px;
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
       text-align:center;
-      line-height:1.1;
-    }
-    .btn:active{transform:scale(.99)}
-    .btn:hover{filter:brightness(1.02)}
-    .btn.red{background:linear-gradient(180deg,#ff6b6b,#ef4444); color:#fff}
-    .btn.green{background:linear-gradient(180deg,#34d399,#10b981); color:#06261b}
-    .btn.blue{background:linear-gradient(180deg,#60a5fa,#2563eb); color:#fff}
-    @media (max-width:780px){ .nav{grid-template-columns:1fr} }
-
-    /* Search */
-    .searchRow{
-      margin-top:14px;
-      display:flex;
-      gap:10px;
-      align-items:stretch;
-    }
-    .search{
-      flex:1;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      background:rgba(255,255,255,.85);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:12px 14px;
-      box-shadow:0 10px 26px rgba(2,6,23,.06);
-    }
-    .searchIcon{
-      width:34px;height:34px;border-radius:12px;
-      display:grid;place-items:center;
-      background:rgba(37,99,235,.10);
-      border:1px solid rgba(37,99,235,.22);
-      font-weight:900;
-      color:var(--blue);
-      flex:0 0 auto;
-    }
-    input[type="text"]{
-      border:0;
-      outline:0;
-      width:100%;
-      font-size:18px;
-      background:transparent;
-      color:var(--text);
-    }
-    .miniBtn{
-      border:1px solid rgba(0,0,0,.08);
-      border-radius:18px;
-      padding:12px 14px;
-      min-width:120px;
-      font-weight:900;
-      font-size:16px;
-      background:rgba(255,255,255,.9);
-      box-shadow:0 10px 26px rgba(2,6,23,.06);
-      cursor:pointer;
     }
 
-    .hint{
-      margin:8px 2px 0;
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .subtitle{
+      margin:0;
       color:var(--muted);
-      font-size:14px;
-      line-height:1.35;
+      font-size: clamp(14px, 2.8vw, 17px);
+      line-height: 1.45;
     }
-
-    /* Sections */
-    .section{ margin-top:14px; }
-    .section h2{ margin:0 0 10px; font-size: clamp(20px, 4.8vw, 26px); }
-    .section p{ margin:8px 0; color:var(--muted); line-height:1.55; font-size:16px; }
 
     .grid{
       display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-    @media (max-width:780px){ .grid{grid-template-columns:1fr} }
-
-    .item{
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:14px;
-      background:rgba(255,255,255,.78);
-      box-shadow:0 10px 26px rgba(2,6,23,.06);
-    }
-    .rowTop{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:8px;
-    }
-    .word{
-      font-size:22px;
-      font-weight:1000;
-      letter-spacing:.2px;
-      line-height:1.1;
-    }
-    .badge{
-      font-size:12px;
-      font-weight:900;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(0,0,0,.08);
-      background:#fff;
-      white-space:nowrap;
-    }
-    .badge.blue{background:rgba(37,99,235,.10); border-color:rgba(37,99,235,.22)}
-    .badge.green{background:rgba(16,185,129,.12); border-color:rgba(16,185,129,.22)}
-    .badge.amber{background:rgba(245,158,11,.12); border-color:rgba(245,158,11,.22)}
-    .badge.violet{background:rgba(124,58,237,.12); border-color:rgba(124,58,237,.22)}
-
-    .meaning{ color:var(--muted); line-height:1.5; font-size:15px; margin:4px 0 10px;}
-    .ex{
-      border-radius:14px;
-      border:1px dashed rgba(124,58,237,.22);
-      background:rgba(237,233,254,.35);
-      padding:10px 10px;
-      line-height:1.45;
-      font-size:14px;
-    }
-    .ex b{color:#2d1b6b}
-    .negLine{
-      margin-top:10px;
-      padding:10px;
-      border-radius:14px;
-      border:1px solid rgba(16,185,129,.22);
-      background:rgba(220,252,231,.35);
-      font-size:14px;
-      color:#064e3b;
-      font-weight:800;
-    }
-
-    .prefixBox{
-      border:1px solid rgba(37,99,235,.22);
-      background:rgba(219,234,254,.35);
-      border-radius:18px;
-      padding:14px;
-    }
-    .prefixGrid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-top:10px;
-    }
-    @media (max-width:780px){ .prefixGrid{grid-template-columns:1fr} }
-    .prefixRule{
-      background:rgba(255,255,255,.75);
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:12px;
-      line-height:1.45;
-      color:var(--muted);
-      font-size:15px;
-    }
-    .prefixRule b{color:var(--text)}
-
-    /* Bottom nav */
-    .bottomNav{
+      gap:14px;
       margin-top:14px;
-      padding:16px;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
     }
-    @media (max-width:780px){ .bottomNav{grid-template-columns:1fr} }
-    .bottomNav .btn.blue{grid-column:1/-1}
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .bar.warn{ background: linear-gradient(90deg, var(--warn), var(--accent)); }
+    .bar.danger{ background: linear-gradient(90deg, var(--danger), var(--warn)); }
+
+    .content{
+      padding: 16px 16px 14px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(18px, 3.8vw, 24px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+
+    h3{
+      margin:14px 0 8px;
+      font-size: clamp(16px, 3.4vw, 20px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .15px;
+    }
+
+    p{
+      font-size: clamp(15px, 3.4vw, 18px);
+      line-height: 1.55;
+      margin: 8px 0;
+    }
+
+    .muted{ color: var(--muted); }
+
+    ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+    li{
+      margin: 8px 0;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .callout{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(37,99,235,.06);
+    }
+    .callout strong{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .callout.ok{ background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.20); }
+    .callout.warn{ background: rgba(245,158,11,.10); border-color: rgba(245,158,11,.22); }
+    .callout.bad{ background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.20); }
+
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: .95em;
+      background: rgba(17,24,39,.05);
+      padding: 2px 6px;
+      border-radius: 8px;
+    }
+
+    .miniGrid{
+      display:grid;
+      gap: 10px;
+      margin-top: 10px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 760px){
+      .miniGrid{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .miniCard{
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      padding: 12px 12px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+
+    .wordTop{
+      display:flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .wordEn{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 950;
+      font-size: 18px;
+      letter-spacing:.15px;
+      margin:0;
+    }
+    .wordEs{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .tagRow{
+      display:flex;
+      gap:8px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .tag{
+      display:inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.85);
+      font-size: 12px;
+      color: var(--muted);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .tag.blue{ background: rgba(37,99,235,.08); border-color: rgba(37,99,235,.18); }
+    .tag.green{ background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.18); }
+    .tag.warn{ background: rgba(245,158,11,.10); border-color: rgba(245,158,11,.20); }
+
+    .exBox{
+      margin-top: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(255,255,255,.72);
+    }
+    .exLine{ margin: 6px 0; font-size: 15px; line-height: 1.45; }
+    .exEn{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      letter-spacing:.15px;
+    }
+    .exEs{ color: var(--muted); }
+
+    .searchRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .searchWrap{
+      flex: 1 1 520px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.88);
+      padding: 10px 12px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    .searchIcon{
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      background: rgba(37,99,235,.10);
+      border: 1px solid rgba(37,99,235,.18);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--accent);
+      font-weight: 900;
+    }
+    .searchInput{
+      flex:1;
+      border:0;
+      outline:none;
+      background:transparent;
+      font-size: 16px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+    }
+    .btnSmall{
+      border: 0;
+      cursor:pointer;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(17,24,39,.10);
+    }
+    .btnSmall:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .btnSmall:active{ transform: translateY(0px); }
+
+    .tableWrap{
+      overflow:auto;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+      margin-top: 10px;
+    }
+    table{
+      width:100%;
+      border-collapse: collapse;
+      min-width: 680px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    th, td{
+      padding: 10px 10px;
+      border-bottom: 1px solid rgba(17,24,39,.08);
+      vertical-align: top;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+    th{
+      text-align:left;
+      background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(16,185,129,.08));
+      font-weight: 900;
+    }
+    .pill{
+      display:inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.92);
+      font-size: 12px;
+      color: var(--muted);
+      margin-left: 6px;
+    }
+
+    .navRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .navBtn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+    }
+    .navBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .navBtn:active{ transform: translateY(0px); }
+
+    .btnBack{ background: linear-gradient(135deg, #ef4444, #dc2626); }
+    .btnQuiz{ background: linear-gradient(135deg, var(--accent), #1d4ed8); }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .emptyState{
+      margin-top: 10px;
+      border-radius: 14px;
+      border: 1px dashed rgba(17,24,39,.18);
+      padding: 12px 12px;
+      background: rgba(255,255,255,.70);
+      color: var(--muted);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      text-align:center;
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
+    <header>
+      <h1>Vocabulario — Tema 2</h1>
+      <p class="subtitle">
+        Adjetivos de personalidad + <b>prefijos negativos</b> (<span class="code">un-</span>, <span class="code">in-</span>, <span class="code">im-</span>, <span class="code">ir-</span>, <span class="code">il-</span>, <span class="code">dis-</span>).
+      </p>
+    </header>
 
-    <!-- HERO (SIN el texto que no quieres arriba) -->
-    <div class="card">
-      <div class="cardTopLine"></div>
-      <div class="hero">
-        <h1>Vocabulario 2</h1>
-        <p>Adjetivos de personalidad + <b>prefijos negativos</b> (un-, in-, im-, ir-, il-, dis-).</p>
-      </div>
-    </div>
+    <div class="grid">
 
-    <!-- NAV (botón Preguntas 2 incluido) -->
-    <div class="card section">
-      <div class="cardTopLine"></div>
-      <div class="nav">
-        <a class="btn red" href="mark2.html">Atrás (Marco Teórico 2)</a>
-        <a class="btn blue" href="preguntas2.html">Preguntas 2</a>
-      </div>
-    </div>
-
-    <!-- BUSCADOR -->
-    <div class="searchRow">
-      <div class="search" role="search">
-        <div class="searchIcon">🔎</div>
-        <input id="q" type="text" placeholder="Buscar: honest / honesto, stubborn / terco, dis-, im-, etc." />
-      </div>
-      <button class="miniBtn" id="clearBtn" type="button">Limpiar</button>
-    </div>
-    <div class="hint">Tip: escribe “un-”, “dis-”, “in-” o una traducción como “egoísta” para filtrar.</div>
-
-    <!-- PREFIJOS NEGATIVOS -->
-    <div class="card section">
-      <div class="cardTopLine"></div>
-      <div class="pad">
-        <h2>Prefijos negativos (regla rápida)</h2>
-        <div class="prefixBox">
-          <p style="margin:0;color:var(--muted);line-height:1.55">
-            Los prefijos <b>un-</b>, <b>in-</b> y <b>dis-</b> son muy comunes para formar el “opuesto”.
-            Ojo: <b>in-</b> cambia según la letra inicial.
+      <!-- 1) Prefijos negativos -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>1) Prefijos negativos (regla rápida)</h2>
+          <p class="muted">
+            Para decir el “opuesto” de un adjetivo en inglés, usamos prefijos. No todos los adjetivos aceptan cualquier prefijo: el libro suele evaluar <b>qué prefijo corresponde</b>.
           </p>
 
-          <div class="prefixGrid">
-            <div class="prefixRule">
-              <b>un-</b>: el más común.<br>
-              Ej: <b>un</b>happy, <b>un</b>kind, <b>un</b>tidy, <b>un</b>friendly, <b>un</b>ambitious.
+          <div class="miniGrid">
+            <div class="miniCard">
+              <p class="wordEn" style="margin:0 0 6px;">Prefijos más comunes</p>
+              <ul>
+                <li><span class="code">un-</span>: muy común (unhappy, unfair, <b>unfriendly</b>, <b>unkind</b>).</li>
+                <li><span class="code">dis-</span>: común con algunos (dishonest, disorganized).</li>
+                <li><span class="code">in-</span>: común (insecure, insensitive, incorrect).</li>
+              </ul>
             </div>
-            <div class="prefixRule">
-              <b>dis-</b>: frecuente en algunas palabras.<br>
-              Ej: <b>dis</b>honest, <b>dis</b>organized.
-            </div>
-            <div class="prefixRule">
-              <b>in-</b>: base. <br>
-              Ej: <b>in</b>secure.
-            </div>
-            <div class="prefixRule">
-              <b>in- → im-</b> antes de <b>b/m/p</b>.<br>
-              Ej: <b>im</b>patient, <b>im</b>mature.
-            </div>
-            <div class="prefixRule">
-              <b>in- → ir-</b> antes de <b>r</b>.<br>
-              Ej: <b>ir</b>responsible.
-            </div>
-            <div class="prefixRule">
-              <b>in- → il-</b> antes de <b>l</b>.<br>
-              (Ej típico: <b>il</b>legal).<br>
-              *En este tema casi todo cae en un-/dis-/im-/ir-.
+
+            <div class="miniCard">
+              <p class="wordEn" style="margin:0 0 6px;">Cambios de “in-” (ortografía)</p>
+              <ul>
+                <li><span class="code">in-</span> → <span class="code">im-</span> antes de <b>b, m, p</b> (impossible, <b>impatient</b>, <b>immature</b>).</li>
+                <li><span class="code">in-</span> → <span class="code">ir-</span> antes de <b>r</b> (<b>irresponsible</b>, irregular).</li>
+                <li><span class="code">in-</span> → <span class="code">il-</span> antes de <b>l</b> (illegal, illogical).</li>
+              </ul>
             </div>
           </div>
 
-          <div class="prefixRule" style="margin-top:10px">
-            <b>Dato importante:</b> <i>unselfish</i> NO es “malo”: significa <b>generoso / considerado</b> (positivo).
+          <div class="callout ok">
+            <strong>Mini-regla:</strong>
+            <span class="muted">
+              Si dudas, piensa en estas “parejas” del libro:
+              <span class="code">honest → dishonest</span>,
+              <span class="code">organized → disorganized</span>,
+              <span class="code">mature → immature</span>,
+              <span class="code">patient → impatient</span>,
+              <span class="code">responsible → irresponsible</span>.
+            </span>
+          </div>
+
+          <h3>Tabla rápida (como en el ejercicio)</h3>
+          <div class="tableWrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>un- / dis- (frecuentes en este tema)</th>
+                  <th>in- / im- / ir- / il- (familia “in-”)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <b>unambitious</b> <span class="pill">ambitious</span><br>
+                    <b>unfriendly</b> <span class="pill">friendly</span><br>
+                    <b>dishonest</b> <span class="pill">honest</span><br>
+                    <b>unimaginative</b> <span class="pill">imaginative</span><br>
+                    <b>unkind</b> <span class="pill">kind</span><br>
+                    <b>disorganized</b> <span class="pill">organized</span><br>
+                    <b>unreliable</b> <span class="pill">reliable</span><br>
+                    <b>unsociable</b> <span class="pill">sociable</span><br>
+                    <b>untidy</b> <span class="pill">tidy</span><br>
+                    <b>unselfish</b> <span class="pill">selfish</span> <span class="pill">ojo: significa “considerado”</span>
+                  </td>
+                  <td>
+                    <b>immature</b> <span class="pill">mature</span><br>
+                    <b>impatient</b> <span class="pill">patient</span><br>
+                    <b>irresponsible</b> <span class="pill">responsible</span><br>
+                    <b>insecure</b> <span class="pill">secure</span><br>
+                    <b>insensitive</b> <span class="pill">sensitive</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout warn">
+            <strong>Tip de examen:</strong>
+            <span class="muted">
+              Si el ejercicio es “elige el prefijo correcto”, no inventes formas raras. Por ejemplo:
+              <span class="code">honest → dishonest</span> (no <span class="code">unhonest</span> en este nivel),
+              <span class="code">patient → impatient</span> (no <span class="code">unpatient</span>).
+            </span>
           </div>
         </div>
-      </div>
+      </section>
+
+      <!-- 2) Buscador -->
+      <section class="card">
+        <div class="bar warn"></div>
+        <div class="content">
+          <h2>2) Buscador</h2>
+          <p class="muted">
+            Escribe en inglés o español (ej.: <span class="code">honest</span>, <span class="code">honesto</span>, <span class="code">un-</span>, <span class="code">ansioso</span>).
+          </p>
+
+          <div class="searchRow">
+            <div class="searchWrap">
+              <div class="searchIcon">🔎</div>
+              <input id="q" class="searchInput" type="text" placeholder="Buscar: honest / honesto, stubborn / terco, dis-, im-, etc." autocomplete="off" />
+            </div>
+            <button class="btnSmall" id="clearBtn">Limpiar</button>
+          </div>
+
+          <div class="footerHint" id="countHint">Mostrando 0 elementos.</div>
+        </div>
+      </section>
+
+      <!-- 3) Lista vocabulario -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>3) Adjetivos de personalidad (palabra + traducción + significado + ejemplo)</h2>
+          <div class="miniGrid" id="vocabList"></div>
+          <div class="emptyState" id="empty" style="display:none;">
+            No hay resultados con ese filtro. Prueba con otra palabra o con un prefijo como <span class="code">un-</span> / <span class="code">dis-</span> / <span class="code">im-</span>.
+          </div>
+        </div>
+      </section>
+
+      <!-- 4) Trampas -->
+      <section class="card">
+        <div class="bar danger"></div>
+        <div class="content">
+          <h2>4) Trampas (errores típicos)</h2>
+
+          <h3>Trampa 1: “unselfish” parece negativo, pero es POSITIVO</h3>
+          <div class="callout ok">
+            <strong>Clave:</strong>
+            <span class="muted">
+              <span class="code">unselfish</span> = “considerado / que piensa en los demás”.
+              Por eso, si te preguntan “¿cuál tiene significado positivo?”, muchas veces es <span class="code">unselfish</span>.
+            </span>
+          </div>
+
+          <h3>Trampa 2: No todos aceptan cualquier prefijo</h3>
+          <ul>
+            <li><span class="code">honest → dishonest</span> (lo común en este nivel).</li>
+            <li><span class="code">organized → disorganized</span> (no “unorganized” aquí).</li>
+            <li><span class="code">patient → impatient</span> (cambio <span class="code">in-</span> → <span class="code">im-</span>).</li>
+            <li><span class="code">responsible → irresponsible</span> (cambio <span class="code">in-</span> → <span class="code">ir-</span>).</li>
+          </ul>
+
+          <h3>Trampa 3: UK vs US en “spoilt”</h3>
+          <div class="callout warn">
+            <strong>Dato:</strong>
+            <span class="muted">
+              <span class="code">spoilt</span> (UK) = <span class="code">spoiled</span> (US).
+              En ejercicios del libro suele aparecer <span class="code">spoilt</span>.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Navegación -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Navegación</h2>
+          <p class="muted">Listo para volver al Marco Teórico 2 o pasar a las Preguntas 2.</p>
+
+          <div class="navRow">
+            <button class="navBtn btnBack" onclick="window.location.href='mark2.html'">Atrás (Marco Teórico 2)</button>
+            <button class="navBtn btnQuiz" onclick="window.location.href='preguntas2.html'">Preguntas 2</button>
+          </div>
+
+          <div class="footerHint">
+            Tip: usa el buscador para estudiar rápido (inglés, español o prefijos).
+          </div>
+        </div>
+      </section>
+
     </div>
-
-    <!-- LISTA VOCABULARIO -->
-    <div class="card section">
-      <div class="cardTopLine"></div>
-      <div class="pad">
-        <h2>Adjetivos de personalidad</h2>
-        <p>Cada tarjeta tiene: <b>palabra</b> + <b>traducción</b> + <b>significado</b> + <b>ejemplo</b> (con traducción).</p>
-
-        <div class="grid" id="list"></div>
-      </div>
-    </div>
-
-    <!-- NAV FINAL (por si baja hasta abajo) -->
-    <div class="card section">
-      <div class="cardTopLine"></div>
-      <div class="bottomNav">
-        <a class="btn red" href="mark2.html">Atrás (Marco Teórico 2)</a>
-        <a class="btn blue" href="preguntas2.html">Preguntas 2</a>
-      </div>
-    </div>
-
   </div>
 
   <script>
-    const vocab = [
-      // Personality adjectives (from your photos)
+    // Datos (Tema 2 - Vocabulario)
+    const VOCAB = [
+      // Personality adjectives
       {
-        w:"affectionate", es:"cariñoso/a",
-        m:"Muestra cariño y afecto; es tierno/a con otras personas.",
-        exEN:"She’s very affectionate with her little brother.",
-        exES:"Ella es muy cariñosa con su hermanito.",
-        neg:null
+        en: "affectionate",
+        es: "cariñoso/a",
+        meaning: "Muestra cariño fácilmente; es tierno/a y afectuoso/a.",
+        example_en: "She’s very affectionate with her family.",
+        example_es: "Ella es muy cariñosa con su familia.",
+        neg: ""
       },
       {
-        w:"ambitious", es:"ambicioso/a",
-        m:"Quiere lograr metas grandes; busca éxito o progreso.",
-        exEN:"He’s ambitious, so he studies every day.",
-        exES:"Él es ambicioso, así que estudia todos los días.",
-        neg:"unambitious — poco ambicioso/a"
+        en: "ambitious",
+        es: "ambicioso/a",
+        meaning: "Quiere lograr mucho; tiene metas altas.",
+        example_en: "He’s ambitious and wants to be a manager.",
+        example_es: "Él es ambicioso y quiere ser gerente.",
+        neg: "unambitious"
       },
       {
-        w:"anxious", es:"ansioso/a, preocupado/a",
-        m:"Suele sentirse nervioso/a o preocupado/a.",
-        exEN:"She feels anxious before exams.",
-        exES:"Ella se siente ansiosa antes de los exámenes.",
-        neg:null
+        en: "anxious",
+        es: "ansioso/a",
+        meaning: "Se preocupa mucho; está nervioso/a con frecuencia.",
+        example_en: "I feel anxious before exams.",
+        example_es: "Me siento ansioso antes de los exámenes.",
+        neg: ""
       },
       {
-        w:"bossy", es:"mandón/ona",
-        m:"Le gusta mandar y decir a otros qué hacer.",
-        exEN:"He’s bossy and always gives orders.",
-        exES:"Él es mandón y siempre da órdenes.",
-        neg:null
+        en: "bossy",
+        es: "mandón/a",
+        meaning: "Le gusta mandar y decirle a otros qué hacer.",
+        example_en: "Don’t be bossy—let others choose too.",
+        example_es: "No seas mandón: deja que los demás también elijan.",
+        neg: ""
       },
       {
-        w:"charming", es:"encantador/a",
-        m:"Tiene una personalidad atractiva; cae bien.",
-        exEN:"Everyone likes her because she’s charming.",
-        exES:"A todos les cae bien porque es encantadora.",
-        neg:null
+        en: "charming",
+        es: "encantador/a",
+        meaning: "Tiene una personalidad atractiva; cae bien.",
+        example_en: "He’s charming, so people like him quickly.",
+        example_es: "Él es encantador, así que la gente lo quiere rápido.",
+        neg: ""
       },
       {
-        w:"competitive", es:"competitivo/a",
-        m:"Le gusta competir y ganar; quiere ser el/la mejor.",
-        exEN:"He’s competitive and hates losing.",
-        exES:"Él es competitivo y odia perder.",
-        neg:null
+        en: "competitive",
+        es: "competitivo/a",
+        meaning: "Le gusta competir y ganar.",
+        example_en: "She’s competitive and always wants to win.",
+        example_es: "Ella es competitiva y siempre quiere ganar.",
+        neg: ""
       },
       {
-        w:"honest", es:"honesto/a",
-        m:"Dice la verdad; no roba ni engaña.",
-        exEN:"I trust her because she’s honest.",
-        exES:"Confío en ella porque es honesta.",
-        neg:"dishonest — deshonesto/a"
+        en: "honest",
+        es: "honesto/a",
+        meaning: "Dice la verdad; no engaña ni roba.",
+        example_en: "He’s honest—he always tells the truth.",
+        example_es: "Él es honesto: siempre dice la verdad.",
+        neg: "dishonest"
       },
       {
-        w:"imaginative", es:"imaginativo/a",
-        m:"Tiene mucha imaginación; crea ideas nuevas.",
-        exEN:"Kids are imaginative and invent stories.",
-        exES:"Los niños son imaginativos e inventan historias.",
-        neg:"unimaginative — poco imaginativo/a"
+        en: "imaginative",
+        es: "imaginativo/a",
+        meaning: "Tiene mucha imaginación; crea ideas nuevas.",
+        example_en: "My sister is imaginative and writes stories.",
+        example_es: "Mi hermana es imaginativa y escribe historias.",
+        neg: "unimaginative"
       },
       {
-        w:"independent", es:"independiente",
-        m:"Puede hacer cosas solo/a; no depende de otros.",
-        exEN:"She’s independent and likes doing things on her own.",
-        exES:"Ella es independiente y le gusta hacer cosas por su cuenta.",
-        neg:null
+        en: "independent",
+        es: "independiente",
+        meaning: "Le gusta hacer cosas solo/a; no depende de otros.",
+        example_en: "He’s independent and travels alone.",
+        example_es: "Él es independiente y viaja solo.",
+        neg: ""
       },
       {
-        w:"insecure", es:"inseguro/a",
-        m:"No se siente seguro/a; duda de sí mismo/a.",
-        exEN:"He’s insecure about his English.",
-        exES:"Él está inseguro sobre su inglés.",
-        neg:null
+        en: "insecure",
+        es: "inseguro/a",
+        meaning: "No se siente seguro/a de sí mismo/a; le falta confianza.",
+        example_en: "She feels insecure about her English.",
+        example_es: "Ella se siente insegura con su inglés.",
+        neg: ""
       },
       {
-        w:"mature", es:"maduro/a",
-        m:"Se comporta como adulto/a; es responsable para su edad.",
-        exEN:"She’s mature for her age.",
-        exES:"Ella es madura para su edad.",
-        neg:"immature — inmaduro/a"
+        en: "mature",
+        es: "maduro/a",
+        meaning: "Se comporta como adulto; piensa con responsabilidad.",
+        example_en: "For his age, he’s very mature.",
+        example_es: "Para su edad, él es muy maduro.",
+        neg: "immature"
       },
       {
-        w:"moody", es:"cambiante de humor / malhumorado/a",
-        m:"Su humor cambia rápido; a veces está alegre y luego molesto/a.",
-        exEN:"He’s moody these days—sometimes happy, sometimes angry.",
-        exES:"Él está cambiante de humor estos días: a veces feliz, a veces molesto.",
-        neg:null
+        en: "moody",
+        es: "cambiante de humor",
+        meaning: "Cambia de ánimo rápido; a veces está bien y luego mal.",
+        example_en: "He’s moody—one minute he’s happy, then he’s angry.",
+        example_es: "Él es cambiante: un minuto está feliz y luego está molesto.",
+        neg: ""
       },
       {
-        w:"patient", es:"paciente",
-        m:"Puede esperar sin enojarse; tiene calma.",
-        exEN:"Thanks for being patient with me.",
-        exES:"Gracias por tenerme paciencia.",
-        neg:"impatient — impaciente"
+        en: "patient",
+        es: "paciente",
+        meaning: "Sabe esperar; no se desespera.",
+        example_en: "Thanks for being patient with me.",
+        example_es: "Gracias por ser paciente conmigo.",
+        neg: "impatient"
       },
       {
-        w:"rebellious", es:"rebelde",
-        m:"No le gusta obedecer reglas; desafía autoridad.",
-        exEN:"He was rebellious as a teenager.",
-        exES:"Él era rebelde cuando era adolescente.",
-        neg:null
+        en: "rebellious",
+        es: "rebelde",
+        meaning: "No le gusta obedecer reglas; desafía la autoridad.",
+        example_en: "He was rebellious as a teenager.",
+        example_es: "Él era rebelde de adolescente.",
+        neg: ""
       },
       {
-        w:"reliable", es:"confiable",
-        m:"Se puede confiar; cumple lo que promete.",
-        exEN:"She’s reliable—she always arrives on time.",
-        exES:"Ella es confiable: siempre llega a tiempo.",
-        neg:"unreliable — poco confiable"
+        en: "reliable",
+        es: "confiable",
+        meaning: "Cumple lo que promete; se puede confiar en esa persona.",
+        example_en: "She’s reliable—she always arrives on time.",
+        example_es: "Ella es confiable: siempre llega a la hora.",
+        neg: "unreliable"
       },
       {
-        w:"self-confident", es:"seguro/a de sí mismo/a",
-        m:"Cree en sus capacidades; se siente confiado/a.",
-        exEN:"He’s self-confident when he speaks in public.",
-        exES:"Él tiene confianza en sí mismo cuando habla en público.",
-        neg:null
+        en: "self-confident",
+        es: "seguro/a de sí mismo/a",
+        meaning: "Tiene confianza en sus habilidades.",
+        example_en: "He’s self-confident when he speaks in public.",
+        example_es: "Él está seguro de sí mismo cuando habla en público.",
+        neg: ""
       },
       {
-        w:"selfish", es:"egoísta",
-        m:"Piensa más en sí mismo/a que en los demás.",
-        exEN:"Don’t be selfish—share with your sister.",
-        exES:"No seas egoísta: comparte con tu hermana.",
-        neg:"unselfish — generoso/a (significado POSITIVO)"
+        en: "selfish",
+        es: "egoísta",
+        meaning: "Piensa solo en sí mismo/a y no en los demás.",
+        example_en: "Don’t be selfish—share your food.",
+        example_es: "No seas egoísta: comparte tu comida.",
+        neg: "unselfish (positivo)"
       },
       {
-        w:"sensible", es:"sensato/a",
-        m:"Tiene sentido común; piensa de forma práctica.",
-        exEN:"That’s a sensible decision.",
-        exES:"Esa es una decisión sensata.",
-        neg:null
+        en: "sensible",
+        es: "sensato/a",
+        meaning: "Tiene sentido común; toma decisiones prácticas.",
+        example_en: "Be sensible—save some money for later.",
+        example_es: "Sé sensato: guarda algo de dinero para después.",
+        neg: ""
       },
       {
-        w:"sensitive", es:"sensible / susceptible",
-        m:"Se hiere o se ofende fácilmente; es muy emocional.",
-        exEN:"She’s sensitive, so speak politely.",
-        exES:"Ella es sensible, así que habla con respeto.",
-        neg:"insensitive — insensible (no considera sentimientos)"
+        en: "sensitive",
+        es: "sensible (emocional)",
+        meaning: "Se hiere o se ofende fácilmente; muy emocional.",
+        example_en: "She’s sensitive, so speak gently.",
+        example_es: "Ella es sensible, así que habla con cuidado.",
+        neg: "insensitive"
       },
       {
-        w:"sociable", es:"sociable",
-        m:"Es amistoso/a; disfruta estar con gente. (similar: outgoing)",
-        exEN:"He’s sociable and makes friends quickly.",
-        exES:"Él es sociable y hace amigos rápido.",
-        neg:"unsociable — poco sociable"
+        en: "sociable",
+        es: "sociable",
+        meaning: "Es amistoso/a y disfruta estar con otras personas.",
+        example_en: "He’s sociable and makes friends easily.",
+        example_es: "Él es sociable y hace amigos fácilmente.",
+        neg: "unsociable"
       },
       {
-        w:"spoilt", es:"malcriado/a, consentido/a",
-        m:"Se porta mal porque le dan todo lo que quiere.",
-        exEN:"He’s spoilt—his parents never say no.",
-        exES:"Él es malcriado: sus padres nunca le dicen que no.",
-        neg:null
+        en: "spoilt",
+        es: "malcriado/a",
+        meaning: "Se porta mal porque le dieron todo lo que quería (UK: spoilt).",
+        example_en: "The child is spoilt and never says ‘please’.",
+        example_es: "El niño está malcriado y nunca dice ‘por favor’.",
+        neg: ""
       },
       {
-        w:"stubborn", es:"terco/a",
-        m:"No cambia de opinión fácilmente; es muy insistente.",
-        exEN:"She’s stubborn and won’t apologize.",
-        exES:"Ella es terca y no quiere disculparse.",
-        neg:null
+        en: "stubborn",
+        es: "terco/a",
+        meaning: "No cambia de opinión; es muy firme (a veces demasiado).",
+        example_en: "He’s stubborn—he never admits he’s wrong.",
+        example_es: "Él es terco: nunca admite que está equivocado.",
+        neg: ""
       },
 
-      // Extra words used in the prefixes exercise (same topic)
+      // Extra adjectives from the negative-prefix exercise (to match the page)
       {
-        w:"friendly", es:"amigable",
-        m:"Trata bien a los demás; es simpático/a.",
-        exEN:"Our teacher is friendly and helpful.",
-        exES:"Nuestro profesor es amigable y servicial.",
-        neg:"unfriendly — antipático/a"
+        en: "friendly",
+        es: "amigable",
+        meaning: "Trata bien a los demás; es simpático/a.",
+        example_en: "Our neighbors are friendly and helpful.",
+        example_es: "Nuestros vecinos son amigables y serviciales.",
+        neg: "unfriendly"
       },
       {
-        w:"organized", es:"organizado/a",
-        m:"Tiene orden; planifica y mantiene todo en su lugar.",
-        exEN:"She’s organized, so she never forgets homework.",
-        exES:"Ella es organizada, así que nunca olvida la tarea.",
-        neg:"disorganized — desorganizado/a"
+        en: "kind",
+        es: "amable",
+        meaning: "Es bueno/a con otros; ayuda y respeta.",
+        example_en: "She’s kind to everyone in class.",
+        example_es: "Ella es amable con todos en clase.",
+        neg: "unkind"
       },
       {
-        w:"responsible", es:"responsable",
-        m:"Cumple deberes y acepta consecuencias.",
-        exEN:"He’s responsible with his money.",
-        exES:"Él es responsable con su dinero.",
-        neg:"irresponsible — irresponsable"
+        en: "organized",
+        es: "organizado/a",
+        meaning: "Ordena bien sus cosas y planifica.",
+        example_en: "He’s organized, so he finishes tasks early.",
+        example_es: "Él es organizado, así que termina tareas temprano.",
+        neg: "disorganized"
       },
       {
-        w:"tidy", es:"ordenado/a",
-        m:"Mantiene limpio y en orden (habitación, escritorio, etc.).",
-        exEN:"My room is tidy today.",
-        exES:"Mi cuarto está ordenado hoy.",
-        neg:"untidy — desordenado/a"
+        en: "responsible",
+        es: "responsable",
+        meaning: "Cumple deberes y toma buenas decisiones.",
+        example_en: "She’s responsible and studies every day.",
+        example_es: "Ella es responsable y estudia todos los días.",
+        neg: "irresponsible"
       },
       {
-        w:"kind", es:"amable",
-        m:"Es buena persona y trata bien a otros.",
-        exEN:"She’s kind to everyone.",
-        exES:"Ella es amable con todos.",
-        neg:"unkind — poco amable / cruel"
+        en: "tidy",
+        es: "ordenado/a",
+        meaning: "Mantiene limpio y en orden.",
+        example_en: "My room is tidy because I clean it often.",
+        example_es: "Mi cuarto está ordenado porque lo limpio seguido.",
+        neg: "untidy"
       }
     ];
 
-    const listEl = document.getElementById("list");
-    const qEl = document.getElementById("q");
-    const clearBtn = document.getElementById("clearBtn");
+    const $list = document.getElementById("vocabList");
+    const $q = document.getElementById("q");
+    const $clear = document.getElementById("clearBtn");
+    const $hint = document.getElementById("countHint");
+    const $empty = document.getElementById("empty");
 
     function normalize(s){
-      return (s||"")
+      return (s || "")
+        .toString()
         .toLowerCase()
         .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
         .trim();
     }
 
     function render(items){
-      listEl.innerHTML = "";
+      $list.innerHTML = "";
+
       if(!items.length){
-        listEl.innerHTML = `<div class="item" style="grid-column:1/-1">
-          <div class="rowTop">
-            <div class="word">Sin resultados</div>
-            <span class="badge amber">Prueba otro filtro</span>
+        $empty.style.display = "block";
+        $hint.textContent = "Mostrando 0 elementos.";
+        return;
+      }
+      $empty.style.display = "none";
+      $hint.textContent = `Mostrando ${items.length} elemento(s).`;
+
+      for(const v of items){
+        const tags = [];
+        if(v.neg){
+          tags.push(`<span class="tag green">Negativo: <span class="code">${escapeHtml(v.neg)}</span></span>`);
+        }
+        // tags extras por prefijos (para filtrar mejor)
+        const negStr = normalize(v.neg);
+        if(negStr.startsWith("un")) tags.push(`<span class="tag blue">prefijo: <span class="code">un-</span></span>`);
+        if(negStr.startsWith("dis")) tags.push(`<span class="tag blue">prefijo: <span class="code">dis-</span></span>`);
+        if(negStr.startsWith("im")) tags.push(`<span class="tag blue">prefijo: <span class="code">im-</span></span>`);
+        if(negStr.startsWith("ir")) tags.push(`<span class="tag blue">prefijo: <span class="code">ir-</span></span>`);
+        if(negStr.startsWith("il")) tags.push(`<span class="tag blue">prefijo: <span class="code">il-</span></span>`);
+        if(negStr.startsWith("in")) tags.push(`<span class="tag blue">prefijo: <span class="code">in-</span></span>`);
+
+        const html = `
+          <div class="miniCard" data-en="${escapeAttr(v.en)}" data-es="${escapeAttr(v.es)}" data-neg="${escapeAttr(v.neg)}">
+            <div class="wordTop">
+              <p class="wordEn">${escapeHtml(v.en)}</p>
+              <p class="wordEs">${escapeHtml(v.es)}</p>
+            </div>
+
+            <p class="muted" style="margin:6px 0 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; font-size:14px;">
+              <b>Significado:</b> ${escapeHtml(v.meaning)}
+            </p>
+
+            ${tags.length ? `<div class="tagRow">${tags.join("")}</div>` : ""}
+
+            <div class="exBox">
+              <div class="exLine">
+                <span class="exEn">${escapeHtml(v.example_en)}</span>
+              </div>
+              <div class="exLine">
+                <span class="exEs">${escapeHtml(v.example_es)}</span>
+              </div>
+            </div>
           </div>
-          <div class="meaning">Escribe otra palabra o borra el buscador.</div>
-        </div>`;
+        `;
+        $list.insertAdjacentHTML("beforeend", html);
+      }
+    }
+
+    function filter(){
+      const query = normalize($q.value);
+      if(!query){
+        render(VOCAB);
         return;
       }
 
-      for(const v of items){
-        const negChip = v.neg
-          ? `<div class="negLine">Negativo / opuesto: <span style="font-weight:1000">${escapeHtml(v.neg)}</span></div>`
-          : "";
+      const results = VOCAB.filter(v=>{
+        const hay = [
+          v.en, v.es, v.meaning, v.example_en, v.example_es, v.neg
+        ].map(normalize).join(" | ");
 
-        const html = `
-          <div class="item" data-word="${escapeAttr(v.w)}">
-            <div class="rowTop">
-              <div>
-                <div class="word">${escapeHtml(v.w)}</div>
-                <div class="meaning"><span class="badge blue">${escapeHtml(v.es)}</span></div>
-              </div>
-              <span class="badge violet">EN → ES</span>
-            </div>
+        // También permitir buscar por prefijos como "un-" o "dis-"
+        const q2 = query.replace(/-/g,"");
 
-            <div class="meaning">${escapeHtml(v.m)}</div>
-
-            <div class="ex">
-              <div><b>Ejemplo (EN):</b> ${escapeHtml(v.exEN)}</div>
-              <div style="margin-top:6px"><b>Traducción (ES):</b> ${escapeHtml(v.exES)}</div>
-            </div>
-
-            ${negChip}
-          </div>
-        `;
-        listEl.insertAdjacentHTML("beforeend", html);
-      }
-    }
-
-    function escapeHtml(str){
-      return (str||"").replace(/[&<>"']/g, m => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-      }[m]));
-    }
-    function escapeAttr(str){
-      return escapeHtml(str).replace(/"/g,"&quot;");
-    }
-
-    function applyFilter(){
-      const q = normalize(qEl.value);
-      if(!q){ render(vocab); return; }
-
-      const filtered = vocab.filter(v=>{
-        const hay = normalize(
-          `${v.w} ${v.es} ${v.m} ${v.exEN} ${v.exES} ${v.neg||""}`
-        );
-        return hay.includes(q);
+        return hay.includes(query) || hay.includes(q2);
       });
-      render(filtered);
+
+      render(results);
     }
 
-    qEl.addEventListener("input", applyFilter);
-    clearBtn.addEventListener("click", ()=>{
-      qEl.value = "";
-      qEl.focus();
-      render(vocab);
-    });
+    function escapeHtml(s){
+      return (s ?? "").toString()
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+    function escapeAttr(s){
+      return escapeHtml(s).replaceAll("\n"," ");
+    }
 
-    // initial
-    render(vocab);
+    // Init
+    render(VOCAB);
+
+    // Events
+    $q.addEventListener("input", filter);
+    $clear.addEventListener("click", ()=>{
+      $q.value = "";
+      $q.focus();
+      render(VOCAB);
+    });
   </script>
 </body>
 </html>
