@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marco Teórico 3B - Daku</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=2" type="image/png" />
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
+
+      --accent: #2563eb;  /* azul */
+      --accent2:#10b981;  /* verde */
+      --warn:#f59e0b;     /* ámbar */
+      --danger:#ef4444;   /* rojo */
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+    }
+
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+      text-align:center;
+    }
+
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 2.8vw, 17px);
+      line-height: 1.45;
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .bar.warn{ background: linear-gradient(90deg, var(--warn), var(--accent)); }
+    .bar.danger{ background: linear-gradient(90deg, var(--danger), var(--warn)); }
+
+    .content{
+      padding: 16px 16px 14px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(18px, 3.8vw, 24px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+
+    h3{
+      margin:14px 0 8px;
+      font-size: clamp(16px, 3.4vw, 20px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .15px;
+    }
+
+    p{
+      font-size: clamp(15px, 3.4vw, 18px);
+      line-height: 1.55;
+      margin: 8px 0;
+    }
+
+    .muted{ color: var(--muted); }
+
+    ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+    li{
+      margin: 8px 0;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .callout{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(37,99,235,.06);
+    }
+    .callout strong{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .callout.ok{ background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.20); }
+    .callout.warn{ background: rgba(245,158,11,.10); border-color: rgba(245,158,11,.22); }
+    .callout.bad{ background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.20); }
+
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: .95em;
+      background: rgba(17,24,39,.05);
+      padding: 2px 6px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    .examples{
+      margin-top: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(255,255,255,.72);
+    }
+    .exLine{
+      margin: 8px 0;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+    .exEn{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      letter-spacing:.15px;
+    }
+    .exEs{ color: var(--muted); }
+
+    .miniGrid{
+      display:grid;
+      gap: 10px;
+      margin-top: 10px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 760px){
+      .miniGrid{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .miniCard{
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      padding: 12px 12px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    .miniTitle{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+    .miniText{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    details{
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      padding: 10px 12px;
+      margin-top: 10px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    summary{
+      cursor: pointer;
+      list-style: none;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+    }
+    summary::-webkit-details-marker{ display:none; }
+
+    .navRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .navBtn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+    }
+    .navBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .navBtn:active{ transform: translateY(0px); }
+
+    .btnBack{ background: linear-gradient(135deg, #ef4444, #dc2626); }
+    .btnVocab{ background: linear-gradient(135deg, #10b981, #059669); }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .pillRow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+      justify-content:center;
+    }
+    .pill{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.90);
+      color: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Marco Teórico — Tema 3B</h1>
+      <p class="subtitle">
+        <b>Articles</b> — <b>a / an</b>, <b>the</b> y <b>— (no article)</b>.
+        Diferencia clave: <b>general vs específico</b>, <b>primera mención</b>, <b>único</b>,
+        <b>lugares en una ciudad</b>, <b>comidas/días/meses</b> y <b>home/work/school</b>.
+      </p>
+
+      <div class="pillRow" aria-label="Palabras clave">
+        <span class="pill">a / an</span>
+        <span class="pill">the</span>
+        <span class="pill">— (no article)</span>
+        <span class="pill">first mention</span>
+        <span class="pill">general vs specific</span>
+        <span class="pill">jobs</span>
+        <span class="pill">frequency</span>
+        <span class="pill">unique things</span>
+        <span class="pill">home / work / school</span>
+        <span class="pill">meals</span>
+        <span class="pill">days / months</span>
+        <span class="pill">superlatives</span>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <!-- 1) Mapa rápido -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>1) Mapa rápido (elige el artículo en 3 segundos)</h2>
+
+          <div class="miniGrid">
+            <div class="miniCard">
+              <p class="miniTitle">¿Es “uno cualquiera”? → <span class="code">a / an</span></p>
+              <p class="miniText">
+                Úsalo con <b>singular contable</b> cuando:
+                <br>• es la <b>primera vez</b> que lo mencionas
+                <br>• dices <b>qué es</b> / <b>qué trabajo</b> tiene alguien
+                <br>• exclamación: <span class="code">What a/an…!</span>
+                <br>• frecuencia: <span class="code">once a week</span>
+              </p>
+            </div>
+
+            <div class="miniCard">
+              <p class="miniTitle">¿Ya sabemos cuál? → <span class="code">the</span></p>
+              <p class="miniText">
+                Úsalo cuando es <b>específico</b>:
+                <br>• ya lo mencionaste
+                <br>• está “claro cuál” (contexto)
+                <br>• hay <b>solo uno</b> (the moon)
+                <br>• lugares en ciudad: <span class="code">the cinema</span>
+                <br>• superlativos: <span class="code">the best</span>
+              </p>
+            </div>
+
+            <div class="miniCard">
+              <p class="miniTitle">¿Hablas “en general”? → <span class="code">—</span> (sin artículo)</p>
+              <p class="miniText">
+                Úsalo cuando:
+                <br>• plural / incontable en general: <span class="code">Cats are clever</span>
+                <br>• rutinas: <span class="code">at home / from work</span>
+                <br>• comidas: <span class="code">have breakfast</span>
+                <br>• días/meses: <span class="code">on Tuesday</span>
+                <br>• <span class="code">next/last</span>: <span class="code">next week</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="callout ok">
+            <strong>Regla ultra rápida:</strong>
+            <span class="muted">
+              <b>a/an</b> = “uno” (no específico) · <b>the</b> = “ese/esa” (específico) · <b>—</b> = “en general” o “rutina”.
+              Si dudas: pregunta mental: <i>¿mi oyente sabe exactamente cuál?</i>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2) a / an -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>2) <span class="code">a / an</span> (indefinite article)</h2>
+
+          <h3>Para qué sirve</h3>
+          <p class="muted">
+            Para hablar de <b>una cosa/persona</b> (singular contable) cuando <b>no es específica</b> o es la <b>primera mención</b>.
+          </p>
+
+          <h3>Cuándo se usa (las 4 razones típicas)</h3>
+          <ul>
+            <li><b>Qué es</b> algo / <b>qué hace</b> alguien: <span class="code">She’s a lawyer.</span></li>
+            <li><b>Primera vez</b> que mencionas algo: <span class="code">I saw an old man…</span></li>
+            <li>Exclamaciones con <span class="code">What…!</span>: <span class="code">What an awful day!</span></li>
+            <li>Frecuencia: <span class="code">three times a week</span> / <span class="code">once a week</span></li>
+          </ul>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">It’s a nice house.</span>
+              <span class="exEs">— Es una casa bonita (una, no específica).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">I saw an old man with a dog.</span>
+              <span class="exEs">— Vi a un señor mayor con un perro (primera mención).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">What an awful day!</span>
+              <span class="exEs">— ¡Qué día tan horrible! (exclamación).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">I have classes three times a week.</span>
+              <span class="exEs">— Tengo clases 3 veces por semana (frecuencia).</span>
+            </div>
+          </div>
+
+          <div class="callout warn">
+            <strong>Trampa #1 (mega común): <span class="code">a</span> vs <span class="code">an</span> es por <u>sonido</u>, no por letra</strong>
+            <span class="muted">
+              <br>✅ <span class="code">an</span> + sonido vocal: <span class="code">an hour</span> (h muda → /aʊər/)
+              <br>✅ <span class="code">a</span> + sonido consonante: <span class="code">a university</span> (suena /juː…/)
+              <br><span class="code">Tip:</span> si al decirlo empieza como “A, E, I, O, U” (sonido), usa <span class="code">an</span>.
+            </span>
+          </div>
+
+          <div class="callout bad">
+            <strong>Trampa #2: No uses <span class="code">a/an</span> con plural o incontables</strong>
+            <ul>
+              <li><span class="code">❌ a cars</span> → plural no lleva <span class="code">a/an</span>.</li>
+              <li><span class="code">❌ an information</span> / <span class="code">❌ a money</span> → incontables en general no van con <span class="code">a/an</span>.</li>
+              <li>✅ Solución: <span class="code">some information</span>, <span class="code">a piece of information</span>, <span class="code">some money</span>.</li>
+            </ul>
+          </div>
+
+          <div class="callout ok">
+            <strong>Diferencia clave con <span class="code">the</span>:</strong>
+            <span class="muted">
+              <br><span class="code">I saw a dog.</span> = “un perro (cualquiera)”
+              <br><span class="code">I saw the dog.</span> = “ese perro (el que ya sabemos cuál)”
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3) the -->
+      <section class="card">
+        <div class="bar warn"></div>
+        <div class="content">
+          <h2>3) <span class="code">the</span> (definite article)</h2>
+
+          <h3>Idea</h3>
+          <p class="muted">
+            <span class="code">the</span> = <b>específico</b>. Lo usamos cuando el oyente puede identificar exactamente de qué hablamos.
+          </p>
+
+          <h3>Cuándo se usa (las 5 razones típicas)</h3>
+          <ul>
+            <li>Ya se mencionó: <span class="code">I saw a dog. The dog was barking.</span></li>
+            <li>Está claro cuál (contexto): <span class="code">the door</span> (de esa casa), <span class="code">the teacher</span> (de tu clase).</li>
+            <li>Solo hay uno: <span class="code">the moon</span>, <span class="code">the Earth</span>.</li>
+            <li>Lugares en una ciudad: <span class="code">the cinema</span>, <span class="code">the theatre</span>.</li>
+            <li>Superlativos: <span class="code">the best</span>, <span class="code">the most beautiful</span>.</li>
+          </ul>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">I saw an old man with a dog. The dog was barking.</span>
+              <span class="exEs">— 1ª mención: <b>a dog</b>. 2ª mención: <b>the dog</b>.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">The bell rang and my father opened the door.</span>
+              <span class="exEs">— Es “la puerta” de esa casa (contexto).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">The moon goes round the Earth.</span>
+              <span class="exEs">— Son únicos (solo hay uno).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">I’m going to the cinema tonight.</span>
+              <span class="exEs">— Lugar típico en una ciudad.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">It’s the best restaurant in town.</span>
+              <span class="exEs">— Superlativo: casi siempre va con <b>the</b>.</span>
+            </div>
+          </div>
+
+          <details>
+            <summary>Otros usos importantes de <span class="code">the</span> (sube nivel)</summary>
+            <ul>
+              <li>Con cláusula relativa que “define”: <span class="code">the man who lives next door</span>.</li>
+              <li>Océanos, ríos, grupos de islas: <span class="code">the Pacific</span>, <span class="code">the Amazon</span>, <span class="code">the Bahamas</span>.</li>
+              <li>Algunos países: <span class="code">the United States</span>, <span class="code">the United Kingdom</span>.</li>
+              <li>Expresiones fijas: <span class="code">all the time</span>, <span class="code">at the same time</span>, <span class="code">go to the gym</span>.</li>
+            </ul>
+          </details>
+
+          <div class="callout bad">
+            <strong>Trampa #3: “<span class="code">the</span>” NO es para hablar en general</strong>
+            <span class="muted">
+              <br>✅ General: <span class="code">Cats are clever animals.</span> (gatos en general)
+              <br>✅ Específico: <span class="code">The cats are in the garden.</span> (esos gatos конкретos)
+              <br><span class="code">Razón:</span> <span class="code">the</span> obliga a que exista un grupo identificable para el oyente.
+            </span>
+          </div>
+
+          <div class="callout warn">
+            <strong>Trampa #4: “home / work / school” cambian de sentido con <span class="code">the</span></strong>
+            <span class="muted">
+              <br>✅ Rutina/institución: <span class="code">go to school</span> (ir a estudiar)
+              <br>✅ Edificio específico: <span class="code">go to the school</span> (ir al edificio, quizá por una reunión)
+              <br>✅ Rutina: <span class="code">at home</span> / <span class="code">from work</span>
+              <br>✅ Lugar específico: <span class="code">at the home</span> (p.ej., “the nursing home”) o “en esa casa”.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4) No article -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>4) <span class="code">—</span> (no article)</h2>
+
+          <h3>Idea</h3>
+          <p class="muted">
+            Sin artículo = normalmente hablamos <b>en general</b> (plural / incontable) o de <b>rutinas</b> y <b>tiempo</b>.
+          </p>
+
+          <h3>Cuándo NO usamos artículo (4 reglas que salen en examen)</h3>
+          <ul>
+            <li><b>General</b> con plural e incontables:
+              <span class="code">Girls learn earlier than boys.</span> · <span class="code">Love is important.</span></li>
+            <li>Con algunas palabras de rutina:
+              <span class="code">at home</span>, <span class="code">from work</span>, <span class="code">go to school</span> (institución).</li>
+            <li>Antes de <b>comidas</b>, <b>días</b> y <b>meses</b>:
+              <span class="code">have breakfast</span> · <span class="code">on Tuesday</span> · <span class="code">in March</span>.</li>
+            <li>Antes de <b>next / last</b>:
+              <span class="code">next week</span> · <span class="code">last month</span>.</li>
+          </ul>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">Girls often learn to read earlier than boys.</span>
+              <span class="exEs">— Hablas en general (plural).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">Love is more important than money.</span>
+              <span class="exEs">— Incontables en general (love/money).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">She’s not at home today. I get back from work at 5.30.</span>
+              <span class="exEs">— Rutinas: <b>home/work</b> sin artículo.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">I never have breakfast. I’m going to the theatre on Tuesday.</span>
+              <span class="exEs">— Comida sin artículo; día sin artículo; “the theatre” sí lleva <b>the</b> (lugar en ciudad).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">See you next week.</span>
+              <span class="exEs">— <b>next</b> + week: sin artículo.</span>
+            </div>
+          </div>
+
+          <div class="callout warn">
+            <strong>Trampa #5: “sin artículo” vs “<span class="code">the</span>” (general vs específico)</strong>
+            <span class="muted">
+              <br>✅ General: <span class="code">I love flowers.</span>
+              <br>✅ Específico: <span class="code">I love the flowers in my garden.</span> (las flores de “mi jardín”)
+              <br><span class="code">Razón:</span> la frase <span class="code">in my garden</span> define cuáles flores son → se vuelven específicas.
+            </span>
+          </div>
+
+          <div class="callout ok">
+            <strong>Truco rápido:</strong>
+            <span class="muted">
+              Si puedes responder <i>“¿cuáles?”</i> con una respuesta clara → probablemente necesitas <span class="code">the</span>.
+              Si no (porque hablas “en general”) → probablemente va <span class="code">—</span>.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5) Trampas -->
+      <section class="card">
+        <div class="bar danger"></div>
+        <div class="content">
+          <h2>5) Trampas típicas (y por qué NO se pueden usar)</h2>
+
+          <h3>Trampa A: Elegir <span class="code">a/an</span> por letra (incorrecto)</h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">❌ an university</span>
+              <span class="exEs">— Incorrecto: <b>university</b> suena /juː…/ (consonante).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ a university</span>
+              <span class="exEs">— Correcto: <b>a</b> + sonido consonante.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">❌ a hour</span>
+              <span class="exEs">— Incorrecto: <b>hour</b> empieza con sonido vocal (h muda).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ an hour</span>
+              <span class="exEs">— Correcto: <b>an</b> + sonido vocal.</span>
+            </div>
+          </div>
+          <div class="callout warn">
+            <strong>Diferencia:</strong>
+            <span class="muted">La elección depende de <b>pronunciación</b> (sonido inicial), no de cómo se escribe.</span>
+          </div>
+
+          <h3>Trampa B: Usar <span class="code">a/an</span> con incontables o plurales</h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">❌ a money / ❌ an advice / ❌ a people</span>
+              <span class="exEs">— Incontables/plural no aceptan <b>a/an</b> así.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ some money / ✅ a piece of advice / ✅ a person</span>
+              <span class="exEs">— “Some” o “piece of…” o cambias a singular contable.</span>
+            </div>
+          </div>
+          <div class="callout bad">
+            <strong>Razón:</strong>
+            <span class="muted">
+              <span class="code">a/an</span> significa “<b>uno</b>” → solo funciona con <b>singular contable</b>.
+            </span>
+          </div>
+
+          <h3>Trampa C: Poner <span class="code">the</span> cuando hablas en general</h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">❌ The dogs are friendly. (si hablas de perros en general)</span>
+              <span class="exEs">— Suena como “esos perros” (un grupo específico).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ Dogs are friendly.</span>
+              <span class="exEs">— General: perros en general.</span>
+            </div>
+          </div>
+          <div class="callout warn">
+            <strong>Diferencia:</strong>
+            <span class="muted">
+              <span class="code">the + plural</span> = “ese grupo” · <span class="code">plural sin artículo</span> = “en general”.
+            </span>
+          </div>
+
+          <h3>Trampa D: No cambiar a <span class="code">the</span> en la segunda mención</h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">❌ I saw a dog. A dog was barking.</span>
+              <span class="exEs">— Parece que ahora es “otro perro”, no el mismo.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ I saw a dog. The dog was barking.</span>
+              <span class="exEs">— Correcto: ya sabemos cuál perro es.</span>
+            </div>
+          </div>
+          <div class="callout ok">
+            <strong>Razón:</strong>
+            <span class="muted">
+              El primer <span class="code">a</span> “presenta” el sustantivo; luego <span class="code">the</span> lo “señala”.
+            </span>
+          </div>
+
+          <h3>Trampa E: <span class="code">school/work/home</span> (institución) vs <span class="code">the school/the work/the home</span> (lugar específico)</h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">✅ The children are at school.</span>
+              <span class="exEs">— “Los niños (específicos)” + rutina “at school” (están en clases).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ I’m going to school. / ✅ I’m going to the school.</span>
+              <span class="exEs">— Sin <b>the</b>: voy a estudiar. Con <b>the</b>: voy al edificio (reunión, recoger algo).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ I’m at home. / ✅ I’m at the home (less common).</span>
+              <span class="exEs">— “At home” = rutina. “At the home” = un lugar específico (p.ej. “nursing home”).</span>
+            </div>
+          </div>
+          <div class="callout warn">
+            <strong>Diferencia:</strong>
+            <span class="muted">
+              Sin artículo suele hablar de la <b>función/rutina</b>; con <span class="code">the</span> hablas del <b>lugar concreto</b>.
+            </span>
+          </div>
+
+          <h3>Trampa F: Tiempo (días/meses/next/last) y lugares típicos</h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">❌ on the Tuesday (para un martes normal)</span>
+              <span class="exEs">— En este nivel, el martes “normal” va sin artículo.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ on Tuesday / ✅ in March / ✅ next week</span>
+              <span class="exEs">— Regla de examen: sin artículo con días/meses y next/last.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ the cinema / ✅ the theatre</span>
+              <span class="exEs">— Lugares típicos en una ciudad suelen llevar <b>the</b>.</span>
+            </div>
+          </div>
+          <div class="callout bad">
+            <strong>Razón:</strong>
+            <span class="muted">
+              Días/meses funcionan como “nombres de tiempo” (no artículo); lugares típicos son “destinos conocidos” (the).
+            </span>
+          </div>
+
+          <details>
+            <summary>Checklist final (si quieres 0 errores)</summary>
+            <ul>
+              <li><b><span class="code">a/an</span></b> = singular contable, primera mención, job, What a/an, frecuencia.</li>
+              <li><b><span class="code">the</span></b> = específico: ya mencionado, contexto claro, único, lugares en ciudad, superlativos.</li>
+              <li><b><span class="code">—</span></b> = plural/incontable en general, rutinas (home/work/school), comidas, días/meses, next/last.</li>
+              <li><b>Trampa clave:</b> <span class="code">a/an</span> por <u>sonido</u>, no por letra.</li>
+              <li><b>General vs específico:</b> si puedes responder “¿cuáles exactamente?” → probablemente <span class="code">the</span>.</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+
+      <!-- Navegación (Tema 3B) -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Navegación</h2>
+          <p class="muted">
+            Vuelve al tema anterior o pasa al vocabulario correspondiente.
+          </p>
+
+          <div class="navRow">
+            <button class="navBtn btnBack" onclick="window.location.href='mark4.html'">Atras</button>
+            <button class="navBtn btnVocab" onclick="window.location.href='vocabulario5.html'">Vocabulario</button>
+          </div>
+
+          <div class="footerHint">
+            (Tema 3B listo — seguimos con <b>Vocabulario</b>.)
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</body>
+</html>
