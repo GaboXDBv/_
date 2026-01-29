@@ -1,1 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marco Teórico 5 - Daku</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=2" type="image/png" />
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
+
+      --accent: #2563eb;  /* azul */
+      --accent2:#10b981;  /* verde */
+      --warn:#f59e0b;     /* ámbar */
+      --danger:#ef4444;   /* rojo */
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+    }
+
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+      text-align:center;
+    }
+
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 2.8vw, 17px);
+      line-height: 1.45;
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .bar.warn{ background: linear-gradient(90deg, var(--warn), var(--accent)); }
+    .bar.danger{ background: linear-gradient(90deg, var(--danger), var(--warn)); }
+
+    .content{
+      padding: 16px 16px 14px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(18px, 3.8vw, 24px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+
+    h3{
+      margin:14px 0 8px;
+      font-size: clamp(16px, 3.4vw, 20px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .15px;
+    }
+
+    p{
+      font-size: clamp(15px, 3.4vw, 18px);
+      line-height: 1.55;
+      margin: 8px 0;
+    }
+
+    .muted{ color: var(--muted); }
+
+    ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+    li{
+      margin: 8px 0;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .callout{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(37,99,235,.06);
+    }
+    .callout strong{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .callout.ok{ background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.20); }
+    .callout.warn{ background: rgba(245,158,11,.10); border-color: rgba(245,158,11,.22); }
+    .callout.bad{ background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.20); }
+
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: .95em;
+      background: rgba(17,24,39,.05);
+      padding: 2px 6px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    .examples{
+      margin-top: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(255,255,255,.72);
+    }
+    .exLine{
+      margin: 8px 0;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+    .exEn{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      letter-spacing:.15px;
+    }
+    .exEs{ color: var(--muted); }
+
+    .miniGrid{
+      display:grid;
+      gap: 10px;
+      margin-top: 10px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 760px){
+      .miniGrid{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .miniCard{
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      padding: 12px 12px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    .miniTitle{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+    .miniText{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    details{
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      padding: 10px 12px;
+      margin-top: 10px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    summary{
+      cursor: pointer;
+      list-style: none;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+    }
+    summary::-webkit-details-marker{ display:none; }
+
+    .navRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .navBtn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+    }
+    .navBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .navBtn:active{ transform: translateY(0px); }
+
+    .btnBack{ background: linear-gradient(135deg, #ef4444, #dc2626); }
+    .btnVocab{ background: linear-gradient(135deg, #10b981, #059669); }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .pillRow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .pill{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.90);
+      color: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Marco Teórico — Tema 5</h1>
+      <p class="subtitle">
+        <b>Comparatives & Superlatives</b> — adjetivos y adverbios, <b>(not) as … as</b>, reglas de escritura, irregulares,
+        pronombres después de <b>than/as</b> y <b>in</b> después de superlativos.
+      </p>
+      <div class="pillRow" aria-label="Palabras clave">
+        <span class="pill">than</span>
+        <span class="pill">(not) as … as</span>
+        <span class="pill">-er / -est</span>
+        <span class="pill">more / most</span>
+        <span class="pill">less / least</span>
+        <span class="pill">better / worse</span>
+        <span class="pill">in (NOT of)</span>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <!-- 1) Mapa rápido -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>1) Mapa rápido (elige lo correcto en 3 segundos)</h2>
+
+          <div class="miniGrid">
+            <div class="miniCard">
+              <p class="miniTitle">¿Comparo 2 cosas? → Comparative</p>
+              <p class="miniText">
+                <span class="code">adj/adv + (er)</span> + <span class="code">than</span><br>
+                o <span class="code">more/less + adj/adv</span> + <span class="code">than</span>
+                <br><br>
+                Igualdad: <span class="code">(not) as + adj/adv + as</span>
+              </p>
+            </div>
+
+            <div class="miniCard">
+              <p class="miniTitle">¿Uno dentro de un grupo? → Superlative</p>
+              <p class="miniText">
+                <span class="code">the + adj/adv + (est)</span><br>
+                o <span class="code">the most/least + adj/adv</span>
+                <br><br>
+                Lugar después: <span class="code">in</span> (NO <span class="code">of</span>)
+              </p>
+            </div>
+          </div>
+
+          <div class="callout ok">
+            <strong>Regla ultra rápida:</strong>
+            <span class="muted">
+              <b>Comparatives</b> = 2 cosas (A vs B). <b>Superlatives</b> = 1 cosa comparada con “todos”.
+              Si dudas: corto → <span class="code">-er/-est</span>; largo → <span class="code">more/most</span>.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2) Comparatives (adjectives) -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>2) Comparatives con ADJETIVOS (people/places/things)</h2>
+
+          <h3>Para qué sirve</h3>
+          <p class="muted">
+            Para comparar <b>dos</b> personas/cosas/lugares: A es “más/menos” que B.
+          </p>
+
+          <h3>Formas</h3>
+          <ul>
+            <li><span class="code">old → older</span> / <span class="code">fast → faster</span></li>
+            <li><span class="code">modern → more modern</span> / <span class="code">difficult → more difficult</span></li>
+            <li><span class="code">less + adjective</span>: <span class="code">less difficult</span></li>
+          </ul>
+
+          <div class="miniGrid">
+            <div class="miniCard">
+              <p class="miniTitle">Reglas rápidas de escritura</p>
+              <p class="miniText">
+                <span class="code">big → bigger</span> (doble consonante)<br>
+                <span class="code">easy → easier</span> (y → i + er)<br>
+                <span class="code">nice → nicer</span> (e final se va)
+              </p>
+            </div>
+            <div class="miniCard">
+              <p class="miniTitle">Irregulares (sí o sí)</p>
+              <p class="miniText">
+                <span class="code">good → better</span><br>
+                <span class="code">bad → worse</span><br>
+                <span class="code">far → farther / further</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">My car is a bit older than yours.</span>
+              <span class="exEs">— Mi auto es un poco más viejo que el tuyo.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">This test is less difficult than the last one.</span>
+              <span class="exEs">— Este examen es menos difícil que el anterior.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">Olive oil is better for you than butter.</span>
+              <span class="exEs">— El aceite de oliva es mejor para ti que la mantequilla.</span>
+            </div>
+          </div>
+
+          <h3>(Not) as … as (igualdad)</h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">The new sofa isn’t as comfortable as the old one.</span>
+              <span class="exEs">— El nuevo sofá no es tan cómodo como el viejo.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">I don’t have as many books as I used to.</span>
+              <span class="exEs">— No tengo tantos libros como antes.</span>
+            </div>
+          </div>
+
+          <div class="callout warn">
+            <strong>Pronombres después de <span class="code">than</span> / <span class="code">as</span>:</strong>
+            <span class="muted">
+              <br><span class="code">She’s taller than me.</span> ✅
+              <br><span class="code">She’s taller than I am.</span> ✅
+              <br><span class="code">❌ She’s taller than I.</span> (evítalo en este nivel)
+              <br><span class="code">They’re not as busy as us.</span> ✅ / <span class="code">… as we are.</span> ✅
+            </span>
+          </div>
+
+          <div class="callout">
+            <strong>Extra útil:</strong>
+            <span class="muted">
+              Con adjetivos terminados en <span class="code">-ed</span> (sentimientos) es normal usar <span class="code">more</span>:
+              <br><span class="code">bored → more bored</span> · <span class="code">tired → more tired</span>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3) Comparatives (adverbs) -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>3) Comparatives con ADVERBIOS (comparing two actions)</h2>
+
+          <h3>Idea</h3>
+          <p class="muted">
+            Para comparar <b>cómo</b> hacen algo (dos acciones): más rápido, más lento, peor, mejor…
+          </p>
+
+          <h3>Formas típicas</h3>
+          <ul>
+            <li>Adverbio corto: <span class="code">fast → faster</span></li>
+            <li>Adverbio largo: <span class="code">slowly → more slowly</span> · <span class="code">carefully → more carefully</span></li>
+            <li>Irregulares: <span class="code">well → better</span> · <span class="code">badly → worse</span></li>
+          </ul>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">My father drives faster than me.</span>
+              <span class="exEs">— Mi papá maneja más rápido que yo.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">He walks more slowly than I do.</span>
+              <span class="exEs">— Él camina más lento que yo (uso <b>do</b> para no repetir “walk”).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">Liverpool played worse today than last week.</span>
+              <span class="exEs">— Hoy jugaron peor que la semana pasada.</span>
+            </div>
+          </div>
+
+          <div class="callout ok">
+            <strong>Tip de examen:</strong>
+            <span class="muted">
+              Si no quieres repetir el verbo, usa auxiliar:
+              <br><span class="code">than I do / than he does / than we did</span>.
+            </span>
+          </div>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">Max doesn’t speak English as well as his wife.</span>
+              <span class="exEs">— Max no habla inglés tan bien como su esposa.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">I don’t earn as much as my boss.</span>
+              <span class="exEs">— No gano tanto como mi jefe.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4) Superlatives -->
+      <section class="card">
+        <div class="bar warn"></div>
+        <div class="content">
+          <h2>4) Superlatives (the best / the most…)</h2>
+
+          <h3>Para qué sirve</h3>
+          <p class="muted">
+            Para comparar <b>una</b> persona/cosa/acción con <b>todas</b> las del grupo.
+          </p>
+
+          <h3>Formación</h3>
+          <ul>
+            <li><span class="code">tall → the tallest</span> · <span class="code">cheap → the cheapest</span></li>
+            <li><span class="code">expensive → the most expensive</span> · <span class="code">interesting → the most interesting</span></li>
+            <li><span class="code">the least + adjective</span>: <span class="code">the least expensive</span></li>
+            <li>Irregulares: <span class="code">good → the best</span> · <span class="code">bad → the worst</span></li>
+          </ul>
+
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">Kevin is the tallest player in the team.</span>
+              <span class="exEs">— Kevin es el más alto del equipo.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">Oslo is the most expensive capital city in Europe.</span>
+              <span class="exEs">— Oslo es la capital más cara de Europa.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">That’s the worst we’ve ever played.</span>
+              <span class="exEs">— Es lo peor que hemos jugado (present perfect + ever).</span>
+            </div>
+          </div>
+
+          <div class="callout ok">
+            <strong>Regla importante:</strong>
+            <span class="muted">
+              Normalmente usamos <span class="code">the</span> antes del superlativo:
+              <br><span class="code">the best / the most famous</span>.
+              <br>Pero a veces va con posesivos:
+              <span class="code">my best friend</span>, <span class="code">their most famous song</span>.
+            </span>
+          </div>
+
+          <div class="callout warn">
+            <strong><span class="code">in</span> después de superlativos (NO <span class="code">of</span>):</strong>
+            <span class="muted">
+              <br><span class="code">It’s the longest bridge in the world.</span> ✅
+              <br><span class="code">It’s the best beach in England.</span> ✅
+              <br><span class="code">❌ … of the world / of England</span>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5) Trampas -->
+      <section class="card">
+        <div class="bar danger"></div>
+        <div class="content">
+          <h2>5) Trampas típicas (para no perder puntos)</h2>
+
+          <h3>Trampa 1: Doble comparativo</h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">❌ more older / more cheaper</span>
+              <span class="exEs">— No uses <b>more</b> con adjetivos que ya van con <b>-er</b>.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ older / ✅ cheaper / ✅ more expensive</span>
+              <span class="exEs">— Corto → -er, largo → more.</span>
+            </div>
+          </div>
+
+          <h3>Trampa 2: Olvidar <span class="code">than</span></h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">❌ My car is older yours.</span>
+              <span class="exEs">— Falta <b>than</b>.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ My car is older than yours.</span>
+              <span class="exEs">— Correcto.</span>
+            </div>
+          </div>
+
+          <h3>Trampa 3: Confundir <span class="code">as … as</span></h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">❌ as comfortable than</span>
+              <span class="exEs">— Con igualdad se usa <b>as … as</b>, no <b>than</b>.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ as comfortable as</span>
+              <span class="exEs">— Correcto.</span>
+            </div>
+          </div>
+
+          <h3>Trampa 4: Pronombres después de <span class="code">than</span>/<span class="code">as</span></h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">✅ taller than me</span>
+              <span class="exEs">— Suena natural y es correcto.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">✅ taller than I am</span>
+              <span class="exEs">— También correcto (más “formal”).</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">❌ taller than I</span>
+              <span class="exEs">— Evítalo: si usas “I”, complétalo con auxiliar (<b>I am</b>).</span>
+            </div>
+          </div>
+
+          <h3>Trampa 5: <span class="code">in</span> vs <span class="code">of</span> con superlativos</h3>
+          <div class="examples">
+            <div class="exLine">
+              <span class="exEn">✅ the best beach in England</span>
+              <span class="exEs">— “Lugar” después: usa <b>in</b>.</span>
+            </div>
+            <div class="exLine">
+              <span class="exEn">❌ the best beach of England</span>
+              <span class="exEs">— Incorrecto en esta estructura.</span>
+            </div>
+          </div>
+
+          <div class="callout bad">
+            <strong>Checklist final:</strong>
+            <ul>
+              <li>Comparativo = 2 cosas: <span class="code">-er</span> o <span class="code">more/less</span> + <span class="code">than</span>.</li>
+              <li>Igualdad: <span class="code">(not) as + adj/adv + as</span> y <span class="code">as many/much</span>.</li>
+              <li>Superlativo = 1 en el grupo: <span class="code">the -est</span> o <span class="code">the most/least</span>.</li>
+              <li>Después de superlativos: <span class="code">in</span> (NO <span class="code">of</span>).</li>
+              <li>Irregulares clave: <span class="code">better/worse</span>, <span class="code">best/worst</span>.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Navegación (Tema 5) -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Navegación</h2>
+          <p class="muted">
+            Vuelve al tema anterior o pasa al vocabulario del Tema 5.
+          </p>
+
+          <div class="navRow">
+            <button class="navBtn btnBack" onclick="window.location.href='mark4.html'">Atras</button>
+            <button class="navBtn btnVocab" onclick="window.location.href='vocabulario5.html'">Vocabulario5</button>
+          </div>
+
+          <div class="footerHint">
+            (Tema 5 listo — seguimos con <b>Vocabulario 5</b>.)
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</body>
+</html>
  
