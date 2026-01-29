@@ -405,6 +405,448 @@
 
     // 30 preguntas: strong adjectives + intensifiers (difíciles, sin repetir)
     // 30 preguntas — Tema 4: Present Perfect Continuous vs Present Perfect + for/since/how long
+    // 60 preguntas — Tema 5: Articles (a/an/the/—) + Prepositions after verbs/adjectives
+// Nota: cuando sea "no article", escribe: —   (también acepto "-" o "no article")
+const QUESTION_BANK = [
+  /* ===================== ARTICLES (a / an / the / —) ===================== */
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—). Type — for no article:\nLast Saturday I went for a walk and I saw ____ old man sitting on a bench. He was feeding birds and smiling, and for a moment the whole park felt peaceful.",
+    answers: ["an"],
+    showExpected: "an",
+    explain: { okTitle: "an + vowel sound", okPoints: ["✅ <span class='code'>an</span> old man (old empieza con sonido vocal)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nWhat ____ incredible coincidence! I was thinking about you all morning, and then I bumped into you right outside the station.",
+    answers: ["an"],
+    showExpected: "an",
+    explain: { okTitle: "What + a/an!", okPoints: ["✅ En exclamaciones: <span class='code'>What an</span> + singular countable."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nI try to stay fit, so I go to the gym three times ____ week. If I miss it, I feel lazy and my mood gets worse.",
+    answers: ["a"],
+    showExpected: "a",
+    explain: { okTitle: "Frequency expressions", okPoints: ["✅ <span class='code'>three times a week</span>."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nAt night, if the sky is clear, you can see ____ moon from my window. It looks huge when it’s low and orange near the horizon.",
+    answers: ["the"],
+    showExpected: "the",
+    explain: { okTitle: "Only one / unique", okPoints: ["✅ <span class='code'>the</span> moon (hay uno)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nI bought ____ book online yesterday. When it arrived, ____ book was damaged, so I asked for a refund and sent photos as proof.",
+    answers: ["a the", "a, the", "a/the", "a the "],
+    showExpected: "a the",
+    explain: { okTitle: "First mention → a/an; second mention → the", okPoints: ["✅ 1ª vez: <span class='code'>a book</span>. Luego: <span class='code'>the book</span>."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—). Type — for no article:\nIn general, I love ____ dogs because they’re loyal and funny. But I’m scared of the ones that bark all night near my house.",
+    answers: ["—", "-", "no article", ""],
+    showExpected: "—",
+    explain: { okTitle: "General meaning (plural)", okPoints: ["✅ Para hablar en general: <span class='code'>I love dogs</span> (sin artículo)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nI don’t like ____ dogs that live next door to me. They’re cute, but they run to the fence and bark every time I open the gate.",
+    answers: ["the"],
+    showExpected: "the",
+    explain: { okTitle: "Specific meaning", okPoints: ["✅ Esos perros específicos → <span class='code'>the dogs</span>."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nTonight we’re meeting outside ____ cinema at 8. We’ll buy popcorn, watch a film, and then talk about it while we walk home.",
+    answers: ["the"],
+    showExpected: "the",
+    explain: { okTitle: "Places in town", okPoints: ["✅ <span class='code'>the</span> cinema / the theatre, etc."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—). Type — for no article:\nMy little brother is at ____ school right now, so the house is quiet. Later, I’ll help him with homework and we’ll play a game.",
+    answers: ["—", "-", "no article", ""],
+    showExpected: "—",
+    explain: { okTitle: "school/home/work (general use)", okPoints: ["✅ <span class='code'>at school</span> (sin artículo)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—). Type — for no article:\nShe isn’t at ____ home today, so I left a message. I’ll try again later because it’s something important.",
+    answers: ["—", "-", "no article", ""],
+    showExpected: "—",
+    explain: { okTitle: "at home (no article)", okPoints: ["✅ <span class='code'>at home</span> (sin artículo)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—). Type — for no article:\nI never have ____ breakfast when I’m late. I just drink water, run to class, and then I’m starving at 11 a.m.",
+    answers: ["—", "-", "no article", ""],
+    showExpected: "—",
+    explain: { okTitle: "Meals", okPoints: ["✅ Normalmente: <span class='code'>have breakfast/lunch/dinner</span> (sin artículo)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—). Type — for no article:\nI’m going to the theatre on ____ Tuesday because it’s cheaper. If you’re free, you can come with me and we’ll sit near the front.",
+    answers: ["—", "-", "no article", ""],
+    showExpected: "—",
+    explain: { okTitle: "Days/months", okPoints: ["✅ <span class='code'>on Tuesday</span> (sin artículo)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—). Type — for no article:\nSee you ____ next week! I’ll finish my assignments first, and then we can meet to study together and relax a bit.",
+    answers: ["—", "-", "no article", ""],
+    showExpected: "—",
+    explain: { okTitle: "next/last + time", okPoints: ["✅ <span class='code'>next week</span> / <span class='code'>last month</span> (sin artículo)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nThat café is ____ best place in my neighbourhood. The coffee is strong, the music is calm, and the staff always remember my order.",
+    answers: ["the"],
+    showExpected: "the",
+    explain: { okTitle: "Superlatives", okPoints: ["✅ Con superlativos: <span class='code'>the best</span>, <span class='code'>the most interesting</span>."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nMy cousin wants to be ____ engineer, but for now she’s studying every day. She watches videos, takes notes, and asks questions all the time.",
+    answers: ["an"],
+    showExpected: "an",
+    explain: { okTitle: "Jobs (what someone is)", okPoints: ["✅ Profesión: <span class='code'>an engineer</span>."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nHe studied at ____ university in Lima. He says the campus is huge, and the library is open until late, which helped him a lot.",
+    answers: ["a"],
+    showExpected: "a",
+    explain: { okTitle: "Sound rule (u = /juː/)", okPoints: ["✅ <span class='code'>a</span> university (suena 'yu')."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nIt took me ____ hour to get home because of traffic. I listened to music the whole time, but I was still exhausted when I arrived.",
+    answers: ["an"],
+    showExpected: "an",
+    explain: { okTitle: "an + vowel sound (hour)", okPoints: ["✅ <span class='code'>an</span> hour (h muda)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nI met ____ woman at a bus stop who was carrying a big box. She asked me for directions, and we talked for a few minutes.",
+    answers: ["a"],
+    showExpected: "a",
+    explain: { okTitle: "First mention", okPoints: ["✅ Primera vez que mencionas → <span class='code'>a</span>."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nI think ____ love is more important than money. If you feel supported and calm, you can handle problems much better.",
+    answers: ["—", "-", "no article", ""],
+    showExpected: "—",
+    explain: { okTitle: "Uncountable/general ideas", okPoints: ["✅ Ideas generales: <span class='code'>love</span>, <span class='code'>money</span> (sin artículo)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nSomeone left ____ money on the table near the door. I picked it up and asked whose it was, because it could be important.",
+    answers: ["the"],
+    showExpected: "the",
+    explain: { okTitle: "Specific reference", okPoints: ["✅ Dinero específico (ese de la mesa) → <span class='code'>the money</span>."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nIn my opinion, ____ happiness matters more than success. If you’re always stressed, even a big achievement feels empty.",
+    answers: ["—", "-", "no article", ""],
+    showExpected: "—",
+    explain: { okTitle: "Abstract nouns (general)", okPoints: ["✅ <span class='code'>happiness</span> en general → sin artículo."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nWhen I look up at night, I remember that ____ Earth is moving all the time. It sounds crazy, but it also makes problems feel smaller.",
+    answers: ["the"],
+    showExpected: "the",
+    explain: { okTitle: "Unique things", okPoints: ["✅ <span class='code'>the Earth</span>."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nWe stopped at ____ hospital to visit my aunt. She wasn’t a patient anymore, but she still had a final check-up with the doctor.",
+    answers: ["the"],
+    showExpected: "the",
+    explain: { okTitle: "Specific place/building", okPoints: ["✅ Lugar específico → <span class='code'>the hospital</span>."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nI’m having dinner with friends ____ next Friday. We’ll talk about the week, laugh a lot, and plan something fun for the weekend.",
+    answers: ["—", "-", "no article", ""],
+    showExpected: "—",
+    explain: { okTitle: "next/last + day", okPoints: ["✅ <span class='code'>next Friday</span> (sin artículo)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nI need ____ umbrella today because the sky looks dark. If it starts raining suddenly, I don’t want to get soaked on the way home.",
+    answers: ["an"],
+    showExpected: "an",
+    explain: { okTitle: "an + vowel sound", okPoints: ["✅ <span class='code'>an</span> umbrella."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with TWO words (a/an/the/—). Write them separated by ONE space:\nI heard ____ doorbell, so I walked to ____ door and checked who it was. It was just a delivery, but it surprised me.",
+    answers: ["the the", "the, the", "the/the"],
+    showExpected: "the the",
+    explain: { okTitle: "Clear reference", okPoints: ["✅ Situación normal: <span class='code'>the</span> doorbell / <span class='code'>the</span> door."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nThis weekend I want to buy ____ new jacket. Mine is old, and the zipper is broken, so it’s time to replace it.",
+    answers: ["a"],
+    showExpected: "a",
+    explain: { okTitle: "Singular countable (one of many)", okPoints: ["✅ <span class='code'>a</span> new jacket (no es específico)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nAfter a long day, I usually go ____ work straight home. I don’t stop anywhere because I just want to rest and eat something simple.",
+    answers: ["from"],
+    showExpected: "from",
+    explain: { okTitle: "Ojo: aquí NO es artículo", okPoints: ["✅ Estructura fija: <span class='code'>from work</span>."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nI love ____ flowers, especially when they smell fresh after rain. But I don’t like the ones that attract too many insects.",
+    answers: ["—", "-", "no article", ""],
+    showExpected: "—",
+    explain: { okTitle: "General plural", okPoints: ["✅ General: <span class='code'>flowers</span> (sin artículo)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE word (a/an/the/—):\nI love ____ flowers in my garden because my grandma planted them years ago. Every time I water them, I remember her.",
+    answers: ["the"],
+    showExpected: "the",
+    explain: { okTitle: "Specific plural", okPoints: ["✅ Específico: <span class='code'>the flowers</span> in my garden."] }
+  },
+
+  /* ===================== PREPOSITIONS AFTER VERBS / ADJECTIVES ===================== */
+  {
+    type: "input",
+    stem: "Complete with TWO prepositions (write them in order, separated by a space):\nHe was really nervous, so he apologized ____ the police officer ____ driving too fast. He promised he would be more careful in the future.",
+    answers: ["to for", "to, for", "to/for"],
+    showExpected: "to for",
+    explain: { okTitle: "apologize to sb for sth", okPoints: ["✅ <span class='code'>apologize to</span> (persona) + <span class='code'>for</span> (razón)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with TWO prepositions (write them in order, separated by a space):\nI don’t like shouting, but sometimes I argue ____ my brother ____ money. Afterwards, we calm down and try to explain our opinions.",
+    answers: ["with about", "with, about", "with/about"],
+    showExpected: "with about",
+    explain: { okTitle: "argue with sb about sth", okPoints: ["✅ <span class='code'>with</span> (persona) + <span class='code'>about</span> (tema)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with TWO prepositions (write them in order, separated by a space):\nWe’re arriving ____ Milan ____ Sunday, so we’ll have time to walk around and eat something nice. I’ll text you when we get there.",
+    answers: ["in on", "in, on", "in/on"],
+    showExpected: "in on",
+    explain: { okTitle: "arrive in + city; on + day", okPoints: ["✅ <span class='code'>arrive in</span> Milan; <span class='code'>on</span> Sunday."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with TWO prepositions (write them in order, separated by a space):\nWe’re arriving ____ the airport ____ 3.45, so don’t be late. If you can’t come, I’ll just take a taxi.",
+    answers: ["at at", "at, at", "at/at"],
+    showExpected: "at at",
+    explain: { okTitle: "arrive at + place; at + time", okPoints: ["✅ <span class='code'>arrive at</span> the airport; <span class='code'>at</span> 3.45."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nThe waiter was busy, so I politely asked him ____ the bill. I didn’t want to interrupt, but we had to leave soon.",
+    answers: ["for"],
+    showExpected: "for",
+    explain: { okTitle: "ask for", okPoints: ["✅ <span class='code'>ask for</span> the bill."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nSome people believe ____ stereotypes without thinking. I prefer to judge people by what they do, not by labels.",
+    answers: ["in"],
+    showExpected: "in",
+    explain: { okTitle: "believe in", okPoints: ["✅ <span class='code'>believe in</span> (ideas, things)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nWhose keys are these? Do they belong ____ you? I found them on the sofa and I don’t want to lose them.",
+    answers: ["to"],
+    showExpected: "to",
+    explain: { okTitle: "belong to", okPoints: ["✅ <span class='code'>belong to</span> someone."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nI can’t choose ____ these two bags. One is cheaper, but the other one looks stronger and has more space inside.",
+    answers: ["between"],
+    showExpected: "between",
+    explain: { okTitle: "choose between", okPoints: ["✅ <span class='code'>between</span> two options."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nWe might go out later, but it depends ____ the weather. If it rains, we’ll stay home and watch a film.",
+    answers: ["on"],
+    showExpected: "on",
+    explain: { okTitle: "depend on", okPoints: ["✅ <span class='code'>depend on</span> something."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nLast night I dreamt ____ my childhood and my old neighbourhood. It felt so real that I woke up smiling.",
+    answers: ["about", "of"],
+    showExpected: "about / of",
+    explain: { okTitle: "dream about / dream of", okPoints: ["✅ Ambos suelen ser aceptados: <span class='code'>dream about</span> / <span class='code'>dream of</span>."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nDon’t laugh ____ me! I’m doing my best and I’m still learning. If you correct me nicely, I improve faster.",
+    answers: ["at"],
+    showExpected: "at",
+    explain: { okTitle: "laugh at", okPoints: ["✅ <span class='code'>laugh at</span> someone."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nI’m really looking forward ____ the party because I haven’t seen my friends in weeks. I want to relax, talk, and forget stress for a while.",
+    answers: ["to"],
+    showExpected: "to",
+    explain: { okTitle: "look forward to + -ing/noun", okPoints: ["✅ <span class='code'>look forward to</span> the party / <span class='code'>to</span> seeing you."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nIf I pay ____ the meal today, can you get the drinks? I don’t mind, but I want it to be fair.",
+    answers: ["for"],
+    showExpected: "for",
+    explain: { okTitle: "pay for", okPoints: ["✅ <span class='code'>pay for</span> something."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nThis song reminds me ____ our trip because we listened to it every morning. Now, every time I hear it, I want to travel again.",
+    answers: ["of"],
+    showExpected: "of",
+    explain: { okTitle: "remind sb of", okPoints: ["✅ <span class='code'>remind me of</span> (me recuerda a)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nI don’t spend a lot of money ____ clothes, but I do invest in good shoes. If shoes are uncomfortable, my whole day is ruined.",
+    answers: ["on"],
+    showExpected: "on",
+    explain: { okTitle: "spend money on", okPoints: ["✅ <span class='code'>spend</span> money <span class='code'>on</span> something."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with TWO prepositions (write them in order, separated by a space):\nWe need to talk ____ Anita ____ her school report. She’s stressed, so we should be calm and helpful.",
+    answers: ["to about", "to, about", "to/about"],
+    showExpected: "to about",
+    explain: { okTitle: "talk to sb about sth", okPoints: ["✅ <span class='code'>talk to</span> (persona) + <span class='code'>about</span> (tema)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nMy little brother is afraid ____ bats, even in cartoons. If he sees one on TV, he covers his eyes and asks to change the channel.",
+    answers: ["of"],
+    showExpected: "of",
+    explain: { okTitle: "afraid of", okPoints: ["✅ <span class='code'>afraid of</span> something."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with TWO prepositions (write them in order, separated by a space):\nShe was angry ____ her boyfriend ____ being late again. She didn’t want a fight, but she wanted him to be more responsible.",
+    answers: ["with about", "with, about", "with/about"],
+    showExpected: "with about",
+    explain: { okTitle: "angry with sb about sth", okPoints: ["✅ <span class='code'>angry with</span> (persona) + <span class='code'>about</span> (motivo)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nI’m very close ____ my elder sister, so I tell her everything. When I’m confused, she helps me think clearly.",
+    answers: ["to"],
+    showExpected: "to",
+    explain: { okTitle: "close to", okPoints: ["✅ <span class='code'>close to</span> someone."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nThis exercise is very different ____ the last one. The last one was easy, but this one needs more attention and patience.",
+    answers: ["from"],
+    showExpected: "from",
+    explain: { okTitle: "different from", okPoints: ["✅ <span class='code'>different from</span> (lo típico en estos cursos)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nWe’re really excited ____ going to Brazil because we’ve planned it for months. We saved money, checked flights, and made a list of places to visit.",
+    answers: ["about"],
+    showExpected: "about",
+    explain: { okTitle: "excited about + -ing", okPoints: ["✅ <span class='code'>excited about</span> going."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nKrakow is famous ____ its main square, especially at night. There are lights, music, and people everywhere, so it feels alive.",
+    answers: ["for"],
+    showExpected: "for",
+    explain: { okTitle: "famous for", okPoints: ["✅ <span class='code'>famous for</span> (conocido por)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nI’m fed up ____ sitting in this traffic jam. We’ve moved only a few meters in ten minutes, and I’m starting to lose patience.",
+    answers: ["with"],
+    showExpected: "with",
+    explain: { okTitle: "fed up with", okPoints: ["✅ <span class='code'>fed up with</span> (harto de)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nI’m very fond ____ my little nephew. He’s adorable, and when he laughs, everyone in the room smiles too.",
+    answers: ["of"],
+    showExpected: "of",
+    explain: { okTitle: "fond of", okPoints: ["✅ <span class='code'>fond of</span> (tener cariño por)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nI’ve never been good ____ sport, but I try anyway. I prefer walking or cycling because it feels less competitive.",
+    answers: ["at"],
+    showExpected: "at",
+    explain: { okTitle: "good at", okPoints: ["✅ Habilidad: <span class='code'>good at</span> + activity."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nEat your vegetables — they’re good ____ you. You might not love the taste today, but your body will thank you later.",
+    answers: ["for"],
+    showExpected: "for",
+    explain: { okTitle: "good for", okPoints: ["✅ Beneficio: <span class='code'>good for</span> you."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nMy sister is very interested ____ astrology. She reads about it, watches videos, and sometimes explains zodiac signs to the whole family.",
+    answers: ["in"],
+    showExpected: "in",
+    explain: { okTitle: "interested in", okPoints: ["✅ <span class='code'>interested in</span> something."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with ONE preposition:\nShe’s very keen ____ cycling, and she does about 50 km every weekend. Even when she’s tired, she says it clears her mind.",
+    answers: ["on"],
+    showExpected: "on",
+    explain: { okTitle: "keen on", okPoints: ["✅ <span class='code'>keen on</span> (muy aficionado a)."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with TWO prepositions (write them in order, separated by a space):\nPlease be kind ____ the waiters. There’s no reason to be rude ____ them, even if you’re stressed or hungry.",
+    answers: ["to to", "to, to", "to/to"],
+    showExpected: "to to",
+    explain: { okTitle: "kind to / rude to", okPoints: ["✅ <span class='code'>kind to</span> someone; <span class='code'>rude to</span> someone."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with TWO prepositions (write them in order, separated by a space):\nShe used to be married ____ a pop star, and her parents were proud ____ her for staying calm during all the media attention.",
+    answers: ["to of", "to, of", "to/of"],
+    showExpected: "to of",
+    explain: { okTitle: "married to / proud of", okPoints: ["✅ <span class='code'>married to</span> someone; <span class='code'>proud of</span> someone."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with TWO prepositions (write them in order, separated by a space):\nRachel is worried ____ losing her job, and she’s tired ____ hearing negative comments every day. She wants support, not pressure.",
+    answers: ["about of", "about, of", "about/of"],
+    showExpected: "about of",
+    explain: { okTitle: "worried about / tired of", okPoints: ["✅ <span class='code'>worried about</span> + -ing; <span class='code'>tired of</span> + -ing."] }
+  },
+  {
+    type: "input",
+    stem: "Complete with TWO prepositions (write them in order, separated by a space):\nI’m really pleased ____ my progress this month, but I’m still not good ____ pronunciation when I speak fast. I need more practice.",
+    answers: ["with at", "with, at", "with/at"],
+    showExpected: "with at",
+    explain: { okTitle: "pleased with / good at", okPoints: ["✅ <span class='code'>pleased with</span> results; <span class='code'>good at</span> pronunciation."] }
+  }
+];
+
 // + Strong adjectives (absolutely/completely/totally; NO "very" con strong adjectives)
 
 // 30 preguntas — Comparatives & Superlatives + than / as...as / much / by far / ever / in
