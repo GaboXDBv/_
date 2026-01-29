@@ -1,1 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> Repasa morcito (te amo <3)</title>
 
+  <!-- Anti-cache (ayuda cuando “no se actualiza”) -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=1" type="image/png" />
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
+      --accent: #2563eb;      /* azul elegante */
+      --accent2:#10b981;      /* verde suave */
+      --warn: #ef4444;        /* rojo */
+      --soft: rgba(31,41,55,.08);
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+    }
+
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+      text-align:center;
+    }
+
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 2.8vw, 17px);
+      line-height: 1.45;
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .card .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+
+    .card .content{
+      padding: 16px 16px 14px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(18px, 3.8vw, 24px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+
+    p, li{
+      font-size: clamp(15px, 3.4vw, 18px);
+      line-height: 1.55;
+      color: var(--ink);
+    }
+    .muted{ color: var(--muted); }
+
+    ul{ margin: 10px 0 0; padding-left: 20px; }
+    li{ margin: 6px 0; }
+
+    .note{
+      margin-top:12px;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(37,99,235,.06);
+    }
+    .note strong{ color: var(--accent); }
+
+    .example{
+      margin-top:12px;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(16,185,129,.06);
+    }
+    .example .tag{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing:.3px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(16,185,129,.18);
+      color: #065f46;
+      margin-bottom:8px;
+    }
+    .example code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: .95em;
+    }
+
+    details{
+      border: 1px solid rgba(17,24,39,.10);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: rgba(31,41,55,.03);
+      margin-top: 12px;
+    }
+    summary{
+      cursor:pointer;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: clamp(14px, 3.2vw, 16px);
+      list-style:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    .pill{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.8);
+      color: var(--muted);
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .twoCols{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (min-width: 760px){
+      .twoCols{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .listBox{
+      border:1px dashed rgba(17,24,39,.20);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,.75);
+    }
+
+    .star{
+      font-weight:700;
+      color: var(--accent);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .btnRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 16px 0 0;
+    }
+    .btn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #1d4ed8);
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .btn:active{ transform: translateY(0px); }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Marco Teórico</h1>
+      <p class="subtitle">
+        (Present Simple vs Present Continuous) + Action / Non-action verbs
+      </p>
+    </header>
+
+    <div class="grid">
+
+      <!-- 1 -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>1) Present Simple</h2>
+          <p class="muted">
+            Se usa para hablar de cosas que son verdad en general, rutinas y hábitos.
+          </p>
+          <ul>
+            <li><strong>Hechos generales:</strong> cosas “siempre verdaderas”.</li>
+            <li><strong>Rutinas / hábitos:</strong> acciones que se repiten.</li>
+            <li><strong>Estados:</strong> sentimientos, posesión, opinión (muchos son non-action verbs).</li>
+          </ul>
+
+          <div class="example">
+            <div class="tag">Ejemplos</div><br/>
+            <code>I live in Arequipa.</code> — Vivo en Arequipa.<br/>
+            <code>She works in a restaurant.</code> — Ella trabaja en un restaurante.<br/>
+            <code>He doesn’t eat meat.</code> — Él no come carne.
+          </div>
+
+          <div class="note">
+            <strong>Regla rápida:</strong> si es rutina o “estado”, normalmente va en Present Simple.
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>2) Present Continuous</h2>
+          <p class="muted">
+            Se usa para acciones que están ocurriendo ahora o alrededor de ahora (temporal).
+          </p>
+          <ul>
+            <li><strong>Acción en progreso:</strong> ocurre en este momento.</li>
+            <li><strong>Situación temporal:</strong> no es “para siempre”.</li>
+            <li><strong>Arreglo futuro:</strong> plan ya organizado (futuro cercano).</li>
+          </ul>
+
+          <div class="example">
+            <div class="tag">Ejemplos</div><br/>
+            <code>I’m studying right now.</code> — Estoy estudiando ahora mismo.<br/>
+            <code>They’re working from home this week.</code> — Ellos trabajan desde casa esta semana.<br/>
+            <code>I’m meeting my friend tomorrow.</code> — Me reúno con mi amigo mañana.
+          </div>
+
+          <div class="note">
+            <strong>Regla rápida:</strong> si es “temporal / ahora”, suele ir en Present Continuous.
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>3) Diferencias clave</h2>
+          <div class="twoCols">
+            <div class="listBox">
+              <p><strong>Present Simple</strong></p>
+              <ul>
+                <li>Rutinas: every day, usually, often</li>
+                <li>Hechos: always true</li>
+                <li>Estados: like, know, need…</li>
+              </ul>
+            </div>
+            <div class="listBox">
+              <p><strong>Present Continuous</strong></p>
+              <ul>
+                <li>Ahora: now, at the moment</li>
+                <li>Temporal: this week, these days</li>
+                <li>Arreglo futuro: tomorrow (con plan)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="example">
+            <div class="tag">Comparación</div><br/>
+            <code>She usually drinks coffee.</code> — Ella usualmente toma café.<br/>
+            <code>She’s drinking coffee (now).</code> — Ella está tomando café (ahora).
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>4) Action vs Non-action verbs (clave para elegir el tiempo)</h2>
+          <p>
+            <strong>Action verbs</strong> describen acciones (cook, make, run, study). Pueden ir en
+            <strong>Present Simple</strong> (rutina) o <strong>Present Continuous</strong> (acción en progreso).
+          </p>
+          <p>
+            <strong>Non-action verbs</strong> describen <strong>estados</strong> (sentimientos, posesión, opinión, sentido/percepción).
+            Normalmente van en <strong>Present Simple</strong>, incluso si la idea es “ahora”.
+          </p>
+
+          <div class="example">
+            <div class="tag">Ejemplos claros</div><br/>
+            <code>I’m cooking now.</code> (acción, ahora) ✅<br/>
+            <code>I cook every day.</code> (rutina) ✅<br/><br/>
+            <code>I know the answer.</code> (estado) ✅<br/>
+            <code>I’m knowing the answer.</code> ❌ (en exámenes, esto se considera incorrecto)
+          </div>
+
+          <details>
+            <summary>
+              Lista grande de <u>non-action verbs</u>
+              <span class="pill">los que también pueden ser action están marcados con <span class="star">★</span></span>
+            </summary>
+
+            <div class="twoCols">
+
+              <div class="listBox">
+                <p><strong>Opinión / pensamiento / mente</strong></p>
+                <ul>
+                  <li>agree</li>
+                  <li>believe</li>
+                  <li>doubt</li>
+                  <li>expect</li>
+                  <li>forget</li>
+                  <li>imagine</li>
+                  <li>know</li>
+                  <li>mean</li>
+                  <li>notice</li>
+                  <li>realize</li>
+                  <li>recognize</li>
+                  <li>remember</li>
+                  <li>suppose</li>
+                  <li>understand</li>
+                  <li><span class="star">★</span> think (opinión / creencia)</li>
+                  <li><span class="star">★</span> consider</li>
+                </ul>
+              </div>
+
+              <div class="listBox">
+                <p><strong>Sentimientos / gustos / preferencias</strong></p>
+                <ul>
+                  <li>like</li>
+                  <li>love</li>
+                  <li>hate</li>
+                  <li>prefer</li>
+                  <li>want</li>
+                  <li>need</li>
+                  <li>wish</li>
+                  <li>hope</li>
+                  <li>care (about)</li>
+                  <li>mind</li>
+                  <li>fear</li>
+                  <li>desire</li>
+                </ul>
+              </div>
+
+              <div class="listBox">
+                <p><strong>Posesión / relación / existencia</strong></p>
+                <ul>
+                  <li>belong (to)</li>
+                  <li>own</li>
+                  <li>possess</li>
+                  <li>contain</li>
+                  <li>include</li>
+                  <li>consist (of)</li>
+                  <li>lack</li>
+                  <li>matter</li>
+                  <li>depend (on)</li>
+                  <li>deserve</li>
+                  <li>owe</li>
+                  <li>exist</li>
+                  <li><span class="star">★</span> have (posesión)</li>
+                </ul>
+              </div>
+
+              <div class="listBox">
+                <p><strong>Sentidos / apariencia / percepción</strong></p>
+                <ul>
+                  <li>hear</li>
+                  <li>sound</li>
+                  <li>seem</li>
+                  <li>resemble</li>
+                  <li>look (seem) <span class="star">★</span></li>
+                  <li>feel (emotion) <span class="star">★</span></li>
+                  <li>see (percepción) <span class="star">★</span></li>
+                  <li>smell (percepción) <span class="star">★</span></li>
+                  <li>taste (percepción) <span class="star">★</span></li>
+                  <li>appear <span class="star">★</span></li>
+                  <li>be <span class="star">★</span></li>
+                </ul>
+              </div>
+
+            </div>
+
+            <div class="note">
+              <strong>Importante para exámenes:</strong> aunque en inglés real a veces se oye <em>“I’m loving it”</em>,
+              en ejercicios tipo Oxford normalmente tratan <strong>love/like/hate</strong> como non-action → Present Simple.
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              Verbos que pueden ser <u>non-action y action</u> (<span class="star">★</span>) + ejemplos
+              <span class="pill">esto cae mucho en exámenes</span>
+            </summary>
+
+            <div class="example">
+              <div class="tag">Cómo leerlo</div><br/>
+              <strong>Non-action</strong> = estado/opinión/posesión/percepción (Simple).<br/>
+              <strong>Action</strong> = acción temporal/en progreso (Continuous).
+            </div>
+
+            <div class="twoCols">
+              <div class="listBox">
+                <p><span class="star">★</span> <strong>have</strong></p>
+                <ul>
+                  <li><strong>Non-action (posesión):</strong> <code>I have a car.</code> — Tengo un auto.</li>
+                  <li><strong>Action (actividad):</strong> <code>I’m having lunch.</code> — Estoy almorzando.</li>
+                </ul>
+              </div>
+
+              <div class="listBox">
+                <p><span class="star">★</span> <strong>think</strong></p>
+                <ul>
+                  <li><strong>Non-action (opinión):</strong> <code>I think it’s great.</code> — Creo que es genial.</li>
+                  <li><strong>Action (proceso mental):</strong> <code>I’m thinking about you.</code> — Estoy pensando en ti.</li>
+                </ul>
+              </div>
+
+              <div class="listBox">
+                <p><span class="star">★</span> <strong>see</strong></p>
+                <ul>
+                  <li><strong>Non-action (ver):</strong> <code>I see the problem.</code> — Entiendo/veo el problema.</li>
+                  <li><strong>Action (reunirse/salir):</strong> <code>I’m seeing my doctor today.</code> — Hoy veo a mi doctor.</li>
+                </ul>
+              </div>
+
+              <div class="listBox">
+                <p><span class="star">★</span> <strong>smell / taste</strong></p>
+                <ul>
+                  <li><strong>Non-action:</strong> <code>It smells good.</code> — Huele bien.</li>
+                  <li><strong>Action:</strong> <code>I’m smelling the sauce.</code> — Estoy oliendo la salsa.</li>
+                  <li><strong>Non-action:</strong> <code>It tastes salty.</code> — Sabe salado.</li>
+                  <li><strong>Action:</strong> <code>She’s tasting the soup.</code> — Ella está probando la sopa.</li>
+                </ul>
+              </div>
+
+              <div class="listBox">
+                <p><span class="star">★</span> <strong>look / feel / appear</strong></p>
+                <ul>
+                  <li><strong>Non-action:</strong> <code>You look tired.</code> — Te ves cansado.</li>
+                  <li><strong>Action:</strong> <code>I’m looking for my keys.</code> — Estoy buscando mis llaves.</li>
+                  <li><strong>Non-action:</strong> <code>I feel happy.</code> — Me siento feliz.</li>
+                  <li><strong>Action:</strong> <code>I’m feeling the fabric.</code> — Estoy tocando la tela.</li>
+                  <li><strong>Non-action:</strong> <code>It appears expensive.</code> — Parece caro.</li>
+                  <li><strong>Action:</strong> <code>More problems are appearing.</code> — Están apareciendo más problemas.</li>
+                </ul>
+              </div>
+
+              <div class="listBox">
+                <p><span class="star">★</span> <strong>be</strong> (estado vs comportamiento)</p>
+                <ul>
+                  <li><strong>Non-action (estado):</strong> <code>He is polite.</code> — Él es educado.</li>
+                  <li><strong>Action (comportamiento temporal):</strong> <code>He’s being rude.</code> — Está siendo grosero (ahora).</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 5: Trampas -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>5) Trampas (errores típicos del tema)</h2>
+          <ul>
+            <li><strong>Usar Continuous con un non-action verb:</strong> <code>I’m knowing</code> ❌ → <code>I know</code> ✅</li>
+            <li><strong>Usar Simple cuando es “ahora”:</strong> <code>I study now</code> (suena raro) → <code>I’m studying now</code> ✅</li>
+            <li><strong>3ra persona en Simple:</strong> <code>She work</code> ❌ → <code>She works</code> ✅</li>
+            <li><strong>Confundir “temporary vs routine”:</strong> <code>I work from home</code> (rutina) vs <code>I’m working from home this week</code> (temporal)</li>
+          </ul>
+
+          <div class="note">
+            <strong>Tip de examen:</strong> si en la frase aparece “now / at the moment / this week” piensa primero en Continuous,
+            pero revisa si el verbo es non-action (si lo es, normalmente se queda en Simple).
+          </div>
+        </div>
+      </section>
+
+      <!-- Botón -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Siguiente</h2>
+          <p class="muted">Cuando termines el marco teórico, pasa al vocabulario.</p>
+          <div class="btnRow">
+            <button class="btn" onclick="window.location.href='vocabulario1.html'">Vocabulario 1</button>
+          </div>
+          <div class="footerHint">Si “no se actualiza”, prueba recargar con Ctrl + F5.</div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</body>
+</html>
