@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FINAL BOSS — 60 Preguntas 😈</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=9" type="image/png" />
+
+  <style>
+    :root{
+      /* BOSS MODE DARK THEME (UPGRADED) */
+      --bg: #05060a;
+      --card: rgba(14,16,26,.92);
+      --card2: rgba(10,12,20,.92);
+
+      --ink: #e7e9ee;
+      --muted: rgba(231,233,238,.72);
+
+      --accent: #60a5fa;   /* neon blue */
+      --accent2:#34d399;   /* neon green */
+      --danger:#fb7185;    /* neon pink/red */
+      --warn:#fbbf24;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.60);
+      --shadow2: 0 10px 30px rgba(0,0,0,.45);
+      --radius: 18px;
+
+      --border: rgba(255,255,255,.10);
+      --border2: rgba(96,165,250,.25);
+
+      --glow: 0 0 24px rgba(96,165,250,.20), 0 0 36px rgba(52,211,153,.12);
+
+      --hpBg: rgba(255,255,255,.07);
+      --hpStroke: rgba(255,255,255,.10);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+      /* Boss background */
+      background:
+        radial-gradient(900px 520px at 15% -10%, rgba(96,165,250,.18), transparent 60%),
+        radial-gradient(900px 520px at 85% -10%, rgba(52,211,153,.18), transparent 60%),
+        radial-gradient(700px 420px at 50% 110%, rgba(251,113,133,.10), transparent 65%),
+        linear-gradient(180deg, #04050a 0%, #05060a 45%, #070815 100%);
+      overflow-x:hidden;
+      position:relative;
+      min-height:100vh;
+    }
+
+    /* scanlines + vignette */
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255,255,255,.04) 0px,
+          rgba(255,255,255,.04) 1px,
+          rgba(0,0,0,0) 3px,
+          rgba(0,0,0,0) 8px
+        );
+      opacity:.09;
+      mix-blend-mode: overlay;
+      z-index:0;
+    }
+    body:after{
+      content:"";
+      position:fixed;
+      inset:-50px;
+      pointer-events:none;
+      background: radial-gradient(1200px 720px at 50% 18%, transparent 38%, rgba(0,0,0,.62) 86%);
+      z-index:0;
+    }
+
+    /* Floating demon layer */
+    .demonField{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      overflow:hidden;
+      opacity:.35;
+      filter: drop-shadow(0 10px 22px rgba(0,0,0,.55));
+    }
+    .demon{
+      position:absolute;
+      bottom:-80px;
+      font-size: 22px;
+      opacity:.22;
+      transform: translateY(0) rotate(0deg);
+      animation: floatUp linear infinite;
+      user-select:none;
+      text-shadow: 0 0 18px rgba(96,165,250,.18), 0 0 30px rgba(251,113,133,.10);
+    }
+    @keyframes floatUp{
+      0%   { transform: translateY(0) rotate(0deg); opacity:.00; }
+      10%  { opacity:.22; }
+      50%  { opacity:.24; }
+      100% { transform: translateY(-120vh) rotate(240deg); opacity:0; }
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin:18px auto 28px;
+      position:relative;
+      z-index:1;
+    }
+
+    header{
+      position:relative;
+      border-radius: calc(var(--radius) + 6px);
+      padding: 18px 18px 16px;
+      background:
+        linear-gradient(135deg, rgba(96,165,250,.16), rgba(52,211,153,.12)),
+        radial-gradient(900px 420px at 50% 0%, rgba(255,255,255,.08), transparent 70%);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow), var(--glow);
+      text-align:center;
+      overflow:hidden;
+    }
+    header:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      border-radius: inherit;
+      padding:2px;
+      background: linear-gradient(90deg, rgba(96,165,250,.55), rgba(52,211,153,.45), rgba(251,113,133,.35));
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity:.48;
+      pointer-events:none;
+    }
+
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(24px, 4.8vw, 40px);
+      letter-spacing: .4px;
+      font-weight: 1000;
+      text-transform: uppercase;
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(13px, 2.8vw, 16px);
+      line-height: 1.5;
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .card .bar{
+      height: 7px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), rgba(251,113,133,.72));
+      filter: drop-shadow(0 0 10px rgba(96,165,250,.25));
+    }
+
+    .card .content{
+      padding: 16px 16px 14px;
+    }
+
+    .topRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: rgba(231,233,238,.90);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.35) inset;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: rgba(96,165,250,.8);
+      box-shadow: 0 0 14px rgba(96,165,250,.45);
+    }
+
+    /* HP bars */
+    .hpGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+      margin: 6px 0 10px;
+    }
+    @media (min-width: 760px){
+      .hpGrid{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .hpCard{
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      background: rgba(255,255,255,.03);
+      padding: 10px 10px 10px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.32);
+      position:relative;
+      overflow:hidden;
+    }
+    .hpHead{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom: 8px;
+    }
+    .hpName{
+      font-weight: 950;
+      letter-spacing:.2px;
+      font-size: 14px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .hpNum{
+      font-weight: 950;
+      color: rgba(231,233,238,.90);
+      font-size: 13px;
+    }
+    .hpBarWrap{
+      width:100%;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--hpBg);
+      border: 1px solid var(--hpStroke);
+      overflow:hidden;
+      position:relative;
+    }
+    .hpBar{
+      height:100%;
+      width:100%;
+      border-radius: 999px;
+      transition: width .25s ease;
+      box-shadow: 0 0 18px rgba(96,165,250,.20);
+    }
+    .hpBoss{
+      background: linear-gradient(90deg, rgba(251,113,133,.95), rgba(251,191,36,.75));
+      box-shadow: 0 0 22px rgba(251,113,133,.20);
+    }
+    .hpPlayer{
+      background: linear-gradient(90deg, rgba(52,211,153,.95), rgba(96,165,250,.85));
+      box-shadow: 0 0 22px rgba(52,211,153,.18);
+    }
+
+    .damageFloat{
+      position:absolute;
+      right:10px;
+      top:10px;
+      font-weight: 1000;
+      font-size: 14px;
+      opacity:0;
+      transform: translateY(0);
+      pointer-events:none;
+      text-shadow: 0 0 18px rgba(0,0,0,.55);
+    }
+    .damageFloat.show{
+      animation: dmg 750ms ease-out forwards;
+    }
+    @keyframes dmg{
+      0%{ opacity:0; transform: translateY(6px) scale(.98); }
+      20%{ opacity:1; }
+      100%{ opacity:0; transform: translateY(-14px) scale(1.02); }
+    }
+
+    .progressWrap{
+      width: 100%;
+      margin-top: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      overflow: hidden;
+      height: 10px;
+      border: 1px solid rgba(255,255,255,.09);
+    }
+    .progressBar{
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .25s ease;
+      box-shadow: 0 0 18px rgba(96,165,250,.22);
+    }
+
+    .questionText{
+      font-size: clamp(18px, 4.0vw, 22px);
+      font-weight: 950;
+      letter-spacing:.2px;
+      margin: 14px 0 10px;
+    }
+
+    /* Multiple choice */
+    .options{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (min-width: 760px){
+      .options{ grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    .optBtn{
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      border-radius: 14px;
+      padding: 16px 14px;
+      cursor: pointer;
+      text-align: left;
+      box-shadow: 0 10px 24px rgba(0,0,0,.35);
+      transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease, background .12s ease;
+      min-height: 64px;
+      color: var(--ink);
+      position:relative;
+      overflow:hidden;
+    }
+    .optBtn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(96,165,250,.35);
+      box-shadow: 0 10px 26px rgba(0,0,0,.42), 0 0 18px rgba(96,165,250,.14);
+      background: rgba(255,255,255,.05);
+    }
+    .optBtn:active{ transform: translateY(0px); }
+    .optBtn:disabled{ cursor:not-allowed; opacity:.96; }
+
+    .optLabel{
+      font-weight: 950;
+      font-size: 18px;
+      letter-spacing:.15px;
+      line-height: 1.15;
+    }
+
+    /* Typed input */
+    .inputWrap{
+      display:none;
+      gap:10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .textInput{
+      flex: 1 1 520px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+      border-radius: 14px;
+      padding: 14px 14px;
+      font-size: 18px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.35);
+      outline: none;
+      color: var(--ink);
+    }
+    .textInput::placeholder{
+      color: rgba(231,233,238,.45);
+    }
+
+    .submitBtn{
+      flex: 0 0 auto;
+      border:0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-weight: 900;
+      box-shadow: 0 10px 24px rgba(0,0,0,.40), 0 0 18px rgba(96,165,250,.16);
+      transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
+      color: #061018;
+      background: linear-gradient(135deg, var(--accent), rgba(52,211,153,.95));
+      width: min(240px, 100%);
+    }
+    .submitBtn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+      box-shadow: 0 10px 24px rgba(0,0,0,.45), 0 0 26px rgba(52,211,153,.20);
+    }
+    .submitBtn:active{ transform: translateY(0px); }
+    .submitBtn:disabled{ cursor:not-allowed; opacity:.92; transform:none; }
+
+    .inputOk{
+      border-color: rgba(52,211,153,.70) !important;
+      box-shadow: 0 10px 26px rgba(0,0,0,.40), 0 0 30px rgba(52,211,153,.22) !important;
+    }
+    .inputBad{
+      border-color: rgba(251,113,133,.75) !important;
+      box-shadow: 0 10px 26px rgba(0,0,0,.40), 0 0 30px rgba(251,113,133,.20) !important;
+    }
+
+    .feedback{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 12px 12px;
+      display:none;
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 10px 24px rgba(0,0,0,.35);
+    }
+    .fbOk{
+      border-color: rgba(52,211,153,.32);
+      box-shadow: 0 10px 24px rgba(0,0,0,.35), 0 0 26px rgba(52,211,153,.14);
+    }
+    .fbBad{
+      border-color: rgba(251,113,133,.34);
+      box-shadow: 0 10px 24px rgba(0,0,0,.35), 0 0 26px rgba(251,113,133,.12);
+    }
+
+    .fbTitle{
+      font-weight: 1000;
+      font-size: 16px;
+      margin:0 0 6px;
+    }
+    .fbBody{ margin:0; color: var(--ink); }
+    .fbBody ul{ margin: 8px 0 0; padding-left: 18px; }
+    .fbBody li{ margin: 6px 0; font-size: 15px; line-height: 1.45; color: var(--ink); }
+
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: .95em;
+      background: rgba(255,255,255,.06);
+      padding: 2px 6px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .nextRow{
+      display:flex;
+      justify-content: center;
+      margin-top: 12px;
+      display:none;
+    }
+
+    .miniBtn{
+      border:0;
+      cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 950;
+      box-shadow: 0 10px 24px rgba(0,0,0,.40), 0 0 18px rgba(96,165,250,.16);
+      transition: transform .12s ease, filter .12s ease;
+      color: #061018;
+      background: linear-gradient(135deg, var(--accent), rgba(52,211,153,.95));
+      width: min(520px, 100%);
+    }
+    .miniBtn:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+    .miniBtn:active{ transform: translateY(0px); }
+
+    /* Choice states */
+    .chosen{
+      border-color: rgba(96,165,250,.60) !important;
+      box-shadow: 0 10px 26px rgba(0,0,0,.46), 0 0 24px rgba(96,165,250,.16) !important;
+    }
+    .correct{
+      border-color: rgba(52,211,153,.75) !important;
+      box-shadow: 0 10px 26px rgba(0,0,0,.46), 0 0 26px rgba(52,211,153,.16) !important;
+    }
+    .wrong{
+      border-color: rgba(251,113,133,.75) !important;
+      box-shadow: 0 10px 26px rgba(0,0,0,.46), 0 0 26px rgba(251,113,133,.14) !important;
+    }
+
+    /* End overlay */
+    .overlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(6px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index: 50;
+      padding: 18px;
+    }
+    .panel{
+      width:min(760px, 92vw);
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(14,16,26,.95), rgba(10,12,20,.95));
+      box-shadow: var(--shadow), var(--glow);
+      padding: 18px 18px 16px;
+      text-align:center;
+    }
+    .panel h2{
+      margin: 6px 0 6px;
+      font-size: clamp(22px, 4.8vw, 34px);
+      font-weight: 1000;
+      letter-spacing:.35px;
+      text-transform: uppercase;
+    }
+    .panel p{
+      margin: 8px 0;
+      color: rgba(231,233,238,.85);
+      line-height: 1.55;
+      font-size: 16px;
+    }
+    .panel .big{
+      font-size: 18px;
+      font-weight: 900;
+      color: rgba(231,233,238,.95);
+    }
+    .panel .hint{
+      margin-top: 10px;
+      color: rgba(231,233,238,.70);
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- floating demons -->
+  <div class="demonField" id="demonField" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header>
+      <h1>FINAL BOSS — 60 PREGUNTAS 😈</h1>
+      <p class="subtitle">
+        Temas: Present Simple vs Continuous • Future forms • Present Perfect vs Past Simple • for/since/how long + PPC •
+        Comparatives/Superlatives • Articles + Prepositions chunks.
+      </p>
+    </header>
+
+    <div class="grid">
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+
+          <div class="topRow">
+            <span class="badge"><span class="dot"></span> <span id="qBadge">Pregunta: 1 / 60</span></span>
+            <span class="badge">⭐ <span id="scoreBadge">Aciertos: 0</span></span>
+            <span class="badge">🔥 <span id="streakBadge">Racha: 0</span></span>
+          </div>
+
+          <!-- HP -->
+          <div class="hpGrid">
+            <div class="hpCard" id="bossCard">
+              <div class="hpHead">
+                <div class="hpName">😈 <span id="bossName">EL BOSS</span></div>
+                <div class="hpNum"><span id="bossHPText">100</span> / <span id="bossMaxText">100</span></div>
+              </div>
+              <div class="hpBarWrap">
+                <div class="hpBar hpBoss" id="bossHPBar"></div>
+              </div>
+              <div class="damageFloat" id="bossDmg"></div>
+            </div>
+
+            <div class="hpCard" id="playerCard">
+              <div class="hpHead">
+                <div class="hpName">🩸 <span id="playerName">TU VIDA</span></div>
+                <div class="hpNum"><span id="playerHPText">100</span> / <span id="playerMaxText">100</span></div>
+              </div>
+              <div class="hpBarWrap">
+                <div class="hpBar hpPlayer" id="playerHPBar"></div>
+              </div>
+              <div class="damageFloat" id="playerDmg"></div>
+            </div>
+          </div>
+
+          <div class="progressWrap" aria-label="Progreso total">
+            <div class="progressBar" id="progressBar"></div>
+          </div>
+
+          <div class="questionText" id="questionText"></div>
+
+          <!-- Input -->
+          <div class="inputWrap" id="inputWrap">
+            <input class="textInput" id="textAnswer" type="text" placeholder="Escribe tu respuesta..." autocomplete="off" />
+            <button class="submitBtn" id="submitBtn">Responder</button>
+          </div>
+
+          <!-- Options -->
+          <div class="options" id="options"></div>
+
+          <div class="feedback" id="feedbackBox" role="status" aria-live="polite">
+            <div class="fbTitle" id="fbTitle"></div>
+            <div class="fbBody" id="fbBody"></div>
+          </div>
+
+          <div class="nextRow" id="nextRow">
+            <button class="miniBtn" id="nextBtn">Siguiente</button>
+          </div>
+
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- End overlay -->
+  <div class="overlay" id="overlay">
+    <div class="panel" id="panel">
+      <h2 id="endTitle">FIN</h2>
+      <p class="big" id="endBig"></p>
+      <p id="endStats"></p>
+      <p class="hint">Para reintentar: recarga la página (F5). 😈</p>
+    </div>
+  </div>
+
+  <script>
+    /* ===========================
+       CONFIG (cámbialo si quieres)
+    ============================ */
+    const BOSS_NAME = "EL BOSS GRAMÁTICO";
+    const PLAYER_NAME = "TU VIDA";
+
+    const MAX_HP = 100;
+
+    // “Daño” por respuesta:
+    // - Correcta: baja vida del boss
+    // - Incorrecta: baja tu vida
+    // (ajusta si lo quieres más hard/soft)
+    const BOSS_DAMAGE = 4;   // 25 aciertos para matar boss (aprox)
+    const PLAYER_DAMAGE = 8; // 13 errores para morir (aprox)
+
+    /* ===========================
+       Helpers
+    ============================ */
+    function shuffle(arr){
+      const a = [...arr];
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function normalize(s){
+      return (s || "")
+        .toLowerCase()
+        .trim()
+        .replace(/[’‘]/g,"'")
+        .replace(/[“”]/g,'"')
+        .replace(/\s+/g," ")
+        .replace(/[.?!]+$/,"")
+        .replace(/[,/]+/g," ")
+        .replace(/\s+/g," ");
+    }
+
+    function clamp(n,min,max){ return Math.max(min, Math.min(max,n)); }
+
+    function spawnDemons(){
+      const field = document.getElementById("demonField");
+      const COUNT = 22;
+      for(let i=0;i<COUNT;i++){
+        const s = document.createElement("span");
+        s.className = "demon";
+        s.textContent = "😈";
+        const left = Math.random()*100;
+        const size = 16 + Math.random()*26;
+        const dur  = 10 + Math.random()*18;
+        const delay= Math.random()*10;
+        s.style.left = left + "vw";
+        s.style.fontSize = size + "px";
+        s.style.animationDuration = dur + "s";
+        s.style.animationDelay = (-delay) + "s"; // arranca “ya”
+        s.style.opacity = (0.12 + Math.random()*0.18).toFixed(2);
+        field.appendChild(s);
+      }
+    }
+
+    /* ===========================
+       60 QUESTIONS — 6 TEMAS (chocolateadas)
+    ============================ */
+    const QUESTION_BANK = [
+      /* ================= TEMA 1 — Present Simple vs Continuous + Food ================= */
+      {
+        type: "mcq",
+        stem: "T1-G1) Every day, my dad ____ dinner at 7 pm.",
+        options: [
+          { text: "cooks", correct: true },
+          { text: "is cooking", correct: false },
+          { text: "cook", correct: false }
+        ],
+        explain: { okTitle: "Hábito → Present Simple (3ra persona: cooks).", okPoints: ["Tip: he/she/it + <span class='code'>-s</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "T1-G2) Listen! The water ____ right now!",
+        options: [
+          { text: "is boiling", correct: true },
+          { text: "boils", correct: false },
+          { text: "boil", correct: false }
+        ],
+        explain: { okTitle: "Right now → Present Continuous.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T1-G3) I ____ this rule. Can you explain again?",
+        options: [
+          { text: "don’t understand", correct: true },
+          { text: "am not understanding", correct: false },
+          { text: "didn’t understand", correct: false }
+        ],
+        explain: { okTitle: "Understand = non-action verb → Present Simple (estado).", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T1-G4) She ____ a shower at the moment. Call later.",
+        options: [
+          { text: "is having", correct: true },
+          { text: "has", correct: false },
+          { text: "have", correct: false }
+        ],
+        explain: { okTitle: "Have = actividad (take a shower) → can be Continuous.", okPoints: ["OJO: have (posesión) normalmente NO va en continuous."] }
+      },
+      {
+        type: "input",
+        stem: "T1-G5) Complete: Right now, we ____ (study) for the exam.",
+        answers: ["are studying", "we are studying", "we're studying"],
+        showExpected: "are studying",
+        explain: { okTitle: "Right now → be + -ing.", okPoints: [] }
+      },
+
+      {
+        type: "mcq",
+        stem: "T1-V1) Which one is SEAFOOD?",
+        options: [
+          { text: "prawns", correct: true },
+          { text: "beef", correct: false },
+          { text: "lamb", correct: false }
+        ],
+        explain: { okTitle: "Seafood = mariscos (prawns).", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T1-V2) Which cooking method uses oil in a pan?",
+        options: [
+          { text: "fry", correct: true },
+          { text: "boil", correct: false },
+          { text: "bake", correct: false }
+        ],
+        explain: { okTitle: "fry = freír (aceite / sartén).", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "T1-V3) Write the vegetable in English: remolacha → ____",
+        answers: ["beetroot"],
+        showExpected: "beetroot",
+        explain: { okTitle: "beetroot = remolacha.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T1-V4) Which one is a BERRY?",
+        options: [
+          { text: "raspberry", correct: true },
+          { text: "cabbage", correct: false },
+          { text: "cucumber", correct: false }
+        ],
+        explain: { okTitle: "raspberry = frambuesa (berry).", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "T1-V5) Complete the phrasal verb: Shall we eat ____ tonight?",
+        answers: ["out"],
+        showExpected: "out",
+        explain: { okTitle: "eat out = comer afuera.", okPoints: [] }
+      },
+
+      /* ================= TEMA 2 — Future forms + Personality prefixes ================= */
+      {
+        type: "mcq",
+        stem: "T2-G1) Look at those black clouds. It ____ rain.",
+        options: [
+          { text: "’s going to", correct: true },
+          { text: "will", correct: false },
+          { text: "is raining", correct: false }
+        ],
+        explain: { okTitle: "Evidencia visible → <span class='code'>going to</span>.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T2-G2) I can’t. I’m ____ my dentist at 4 pm (it’s booked).",
+        options: [
+          { text: "seeing", correct: true },
+          { text: "going to see", correct: false },
+          { text: "will see", correct: false }
+        ],
+        explain: { okTitle: "Arreglo/agenda confirmada → Present Continuous.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T2-G3) A: This bag looks heavy. B: Don’t worry, I ____ carry it.",
+        options: [
+          { text: "’ll", correct: true },
+          { text: "’m going to", correct: false },
+          { text: "’m carrying", correct: false }
+        ],
+        explain: { okTitle: "Decisión del momento / oferta → <span class='code'>will</span>.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T2-G4) A: It’s hot in here. B: ____ I open the window?",
+        options: [
+          { text: "Shall", correct: true },
+          { text: "Do", correct: false },
+          { text: "Am", correct: false }
+        ],
+        explain: { okTitle: "Oferta/sugerencia (I/we) → <span class='code'>Shall</span>.", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "T2-G5) Complete (2 words): What ____ ____ going to do next year?",
+        answers: ["are you", "you are"],
+        showExpected: "are you",
+        explain: { okTitle: "Pregunta con going to: <span class='code'>What are you going to do...?</span>", okPoints: [] }
+      },
+
+      {
+        type: "mcq",
+        stem: "T2-V1) Choose the correct opposite: patient → ____",
+        options: [
+          { text: "impatient", correct: true },
+          { text: "unpatient", correct: false },
+          { text: "inpatient", correct: false }
+        ],
+        explain: { okTitle: "in- cambia a <span class='code'>im-</span> antes de p: impatient.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T2-V2) Choose the correct opposite: honest → ____",
+        options: [
+          { text: "dishonest", correct: true },
+          { text: "unhonest", correct: false },
+          { text: "inhonest", correct: false }
+        ],
+        explain: { okTitle: "En este nivel: honest → <span class='code'>dishonest</span>.", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "T2-V3) Write the opposite of reliable (one word) → ____",
+        answers: ["unreliable"],
+        showExpected: "unreliable",
+        explain: { okTitle: "reliable → <span class='code'>unreliable</span> (un-).", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T2-V4) Trap: unselfish means…",
+        options: [
+          { text: "thinking about others (positive)", correct: true },
+          { text: "selfish (negative)", correct: false },
+          { text: "quiet and shy", correct: false }
+        ],
+        explain: { okTitle: "Trampa del tema: <span class='code'>unselfish</span> es POSITIVO.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T2-V5) Choose the correct opposite: responsible → ____",
+        options: [
+          { text: "irresponsible", correct: true },
+          { text: "inresponsible", correct: false },
+          { text: "unresponsible", correct: false }
+        ],
+        explain: { okTitle: "in- cambia a <span class='code'>ir-</span> antes de r: irresponsible.", okPoints: [] }
+      },
+
+      /* ================= TEMA 3 — Present Perfect vs Past Simple + Money ================= */
+      {
+        type: "mcq",
+        stem: "T3-G1) I ____ that film yesterday.",
+        options: [
+          { text: "saw", correct: true },
+          { text: "have seen", correct: false },
+          { text: "have saw", correct: false }
+        ],
+        explain: { okTitle: "Tiempo específico (yesterday) → Past Simple.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T3-G2) I ____ just ____ my homework.",
+        options: [
+          { text: "have just finished", correct: true },
+          { text: "just finished", correct: false },
+          { text: "did just finished", correct: false }
+        ],
+        explain: { okTitle: "just + Present Perfect (acción reciente).", okPoints: ["Orden típico: <span class='code'>have just + PP</span>."] }
+      },
+      {
+        type: "mcq",
+        stem: "T3-G3) Have you ____ been to Madrid?",
+        options: [
+          { text: "ever", correct: true },
+          { text: "yet", correct: false },
+          { text: "already", correct: false }
+        ],
+        explain: { okTitle: "Experiencia de vida → <span class='code'>ever</span>.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T3-G4) He’s ____ to Madrid. He’s not here now.",
+        options: [
+          { text: "gone", correct: true },
+          { text: "been", correct: false },
+          { text: "went", correct: false }
+        ],
+        explain: { okTitle: "been = fue y volvió • gone = fue y está allá.", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "T3-G5) Complete: I haven’t paid for the tickets ____.",
+        answers: ["yet"],
+        showExpected: "yet",
+        explain: { okTitle: "yet va al final (negativa/pregunta).", okPoints: [] }
+      },
+
+      {
+        type: "input",
+        stem: "T3-V1) Write the verb: to get money by working → ____",
+        answers: ["earn"],
+        showExpected: "earn",
+        explain: { okTitle: "earn = ganar dinero por trabajo.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T3-V2) Choose the correct preposition: borrow money ____ a friend.",
+        options: [
+          { text: "from", correct: true },
+          { text: "to", correct: false },
+          { text: "for", correct: false }
+        ],
+        explain: { okTitle: "borrow <span class='code'>from</span> (origen).", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T3-V3) Choose the correct preposition: lend money ____ my brother.",
+        options: [
+          { text: "to", correct: true },
+          { text: "from", correct: false },
+          { text: "on", correct: false }
+        ],
+        explain: { okTitle: "lend <span class='code'>to</span> (destinatario).", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "T3-V4) Complete: I’ll pay you ____ tomorrow.",
+        answers: ["back"],
+        showExpected: "back",
+        explain: { okTitle: "pay back = devolver dinero.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T3-V5) Which means “vivir con un ingreso / sueldo”?",
+        options: [
+          { text: "live on", correct: true },
+          { text: "live off", correct: false },
+          { text: "live out", correct: false }
+        ],
+        explain: { okTitle: "live on = vivir con (una cantidad).", okPoints: ["live off = vivir dependiendo de alguien/una fuente."] }
+      },
+
+      /* ================= TEMA 4 — for/since/how long + PPC + Strong adjectives ================= */
+      {
+        type: "mcq",
+        stem: "T4-G1) I’ve lived here ____ 2018.",
+        options: [
+          { text: "since", correct: true },
+          { text: "for", correct: false },
+          { text: "during", correct: false }
+        ],
+        explain: { okTitle: "since = punto de inicio (2018).", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T4-G2) How long ____ you been waiting?",
+        options: [
+          { text: "have", correct: true },
+          { text: "do", correct: false },
+          { text: "are", correct: false }
+        ],
+        explain: { okTitle: "How long + PPC: <span class='code'>have/has been + -ing</span>.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T4-G3) She ____ that bag since university. (have = possession)",
+        options: [
+          { text: "has had", correct: true },
+          { text: "has been having", correct: false },
+          { text: "is having", correct: false }
+        ],
+        explain: { okTitle: "Have (posesión) = estado → Present Perfect Simple.", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "T4-G4) Complete (2 words): They ____ ____ working here for two hours.",
+        answers: ["have been", "they have been", "they've been"],
+        showExpected: "have been",
+        explain: { okTitle: "Acción en duración → have/has been + -ing.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T4-G5) Choose the correct sentence:",
+        options: [
+          { text: "I’ve known him for years.", correct: true },
+          { text: "I’m knowing him for years.", correct: false },
+          { text: "I know him for years.", correct: false }
+        ],
+        explain: { okTitle: "Duración hasta ahora + verbo de estado → Present Perfect.", okPoints: [] }
+      },
+
+      {
+        type: "mcq",
+        stem: "T4-V1) Choose the correct collocation:",
+        options: [
+          { text: "absolutely starving", correct: true },
+          { text: "very starving", correct: false },
+          { text: "quite starving", correct: false }
+        ],
+        explain: { okTitle: "Strong adjective → absolutely / completely / totally.", okPoints: ["starving ya es extremo."] }
+      },
+      {
+        type: "mcq",
+        stem: "T4-V2) It’s -15°C and snowing. It’s ____ outside.",
+        options: [
+          { text: "freezing", correct: true },
+          { text: "very cold", correct: false },
+          { text: "a little cold", correct: false }
+        ],
+        explain: { okTitle: "freezing = heladísimo (strong).", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "T4-V3) Replace “very tired” with a strong adjective: I’m ____.",
+        answers: ["exhausted"],
+        showExpected: "exhausted",
+        explain: { okTitle: "tired → exhausted (strong).", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T4-V4) Which word is a STRONG adjective (extreme)?",
+        options: [
+          { text: "filthy", correct: true },
+          { text: "dirty", correct: false },
+          { text: "clean", correct: false }
+        ],
+        explain: { okTitle: "dirty (normal) vs filthy (strong).", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "T4-V5) Complete: I smell awful… my hair is absolutely ____.",
+        answers: ["filthy"],
+        showExpected: "filthy",
+        explain: { okTitle: "absolutely + strong adjective (filthy).", okPoints: [] }
+      },
+
+      /* ================= TEMA 5 — Comparatives/Superlatives + Transport ================= */
+      {
+        type: "mcq",
+        stem: "T5-G1) This book is ____ than that one.",
+        options: [
+          { text: "more interesting", correct: true },
+          { text: "interestinger", correct: false },
+          { text: "more interested", correct: false }
+        ],
+        explain: { okTitle: "Adjetivo largo → <span class='code'>more + adjective + than</span>.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T5-G2) big → ____ (comparative)",
+        options: [
+          { text: "bigger", correct: true },
+          { text: "biger", correct: false },
+          { text: "more big", correct: false }
+        ],
+        explain: { okTitle: "CVC: doble consonante → bigger.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T5-G3) She isn’t as tall ____ her sister.",
+        options: [
+          { text: "as", correct: true },
+          { text: "than", correct: false },
+          { text: "like", correct: false }
+        ],
+        explain: { okTitle: "Igualdad: (not) as + adj + as.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T5-G4) Kevin is the tallest player ____ the team.",
+        options: [
+          { text: "in", correct: true },
+          { text: "of", correct: false },
+          { text: "at", correct: false }
+        ],
+        explain: { okTitle: "Después de superlativos (lugar/grupo) → <span class='code'>in</span>.", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "T5-G5) Write the comparative of GOOD → ____",
+        answers: ["better"],
+        showExpected: "better",
+        explain: { okTitle: "Irregular: good → better.", okPoints: [] }
+      },
+
+      {
+        type: "mcq",
+        stem: "T5-V1) BrE vs AmE: lorry (BrE) = ____ (AmE)",
+        options: [
+          { text: "truck", correct: true },
+          { text: "tram", correct: false },
+          { text: "coach", correct: false }
+        ],
+        explain: { okTitle: "lorry (UK) = truck (US).", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T5-V2) Complete the chunk: There was a traffic ____, so I arrived late.",
+        options: [
+          { text: "jam", correct: true },
+          { text: "block", correct: false },
+          { text: "stop", correct: false }
+        ],
+        explain: { okTitle: "Chunk fijo: <span class='code'>traffic jam</span>.", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "T5-V3) Complete: We set ____ at 7.00 to avoid the rush hour.",
+        answers: ["off"],
+        showExpected: "off",
+        explain: { okTitle: "set off = partir / salir (viaje).", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "T5-V4) Complete: We ran ____ of petrol on the motorway.",
+        answers: ["out"],
+        showExpected: "out",
+        explain: { okTitle: "run out of = quedarse sin.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T5-V5) Choose the correct sentence:",
+        options: [
+          { text: "Can you pick me up at 6?", correct: true },
+          { text: "Can you pick up me at 6?", correct: false },
+          { text: "Can you pick me at 6?", correct: false }
+        ],
+        explain: { okTitle: "Pronombre en medio: <span class='code'>pick me up</span> (natural).", okPoints: [] }
+      },
+
+      /* ================= TEMA 6 — Articles + Prepositions (chunks + gerund) ================= */
+      {
+        type: "mcq",
+        stem: "T6-G1) I saw ____ old man with ____ dog.",
+        options: [
+          { text: "an / a", correct: true },
+          { text: "a / the", correct: false },
+          { text: "the / a", correct: false }
+        ],
+        explain: { okTitle: "Primera mención: a/an. Sonido vocal: <span class='code'>an old</span>.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T6-G2) I saw a dog. ____ dog was barking.",
+        options: [
+          { text: "The", correct: true },
+          { text: "A", correct: false },
+          { text: "—", correct: false }
+        ],
+        explain: { okTitle: "Segunda mención (ya sabemos cuál) → the.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T6-G3) She’s at ____ home today. (routine)",
+        options: [
+          { text: "—", correct: true },
+          { text: "a", correct: false },
+          { text: "the", correct: false }
+        ],
+        explain: { okTitle: "Rutina: at home / from work / go to school (sin artículo).", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T6-G4) We’re going to ____ cinema tonight.",
+        options: [
+          { text: "the", correct: true },
+          { text: "a", correct: false },
+          { text: "—", correct: false }
+        ],
+        explain: { okTitle: "Lugares típicos en ciudad: <span class='code'>the cinema</span>.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T6-G5) Choose the correct article: ____ university (sound /juː/)",
+        options: [
+          { text: "a", correct: true },
+          { text: "an", correct: false },
+          { text: "the", correct: false }
+        ],
+        explain: { okTitle: "a/an depende del SONIDO: university suena /juː/ (consonante) → a.", okPoints: [] }
+      },
+
+      {
+        type: "input",
+        stem: "T6-V1) Write the 2 prepositions (format: to / for): I apologized ____ the officer ____ speeding.",
+        answers: ["to for", "to / for", "to  for", "to, for"],
+        showExpected: "to / for",
+        explain: { okTitle: "Chunk: apologize <span class='code'>to</span> (person) <span class='code'>for</span> (reason).", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T6-V2) I’m really interested ____ astronomy.",
+        options: [
+          { text: "in", correct: true },
+          { text: "at", correct: false },
+          { text: "on", correct: false }
+        ],
+        explain: { okTitle: "Chunk: interested in.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T6-V3) She’s good ____ math.",
+        options: [
+          { text: "at", correct: true },
+          { text: "in", correct: false },
+          { text: "for", correct: false }
+        ],
+        explain: { okTitle: "Chunk: good at.", okPoints: [] }
+      },
+      {
+        type: "mcq",
+        stem: "T6-V4) Choose the correct preposition: We arrived ____ Lima at midnight.",
+        options: [
+          { text: "in", correct: true },
+          { text: "at", correct: false },
+          { text: "on", correct: false }
+        ],
+        explain: { okTitle: "arrive in = ciudad/país • arrive at = lugar exacto (airport/station).", okPoints: [] }
+      },
+      {
+        type: "input",
+        stem: "T6-V5) After a preposition we use -ing. Complete: I’m tired of ____ (wait).",
+        answers: ["waiting"],
+        showExpected: "waiting",
+        explain: { okTitle: "Después de preposición → verbo en <span class='code'>-ing</span>.", okPoints: [] }
+      }
+    ];
+
+    /* ===========================
+       State
+    ============================ */
+    let deck = [];
+    let idx = 0;
+    let score = 0;
+    let answered = false;
+
+    let bossHP = MAX_HP;
+    let playerHP = MAX_HP;
+
+    let streak = 0;
+
+    const els = {
+      qBadge: document.getElementById("qBadge"),
+      scoreBadge: document.getElementById("scoreBadge"),
+      streakBadge: document.getElementById("streakBadge"),
+      progressBar: document.getElementById("progressBar"),
+
+      bossName: document.getElementById("bossName"),
+      playerName: document.getElementById("playerName"),
+      bossHPText: document.getElementById("bossHPText"),
+      bossMaxText: document.getElementById("bossMaxText"),
+      playerHPText: document.getElementById("playerHPText"),
+      playerMaxText: document.getElementById("playerMaxText"),
+      bossHPBar: document.getElementById("bossHPBar"),
+      playerHPBar: document.getElementById("playerHPBar"),
+      bossDmg: document.getElementById("bossDmg"),
+      playerDmg: document.getElementById("playerDmg"),
+
+      questionText: document.getElementById("questionText"),
+      options: document.getElementById("options"),
+      inputWrap: document.getElementById("inputWrap"),
+      textAnswer: document.getElementById("textAnswer"),
+      submitBtn: document.getElementById("submitBtn"),
+
+      feedbackBox: document.getElementById("feedbackBox"),
+      fbTitle: document.getElementById("fbTitle"),
+      fbBody: document.getElementById("fbBody"),
+
+      nextRow: document.getElementById("nextRow"),
+      nextBtn: document.getElementById("nextBtn"),
+
+      overlay: document.getElementById("overlay"),
+      endTitle: document.getElementById("endTitle"),
+      endBig: document.getElementById("endBig"),
+      endStats: document.getElementById("endStats")
+    };
+
+    function resetUI(){
+      els.feedbackBox.style.display = "none";
+      els.feedbackBox.classList.remove("fbOk","fbBad");
+      els.nextRow.style.display = "none";
+      els.options.innerHTML = "";
+      els.options.style.display = "grid";
+      els.inputWrap.style.display = "none";
+      els.textAnswer.value = "";
+      els.textAnswer.disabled = false;
+      els.submitBtn.disabled = false;
+      els.textAnswer.classList.remove("inputOk","inputBad");
+    }
+
+    function updateHUD(){
+      const total = deck.length;
+      const qn = Math.min(idx+1, total);
+
+      els.qBadge.textContent = `Pregunta: ${qn} / ${total}`;
+      els.scoreBadge.textContent = `Aciertos: ${score}`;
+      els.streakBadge.textContent = `Racha: ${streak}`;
+
+      const pct = Math.round(((idx) / total) * 100);
+      els.progressBar.style.width = pct + "%";
+
+      els.bossHPText.textContent = Math.round(bossHP);
+      els.playerHPText.textContent = Math.round(playerHP);
+      els.bossMaxText.textContent = MAX_HP;
+      els.playerMaxText.textContent = MAX_HP;
+
+      els.bossHPBar.style.width = clamp((bossHP/MAX_HP)*100, 0, 100) + "%";
+      els.playerHPBar.style.width = clamp((playerHP/MAX_HP)*100, 0, 100) + "%";
+    }
+
+    function dmgFloat(el, text){
+      el.textContent = text;
+      el.classList.remove("show");
+      void el.offsetWidth;
+      el.classList.add("show");
+    }
+
+    function showFeedback(isCorrect, expectedText, userText){
+      const q = deck[idx];
+
+      els.feedbackBox.style.display = "block";
+      els.feedbackBox.classList.add(isCorrect ? "fbOk" : "fbBad");
+      els.fbTitle.textContent = isCorrect ? "✅ Correcto. El boss sufre." : "❌ Incorrecto. Te bajó vida.";
+
+      const points = (q.explain?.okPoints || []).map(x => `<li>${x}</li>`).join("");
+      const expectedLine = expectedText
+        ? `<p class="muted" style="margin-top:10px;"><b>Respuesta esperada:</b> <span class="code">${expectedText}</span></p>`
+        : "";
+      const userLine = (userText !== undefined && userText !== null)
+        ? `<p class="muted" style="margin-top:6px;"><b>Tu respuesta:</b> <span class="code">${(userText || "—").replace(/</g,"&lt;").replace(/>/g,"&gt;")}</span></p>`
+        : "";
+
+      els.fbBody.innerHTML = `
+        <p style="margin:0;"><b>${q.explain?.okTitle || ""}</b></p>
+        ${expectedLine}
+        ${userLine}
+        ${points ? `<ul>${points}</ul>` : ""}
+      `;
+
+      els.nextRow.style.display = "flex";
+      els.nextBtn.textContent = (idx < deck.length - 1) ? "Siguiente" : "Finalizar";
+    }
+
+    function endGame(victory){
+      els.overlay.style.display = "flex";
+      const total = deck.length;
+      const done = Math.min(idx+1, total);
+      els.endTitle.textContent = victory ? "VICTORIA 😈💀" : "DERROTA ☠️";
+      els.endBig.textContent = victory
+        ? "Mataste al boss. (gramática destruida)"
+        : "El boss te borró. (te faltó daño)";
+      els.endStats.textContent = `Progreso: ${done}/${total} • Aciertos: ${score} • Vida Boss: ${Math.round(bossHP)} • Tu vida: ${Math.round(playerHP)}.`;
+    }
+
+    function applyResult(isCorrect){
+      if(isCorrect){
+        score++;
+        streak++;
+        bossHP = clamp(bossHP - (BOSS_DAMAGE + (streak >= 5 ? 1 : 0)), 0, MAX_HP);
+        dmgFloat(els.bossDmg, `-${BOSS_DAMAGE + (streak >= 5 ? 1 : 0)} 😈`);
+      }else{
+        streak = 0;
+        playerHP = clamp(playerHP - PLAYER_DAMAGE, 0, MAX_HP);
+        dmgFloat(els.playerDmg, `-${PLAYER_DAMAGE} 🩸`);
+      }
+      updateHUD();
+
+      if(bossHP <= 0){
+        endGame(true);
+        return true;
+      }
+      if(playerHP <= 0){
+        endGame(false);
+        return true;
+      }
+      return false;
+    }
+
+    function renderQuestion(){
+      answered = false;
+      resetUI();
+      updateHUD();
+
+      const q = deck[idx];
+      els.questionText.textContent = q.stem;
+
+      if(q.type === "mcq"){
+        els.inputWrap.style.display = "none";
+        els.options.style.display = "grid";
+
+        const opts = shuffle(q.options.map(o => ({...o})));
+        opts.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.className = "optBtn";
+          btn.type = "button";
+          btn.innerHTML = `<div class="optLabel">${opt.text}</div>`;
+          btn.addEventListener("click", () => chooseOption(btn, opt, opts));
+          els.options.appendChild(btn);
+        });
+      } else {
+        els.options.style.display = "none";
+        els.inputWrap.style.display = "flex";
+        els.textAnswer.focus();
+      }
+    }
+
+    function chooseOption(btnEl, chosenOpt, renderedOpts){
+      if(answered) return;
+      answered = true;
+
+      const btns = [...els.options.querySelectorAll(".optBtn")];
+      btns.forEach(b => b.disabled = true);
+
+      btnEl.classList.add("chosen");
+
+      const correctOpt = renderedOpts.find(o => o.correct);
+      btns.forEach(b => {
+        const text = b.querySelector(".optLabel").textContent.trim();
+        if(text === correctOpt.text){
+          b.classList.add("correct");
+        }
+      });
+
+      const isCorrect = chosenOpt.correct;
+      if(!isCorrect) btnEl.classList.add("wrong");
+
+      const ended = applyResult(isCorrect);
+      if(!ended){
+        showFeedback(isCorrect, correctOpt.text, chosenOpt.text);
+      }
+    }
+
+    function checkInput(){
+      if(answered) return;
+
+      const q = deck[idx];
+      if(q.type !== "input") return;
+
+      answered = true;
+
+      const raw = els.textAnswer.value;
+      const userNorm = normalize(raw);
+      const accepted = (q.answers || []).map(normalize);
+      const isCorrect = accepted.includes(userNorm);
+
+      els.textAnswer.disabled = true;
+      els.submitBtn.disabled = true;
+
+      if(isCorrect){
+        els.textAnswer.classList.add("inputOk");
+      }else{
+        els.textAnswer.classList.add("inputBad");
+      }
+
+      const expectedText = q.showExpected || (q.answers && q.answers[0]) || "";
+      const ended = applyResult(isCorrect);
+      if(!ended){
+        showFeedback(isCorrect, expectedText, raw);
+      }
+    }
+
+    function next(){
+      if(!answered) return;
+
+      if(idx < deck.length - 1){
+        idx++;
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        // si llegas al final sin morir/matar boss
+        const victory = bossHP > 0 ? false : true;
+        endGame(victory);
+      }
+    }
+
+    function start(){
+      spawnDemons();
+
+      els.bossName.textContent = BOSS_NAME;
+      els.playerName.textContent = PLAYER_NAME;
+
+      bossHP = MAX_HP;
+      playerHP = MAX_HP;
+      score = 0;
+      streak = 0;
+      idx = 0;
+
+      deck = shuffle(QUESTION_BANK); // 60
+      renderQuestion();
+    }
+
+    els.nextBtn.addEventListener("click", next);
+    els.submitBtn.addEventListener("click", checkInput);
+    els.textAnswer.addEventListener("keydown", (e) => {
+      if(e.key === "Enter"){
+        e.preventDefault();
+        checkInput();
+      }
+    });
+
+    start();
+  </script>
+</body>
+</html>
