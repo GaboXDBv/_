@@ -331,7 +331,7 @@
 
     .btnBack{ background: linear-gradient(135deg, #ef4444, #dc2626); }
     .btnVocab{ background: linear-gradient(135deg, #10b981, #059669); }
-
+    .btnIndex{ background: linear-gradient(135deg, #111827, #000000); }
     .footerHint{
       text-align:center;
       color: var(--muted);
@@ -660,9 +660,13 @@
             Desde aquí solo vas al tema anterior o al vocabulario del Tema 3.
           </p>
 
+                    <!-- HTML: en tu sección de Navegación, deja el navRow así (añadiendo el botón Índice negro) -->
           <div class="navRow">
-            <button class="navBtn btnBack" onclick="window.location.href='mark2.html'">Atrás (Marco Teórico 2)</button>
+            <button class="navBtn btnBack" onclick="window.location.href='mark2.html'">Atrás (Tema 2)</button>
             <button class="navBtn btnVocab" onclick="window.location.href='vocabulario3.html'">Vocabulario 3</button>
+          
+            <!-- Nuevo botón: Índice (negro) -->
+            <button class="navBtn btnIndex" onclick="window.location.href='index.html'">Indice</button>
           </div>
 
           <div class="footerHint">
