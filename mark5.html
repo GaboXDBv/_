@@ -239,7 +239,7 @@
 
     .btnBack{ background: linear-gradient(135deg, #ef4444, #dc2626); }
     .btnVocab{ background: linear-gradient(135deg, #10b981, #059669); }
-
+    .btnIndex{ background: linear-gradient(135deg, #111827, #000000); }
     .footerHint{
       text-align:center;
       color: var(--muted);
@@ -612,10 +612,15 @@
             Vuelve al tema anterior o pasa al vocabulario del Tema 5.
           </p>
 
-          <div class="navRow">
-            <button class="navBtn btnBack" onclick="window.location.href='mark4.html'">Atras</button>
-            <button class="navBtn btnVocab" onclick="window.location.href='vocabulario5.html'">Vocabulario5</button>
-          </div>
+                  <!-- HTML: en tu sección de Navegación, deja el navRow así (añadiendo el botón Índice negro) -->
+        <div class="navRow">
+          <button class="navBtn btnBack" onclick="window.location.href='mark4.html'">Atrás (Tema 4)</button>
+          <button class="navBtn btnVocab" onclick="window.location.href='vocabulario5.html'">Vocabulario 5</button>
+        
+          <!-- Nuevo botón: Índice (negro) -->
+          <button class="navBtn btnIndex" onclick="window.location.href='index.html'">Indice</button>
+        </div>
+
 
           <div class="footerHint">
             (Tema 5 listo — seguimos con <b>Vocabulario 5</b>.)
