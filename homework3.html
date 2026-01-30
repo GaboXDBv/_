@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homework 3</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=2" type="image/png" />
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
+
+      --accent: #2563eb;
+      --accent2:#10b981;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
+      --soft: rgba(31,41,55,.08);
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+    }
+
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+      text-align:center;
+    }
+
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(16px, 3.1vw, 19px); /* un poco más grande */
+      line-height: 1.45;
+    }
+
+    .pillRow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+      justify-content:center;
+    }
+    .pill{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.90);
+      color: var(--muted);
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .bar.warn{ background: linear-gradient(90deg, var(--warn), var(--accent)); }
+    .bar.danger{ background: linear-gradient(90deg, var(--danger), var(--warn)); }
+
+    .content{ padding: 16px 16px 14px; }
+
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(22px, 4vw, 30px); /* más grande (como tu ajuste) */
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+
+    p{
+      font-size: 18px; /* más grande */
+      line-height: 1.6;
+      margin: 8px 0;
+    }
+
+    .muted{ color: var(--muted); }
+
+    .callout{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(37,99,235,.06);
+    }
+    .callout strong{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .cardNote{ font-size: 16px; color: var(--muted); }
+
+    /* Homework UI */
+    .qList{ margin-top: 6px; display: grid; gap: 10px; }
+    .qItem{
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      border-radius: 14px;
+      padding: 12px 12px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    .qTop{
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .qNum{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 16px;          /* más grande */
+      color: rgba(17,24,39,.85);
+      background: rgba(37,99,235,.10);
+      border: 1px solid rgba(37,99,235,.16);
+      padding: 6px 12px;        /* más grande */
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .qMeta{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 15px;          /* más grande (tu cambio) */
+      color: var(--muted);
+      background: rgba(16,185,129,.10);
+      border: 1px solid rgba(16,185,129,.18);
+      padding: 6px 12px;        /* más grande (tu cambio) */
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .qText{ margin-top: 10px; font-size: 18px; line-height: 1.7; }
+
+    .blank{
+      width: min(320px, 80vw);
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(17,24,39,.16);
+      background: rgba(17,24,39,.03);
+      outline: none;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 17px;          /* más grande (tu cambio) */
+      transition: transform .08s ease, border-color .12s ease, background .12s ease;
+      vertical-align: middle;
+    }
+    .blank:focus{
+      border-color: rgba(37,99,235,.55);
+      background: rgba(37,99,235,.06);
+      transform: translateY(-1px);
+    }
+
+    .markOk{ border-color: rgba(16,185,129,.55) !important; background: rgba(16,185,129,.08) !important; }
+    .markBad{ border-color: rgba(239,68,68,.65) !important; background: rgba(239,68,68,.08) !important; }
+
+    .navRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 12px;
+    }
+    .navBtn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+    }
+    .navBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .navBtn:active{ transform: translateY(0px); }
+
+    .btnEval{ background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+    .btnIndex{ background: linear-gradient(135deg, #111827, #000000); }
+    .btnMark{ background: linear-gradient(135deg, #10b981, #059669); }
+
+    .resultBox{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(255,255,255,.78);
+    }
+    .resultTitle{
+      margin:0 0 6px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+    }
+    .resultLine{ margin:0; color: var(--muted); font-size: 16px; line-height: 1.5; }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Homework 3</h1>
+      <p class="subtitle">
+        <b>Past Simple vs Present Perfect</b> — choose the correct option and complete the sentences.
+      </p>
+      <div class="pillRow" aria-label="Palabras clave">
+        <span class="pill">past simple</span>
+        <span class="pill">present perfect</span>
+        <span class="pill">ever / never</span>
+        <span class="pill">just</span>
+        <span class="pill">yet / already</span>
+        <span class="pill">since / for</span>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <!-- 1) Choose -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>A) Choose the correct form</h2>
+          <p class="muted">Selecciona la opción correcta (Past Simple o Present Perfect).</p>
+
+          <div class="qList">
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">1</span><span class="qMeta">choose</span></div>
+              <div class="qText">I’m hungry. I
+                <select class="blank" id="s1">
+                  <option value="">— choose —</option>
+                  <option value="didn't eat">didn’t eat</option>
+                  <option value="haven't eaten">haven’t eaten</option>
+                </select>
+                anything today.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">2</span><span class="qMeta">choose</span></div>
+              <div class="qText">Grandma
+                <select class="blank" id="s2">
+                  <option value="">— choose —</option>
+                  <option value="visited">visited</option>
+                  <option value="has visited">has visited</option>
+                </select>
+                us last weekend.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">3</span><span class="qMeta">choose</span></div>
+              <div class="qText">Look! Tomek
+                <select class="blank" id="s3">
+                  <option value="">— choose —</option>
+                  <option value="broke">broke</option>
+                  <option value="has broken">has broken</option>
+                </select>
+                his arm.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">4</span><span class="qMeta">choose</span></div>
+              <div class="qText">Sorry, Sir. I
+                <select class="blank" id="s4">
+                  <option value="">— choose —</option>
+                  <option value="forgot">forgot</option>
+                  <option value="have forgotten">have forgotten</option>
+                </select>
+                my homework.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">5</span><span class="qMeta">choose</span></div>
+              <div class="qText">Mrs Ziarko
+                <select class="blank" id="s5">
+                  <option value="">— choose —</option>
+                  <option value="worked">worked</option>
+                  <option value="has worked">has worked</option>
+                </select>
+                at this school for 5 years.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">6</span><span class="qMeta">choose</span></div>
+              <div class="qText">Uncle Tim
+                <select class="blank" id="s6">
+                  <option value="">— choose —</option>
+                  <option value="was">was</option>
+                  <option value="has been">has been</option>
+                </select>
+                in hospital since Friday.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">7</span><span class="qMeta">choose</span></div>
+              <div class="qText">
+                <select class="blank" id="s7">
+                  <option value="">— choose —</option>
+                  <option value="did you">Did you</option>
+                  <option value="have you">Have you</option>
+                </select>
+                ever read a book in English?
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">8</span><span class="qMeta">choose</span></div>
+              <div class="qText">They
+                <select class="blank" id="s8">
+                  <option value="">— choose —</option>
+                  <option value="never lived">never lived</option>
+                  <option value="have never lived">have never lived</option>
+                </select>
+                in a big city.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">9</span><span class="qMeta">choose</span></div>
+              <div class="qText">We
+                <select class="blank" id="s9">
+                  <option value="">— choose —</option>
+                  <option value="didn't clean">didn’t clean</option>
+                  <option value="haven't cleaned">haven’t cleaned</option>
+                </select>
+                our room. It’s really messy.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">10</span><span class="qMeta">choose</span></div>
+              <div class="qText">Ola
+                <select class="blank" id="s10">
+                  <option value="">— choose —</option>
+                  <option value="wrote">wrote</option>
+                  <option value="has written">has written</option>
+                </select>
+                a Maths test last week.
+              </div>
+            </div>
+          </div>
+
+          <div class="callout">
+            <strong>Tip rápido:</strong>
+            <span class="muted">
+              <b>Past Simple</b> = tiempo terminado (yesterday, last week). ·
+              <b>Present Perfect</b> = experiencia/resultado ahora (ever/never/just, since/for).
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2) Put the verbs -->
+      <section class="card">
+        <div class="bar warn"></div>
+        <div class="content">
+          <h2>B) Put the verbs in the correct form</h2>
+          <p class="muted">Completa con <b>past simple</b> o <b>present perfect</b> (usa la forma correcta del verbo).</p>
+
+          <div class="qList">
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">1</span><span class="qMeta">(write)</span></div>
+              <div class="qText">We
+                <input class="blank" id="b1a" placeholder="..." autocomplete="off" />
+                not
+                <input class="blank" id="b1b" placeholder="..." autocomplete="off" />
+                any English tests this month.
+              </div>
+              <p class="cardNote">Hint: “this month” (aún no termina) → present perfect.</p>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">2</span><span class="qMeta">(visit)</span></div>
+              <div class="qText">My grandma
+                <input class="blank" id="b2" placeholder="..." autocomplete="off" />
+                15 countries in her life.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">3</span><span class="qMeta">(eat)</span></div>
+              <div class="qText">I
+                <input class="blank" id="b3" placeholder="..." autocomplete="off" />
+                pizza for lunch yesterday.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">4</span><span class="qMeta">(read)</span></div>
+              <div class="qText">They
+                <input class="blank" id="b4" placeholder="..." autocomplete="off" />
+                an interesting book last week.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">5</span><span class="qMeta">(swim)</span></div>
+              <div class="qText">My dad
+                <input class="blank" id="b5" placeholder="..." autocomplete="off" />
+                in the Pacific Ocean in 1995.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">6</span><span class="qMeta">(play)</span></div>
+              <div class="qText">
+                <input class="blank" id="b6a" placeholder="..." autocomplete="off" />
+                you ever
+                <input class="blank" id="b6b" placeholder="..." autocomplete="off" />
+                rugby?
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">7</span><span class="qMeta">(teach)</span></div>
+              <div class="qText">Mr Mandzelowski
+                <input class="blank" id="b7" placeholder="..." autocomplete="off" />
+                at our school since 1999.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">8</span><span class="qMeta">(drink)</span></div>
+              <div class="qText">I’m thirsty. I
+                <input class="blank" id="b8a" placeholder="..." autocomplete="off" />
+                not
+                <input class="blank" id="b8b" placeholder="..." autocomplete="off" />
+                anything today.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">9</span><span class="qMeta">(see)</span></div>
+              <div class="qText">She
+                <input class="blank" id="b9" placeholder="..." autocomplete="off" />
+                a penguin in a zoo last August.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">10</span><span class="qMeta">(climb)</span></div>
+              <div class="qText">They’re very proud because they
+                <input class="blank" id="b10" placeholder="..." autocomplete="off" />
+                Mount Everest.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Evaluation + Nav -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Evaluación</h2>
+          <p class="muted">Presiona <b>Evaluar</b> para ver tu puntaje.</p>
+
+          <div class="navRow">
+            <button class="navBtn btnEval" id="btnEval">Evaluar</button>
+            <button class="navBtn btnIndex" onclick="window.location.href='index.html'">Indice</button>
+            <button class="navBtn btnMark" onclick="window.location.href='mark1.html'">Marco Teórico</button>
+          </div>
+
+          <div class="resultBox" id="resultBox" aria-live="polite">
+            <p class="resultTitle" id="resultTitle">Resultado</p>
+            <p class="resultLine" id="resultLine">Aún no evaluado.</p>
+          </div>
+
+          <div class="footerHint">(Homework 3 listo.)</div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    // helpers
+    function norm(s){
+      return (s || "")
+        .toLowerCase()
+        .replace(/[’]/g,"'")
+        .replace(/[^a-z0-9'\s]/g,"")
+        .replace(/\s+/g," ")
+        .trim();
+    }
+    function setMark(el, ok){
+      if(!el) return;
+      el.classList.remove("markOk","markBad");
+      el.classList.add(ok ? "markOk" : "markBad");
+    }
+    function isOneOf(user, accepted){
+      const u = norm(user);
+      return accepted.map(norm).includes(u);
+    }
+    const $ = (id)=>document.getElementById(id);
+
+    // A) selects correct
+    const selectKey = {
+      s1: "haven't eaten",
+      s2: "visited",
+      s3: "has broken",
+      s4: "have forgotten",
+      s5: "has worked",
+      s6: "has been",
+      s7: "have you",
+      s8: "have never lived",
+      s9: "haven't cleaned",
+      s10:"wrote"
+    };
+
+    // B) inputs (tolerant)
+    const inputKey = {
+      // 1) We ___ not ___ (write)
+      b1a: ["have", "we have", "we've", "weve"],
+      b1b: ["written"],
+
+      b2: ["has visited", "she has visited", "my grandma has visited", "grandma has visited"],
+      b3: ["ate"],
+      b4: ["read"],
+      b5: ["swam"],
+
+      // 6) ___ you ever ___ (play)
+      b6a: ["have"],
+      b6b: ["played"],
+
+      b7: ["has taught", "he has taught", "mr mandzelowski has taught"],
+      // 8) I ___ not ___ (drink)
+      b8a: ["have", "i have", "i've", "ive"],
+      b8b: ["drunk"],
+
+      b9: ["saw"],
+      b10:["have climbed", "they have climbed", "they've climbed", "theyve climbed", "has climbed"] // tolerante
+    };
+
+    function grade(){
+      let total = 0, score = 0;
+
+      // grade selects
+      Object.keys(selectKey).forEach(id=>{
+        const el = $(id);
+        if(!el) return;
+        total++;
+        const ok = el.value === selectKey[id];
+        // mark select as ok/bad
+        setMark(el, ok);
+        if(ok) score++;
+      });
+
+      // grade inputs
+      Object.keys(inputKey).forEach(id=>{
+        const el = $(id);
+        if(!el) return;
+        total++;
+        const ok = isOneOf(el.value, inputKey[id]);
+        setMark(el, ok);
+        if(ok) score++;
+      });
+
+      const pct = Math.round((score/total)*100);
+      $("resultTitle").textContent = "Resultado";
+      $("resultLine").textContent = `Puntaje: ${score} / ${total} (${pct}%)`;
+
+      const box = $("resultBox");
+      box.classList.remove("callout","ok","warn","bad");
+      box.classList.add("callout");
+      if(pct >= 85) box.classList.add("ok");
+      else if(pct >= 60) box.classList.add("warn");
+      else box.classList.add("bad");
+    }
+
+    $("btnEval").addEventListener("click", grade);
+  </script>
+</body>
+</html>
