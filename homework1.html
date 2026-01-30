@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homework 1</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=2" type="image/png" />
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
+
+      --accent: #2563eb;  /* azul */
+      --accent2:#10b981;  /* verde */
+      --warn:#f59e0b;     /* ámbar */
+      --danger:#ef4444;   /* rojo */
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
+
+      --soft: rgba(31,41,55,.08);
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+    }
+
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+      text-align:center;
+    }
+
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 2.8vw, 17px);
+      line-height: 1.45;
+    }
+
+    .pillRow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+      justify-content:center;
+    }
+    .pill{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.90);
+      color: var(--muted);
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .bar.warn{ background: linear-gradient(90deg, var(--warn), var(--accent)); }
+    .bar.danger{ background: linear-gradient(90deg, var(--danger), var(--warn)); }
+
+    .content{
+      padding: 16px 16px 14px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(18px, 3.8vw, 24px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+
+    h3{
+      margin:14px 0 8px;
+      font-size: clamp(16px, 3.4vw, 20px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .15px;
+    }
+
+    p{
+      font-size: clamp(15px, 3.4vw, 18px);
+      line-height: 1.55;
+      margin: 8px 0;
+    }
+
+    .muted{ color: var(--muted); }
+
+    ul{ margin: 10px 0 0; padding-left: 18px; }
+    li{ margin: 8px 0; font-size: 15px; line-height: 1.5; }
+
+    .callout{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(37,99,235,.06);
+    }
+    .callout strong{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .callout.ok{ background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.20); }
+    .callout.warn{ background: rgba(245,158,11,.10); border-color: rgba(245,158,11,.22); }
+    .callout.bad{ background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.20); }
+
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: .95em;
+      background: rgba(17,24,39,.05);
+      padding: 2px 6px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    /* Homework UI */
+    .qList{ margin-top: 6px; display: grid; gap: 10px; }
+    .qItem{
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      border-radius: 14px;
+      padding: 12px 12px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    .qTop{
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .qNum{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      color: rgba(17,24,39,.85);
+      background: rgba(37,99,235,.10);
+      border: 1px solid rgba(37,99,235,.16);
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .qMeta{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(16,185,129,.10);
+      border: 1px solid rgba(16,185,129,.18);
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .qText{ margin-top: 8px; font-size: 16px; line-height: 1.6; }
+    .blank{
+      width: min(220px, 60vw);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(17,24,39,.16);
+      background: rgba(17,24,39,.03);
+      outline: none;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 15px;
+      transition: transform .08s ease, border-color .12s ease, background .12s ease;
+      vertical-align: middle;
+    }
+    .blank:focus{
+      border-color: rgba(37,99,235,.55);
+      background: rgba(37,99,235,.06);
+      transform: translateY(-1px);
+    }
+    .inlineGap{ display:inline-block; width: 8px; }
+    .smallHint{ color: var(--muted); font-size: 13px; margin-top: 8px; }
+
+    .markOk{ border-color: rgba(16,185,129,.55) !important; background: rgba(16,185,129,.08) !important; }
+    .markBad{ border-color: rgba(239,68,68,.65) !important; background: rgba(239,68,68,.08) !important; }
+
+    .miniRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 10px;
+    }
+    .tickBox{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px dashed rgba(17,24,39,.18);
+      background: rgba(255,255,255,.70);
+    }
+    .tickBox label{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      color: rgba(17,24,39,.85);
+      cursor: pointer;
+    }
+    input[type="checkbox"]{
+      width: 18px; height: 18px;
+      accent-color: var(--accent);
+      cursor:pointer;
+    }
+
+    .resultBox{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(255,255,255,.78);
+    }
+    .resultTitle{
+      margin:0 0 6px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+    }
+    .resultLine{ margin:0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+    .navRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 12px;
+    }
+    .navBtn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+    }
+    .navBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .navBtn:active{ transform: translateY(0px); }
+
+    .btnEval{ background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+    .btnIndex{ background: linear-gradient(135deg, #111827, #000000); }
+    .btnMark{ background: linear-gradient(135deg, #10b981, #059669); }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Homework 1</h1>
+      <p class="subtitle">
+        <b>Present Simple vs Present Continuous</b> · <b>action / non-action verbs</b> · <b>questions</b> · <b>corrections</b>
+      </p>
+      <div class="pillRow" aria-label="Palabras clave">
+        <span class="pill">present simple</span>
+        <span class="pill">present continuous</span>
+        <span class="pill">action verbs</span>
+        <span class="pill">non-action verbs</span>
+        <span class="pill">questions</span>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <!-- A) Present simple / continuous -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>A) Complete the sentences</h2>
+          <p class="muted">Complete the sentences with the present simple or continuous form of the verbs in brackets.</p>
+
+          <div class="qList">
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">1</span>
+                <span class="qMeta">(feel)</span>
+              </div>
+              <div class="qText">
+                I sometimes
+                <input class="blank" id="a1" placeholder="..." autocomplete="off" />
+                tired after lunch.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">2</span>
+                <span class="qMeta">(not get up)</span>
+              </div>
+              <div class="qText">
+                We
+                <input class="blank" id="a2a" placeholder="..." autocomplete="off" />
+                usually
+                <input class="blank" id="a2b" placeholder="..." autocomplete="off" />
+                late at the weekend.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">3</span>
+                <span class="qMeta">(watch)</span>
+              </div>
+              <div class="qText">
+                <input class="blank" id="a3a" placeholder="..." autocomplete="off" />
+                you
+                <input class="blank" id="a3b" placeholder="..." autocomplete="off" />
+                the TV or can I turn it off?
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">4</span>
+                <span class="qMeta">(cycle)</span>
+              </div>
+              <div class="qText">
+                My boss
+                <input class="blank" id="a4" placeholder="..." autocomplete="off" />
+                to work every morning.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">5</span>
+                <span class="qMeta">(have)</span>
+              </div>
+              <div class="qText">
+                Can you call back later – I can’t hear you. We
+                <input class="blank" id="a5" placeholder="..." autocomplete="off" />
+                a party, and the music is very loud.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">6</span>
+                <span class="qMeta">(do)</span>
+              </div>
+              <div class="qText">
+                There’s a man in our neighbours’ garden. What
+                <input class="blank" id="a6a" placeholder="..." autocomplete="off" />
+                he
+                <input class="blank" id="a6b" placeholder="..." autocomplete="off" />
+                ?
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">7</span>
+                <span class="qMeta">(give)</span>
+              </div>
+              <div class="qText">
+                How often
+                <input class="blank" id="a7a" placeholder="..." autocomplete="off" />
+                your teacher
+                <input class="blank" id="a7b" placeholder="..." autocomplete="off" />
+                you homework?
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">8</span>
+                <span class="qMeta">(not eat)</span>
+              </div>
+              <div class="qText">
+                I
+                <input class="blank" id="a8" placeholder="..." autocomplete="off" />
+                chocolate this month. I need to cut down on sweet things.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">9</span>
+                <span class="qMeta">(not do)</span>
+              </div>
+              <div class="qText">
+                My mother
+                <input class="blank" id="a9a" placeholder="..." autocomplete="off" />
+                often
+                <input class="blank" id="a9b" placeholder="..." autocomplete="off" />
+                exercise.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">10</span>
+                <span class="qMeta">(try)</span>
+              </div>
+              <div class="qText">
+                My girlfriend has stopped eating snacks. She
+                <input class="blank" id="a10" placeholder="..." autocomplete="off" />
+                to be healthier.
+              </div>
+            </div>
+          </div>
+
+          <div class="callout ok">
+            <strong>Tip:</strong>
+            <span class="muted">Present simple = rutina / hecho general. Present continuous = “ahora” / temporal.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- B) Verb list -->
+      <section class="card">
+        <div class="bar warn"></div>
+        <div class="content">
+          <h2>B) Complete using the correct form</h2>
+          <p class="muted">
+            Complete the sentences using the correct form of a verb from the list:
+            <span class="code">believe</span>, <span class="code">not belong</span>, <span class="code">drive</span>,
+            <span class="code">play</span>, <span class="code">not recognize</span>, <span class="code">not sleep</span>,
+            <span class="code">sound</span>, <span class="code">not use</span>.
+          </p>
+
+          <div class="qList">
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">1</span>
+              </div>
+              <div class="qText">
+                I can’t talk now, I’m
+                <input class="blank" id="b1" placeholder="..." autocomplete="off" />
+                . I’ll call you when I get to the office.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">2</span>
+              </div>
+              <div class="qText">
+                I think your boyfriend is telling the truth – I
+                <input class="blank" id="b2" placeholder="..." autocomplete="off" />
+                him.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">3</span>
+              </div>
+              <div class="qText">
+                Can you turn off your computer if you
+                <input class="blank" id="b3" placeholder="..." autocomplete="off" />
+                it?
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">4</span>
+              </div>
+              <div class="qText">
+                This bag
+                <input class="blank" id="b4" placeholder="..." autocomplete="off" />
+                to me. Is it yours?
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">5</span>
+              </div>
+              <div class="qText">
+                Sarah isn’t at home. She
+                <input class="blank" id="b5" placeholder="..." autocomplete="off" />
+                tennis.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">6</span>
+              </div>
+              <div class="qText">
+                I’m tired because I
+                <input class="blank" id="b6" placeholder="..." autocomplete="off" />
+                well at the moment.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">7</span>
+              </div>
+              <div class="qText">
+                I
+                <input class="blank" id="b7" placeholder="..." autocomplete="off" />
+                that woman. Do you know who she is?
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">8</span>
+              </div>
+              <div class="qText">
+                That music
+                <input class="blank" id="b8" placeholder="..." autocomplete="off" />
+                awful. Would you mind turning it down?
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- C) Corrections -->
+      <section class="card">
+        <div class="bar danger"></div>
+        <div class="content">
+          <h2>C) Correct / Tick</h2>
+          <p class="muted">Correct any mistakes in the highlighted phrases. Tick (✓) the correct sentences.</p>
+
+          <div class="qList">
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">1</span>
+                <span class="qMeta">tick ✓ if correct</span>
+              </div>
+              <div class="qText">I like your jacket. Is it new?</div>
+
+              <div class="miniRow">
+                <div class="tickBox">
+                  <input type="checkbox" id="c1t" />
+                  <label for="c1t">Correct ✓</label>
+                </div>
+                <input class="blank" id="c1" placeholder="(si NO es correcta, escribe la corrección)" autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">2</span>
+                <span class="qMeta">correct if needed</span>
+              </div>
+              <div class="qText">Something is smelling good. What are you making?</div>
+
+              <div class="miniRow">
+                <div class="tickBox">
+                  <input type="checkbox" id="c2t" />
+                  <label for="c2t">Correct ✓</label>
+                </div>
+                <input class="blank" id="c2" placeholder="Write the correct sentence..." autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">3</span>
+                <span class="qMeta">correct if needed</span>
+              </div>
+              <div class="qText">That cake is looking delicious. Did you make it?</div>
+
+              <div class="miniRow">
+                <div class="tickBox">
+                  <input type="checkbox" id="c3t" />
+                  <label for="c3t">Correct ✓</label>
+                </div>
+                <input class="blank" id="c3" placeholder="Write the correct sentence..." autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">4</span>
+                <span class="qMeta">tick ✓ if correct</span>
+              </div>
+              <div class="qText">I don’t know what to cook for dinner.</div>
+
+              <div class="miniRow">
+                <div class="tickBox">
+                  <input type="checkbox" id="c4t" />
+                  <label for="c4t">Correct ✓</label>
+                </div>
+                <input class="blank" id="c4" placeholder="(si NO es correcta, escribe la corrección)" autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">5</span>
+                <span class="qMeta">correct if needed</span>
+              </div>
+              <div class="qText">Are you thinking the fish is cooked now?</div>
+
+              <div class="miniRow">
+                <div class="tickBox">
+                  <input type="checkbox" id="c5t" />
+                  <label for="c5t">Correct ✓</label>
+                </div>
+                <input class="blank" id="c5" placeholder="Write the correct sentence..." autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">6</span>
+                <span class="qMeta">tick ✓ if correct</span>
+              </div>
+              <div class="qText">Can I call you back? I’m having lunch right now.</div>
+
+              <div class="miniRow">
+                <div class="tickBox">
+                  <input type="checkbox" id="c6t" />
+                  <label for="c6t">Correct ✓</label>
+                </div>
+                <input class="blank" id="c6" placeholder="(si NO es correcta, escribe la corrección)" autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">7</span>
+                <span class="qMeta">tick ✓ if correct</span>
+              </div>
+              <div class="qText">This soup tastes quite spicy. What’s in it?</div>
+
+              <div class="miniRow">
+                <div class="tickBox">
+                  <input type="checkbox" id="c7t" />
+                  <label for="c7t">Correct ✓</label>
+                </div>
+                <input class="blank" id="c7" placeholder="(si NO es correcta, escribe la corrección)" autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">8</span>
+                <span class="qMeta">correct if needed</span>
+              </div>
+              <div class="qText">I’m loving all kinds of vegetables. There aren’t any I don’t eat.</div>
+
+              <div class="miniRow">
+                <div class="tickBox">
+                  <input type="checkbox" id="c8t" />
+                  <label for="c8t">Correct ✓</label>
+                </div>
+                <input class="blank" id="c8" placeholder="Write the correct sentence..." autocomplete="off" />
+              </div>
+            </div>
+          </div>
+
+          <div class="callout warn">
+            <strong>Mini tip:</strong>
+            <span class="muted">Non-action verbs (like <span class="code">love / like / know / think (opinion) / smell</span>) usually go in present simple.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- D) Write questions -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>D) Write questions</h2>
+          <p class="muted">Write the questions.</p>
+
+          <div class="qList">
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">1</span>
+                <span class="qMeta">what / you / do right now</span>
+              </div>
+              <div class="qText">
+                <input class="blank" id="d1" placeholder="Write the question..." autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">2</span>
+                <span class="qMeta">where / you / usually do your homework</span>
+              </div>
+              <div class="qText">
+                <input class="blank" id="d2" placeholder="Write the question..." autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">3</span>
+                <span class="qMeta">why / you / study English</span>
+              </div>
+              <div class="qText">
+                <input class="blank" id="d3" placeholder="Write the question..." autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">4</span>
+                <span class="qMeta">you / think English is easy</span>
+              </div>
+              <div class="qText">
+                <input class="blank" id="d4" placeholder="Write the question..." autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">5</span>
+                <span class="qMeta">you / enjoy the classes at the moment</span>
+              </div>
+              <div class="qText">
+                <input class="blank" id="d5" placeholder="Write the question..." autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">6</span>
+                <span class="qMeta">what / you / usually do after the class</span>
+              </div>
+              <div class="qText">
+                <input class="blank" id="d6" placeholder="Write the question..." autocomplete="off" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Result + Navigation -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Evaluación</h2>
+          <p class="muted">Cuando termines, presiona <b>Evaluar</b> para ver tu puntaje.</p>
+
+          <div class="navRow">
+            <button class="navBtn btnEval" id="btnEval">Evaluar</button>
+            <button class="navBtn btnIndex" onclick="window.location.href='index.html'">Indice</button>
+            <button class="navBtn btnMark" onclick="window.location.href='mark1.html'">Marco Teórico</button>
+          </div>
+
+          <div class="resultBox" id="resultBox" aria-live="polite">
+            <p class="resultTitle" id="resultTitle">Resultado</p>
+            <p class="resultLine" id="resultLine">Aún no evaluado.</p>
+          </div>
+
+          <div class="footerHint">
+            (Homework 1 listo.)
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    // --- helpers ---
+    function norm(s){
+      return (s || "")
+        .toLowerCase()
+        .replace(/[’]/g,"'")
+        .replace(/[^a-z0-9'\s]/g,"")   // remove punctuation (keep apostrophes)
+        .replace(/\s+/g," ")
+        .trim();
+    }
+    function setMark(el, ok){
+      if(!el) return;
+      el.classList.remove("markOk","markBad");
+      el.classList.add(ok ? "markOk" : "markBad");
+    }
+    function isOneOf(user, accepted){
+      const u = norm(user);
+      return accepted.map(norm).includes(u);
+    }
+
+    // --- answer key ---
+    const key = {
+      // A) blanks
+      a1: ["feel"],
+      a2a: ["dont", "don't", "do not"],
+      a2b: ["get up"],
+      a3a: ["are"],
+      a3b: ["watching"],
+      a4: ["cycles"],
+      a5: ["are having", "were having", "we're having", "are having a", "re having"], // tolerant
+      a6a: ["is"],
+      a6b: ["doing"],
+      a7a: ["does"],
+      a7b: ["give"],
+      a8: ["am not eating", "i'm not eating", "im not eating", "are not eating"], // tolerant
+      a9a: ["doesnt", "doesn't", "does not"],
+      a9b: ["do"],
+      a10: ["is trying", "she's trying", "shes trying"],
+
+      // B) blanks
+      b1: ["driving", "am driving", "i'm driving", "im driving"],
+      b2: ["believe"],
+      b3: ["arent using", "aren't using", "are not using", "dont use", "don't use", "do not use"],
+      b4: ["doesnt belong", "doesn't belong", "does not belong"],
+      b5: ["is playing", "she's playing", "shes playing"],
+      b6: ["am not sleeping", "i'm not sleeping", "im not sleeping", "are not sleeping"],
+      b7: ["dont recognize", "don't recognize", "do not recognize"],
+      b8: ["sounds"],
+
+      // C) tick/corrections (handled separately)
+      // D) questions
+      d1: ["what are you doing right now"],
+      d2: ["where do you usually do your homework"],
+      d3: ["why do you study english"],
+      d4: ["do you think english is easy"],
+      d5: ["are you enjoying the classes at the moment", "are you enjoying classes at the moment"],
+      d6: ["what do you usually do after the class", "what do you usually do after class"]
+    };
+
+    const cCorrectAsIs = {
+      c1: true,
+      c4: true,
+      c6: true,
+      c7: true
+    };
+
+    const cCorrections = {
+      c2: ["something smells good what are you making"],
+      c3: ["that cake looks delicious did you make it"],
+      c5: ["do you think the fish is cooked now"],
+      c8: ["i love all kinds of vegetables there arent any i dont eat", "i love all kinds of vegetables there aren't any i don't eat"]
+    };
+
+    function get(id){ return document.getElementById(id); }
+
+    function grade(){
+      let total = 0;
+      let score = 0;
+
+      // grade all input blanks except C-section (special)
+      const inputIds = Object.keys(key);
+      inputIds.forEach(id => {
+        const el = get(id);
+        if(!el) return;
+        total++;
+        const ok = isOneOf(el.value, key[id]);
+        setMark(el, ok);
+        if(ok) score++;
+      });
+
+      // grade C section (8 items)
+      for(let i=1;i<=8;i++){
+        const id = "c"+i;
+        const input = get(id);
+        const tick = get(id+"t");
+
+        total++;
+
+        // clear marks on input (if any)
+        if(input) setMark(input, true); // will override below
+
+        if(cCorrectAsIs[id]){
+          // Must tick, and no correction needed
+          const ok = !!(tick && tick.checked);
+          // mark: if wrong, mark input as bad to show where
+          if(input) setMark(input, ok);
+          if(ok) score++;
+        }else{
+          // Must provide a correct correction (we ignore tick)
+          const ok = input && isOneOf(input.value, cCorrections[id] || []);
+          if(input) setMark(input, ok);
+          if(ok) score++;
+        }
+      }
+
+      // show result
+      const boxTitle = get("resultTitle");
+      const boxLine  = get("resultLine");
+      const pct = Math.round((score/total)*100);
+
+      boxTitle.textContent = "Resultado";
+      boxLine.textContent = `Puntaje: ${score} / ${total}  (${pct}%)`;
+
+      // little message
+      const resultBox = get("resultBox");
+      resultBox.classList.remove("callout","ok","warn","bad");
+      // apply a soft status color using existing callout styles
+      resultBox.classList.add("callout");
+      if(pct >= 85) resultBox.classList.add("ok");
+      else if(pct >= 60) resultBox.classList.add("warn");
+      else resultBox.classList.add("bad");
+    }
+
+    document.getElementById("btnEval").addEventListener("click", grade);
+  </script>
+</body>
+</html>
