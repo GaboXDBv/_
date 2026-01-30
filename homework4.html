@@ -1,1 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homework 4</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=2" type="image/png" />
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
+
+      --accent: #2563eb;
+      --accent2:#10b981;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
+      --soft: rgba(31,41,55,.08);
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+    }
+
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+      text-align:center;
+    }
+
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(16px, 3.1vw, 19px);
+      line-height: 1.45;
+    }
+
+    .pillRow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+      justify-content:center;
+    }
+    .pill{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.90);
+      color: var(--muted);
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .bar.warn{ background: linear-gradient(90deg, var(--warn), var(--accent)); }
+    .bar.danger{ background: linear-gradient(90deg, var(--danger), var(--warn)); }
+
+    .content{ padding: 16px 16px 14px; }
+
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(22px, 4vw, 30px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+
+    p{
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 8px 0;
+    }
+
+    .muted{ color: var(--muted); }
+
+    .callout{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(37,99,235,.06);
+    }
+    .callout strong{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .callout.ok{ background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.20); }
+    .callout.warn{ background: rgba(245,158,11,.10); border-color: rgba(245,158,11,.22); }
+    .callout.bad{ background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.20); }
+
+    /* Homework UI */
+    .qList{ margin-top: 6px; display: grid; gap: 10px; }
+    .qItem{
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      border-radius: 14px;
+      padding: 12px 12px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    .qTop{
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .qNum{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      color: rgba(17,24,39,.85);
+      background: rgba(37,99,235,.10);
+      border: 1px solid rgba(37,99,235,.16);
+      padding: 6px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .qMeta{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 15px;     /* tamaño grande */
+      color: var(--muted);
+      background: rgba(16,185,129,.10);
+      border: 1px solid rgba(16,185,129,.18);
+      padding: 6px 12px;   /* tamaño grande */
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .qText{ margin-top: 10px; font-size: 18px; line-height: 1.7; }
+
+    .blank{
+      width: min(360px, 85vw);
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(17,24,39,.16);
+      background: rgba(17,24,39,.03);
+      outline: none;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 17px; /* tamaño grande */
+      transition: transform .08s ease, border-color .12s ease, background .12s ease;
+      vertical-align: middle;
+    }
+    .blank:focus{
+      border-color: rgba(37,99,235,.55);
+      background: rgba(37,99,235,.06);
+      transform: translateY(-1px);
+    }
+
+    .markOk{ border-color: rgba(16,185,129,.55) !important; background: rgba(16,185,129,.08) !important; }
+    .markBad{ border-color: rgba(239,68,68,.65) !important; background: rgba(239,68,68,.08) !important; }
+
+    /* Choices (Exercise 2) */
+    .choices{
+      display:flex;
+      gap:10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .choice{
+      position: relative;
+      flex: 1 1 260px;
+      min-width: min(260px, 100%);
+    }
+    .choice input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+    .choice label{
+      display:block;
+      border-radius: 12px;
+      padding: 12px 14px;
+      border: 1px solid rgba(17,24,39,.14);
+      background: rgba(255,255,255,.85);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      cursor:pointer;
+      transition: transform .10s ease, border-color .12s ease, background .12s ease, filter .12s ease;
+      user-select:none;
+    }
+    .choice label:hover{ transform: translateY(-1px); filter: brightness(1.01); }
+    .choice input:checked + label{
+      border-color: rgba(37,99,235,.55);
+      background: rgba(37,99,235,.08);
+    }
+    .choice.ok label{ border-color: rgba(16,185,129,.55) !important; background: rgba(16,185,129,.10) !important; }
+    .choice.bad label{ border-color: rgba(239,68,68,.65) !important; background: rgba(239,68,68,.10) !important; }
+
+    .navRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 12px;
+    }
+    .navBtn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+    }
+    .navBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .navBtn:active{ transform: translateY(0px); }
+
+    .btnEval{ background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+    .btnIndex{ background: linear-gradient(135deg, #111827, #000000); }
+    .btnMark{ background: linear-gradient(135deg, #10b981, #059669); }
+
+    .resultBox{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(255,255,255,.78);
+    }
+    .resultTitle{
+      margin:0 0 6px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+    }
+    .resultLine{ margin:0; color: var(--muted); font-size: 16px; line-height: 1.5; }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Homework 4</h1>
+      <p class="subtitle">
+        <b>Present Perfect Simple</b> vs <b>Present Perfect Continuous</b>
+      </p>
+      <div class="pillRow" aria-label="Palabras clave">
+        <span class="pill">have / has + past participle</span>
+        <span class="pill">have / has + been + verb-ing</span>
+        <span class="pill">result vs action</span>
+        <span class="pill">how long</span>
+        <span class="pill">for / since</span>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <!-- Exercise 1 -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Exercise 1 — Fill the gaps</h2>
+          <p class="muted">Fill the gaps with the correct form of the verb.</p>
+
+          <div class="qList">
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">1</span><span class="qMeta">(never win)</span></div>
+              <div class="qText">She’s a fantastic swimmer but she <input class="blank" id="e1" placeholder="..." autocomplete="off" /> a medal.</div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">2</span><span class="qMeta">(visit)</span></div>
+              <div class="qText">Peter <input class="blank" id="e2" placeholder="..." autocomplete="off" /> so many American cities so far.</div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">3</span><span class="qMeta">(run)</span></div>
+              <div class="qText">I need a rest. I <input class="blank" id="e3" placeholder="..." autocomplete="off" /> for four hours.</div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">4</span><span class="qMeta">(you wait)</span></div>
+              <div class="qText">How long <input class="blank" id="e4" placeholder="..." autocomplete="off" /> for me? Just ten minutes.</div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">5</span><span class="qMeta">(break)</span></div>
+              <div class="qText">Look! Somebody <input class="blank" id="e5" placeholder="..." autocomplete="off" /> that vase. Be careful, don’t cut yourself.</div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">6</span><span class="qMeta">(learn)</span></div>
+              <div class="qText">I <input class="blank" id="e6" placeholder="..." autocomplete="off" /> English for two years and my English is improving.</div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">7</span><span class="qMeta">(cut)</span></div>
+              <div class="qText">You look sweaty. <input class="blank" id="e7" placeholder="..." autocomplete="off" /> the grass?</div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">8</span><span class="qMeta">(live)</span></div>
+              <div class="qText">My sister <input class="blank" id="e8" placeholder="..." autocomplete="off" /> in a house all her life.</div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">9</span><span class="qMeta">(play)</span></div>
+              <div class="qText">I’m tired. I <input class="blank" id="e9" placeholder="..." autocomplete="off" /> football all morning.</div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">10</span><span class="qMeta">(be)</span></div>
+              <div class="qText">Your eyes look red. <input class="blank" id="e10" placeholder="..." autocomplete="off" /> to the eye specialist?</div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">11</span><span class="qMeta">(bake)</span></div>
+              <div class="qText">What a lovely smell. <input class="blank" id="e11" placeholder="..." autocomplete="off" /> a cake?</div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">12</span><span class="qMeta">(phone)</span></div>
+              <div class="qText">Sara <input class="blank" id="e12" placeholder="..." autocomplete="off" /> me twice this morning.</div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">13</span><span class="qMeta">(write)</span></div>
+              <div class="qText"><input class="blank" id="e13" placeholder="..." autocomplete="off" /> emails all morning?</div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">14</span><span class="qMeta">(buy)</span></div>
+              <div class="qText">Sue <input class="blank" id="e14" placeholder="..." autocomplete="off" /> a new computer. Do you like it?</div>
+            </div>
+          </div>
+
+          <div class="callout ok">
+            <strong>Tip:</strong>
+            <span class="muted"><b>Simple</b> = resultado / cuántas veces. <b>Continuous</b> = acción (duración) / “how long”.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Exercise 2 -->
+      <section class="card">
+        <div class="bar warn"></div>
+        <div class="content">
+          <h2>Exercise 2 — Choose the correct option</h2>
+          <p class="muted">Choose the correct option.</p>
+
+          <div class="qList">
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">1</span><span class="qMeta">choose</span></div>
+              <div class="qText">My sister ____ a shower for twenty minutes. The floor is still wet.</div>
+              <div class="choices" data-name="c1">
+                <div class="choice"><input type="radio" name="c1" id="c1a" value="has had"><label for="c1a">has had</label></div>
+                <div class="choice"><input type="radio" name="c1" id="c1b" value="has been having"><label for="c1b">has been having</label></div>
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">2</span><span class="qMeta">choose</span></div>
+              <div class="qText">Hi Tom! I ____ you for ages!</div>
+              <div class="choices" data-name="c2">
+                <div class="choice"><input type="radio" name="c2" id="c2a" value="haven't seen"><label for="c2a">haven’t seen</label></div>
+                <div class="choice"><input type="radio" name="c2" id="c2b" value="haven't been seeing"><label for="c2b">haven’t been seeing</label></div>
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">3</span><span class="qMeta">choose</span></div>
+              <div class="qText">Michael ____ French for three months and he loves it.</div>
+              <div class="choices" data-name="c3">
+                <div class="choice"><input type="radio" name="c3" id="c3a" value="has learnt"><label for="c3a">has learnt</label></div>
+                <div class="choice"><input type="radio" name="c3" id="c3b" value="has been learning"><label for="c3b">has been learning</label></div>
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">4</span><span class="qMeta">choose</span></div>
+              <div class="qText">Melissa ____ a new dress for the party.</div>
+              <div class="choices" data-name="c4">
+                <div class="choice"><input type="radio" name="c4" id="c4a" value="has bought"><label for="c4a">has bought</label></div>
+                <div class="choice"><input type="radio" name="c4" id="c4b" value="has been buying"><label for="c4b">has been buying</label></div>
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">5</span><span class="qMeta">choose</span></div>
+              <div class="qText">“What are you doing?” — “I ____ television since I arrived.”</div>
+              <div class="choices" data-name="c5">
+                <div class="choice"><input type="radio" name="c5" id="c5a" value="have watched"><label for="c5a">have watched</label></div>
+                <div class="choice"><input type="radio" name="c5" id="c5b" value="have been watching"><label for="c5b">have been watching</label></div>
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">6</span><span class="qMeta">choose</span></div>
+              <div class="qText">Do you like my living room? I ____ new curtains.</div>
+              <div class="choices" data-name="c6">
+                <div class="choice"><input type="radio" name="c6" id="c6a" value="have put"><label for="c6a">have put</label></div>
+                <div class="choice"><input type="radio" name="c6" id="c6b" value="have been putting"><label for="c6b">have been putting</label></div>
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">7</span><span class="qMeta">choose</span></div>
+              <div class="qText">I’m not very well. I ____ to the doctor’s twice this week.</div>
+              <div class="choices" data-name="c7">
+                <div class="choice"><input type="radio" name="c7" id="c7a" value="have been"><label for="c7a">have been</label></div>
+                <div class="choice"><input type="radio" name="c7" id="c7b" value="have been being"><label for="c7b">have been being</label></div>
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">8</span><span class="qMeta">choose</span></div>
+              <div class="qText">Sorry, I’m late. How long ____ here?</div>
+              <div class="choices" data-name="c8">
+                <div class="choice"><input type="radio" name="c8" id="c8a" value="have you sat"><label for="c8a">have you sat</label></div>
+                <div class="choice"><input type="radio" name="c8" id="c8b" value="have you been sitting"><label for="c8b">have you been sitting</label></div>
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">9</span><span class="qMeta">choose</span></div>
+              <div class="qText">Carol ____ this film many times. She loves it.</div>
+              <div class="choices" data-name="c9">
+                <div class="choice"><input type="radio" name="c9" id="c9a" value="has seen"><label for="c9a">has seen</label></div>
+                <div class="choice"><input type="radio" name="c9" id="c9b" value="has been seeing"><label for="c9b">has been seeing</label></div>
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">10</span><span class="qMeta">choose</span></div>
+              <div class="qText">She’s a good dancer. She ____ two championships already.</div>
+              <div class="choices" data-name="c10">
+                <div class="choice"><input type="radio" name="c10" id="c10a" value="has won"><label for="c10a">has won</label></div>
+                <div class="choice"><input type="radio" name="c10" id="c10b" value="has been winning"><label for="c10b">has been winning</label></div>
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">11</span><span class="qMeta">choose</span></div>
+              <div class="qText">Sam is not here. He’s gone. He ____ for months.</div>
+              <div class="choices" data-name="c11">
+                <div class="choice"><input type="radio" name="c11" id="c11a" value="has travelled"><label for="c11a">has travelled</label></div>
+                <div class="choice"><input type="radio" name="c11" id="c11b" value="has been travelling"><label for="c11b">has been travelling</label></div>
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">12</span><span class="qMeta">choose</span></div>
+              <div class="qText">Look at my jacket. I ____ it for only three days.</div>
+              <div class="choices" data-name="c12">
+                <div class="choice"><input type="radio" name="c12" id="c12a" value="have had"><label for="c12a">have had</label></div>
+                <div class="choice"><input type="radio" name="c12" id="c12b" value="have been having"><label for="c12b">have been having</label></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Evaluation + Navigation -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Evaluación</h2>
+          <p class="muted">Presiona <b>Evaluar</b> para ver tu puntaje.</p>
+
+          <div class="navRow">
+            <button class="navBtn btnEval" id="btnEval">Evaluar</button>
+            <button class="navBtn btnIndex" onclick="window.location.href='index.html'">Indice</button>
+            <button class="navBtn btnMark" onclick="window.location.href='mark1.html'">Marco Teórico</button>
+          </div>
+
+          <div class="resultBox" id="resultBox" aria-live="polite">
+            <p class="resultTitle" id="resultTitle">Resultado</p>
+            <p class="resultLine" id="resultLine">Aún no evaluado.</p>
+          </div>
+
+          <div class="footerHint">(Homework 4 listo.)</div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    // helpers
+    function norm(s){
+      return (s || "")
+        .toLowerCase()
+        .replace(/[’]/g,"'")
+        .replace(/[^a-z0-9'\s]/g,"")
+        .replace(/\s+/g," ")
+        .trim();
+    }
+    function setMark(el, ok){
+      if(!el) return;
+      el.classList.remove("markOk","markBad");
+      el.classList.add(ok ? "markOk" : "markBad");
+    }
+    function isOneOf(user, accepted){
+      const u = norm(user);
+      return accepted.map(norm).includes(u);
+    }
+    const $ = (id)=>document.getElementById(id);
+
+    // Exercise 1 key (tolerante)
+    const ex1 = {
+      e1: ["has never won", "hasn't won", "has not won", "has never won a", "has never won any"],
+      e2: ["has visited", "he has visited", "peter has visited"],
+      e3: ["have been running", "i have been running", "i've been running", "ive been running"],
+      e4: ["have you been waiting", "how long have you been waiting", "have you been waiting for me"],
+      e5: ["has broken", "somebody has broken", "someone has broken"],
+      e6: ["have been learning", "i have been learning", "i've been learning", "ive been learning"],
+      e7: ["have you been cutting", "have you been cutting the grass", "have you cut"],
+      e8: ["has lived", "she has lived", "my sister has lived"],
+      e9: ["have been playing", "i have been playing", "i've been playing", "ive been playing"],
+      e10:["have you been", "have you been to the eye specialist", "have you been to the eye specialist?"],
+      e11:["have you been baking", "have you been baking a cake", "have you baked", "have you baked a cake"],
+      e12:["has phoned", "has called", "sara has phoned", "sara has called"],
+      e13:["have you been writing", "have you been writing emails", "have you written", "have you written emails"],
+      e14:["has bought", "sue has bought", "she has bought"]
+    };
+
+    // Exercise 2 correct option
+    const ex2 = {
+      c1: "has been having",
+      c2: "haven't seen",
+      c3: "has been learning",
+      c4: "has bought",
+      c5: "have been watching",
+      c6: "have put",
+      c7: "have been",
+      c8: "have you been sitting",
+      c9: "has seen",
+      c10:"has won",
+      c11:"has been travelling",
+      c12:"have had"
+    };
+
+    function markChoiceGroup(name, ok){
+      const group = document.querySelector(`.choices[data-name="${name}"]`);
+      if(!group) return;
+      group.querySelectorAll(".choice").forEach(ch => ch.classList.remove("ok","bad"));
+      const checked = group.querySelector(`input[name="${name}"]:checked`);
+      if(!checked) return;
+
+      const wrap = checked.closest(".choice");
+      if(wrap) wrap.classList.add(ok ? "ok" : "bad");
+
+      // (opcional) marcar también la correcta cuando fallas
+      if(!ok){
+        const correct = group.querySelector(`input[name="${name}"][value="${ex2[name]}"]`);
+        if(correct){
+          const cw = correct.closest(".choice");
+          if(cw) cw.classList.add("ok");
+        }
+      }
+    }
+
+    function grade(){
+      let total = 0, score = 0;
+
+      // Exercise 1
+      Object.keys(ex1).forEach(id=>{
+        const el = $(id);
+        if(!el) return;
+        total++;
+        const ok = isOneOf(el.value, ex1[id]);
+        setMark(el, ok);
+        if(ok) score++;
+      });
+
+      // Exercise 2
+      Object.keys(ex2).forEach(name=>{
+        total++;
+        const checked = document.querySelector(`input[name="${name}"]:checked`);
+        const ok = checked && checked.value === ex2[name];
+        if(ok) score++;
+        markChoiceGroup(name, !!ok);
+      });
+
+      const pct = Math.round((score/total)*100);
+      $("resultTitle").textContent = "Resultado";
+      $("resultLine").textContent = `Puntaje: ${score} / ${total} (${pct}%)`;
+
+      const box = $("resultBox");
+      box.classList.remove("callout","ok","warn","bad");
+      box.classList.add("callout");
+      if(pct >= 85) box.classList.add("ok");
+      else if(pct >= 60) box.classList.add("warn");
+      else box.classList.add("bad");
+    }
+
+    $("btnEval").addEventListener("click", grade);
+  </script>
+</body>
+</html>
 
