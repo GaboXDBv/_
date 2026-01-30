@@ -1,1 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homework 6</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=2" type="image/png" />
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
+
+      --accent: #2563eb;
+      --accent2:#10b981;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+    }
+
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+      text-align:center;
+    }
+
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(16px, 3.1vw, 19px);
+      line-height: 1.45;
+    }
+
+    .pillRow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+      justify-content:center;
+    }
+    .pill{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.90);
+      color: var(--muted);
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .bar.warn{ background: linear-gradient(90deg, var(--warn), var(--accent)); }
+    .bar.danger{ background: linear-gradient(90deg, var(--danger), var(--warn)); }
+
+    .content{ padding: 16px 16px 14px; }
+
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(22px, 4vw, 30px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+
+    p{
+      font-size: 18px;
+      line-height: 1.7;
+      margin: 8px 0;
+    }
+    .muted{ color: var(--muted); }
+
+    .callout{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(37,99,235,.06);
+    }
+    .callout strong{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .callout.ok{ background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.20); }
+    .callout.warn{ background: rgba(245,158,11,.10); border-color: rgba(245,158,11,.22); }
+    .callout.bad{ background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.20); }
+
+    /* Homework UI */
+    .qItem{
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      border-radius: 14px;
+      padding: 12px 12px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+
+    .qTop{
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .qNum{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      color: rgba(17,24,39,.85);
+      background: rgba(37,99,235,.10);
+      border: 1px solid rgba(37,99,235,.16);
+      padding: 6px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .qMeta{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 15px;
+      color: var(--muted);
+      background: rgba(16,185,129,.10);
+      border: 1px solid rgba(16,185,129,.18);
+      padding: 6px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .passage{
+      font-size: 18px;
+      line-height: 1.9;
+      margin-top: 6px;
+    }
+
+    .blank{
+      width: 92px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(17,24,39,.16);
+      background: rgba(17,24,39,.03);
+      outline: none;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      text-align: center;
+      transition: transform .08s ease, border-color .12s ease, background .12s ease;
+      vertical-align: middle;
+    }
+    .blank:focus{
+      border-color: rgba(37,99,235,.55);
+      background: rgba(37,99,235,.06);
+      transform: translateY(-1px);
+    }
+
+    .markOk{ border-color: rgba(16,185,129,.55) !important; background: rgba(16,185,129,.08) !important; }
+    .markBad{ border-color: rgba(239,68,68,.65) !important; background: rgba(239,68,68,.08) !important; }
+
+    .navRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 12px;
+    }
+    .navBtn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+    }
+    .navBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .navBtn:active{ transform: translateY(0px); }
+
+    .btnEval{ background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+    .btnIndex{ background: linear-gradient(135deg, #111827, #000000); }
+    .btnMark{ background: linear-gradient(135deg, #10b981, #059669); }
+
+    .resultBox{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(255,255,255,.78);
+    }
+    .resultTitle{
+      margin:0 0 6px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+    }
+    .resultLine{ margin:0; color: var(--muted); font-size: 16px; line-height: 1.5; }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .kbd{
+      display:inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.88);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      color: rgba(17,24,39,.85);
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Homework 6</h1>
+      <p class="subtitle">
+        <b>Articles</b> — completa los espacios con <b>a</b>, <b>an</b>, <b>the</b> o <b>—</b>
+      </p>
+      <div class="pillRow" aria-label="Palabras clave">
+        <span class="pill">a</span>
+        <span class="pill">an</span>
+        <span class="pill">the</span>
+        <span class="pill">— (no article)</span>
+        <span class="pill">general vs specific</span>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <!-- Instrucciones -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Instrucciones</h2>
+          <p class="muted">
+            Escribe solamente: <span class="kbd">a</span>, <span class="kbd">an</span>, <span class="kbd">the</span> o <span class="kbd">-</span>.
+            <br>Tip: si no va artículo, escribe <span class="kbd">-</span> (guion).
+          </p>
+        </div>
+      </section>
+
+      <!-- Parte 1 -->
+      <section class="card">
+        <div class="bar warn"></div>
+        <div class="content">
+          <h2>Text (Part 1)</h2>
+
+          <div class="qItem">
+            <div class="qTop">
+              <span class="qNum">A</span>
+              <span class="qMeta">Psychology today: Why Are We Scared of Public Speaking?</span>
+            </div>
+
+            <div class="passage">
+              Communicating your ideas clearly and presenting them openly in
+              <input class="blank" id="p1_1" placeholder="..." autocomplete="off" />
+              public forum is
+              <input class="blank" id="p1_2" placeholder="..." autocomplete="off" />
+              essential component of
+              <input class="blank" id="p1_3" placeholder="..." autocomplete="off" />
+              success across several domains of life.
+              Being
+              <input class="blank" id="p1_4" placeholder="..." autocomplete="off" />
+              good public speaker can help you advance your career, grow your business, and form
+              <input class="blank" id="p1_5" placeholder="..." autocomplete="off" />
+              strong collaborations.
+              It can help you promote
+              <input class="blank" id="p1_6" placeholder="..." autocomplete="off" />
+              ideas and move people to action on issues that affect them directly and society at
+              <input class="blank" id="p1_7" placeholder="..." autocomplete="off" />
+              large.
+              To do any of these things well requires
+              <input class="blank" id="p1_8" placeholder="..." autocomplete="off" />
+              fair amount of standing in front of
+              <input class="blank" id="p1_9" placeholder="..." autocomplete="off" />
+              audience and delivering a pitch, an idea, or a body of work.
+              And sometimes
+              <input class="blank" id="p1_10" placeholder="..." autocomplete="off" />
+              only thing that stands between you and your audience is
+              <input class="blank" id="p1_11" placeholder="..." autocomplete="off" />
+              fear.
+            </div>
+          </div>
+
+          <div class="callout ok">
+            <strong>Mini tip:</strong>
+            <span class="muted"><b>an</b> + sonido vocal (an essential, an audience) · <b>a</b> + sonido consonante (a public forum).</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Parte 2 -->
+      <section class="card">
+        <div class="bar danger"></div>
+        <div class="content">
+          <h2>Text (Part 2)</h2>
+
+          <div class="qItem">
+            <div class="qTop">
+              <span class="qNum">B</span>
+              <span class="qMeta">Glossophobia</span>
+            </div>
+
+            <div class="passage">
+              Glossophobia — a really cool and geeky name for
+              <input class="blank" id="p2_1" placeholder="..." autocomplete="off" />
+              fear of public speaking — appears when you are performing or expecting to perform
+              <input class="blank" id="p2_2" placeholder="..." autocomplete="off" />
+              oral presentation or a speech in front of other people.
+              Fear of public speaking is frequently but incorrectly cited as
+              <input class="blank" id="p2_3" placeholder="..." autocomplete="off" />
+              people's biggest fear.
+              <br><br>
+              While some people experience
+              <input class="blank" id="p2_4" placeholder="..." autocomplete="off" />
+              debilitating form of glossophobia, even a mild form can have
+              <input class="blank" id="p2_5" placeholder="..." autocomplete="off" />
+              devastating effects.
+              Fear of public speaking can prevent you from taking risks to share your ideas, to speak about your work, and to present your solutions to
+              <input class="blank" id="p2_6" placeholder="..." autocomplete="off" />
+              problems that affect many people — and as a result, it can affect how much you grow personally and professionally, and how much
+              <input class="blank" id="p2_7" placeholder="..." autocomplete="off" />
+              impact you can have.
+              At
+              <input class="blank" id="p2_8" placeholder="..." autocomplete="off" />
+              same time, any negative public speaking experiences will make it less likely that you will speak in
+              <input class="blank" id="p2_9" placeholder="..." autocomplete="off" />
+              public in
+              <input class="blank" id="p2_10" placeholder="..." autocomplete="off" />
+              future — fear teaches you to protect yourself from
+              <input class="blank" id="p2_11" placeholder="..." autocomplete="off" />
+              risky situations.
+            </div>
+          </div>
+
+          <div class="callout warn">
+            <strong>Recuerda:</strong>
+            <span class="muted"><b>the</b> con cosas “específicas/definidas” (the fear, the same time, the future) · sin artículo en frases fijas (in public, at large).</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Evaluación + Navegación -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Evaluación</h2>
+          <p class="muted">Cuando termines, presiona <b>Evaluar</b> para ver tu puntaje.</p>
+
+          <div class="navRow">
+            <button class="navBtn btnEval" id="btnEval">Evaluar</button>
+            <button class="navBtn btnIndex" onclick="window.location.href='index.html'">Indice</button>
+            <button class="navBtn btnMark" onclick="window.location.href='mark6.html'">Marco Teórico</button>
+          </div>
+
+          <div class="resultBox" id="resultBox" aria-live="polite">
+            <p class="resultTitle" id="resultTitle">Resultado</p>
+            <p class="resultLine" id="resultLine">Aún no evaluado.</p>
+          </div>
+
+          <div class="footerHint">(Homework 6 listo.)</div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    // helpers
+    function norm(s){
+      return (s || "")
+        .toLowerCase()
+        .replace(/[—]/g,"-")
+        .replace(/[’]/g,"'")
+        .replace(/\s+/g," ")
+        .trim();
+    }
+    function setMark(el, ok){
+      if(!el) return;
+      el.classList.remove("markOk","markBad");
+      el.classList.add(ok ? "markOk" : "markBad");
+    }
+    function isOneOf(user, accepted){
+      const u = norm(user);
+      return accepted.map(norm).includes(u);
+    }
+    const $ = (id)=>document.getElementById(id);
+
+    // Answer key (a / an / the / -)
+    // Nota: para "sin artículo" aceptamos: "-", "" (vacío)
+    const key = {
+      // Part 1
+      p1_1: ["a"],
+      p1_2: ["an"],
+      p1_3: ["-", ""],
+      p1_4: ["a"],
+      p1_5: ["-", ""],
+      p1_6: ["-", ""],
+      p1_7: ["-", ""],
+      p1_8: ["a"],
+      p1_9: ["an"],
+      p1_10:["the"],
+      p1_11:["-", ""],
+
+      // Part 2
+      p2_1: ["the"],
+      p2_2: ["an"],
+      p2_3: ["-", ""],
+      p2_4: ["a"],
+      p2_5: ["-", ""],
+      p2_6: ["-", ""],
+      p2_7: ["-", ""],
+      p2_8: ["the"],
+      p2_9: ["-", ""],
+      p2_10:["the"],
+      p2_11:["-", ""]
+    };
+
+    function grade(){
+      let total = 0, score = 0;
+
+      Object.keys(key).forEach(id=>{
+        const el = $(id);
+        if(!el) return;
+        total++;
+        const ok = isOneOf(el.value, key[id]);
+        setMark(el, ok);
+        if(ok) score++;
+      });
+
+      const pct = Math.round((score/total)*100);
+      $("resultTitle").textContent = "Resultado";
+      $("resultLine").textContent = `Puntaje: ${score} / ${total} (${pct}%)`;
+
+      const box = $("resultBox");
+      box.classList.remove("callout","ok","warn","bad");
+      box.classList.add("callout");
+      if(pct >= 90) box.classList.add("ok");
+      else if(pct >= 65) box.classList.add("warn");
+      else box.classList.add("bad");
+    }
+
+    $("btnEval").addEventListener("click", grade);
+  </script>
+</body>
+</html>
 
