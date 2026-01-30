@@ -29,7 +29,7 @@
     }
 
     *{box-sizing:border-box}
-
+    
     body{
       margin:0;
       background:
@@ -238,7 +238,7 @@
 
     .btnBack{ background: linear-gradient(135deg, #ef4444, #dc2626); }
     .btnVocab{ background: linear-gradient(135deg, #10b981, #059669); }
-
+    .btnIndex{ background: linear-gradient(135deg, #111827, #000000); }
     .footerHint{
       text-align:center;
       color: var(--muted);
@@ -595,9 +595,13 @@
             Desde aquí solo vas al <b>Tema 1</b> o al <b>Vocabulario 2</b>.
           </p>
 
+                    <!-- HTML: en tu sección de Navegación, deja el navRow así (añadiendo el botón Índice negro) -->
           <div class="navRow">
             <button class="navBtn btnBack" onclick="window.location.href='index.html'">Atrás (Tema 1)</button>
             <button class="navBtn btnVocab" onclick="window.location.href='vocabulario2.html'">Vocabulario 2</button>
+          
+            <!-- Nuevo botón: Índice (negro) -->
+            <button class="navBtn btnIndex" onclick="window.location.href='index.html'">Indice</button>
           </div>
 
           <div class="footerHint">
