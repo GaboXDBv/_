@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homework 2</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=2" type="image/png" />
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
+
+      --accent: #2563eb;
+      --accent2:#10b981;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
+
+      --soft: rgba(31,41,55,.08);
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+    }
+
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+      text-align:center;
+    }
+
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 2.8vw, 17px);
+      line-height: 1.45;
+    }
+
+    .pillRow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+      justify-content:center;
+    }
+    .pill{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.90);
+      color: var(--muted);
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .bar.warn{ background: linear-gradient(90deg, var(--warn), var(--accent)); }
+    .bar.danger{ background: linear-gradient(90deg, var(--danger), var(--warn)); }
+
+    .content{
+      padding: 16px 16px 14px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(18px, 3.8vw, 24px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+
+    p{
+      font-size: clamp(15px, 3.4vw, 18px);
+      line-height: 1.55;
+      margin: 8px 0;
+    }
+
+    .muted{ color: var(--muted); }
+
+    .callout{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(37,99,235,.06);
+    }
+    .callout strong{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .callout.ok{ background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.20); }
+    .callout.warn{ background: rgba(245,158,11,.10); border-color: rgba(245,158,11,.22); }
+    .callout.bad{ background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.20); }
+
+    /* Homework UI */
+    .qList{ margin-top: 6px; display: grid; gap: 10px; }
+    .qItem{
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      border-radius: 14px;
+      padding: 12px 12px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    .qTop{
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .qNum{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      color: rgba(17,24,39,.85);
+      background: rgba(37,99,235,.10);
+      border: 1px solid rgba(37,99,235,.16);
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .qMeta{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(16,185,129,.10);
+      border: 1px solid rgba(16,185,129,.18);
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .qText{ margin-top: 8px; font-size: 16px; line-height: 1.6; }
+    .blank{
+      width: min(260px, 72vw);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(17,24,39,.16);
+      background: rgba(17,24,39,.03);
+      outline: none;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 15px;
+      transition: transform .08s ease, border-color .12s ease, background .12s ease;
+      vertical-align: middle;
+    }
+    .blank:focus{
+      border-color: rgba(37,99,235,.55);
+      background: rgba(37,99,235,.06);
+      transform: translateY(-1px);
+    }
+
+    .markOk{ border-color: rgba(16,185,129,.55) !important; background: rgba(16,185,129,.08) !important; }
+    .markBad{ border-color: rgba(239,68,68,.65) !important; background: rgba(239,68,68,.08) !important; }
+
+    .navRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 12px;
+    }
+    .navBtn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+    }
+    .navBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .navBtn:active{ transform: translateY(0px); }
+
+    .btnEval{ background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+    .btnIndex{ background: linear-gradient(135deg, #111827, #000000); }
+    .btnMark{ background: linear-gradient(135deg, #10b981, #059669); }
+
+    .resultBox{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(255,255,255,.78);
+    }
+    .resultTitle{
+      margin:0 0 6px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+    }
+    .resultLine{ margin:0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .legend{
+      display:grid;
+      gap:10px;
+      grid-template-columns: 1fr;
+      margin-top: 10px;
+    }
+    @media (min-width: 760px){
+      .legend{ grid-template-columns: 1fr 1fr 1fr; }
+    }
+    .legendCard{
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      padding: 12px 12px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    .legendTitle{
+      margin:0 0 6px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 15px;
+    }
+    .legendText{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .tag{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(17,24,39,.03);
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Homework 2</h1>
+      <p class="subtitle">
+        <b>WILL</b> / <b>BE GOING TO</b> / <b>PRESENT CONTINUOUS</b> — Put the verbs in the correct form.
+      </p>
+      <div class="pillRow" aria-label="Palabras clave">
+        <span class="pill">will / won’t</span>
+        <span class="pill">be going to</span>
+        <span class="pill">present continuous</span>
+        <span class="pill">predictions</span>
+        <span class="pill">plans</span>
+        <span class="pill">arrangements</span>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Mini guía (para elegir rápido)</h2>
+
+          <div class="legend">
+            <div class="legendCard">
+              <div class="tag">WILL</div>
+              <p class="legendTitle">Future simple</p>
+              <p class="legendText">Predicción / decisión en el momento (just now).</p>
+            </div>
+
+            <div class="legendCard">
+              <div class="tag">PRESENT CONTINUOUS</div>
+              <p class="legendTitle">Arrangement</p>
+              <p class="legendText">Plan/agenda confirmada (por ejemplo, “tomorrow”, tickets, cita).</p>
+            </div>
+
+            <div class="legendCard">
+              <div class="tag">BE GOING TO</div>
+              <p class="legendTitle">Intention / evidence</p>
+              <p class="legendText">Intención personal o evidencia/observación (“Look!”).</p>
+            </div>
+          </div>
+
+          <div class="callout ok">
+            <strong>Regla rápida:</strong>
+            <span class="muted">Si es “decido ahora” → <b>will</b>. Si ya está organizado → <b>present continuous</b>. Si hay evidencia o intención → <b>going to</b>.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="bar warn"></div>
+        <div class="content">
+          <h2>Put the verbs in the correct form</h2>
+          <p class="muted">Escribe la respuesta completa (por ejemplo: <b>is going to rain</b>, <b>will be</b>, <b>are flying</b>).</p>
+
+          <div class="qList">
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">a)</span>
+                <span class="qMeta">(rain)</span>
+              </div>
+              <div class="qText">
+                Look at the sky! It
+                <input class="blank" id="qA" placeholder="..." autocomplete="off" />
+                .
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">b)</span>
+                <span class="qMeta">(be)</span>
+              </div>
+              <div class="qText">
+                Marry thinks that Mark
+                <input class="blank" id="qB" placeholder="..." autocomplete="off" />
+                a famous actor soon.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">c)</span>
+                <span class="qMeta">(fly)</span>
+              </div>
+              <div class="qText">
+                Next week Frank and Teresa
+                <input class="blank" id="qC" placeholder="..." autocomplete="off" />
+                to New York. They have already bought tickets.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">d)</span>
+                <span class="qMeta">(open)</span>
+              </div>
+              <div class="qText">
+                A: “Someone is knocking on the door”.<br />
+                B: “I
+                <input class="blank" id="qD" placeholder="..." autocomplete="off" />
+                .”
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">e)</span>
+                <span class="qMeta">(be)</span>
+              </div>
+              <div class="qText">
+                Gina
+                <input class="blank" id="qE" placeholder="..." autocomplete="off" />
+                a doctor when she grows up.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">f)</span>
+                <span class="qMeta">(help)</span>
+              </div>
+              <div class="qText">
+                Hurry, Harry.
+                <input class="blank" id="qF" placeholder="..." autocomplete="off" />
+                me, please?
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">g)</span>
+                <span class="qMeta">(watch / come)</span>
+              </div>
+              <div class="qText">
+                We
+                <input class="blank" id="qG1" placeholder="..." autocomplete="off" />
+                a film tomorrow with Billy. He
+                <input class="blank" id="qG2" placeholder="..." autocomplete="off" />
+                to my house.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">h)</span>
+                <span class="qMeta">(have)</span>
+              </div>
+              <div class="qText">
+                Can you see this woman? She
+                <input class="blank" id="qH" placeholder="..." autocomplete="off" />
+                a baby.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">i)</span>
+                <span class="qMeta">(not/give)</span>
+              </div>
+              <div class="qText">
+                I am pretty sure our teacher
+                <input class="blank" id="qI" placeholder="..." autocomplete="off" />
+                us any homework.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">j)</span>
+                <span class="qMeta">(open)</span>
+              </div>
+              <div class="qText">
+                In five days his cousins
+                <input class="blank" id="qJ" placeholder="..." autocomplete="off" />
+                their new restaurant.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">k)</span>
+                <span class="qMeta">(you/do)</span>
+              </div>
+              <div class="qText">
+                What
+                <input class="blank" id="qK" placeholder="..." autocomplete="off" />
+                at the weekend?
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop">
+                <span class="qNum">l)</span>
+                <span class="qMeta">(move)</span>
+              </div>
+              <div class="qText">
+                I am so excited because next month we
+                <input class="blank" id="qL" placeholder="..." autocomplete="off" />
+                to a new flat.
+              </div>
+            </div>
+          </div>
+
+          <div class="callout warn">
+            <strong>Tip:</strong>
+            <span class="muted">Escribe el verbo con sujeto incluido cuando toque (ej: <span style="white-space:nowrap;">are flying</span>, <span style="white-space:nowrap;">is coming</span>, <span style="white-space:nowrap;">won’t give</span>).</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Evaluación</h2>
+          <p class="muted">Cuando termines, presiona <b>Evaluar</b>.</p>
+
+          <div class="navRow">
+            <button class="navBtn btnEval" id="btnEval">Evaluar</button>
+            <button class="navBtn btnIndex" onclick="window.location.href='index.html'">Indice</button>
+            <button class="navBtn btnMark" onclick="window.location.href='mark1.html'">Marco Teórico</button>
+          </div>
+
+          <div class="resultBox" id="resultBox" aria-live="polite">
+            <p class="resultTitle" id="resultTitle">Resultado</p>
+            <p class="resultLine" id="resultLine">Aún no evaluado.</p>
+          </div>
+
+          <div class="footerHint">(Homework 2 listo.)</div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    function norm(s){
+      return (s || "")
+        .toLowerCase()
+        .replace(/[’]/g,"'")
+        .replace(/[^a-z0-9'\s]/g,"")
+        .replace(/\s+/g," ")
+        .trim();
+    }
+    function setMark(el, ok){
+      if(!el) return;
+      el.classList.remove("markOk","markBad");
+      el.classList.add(ok ? "markOk" : "markBad");
+    }
+    function isOneOf(user, accepted){
+      const u = norm(user);
+      return accepted.map(norm).includes(u);
+    }
+    const $ = (id)=>document.getElementById(id);
+
+    // Clave (con tolerancia). Puedes ajustar si tu profe quiere solo UNA opción.
+    const key = {
+      qA: ["is going to rain", "its going to rain", "it's going to rain", "is gonna rain", "is raining"],
+      qB: ["will be", "ll be", "he will be", "mark will be"],
+      qC: ["are flying", "they are flying", "re flying", "they're flying", "theyre flying"],
+      qD: ["will open", "i will open", "i'll open", "ill open"],
+      qE: ["is going to be", "gonna be", "will be"],
+
+      qF: ["will you help", "will you help me", "will you help me please"],
+
+      qG1: ["are watching", "we are watching", "we're watching", "were watching"],
+      qG2: ["is coming", "he is coming", "he's coming", "hes coming"],
+
+      qH: ["is going to have", "she is going to have", "she's going to have", "shes going to have"],
+
+      qI: ["won't give", "will not give", "wont give", "isn't going to give", "is not going to give"],
+
+      qJ: ["are opening", "they are opening", "re opening", "they're opening", "are going to open", "are gonna open"],
+      qK: ["are you doing", "what are you doing", "are you doing at the weekend", "are you doing on the weekend"],
+      qL: ["are moving", "we are moving", "we're moving", "were moving", "are going to move", "are gonna move"]
+    };
+
+    function grade(){
+      const ids = Object.keys(key);
+      let total = ids.length;
+      let score = 0;
+
+      ids.forEach(id=>{
+        const el = $(id);
+        const ok = isOneOf(el.value, key[id]);
+        setMark(el, ok);
+        if(ok) score++;
+      });
+
+      const pct = Math.round((score/total)*100);
+      $("resultTitle").textContent = "Resultado";
+      $("resultLine").textContent = `Puntaje: ${score} / ${total} (${pct}%)`;
+
+      const box = $("resultBox");
+      box.classList.remove("callout","ok","warn","bad");
+      box.classList.add("callout");
+      if(pct >= 85) box.classList.add("ok");
+      else if(pct >= 60) box.classList.add("warn");
+      else box.classList.add("bad");
+    }
+
+    $("btnEval").addEventListener("click", grade);
+  </script>
+</body>
+</html>
