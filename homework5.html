@@ -1,1 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homework 5</title>
+
+  <!-- Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="icon" href="favitcon.png?v=2" type="image/png" />
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #4b5563;
+
+      --accent: #2563eb;
+      --accent2:#10b981;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --shadow: 0 10px 30px rgba(17,24,39,.10);
+      --shadow2: 0 6px 16px rgba(17,24,39,.10);
+      --radius: 16px;
+      --soft: rgba(31,41,55,.08);
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(900px 420px at 85% -10%, rgba(16,185,129,.14), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin:20px auto 28px;
+    }
+
+    header{
+      background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(16,185,129,.10));
+      border:1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+      text-align:center;
+    }
+
+    h1{
+      margin:6px 0 6px;
+      font-size: clamp(26px, 4.8vw, 38px);
+      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(16px, 3.1vw, 19px);
+      line-height: 1.45;
+    }
+
+    .pillRow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+      justify-content:center;
+    }
+    .pill{
+      display:inline-block;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.90);
+      color: var(--muted);
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .bar{
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .bar.warn{ background: linear-gradient(90deg, var(--warn), var(--accent)); }
+    .bar.danger{ background: linear-gradient(90deg, var(--danger), var(--warn)); }
+
+    .content{ padding: 16px 16px 14px; }
+
+    h2{
+      margin:0 0 10px;
+      font-size: clamp(22px, 4vw, 30px);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .2px;
+    }
+
+    p{
+      font-size: 18px;
+      line-height: 1.65;
+      margin: 8px 0;
+    }
+    .muted{ color: var(--muted); }
+
+    .callout{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(37,99,235,.06);
+    }
+    .callout strong{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .callout.ok{ background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.20); }
+    .callout.warn{ background: rgba(245,158,11,.10); border-color: rgba(245,158,11,.22); }
+    .callout.bad{ background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.20); }
+
+    /* Homework UI */
+    .qList{ margin-top: 6px; display: grid; gap: 10px; }
+    .qItem{
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.86);
+      border-radius: 14px;
+      padding: 12px 12px;
+      box-shadow: 0 6px 14px rgba(17,24,39,.06);
+    }
+    .qTop{
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .qNum{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      color: rgba(17,24,39,.85);
+      background: rgba(37,99,235,.10);
+      border: 1px solid rgba(37,99,235,.16);
+      padding: 6px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .qMeta{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 15px;     /* grande */
+      color: var(--muted);
+      background: rgba(16,185,129,.10);
+      border: 1px solid rgba(16,185,129,.18);
+      padding: 6px 12px;   /* grande */
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .qText{ margin-top: 10px; font-size: 18px; line-height: 1.75; }
+
+    .blank{
+      width: min(360px, 85vw);
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(17,24,39,.16);
+      background: rgba(17,24,39,.03);
+      outline: none;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size: 17px; /* grande */
+      transition: transform .08s ease, border-color .12s ease, background .12s ease;
+      vertical-align: middle;
+    }
+    .blank:focus{
+      border-color: rgba(37,99,235,.55);
+      background: rgba(37,99,235,.06);
+      transform: translateY(-1px);
+    }
+
+    .markOk{ border-color: rgba(16,185,129,.55) !important; background: rgba(16,185,129,.08) !important; }
+    .markBad{ border-color: rgba(239,68,68,.65) !important; background: rgba(239,68,68,.08) !important; }
+
+    .navRow{
+      display:flex;
+      gap:12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 12px;
+    }
+    .navBtn{
+      width: min(420px, 100%);
+      border: 0;
+      cursor:pointer;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, filter .12s ease;
+      color: white;
+    }
+    .navBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .navBtn:active{ transform: translateY(0px); }
+
+    .btnEval{ background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+    .btnIndex{ background: linear-gradient(135deg, #111827, #000000); }
+    .btnMark{ background: linear-gradient(135deg, #10b981, #059669); }
+
+    .resultBox{
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      padding: 12px 12px;
+      background: rgba(255,255,255,.78);
+    }
+    .resultTitle{
+      margin:0 0 6px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+    }
+    .resultLine{ margin:0; color: var(--muted); font-size: 16px; line-height: 1.5; }
+
+    .footerHint{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Homework 5</h1>
+      <p class="subtitle">
+        <b>Comparatives & Superlatives</b> · <b>as + adjective + as</b> · <b>not as + adjective + as</b>
+      </p>
+      <div class="pillRow" aria-label="Palabras clave">
+        <span class="pill">-er / more</span>
+        <span class="pill">the -est / the most</span>
+        <span class="pill">than</span>
+        <span class="pill">as ... as</span>
+        <span class="pill">not as ... as</span>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <!-- 1) Text -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>1) Complete the text</h2>
+          <p class="muted">
+            Use the comparatives and superlatives to complete the text according to the context.
+            Remember that <b>the</b> and <b>than</b> are part of the structure.
+          </p>
+
+          <div class="qList">
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">1</span><span class="qMeta">(old) + (beautiful)</span></div>
+              <div class="qText">
+                My name is Gabrielle. I live in
+                <input class="blank" id="t1a" placeholder="..." autocomplete="off" />
+                (old) and
+                <input class="blank" id="t1b" placeholder="..." autocomplete="off" />
+                (beautiful) city in Colombia.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">2</span><span class="qMeta">(exuberant)</span></div>
+              <div class="qText">
+                It is called Santa Marta. It is located nearby
+                <input class="blank" id="t2" placeholder="..." autocomplete="off" />
+                (exuberant) sea: the Caribbean Sea.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">3</span><span class="qMeta">(important) + (large)</span></div>
+              <div class="qText">
+                The tourist areas the place offers are considered
+                <input class="blank" id="t3a" placeholder="..." autocomplete="off" />
+                (important) ones mostly because it has
+                <input class="blank" id="t3b" placeholder="..." autocomplete="off" />
+                (large) number of hotels.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">4</span><span class="qMeta">(more) + (interesting)</span></div>
+              <div class="qText">
+                It has also become one of
+                <input class="blank" id="t4a" placeholder="..." autocomplete="off" />
+                (more) visited areas having also
+                <input class="blank" id="t4b" placeholder="..." autocomplete="off" />
+                (interesting) variety of restaurants.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">5</span><span class="qMeta">(tall) + (high)</span></div>
+              <div class="qText">
+                Sierra Nevada is
+                <input class="blank" id="t5a" placeholder="..." autocomplete="off" />
+                (tall) coastal mountain region in the world. It has
+                <input class="blank" id="t5b" placeholder="..." autocomplete="off" />
+                (high) views than Cali and other beautiful places in Colombia.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">6</span><span class="qMeta">(cheap) + (comfortable)</span></div>
+              <div class="qText">
+                If you go to this wonderful landscape you don't spend too much money because you can go camping:
+                it is
+                <input class="blank" id="t6a" placeholder="..." autocomplete="off" />
+                (cheap) staying in a hotel. When you camp you can even sleep
+                <input class="blank" id="t6b" placeholder="..." autocomplete="off" />
+                (comfortable) sleeping in a hotel.
+              </div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">7</span><span class="qMeta">(pure) + (good)</span></div>
+              <div class="qText">
+                In here you have plenty of space and
+                <input class="blank" id="t7a" placeholder="..." autocomplete="off" />
+                (pure) air. In this place you have everything you need to spend
+                <input class="blank" id="t7b" placeholder="..." autocomplete="off" />
+                (good) time with your family.
+              </div>
+            </div>
+          </div>
+
+          <div class="callout ok">
+            <strong>Tip:</strong>
+            <span class="muted">Superlative: <b>the + -est / the most</b>. Comparative: <b>-er / more + than</b>. Equality: <b>as ... as</b>.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2) as / not as -->
+      <section class="card">
+        <div class="bar warn"></div>
+        <div class="content">
+          <h2>2) As ... as / Not as ... as</h2>
+          <p class="muted">Write sentences using <b>as + adjective + as</b> or <b>not as + adjective + as</b>.</p>
+
+          <div class="qList">
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">1</span><span class="qMeta">as ... as</span></div>
+              <div class="qText">That tree is big. Our house is equally big.</div>
+              <div class="qText"><input class="blank" id="s1" placeholder="Write the sentence..." autocomplete="off" /></div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">2</span><span class="qMeta">not as ... as</span></div>
+              <div class="qText">My bag is heavier than Paul’s bag.</div>
+              <div class="qText"><input class="blank" id="s2" placeholder="Write the sentence..." autocomplete="off" /></div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">3</span><span class="qMeta">not as ... as</span></div>
+              <div class="qText">Documentaries are more important than fiction movies.</div>
+              <div class="qText"><input class="blank" id="s3" placeholder="Write the sentence..." autocomplete="off" /></div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">4</span><span class="qMeta">(heavy)</span></div>
+              <div class="qText">Marla is 65 kilos. Marian is 65 kilos too.</div>
+              <div class="qText"><input class="blank" id="s4" placeholder="Write the sentence..." autocomplete="off" /></div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">5</span><span class="qMeta">(young)</span></div>
+              <div class="qText">Margo is 13 years old and Mariela is 17.</div>
+              <div class="qText"><input class="blank" id="s5" placeholder="Write the sentence..." autocomplete="off" /></div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">6</span><span class="qMeta">as ... as</span></div>
+              <div class="qText">Rio Claro is hot. Ciudad Neily is equally hot.</div>
+              <div class="qText"><input class="blank" id="s6" placeholder="Write the sentence..." autocomplete="off" /></div>
+            </div>
+
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">7</span><span class="qMeta">not as ... as</span></div>
+              <div class="qText">Ciudad Neily is hot. San Vito is not so hot.</div>
+              <div class="qText"><input class="blank" id="s7" placeholder="Write the sentence..." autocomplete="off" /></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3) Chart -->
+      <section class="card">
+        <div class="bar danger"></div>
+        <div class="content">
+          <h2>3) Complete the chart</h2>
+          <p class="muted">Use the comparative, superlative or <b>as + adjective</b> to complete the chart appropriately.</p>
+
+          <div class="qList">
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">1</span><span class="qMeta">(tall)</span></div>
+              <div class="qText">My sister is so much <input class="blank" id="c1" placeholder="..." autocomplete="off" /> than me.</div>
+            </div>
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">2</span><span class="qMeta">(large)</span></div>
+              <div class="qText">My old house was much <input class="blank" id="c2" placeholder="..." autocomplete="off" /> than my new one.</div>
+            </div>
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">3</span><span class="qMeta">(nice)</span></div>
+              <div class="qText">She is the <input class="blank" id="c3" placeholder="..." autocomplete="off" /> person in the class.</div>
+            </div>
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">4</span><span class="qMeta">(interesting)</span></div>
+              <div class="qText">Maths is by far the <input class="blank" id="c4" placeholder="..." autocomplete="off" /> subject at school.</div>
+            </div>
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">5</span><span class="qMeta">(kind)</span></div>
+              <div class="qText">That was the <input class="blank" id="c5" placeholder="..." autocomplete="off" /> thing anyone ever did for me.</div>
+            </div>
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">6</span><span class="qMeta">(expensive)</span></div>
+              <div class="qText">That store is <input class="blank" id="c6" placeholder="..." autocomplete="off" /> than the one near my house.</div>
+            </div>
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">7</span><span class="qMeta">(good)</span></div>
+              <div class="qText">My marks at school aren’t as <input class="blank" id="c7" placeholder="..." autocomplete="off" /> as yours.</div>
+            </div>
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">8</span><span class="qMeta">(sad)</span></div>
+              <div class="qText">That was the <input class="blank" id="c8" placeholder="..." autocomplete="off" /> film I’ve ever seen.</div>
+            </div>
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">9</span><span class="qMeta">(boring)</span></div>
+              <div class="qText">This book is as <input class="blank" id="c9" placeholder="..." autocomplete="off" /> as the last one I read.</div>
+            </div>
+            <div class="qItem">
+              <div class="qTop"><span class="qNum">10</span><span class="qMeta">(bad)</span></div>
+              <div class="qText">Those were the <input class="blank" id="c10" placeholder="..." autocomplete="off" /> holidays of my life.</div>
+            </div>
+          </div>
+
+          <div class="callout warn">
+            <strong>Remember:</strong>
+            <span class="muted">Irregulars: <b>good → better → the best</b>, <b>bad → worse → the worst</b>.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Evaluation + Navigation -->
+      <section class="card">
+        <div class="bar"></div>
+        <div class="content">
+          <h2>Evaluación</h2>
+          <p class="muted">Cuando termines, presiona <b>Evaluar</b> para ver tu puntaje.</p>
+
+          <div class="navRow">
+            <button class="navBtn btnEval" id="btnEval">Evaluar</button>
+            <button class="navBtn btnIndex" onclick="window.location.href='index.html'">Indice</button>
+            <button class="navBtn btnMark" onclick="window.location.href='mark5.html'">Marco Teórico</button>
+          </div>
+
+          <div class="resultBox" id="resultBox" aria-live="polite">
+            <p class="resultTitle" id="resultTitle">Resultado</p>
+            <p class="resultLine" id="resultLine">Aún no evaluado.</p>
+          </div>
+
+          <div class="footerHint">(Homework 5 listo.)</div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    // helpers
+    function norm(s){
+      return (s || "")
+        .toLowerCase()
+        .replace(/[’]/g,"'")
+        .replace(/[^a-z0-9'\s]/g,"")
+        .replace(/\s+/g," ")
+        .trim();
+    }
+    function setMark(el, ok){
+      if(!el) return;
+      el.classList.remove("markOk","markBad");
+      el.classList.add(ok ? "markOk" : "markBad");
+    }
+    function isOneOf(user, accepted){
+      const u = norm(user);
+      return accepted.map(norm).includes(u);
+    }
+    const $ = (id)=>document.getElementById(id);
+
+    // Answer key (tolerante)
+    const key = {
+      // 1) Text
+      t1a: ["the oldest"],
+      t1b: ["the most beautiful"],
+      t2:  ["the most exuberant", "the more exuberant"],
+
+      t3a: ["the most important"],
+      t3b: ["the largest", "the bigger", "a larger"],
+
+      t4a: ["the most"],
+      t4b: ["the most interesting"],
+
+      t5a: ["the tallest"],
+      t5b: ["higher"],
+
+      t6a: ["cheaper than"],
+      t6b: ["more comfortably than", "more comfortable than"],
+
+      t7a: ["purer"],
+      t7b: ["the best"],
+
+      // 2) as / not as
+      s1: ["our house is as big as that tree", "our house is as big as the tree"],
+      s2: ["my bag isnt as heavy as pauls bag", "my bag isn't as heavy as paul's bag", "my bag is not as heavy as pauls bag", "my bag is not as heavy as paul's bag"],
+      s3: ["fiction movies arent as important as documentaries", "fiction movies aren't as important as documentaries", "fiction movies are not as important as documentaries"],
+      s4: ["marian is as heavy as marla", "marla is as heavy as marian"],
+      s5: ["mariela isnt as young as margo", "mariela isn't as young as margo", "mariela is not as young as margo"],
+      s6: ["ciudad neily is as hot as rio claro"],
+      s7: ["san vito isnt as hot as ciudad neily", "san vito isn't as hot as ciudad neily", "san vito is not as hot as ciudad neily"],
+
+      // 3) Chart
+      c1: ["taller"],
+      c2: ["larger", "bigger"],
+      c3: ["nicest"],
+      c4: ["most interesting"],
+      c5: ["kindest"],
+      c6: ["more expensive"],
+      c7: ["good"],
+      c8: ["saddest"],
+      c9: ["boring"],
+      c10:["worst"]
+    };
+
+    function grade(){
+      let total = 0, score = 0;
+
+      Object.keys(key).forEach(id=>{
+        const el = $(id);
+        if(!el) return;
+        total++;
+        const ok = isOneOf(el.value, key[id]);
+        setMark(el, ok);
+        if(ok) score++;
+      });
+
+      const pct = Math.round((score/total)*100);
+      $("resultTitle").textContent = "Resultado";
+      $("resultLine").textContent = `Puntaje: ${score} / ${total} (${pct}%)`;
+
+      const box = $("resultBox");
+      box.classList.remove("callout","ok","warn","bad");
+      box.classList.add("callout");
+      if(pct >= 85) box.classList.add("ok");
+      else if(pct >= 60) box.classList.add("warn");
+      else box.classList.add("bad");
+    }
+
+    $("btnEval").addEventListener("click", grade);
+  </script>
+</body>
+</html>
 
